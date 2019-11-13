@@ -9,6 +9,6 @@ module.exports = {
   },
   plugins: ['import', 'prettier'],
   rules: {
-    prettier: 'error',
+    'prettier/prettier': 'error',
   },
 };
