@@ -1,12 +1,13 @@
 import React from 'react';
 import Wrapper from './Wrapper';
 import MoreIcon from './MoreIcon';
+import Profile from '../ProfileIcon';
 
 const PostTop = ({ writer }) => {
   return (
     <Wrapper>
-      <div>
-        <span>프사자리</span>
+      <div className="user">
+        <Profile />
         <span className="username">{writer.username}</span>
       </div>
       <div className="more">
