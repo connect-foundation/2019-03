@@ -9,6 +9,7 @@ const MoreIcon = styled.span`
   background-position: -126px 250px;
   width: 12.5px;
   height: 5px;
+  cursor: pointer;
 `;
 
 export default MoreIcon;

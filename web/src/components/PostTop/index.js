@@ -5,7 +5,7 @@ import Profile from '../ProfileIcon';
 import StyledLink from './StyledLink';
 import MoreModal from './MoreModal';
 
-const PostTop = ({ writer }) => {
+const PostTop = ({ writer, myInfo }) => {
   const [moreModal, setMoreModal] = useState(false);
   const clickMore = () => {
     setMoreModal(true);
@@ -24,9 +24,8 @@ const PostTop = ({ writer }) => {
           <MoreIcon onClick={clickMore} />
         </div>
       </Wrapper>
-      <MoreModal visible={moreModal} />
+      <MoreModal visible={moreModal} writer={writer} myInfo={myInfo} />
     </>
   );
 };
-
 export default PostTop;

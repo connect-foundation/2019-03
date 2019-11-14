@@ -15,5 +15,4 @@ const StyledLink = styled(Link)`
     color: black;
   }
 `;
-
 export default props => <StyledLink {...props} />;
