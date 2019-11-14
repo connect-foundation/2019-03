@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import HomePage from '../HomePage';
 import UserPage from '../UserPage';
+import PostDetailPage from '../PostDetailPage';
 
 const AppWrapper = styled.div``;
 
@@ -26,6 +27,7 @@ export default function App() {
     >
       <Route path="/" exact component={HomePage} />
       <Route path="/:username" component={UserPage} />
+      <Route path="/p/:postHash" component={PostDetailPage} />
     </ThemeProvider>
   );
 }
