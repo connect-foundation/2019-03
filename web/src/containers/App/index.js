@@ -1,5 +1,9 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
+
+import HomePage from '../HomePage';
+import UserPage from '../UserPage';
 
 const AppWrapper = styled.div``;
 
@@ -18,7 +22,8 @@ export default function App() {
         },
       }}
     >
-      <AppWrapper>React App</AppWrapper>
+      <Route path="/" exact component={HomePage} />
+      <Route path="/user" component={UserPage} />
     </ThemeProvider>
   );
 }
