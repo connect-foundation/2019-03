@@ -9,6 +9,7 @@ import Wrapper, {
   BottomButtonGroup,
 } from './Wrapper';
 import ProfileIcon from '../ProfileIcon';
+import LikeIcon from '../LikeIcon';
 
 const Comment = ({ user, content, updatedAt, likers, commentId }) => {
   const baseURL = 'http://localhost:3000/';
@@ -33,7 +34,7 @@ const Comment = ({ user, content, updatedAt, likers, commentId }) => {
             </BottomButtonGroup>
           </div>
         </FlexBlock>
-        heart
+        <LikeIcon />
       </FlexBlock>
     </Wrapper>
   );
