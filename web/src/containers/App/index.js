@@ -23,7 +23,7 @@ export default function App() {
       }}
     >
       <Route path="/" exact component={HomePage} />
-      <Route path="/user" component={UserPage} />
+      <Route path="/:username" component={UserPage} />
     </ThemeProvider>
   );
 }
