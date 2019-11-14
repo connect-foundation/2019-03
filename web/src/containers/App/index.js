@@ -8,13 +8,13 @@ export default function App() {
     <ThemeProvider
       theme={{
         palette: {
-          gray_background: 'FAFAFA',
-          gray_button: 'FDFDFD',
-          gray_font: '999999',
-          border: 'B2B2B2',
-          white: 'FFFFFF',
-          blue: '3897F1',
-          blue_facebook: '375184',
+          gray_background: '#FAFAFA',
+          gray_button: '#FDFDFD',
+          gray_font: '#999999',
+          border: '#B2B2B2',
+          white: '#FFFFFF',
+          blue: '#3897F1',
+          blue_facebook: '#375184',
         },
       }}
     >
