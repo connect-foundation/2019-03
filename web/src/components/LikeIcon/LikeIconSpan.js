@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const TOTAL_WIDTH = 1000;
 const TOTAL_HEIGHT = 1000;
@@ -17,11 +17,11 @@ const iconHeight = ORIGIN_ICON_HEIGHT / RATIO_HEIGHT;
 
 const backgroundStyles = css`
   background-image: url(${({ icon }) => icon});
-  background-position-x: ${iconWidth * OFFSET_WIDTH}px;
+  background-position-x: ${iconWidth * OFFSET_WIDTH - 2}px;
   background-position-y: ${({ isFill }) =>
     isFill
-      ? `${iconHeight * OFFSET_HEIGHT_OF_FILL}px`
-      : `${iconHeight * OFFSET_HEIGHT_OF_EMPTY}px`};
+      ? `${iconHeight * OFFSET_HEIGHT_OF_FILL + 1}px`
+      : `${iconHeight * OFFSET_HEIGHT_OF_EMPTY + 1}px`};
   background-size: ${backgroundWidth}px ${backgroundHeight}px;
   background-repeat: no-repeat;
 `;
@@ -34,4 +34,8 @@ const spanStyles = css`
   height: ${iconHeight}px;
 `;
 
-export default spanStyles;
+const LikeIconSpan = styled.span`
+  ${spanStyles}
+`;
+
+export default LikeIconSpan;

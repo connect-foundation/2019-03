@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import icon from '../../images/icon-1.png';
 
-import Wrapper from './Wrapper';
-import StyledSpan from './StyledSpan';
+import LikeIconSpan from './LikeIconSpan';
 
 const LikeIcon = () => {
   const [fill, toggleFill] = useState(false);
@@ -13,9 +12,9 @@ const LikeIcon = () => {
   };
 
   return (
-    <Wrapper>
-      <StyledSpan onClick={onToggleHandler} isFill={fill} icon={icon} />
-    </Wrapper>
+    <>
+      <LikeIconSpan onClick={onToggleHandler} isFill={fill} icon={icon} />
+    </>
   );
 };
 
