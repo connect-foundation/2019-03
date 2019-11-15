@@ -21,7 +21,7 @@ const backgroundStyles = css`
   background-position-y: ${({ isFill }) =>
     isFill
       ? `${iconHeight * OFFSET_HEIGHT_OF_FILL + 1}px`
-      : `${iconHeight * OFFSET_HEIGHT_OF_EMPTY + 1}px`};
+      : `${iconHeight * OFFSET_HEIGHT_OF_EMPTY + 3}px`};
   background-size: ${backgroundWidth}px ${backgroundHeight}px;
   background-repeat: no-repeat;
 `;
