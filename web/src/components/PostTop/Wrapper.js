@@ -11,7 +11,7 @@ const Wrapper = styled.header`
   ${props => {
     const borderColor = props.theme.palette.border;
     return css`
-      border: 1px solid ${borderColor};
+      border-bottom: 1px solid ${borderColor};
     `;
   }}
   .user {

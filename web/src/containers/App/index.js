@@ -19,6 +19,7 @@ export default function App() {
           white: '#FFFFFF',
           blue: '#3897F1',
           blue_facebook: '#375184',
+          pink: '#ee4957',
         },
       }}
     >
