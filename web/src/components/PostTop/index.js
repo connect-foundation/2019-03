@@ -6,9 +6,9 @@ import StyledLink from './StyledLink';
 import MoreModal from './MoreModal';
 
 const PostTop = ({ writer, myInfo }) => {
-  const [moreModal, setMoreModal] = useState(false);
+  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const clickMore = () => {
-    setMoreModal(true);
+    setIsMoreModalOpen(true);
   };
 
   return (
@@ -24,7 +24,7 @@ const PostTop = ({ writer, myInfo }) => {
           <MoreIcon onClick={clickMore} />
         </div>
       </Wrapper>
-      <MoreModal visible={moreModal} writer={writer} myInfo={myInfo} />
+      <MoreModal visible={isMoreModalOpen} writer={writer} myInfo={myInfo} />
     </>
   );
 };

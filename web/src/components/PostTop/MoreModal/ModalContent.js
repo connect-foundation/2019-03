@@ -7,7 +7,7 @@ const ModalContent = styled.div`
     const borderColor = theme.palette.border;
     return css`
       border-bottom: ${cancel ? 'none' : `1px solid ${borderColor}`};
-      color: ${followcancel ? '#ee4957' : 'black'};
+      color: ${followcancel ? theme.palette.pink : 'black'};
       font-weight: ${followcancel ? 'bold' : ''};
     `;
   }};

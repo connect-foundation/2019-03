@@ -5,8 +5,8 @@ const ModalBlock = styled.div`
   width: 320px;
   z-index: 700;
   border-radius: 10px;
-  ${props => {
-    const grayBackground = props.theme.palette.gray_background;
+  ${({ theme }) => {
+    const grayBackground = theme.palette.gray_background;
     return css`
       background-color: ${grayBackground};
     `;
