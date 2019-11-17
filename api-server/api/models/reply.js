@@ -1,0 +1,37 @@
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Reply = sequelize.define(
+    'Reply',
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      content: {
+        type: DataTypes.STRING(1000),
+      },
+      depth: {
+        type: DataTypes.STRING(30),
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+    },
+    {},
+  );
+
+  Reply.associate = function(models) {
+    Reply.belongsTo(models.User);
+    Reply.belongsTo(models.Post);
+  };
+
+  return Reply;
+};
