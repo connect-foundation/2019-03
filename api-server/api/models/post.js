@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   Post.associate = function(models) {
     Post.belongsTo(models.User);
     Post.belongsToMany(models.User, { through: 'PostLikes' });
+    Post.belongsToMany(models.User, { through: 'UserTags' });
   };
   return Post;
 };

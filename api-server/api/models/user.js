@@ -56,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models.Post);
     User.belongsToMany(models.Post, { through: 'PostLikes' });
+    User.belongsToMany(models.Post, { through: 'UserTags' });
   };
 
   return User;
