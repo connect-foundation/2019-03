@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  Post.associate = function(models) {};
+  Post.associate = function(models) {
+    Post.belongsTo(models.User);
+  };
   return Post;
 };
