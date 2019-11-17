@@ -21,10 +21,18 @@ module.exports = {
       UserId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       PostId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Posts',
+          key: 'id',
+        },
       },
     });
   },
