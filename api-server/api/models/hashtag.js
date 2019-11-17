@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   HashTag.associate = function(models) {
     HashTag.belongsToMany(models.User, { through: 'HashFollows' });
+    HashTag.belongsToMany(models.User, { through: 'HashTagsOfPosts' });
   };
   return HashTag;
 };
