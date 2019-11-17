@@ -59,6 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Post, { through: 'UserTags' });
     User.belongsToMany(models.Post, { through: 'HashFollows' });
     User.belongsToMany(models.Post, { through: 'Replies' });
+    User.belongsToMany(models.Reply, { through: 'ReplyLikes' });
   };
 
   return User;

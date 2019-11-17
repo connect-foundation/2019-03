@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   Reply.associate = function(models) {
     Reply.belongsTo(models.User);
     Reply.belongsTo(models.Post);
+    Reply.belongsToMany(models.User, { through: 'ReplyLikes' });
   };
 
   return Reply;
