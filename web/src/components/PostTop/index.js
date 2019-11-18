@@ -5,10 +5,11 @@ import Profile from '../ProfileIcon';
 import StyledLink from './StyledLink';
 import MoreModal from './MoreModal';
 
-const PostTop = ({ writer, myInfo }) => {
+const PostTop = ({ writer, myInfo, post }) => {
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const clickMore = () => {
     setIsMoreModalOpen(true);
+    console.log(isMoreModalOpen);
   };
 
   return (
@@ -24,7 +25,13 @@ const PostTop = ({ writer, myInfo }) => {
           <MoreIcon onClick={clickMore} />
         </div>
       </Wrapper>
-      <MoreModal visible={isMoreModalOpen} writer={writer} myInfo={myInfo} />
+      <MoreModal
+        visibility={isMoreModalOpen}
+        setVisibility={setIsMoreModalOpen}
+        writer={writer}
+        myInfo={myInfo}
+        post={post}
+      />
     </>
   );
 };
