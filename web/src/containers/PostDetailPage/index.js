@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Wrapper, { ViewPort, SideBox } from './Wrapper';
+import Wrapper, { ViewPort } from './Wrapper';
 
-import PostTop from '../../components/PostTop';
+import PostSideBox from '../../components/PostSideBox';
 
 function PostDetailPage() {
   const postImg = new Image();
@@ -12,9 +12,7 @@ function PostDetailPage() {
   return (
     <Wrapper>
       <ViewPort img={postImg} />
-      <SideBox>
-        <PostTop writer={writer} />
-      </SideBox>
+      <PostSideBox writer={writer} />
     </Wrapper>
   );
 }
