@@ -1,23 +1,20 @@
 import styled, { css } from 'styled-components';
 
+import icon from '../../images/icon-1.png';
+
 const TOTAL_LENGTH = 1000;
 const ICON_LENGTH = 125;
-const ICON_POS_X = -130;
-const EMPTY_ICON_POS_Y = -245;
-const FILL_ICON_POS_Y = -375;
 
 const backgroundStyles = css`
   background-repeat: no-repeat;
 
-  ${({ icon, isFill, ratio }) => {
+  ${({ ratio, posX, posY }) => {
     const bgSize = TOTAL_LENGTH / ratio;
     return css`
       background-image: url(${icon});
       background-size: ${bgSize}px ${bgSize}px;
-      background-position-x: ${ICON_POS_X / ratio}px;
-      background-position-y: ${isFill
-        ? `${FILL_ICON_POS_Y / ratio}px`
-        : `${EMPTY_ICON_POS_Y / ratio}px`};
+      background-position-x: ${posX / ratio}px;
+      background-position-y: ${posY / ratio}px;
     `;
   }}
 `;
@@ -34,14 +31,13 @@ const spanStyles = css`
   }}
 `;
 
-const LikeIconSpan = styled.span`
+const IconSpan = styled.span`
   ${backgroundStyles};
   ${spanStyles}
 `;
 
-LikeIconSpan.defaultProps = {
+IconSpan.defaultProps = {
   ratio: 1,
-  isFill: false,
 };
 
-export default LikeIconSpan;
+export default IconSpan;
