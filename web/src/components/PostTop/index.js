@@ -9,6 +9,7 @@ const PostTop = ({ writer, myInfo, post }) => {
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const clickMore = () => {
     setIsMoreModalOpen(true);
+    console.log(isMoreModalOpen);
   };
 
   return (
@@ -26,6 +27,7 @@ const PostTop = ({ writer, myInfo, post }) => {
       </Wrapper>
       <MoreModal
         visible={isMoreModalOpen}
+        setVisible={setIsMoreModalOpen}
         writer={writer}
         myInfo={myInfo}
         post={post}

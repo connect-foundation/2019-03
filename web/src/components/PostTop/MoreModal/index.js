@@ -6,10 +6,14 @@ import ModalBlock from './ModalBlock';
 import ModalContent from './ModalContent';
 import StyledLink from '../StyledLink';
 
-const MoreModal = ({ visible, writer, myInfo, post }) => {
+const MoreModal = ({ visible, setVisible, writer, myInfo, post }) => {
+  const clickCancel = () => {
+    setVisible(false);
+  };
+
   if (!visible) return null;
   return (
-    <ModalBackground>
+    <ModalBackground onClick={clickCancel}>
       <ModalBlock>
         {writer.username !== myInfo.username && writer.isFollow && (
           <ModalContent followcancel>팔로우 취소</ModalContent>
@@ -20,7 +24,9 @@ const MoreModal = ({ visible, writer, myInfo, post }) => {
         <CopyToClipboard text={`localhost:3000/p/${post.postHash}`}>
           <ModalContent>링크 복사하기</ModalContent>
         </CopyToClipboard>
-        <ModalContent cancel>취소</ModalContent>
+        <ModalContent cancel onClick={clickCancel}>
+          취소
+        </ModalContent>
       </ModalBlock>
     </ModalBackground>
   );
