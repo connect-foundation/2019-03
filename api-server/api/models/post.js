@@ -28,12 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
 
-  Post.associate = function(models) {
-    Post.belongsTo(models.User);
-    Post.belongsToMany(models.User, { through: 'PostLikes' });
-    Post.belongsToMany(models.User, { through: 'UserTags' });
-    Post.belongsToMany(models.HashTag, { through: 'HashTagsOfPosts' });
-    Post.belongsToMany(models.User, { through: 'Replies' });
-  };
+  Post.associate = function(models) {};
+
   return Post;
 };
