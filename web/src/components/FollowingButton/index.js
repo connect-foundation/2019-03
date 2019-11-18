@@ -16,8 +16,9 @@ const statusInfo = {
 
 const FollowingButton = ({ myinfo, targetUser }) => {
   const checkStatus = () => {
-    console.log('checkStatus 실행');
-    return 'requested';
+    const status = 'requested';
+    // 팔로우 상태를 확인하는 로직
+    return status;
   };
 
   const [status, statusState] = useState(checkStatus());
