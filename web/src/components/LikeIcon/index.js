@@ -5,17 +5,17 @@ import icon from '../../images/icon-1.png';
 import LikeIconSpan from './LikeIconSpan';
 
 const LikeIcon = ({ ratio }) => {
-  const [fill, toggleFill] = useState(false);
+  const [isFill, onToggle] = useState(false);
 
   const onToggleHandler = () => {
-    toggleFill(!fill);
+    onToggle(!isFill);
   };
 
   return (
     <>
       <LikeIconSpan
         onClick={onToggleHandler}
-        isFill={fill}
+        isFill={isFill}
         icon={icon}
         ratio={ratio}
       />
