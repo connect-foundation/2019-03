@@ -12,7 +12,6 @@ import ProfileIcon from '../ProfileIcon';
 import LikeIcon from '../LikeIcon';
 
 const Comment = ({ user, content, updatedAt, likers, commentId }) => {
-  const baseURL = 'http://localhost:3000/';
   return (
     <Wrapper>
       <FlexBlock>
