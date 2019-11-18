@@ -1,22 +1,4 @@
-import styled, { css } from 'styled-components';
-
-const buttonStyle = css`
-  ${props => {
-    const gray = props.theme.palette.gray_font;
-    return css`
-      color: ${gray};
-      background: 0 0;
-      border: 0;
-      cursor: pointer;
-      display: inline;
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 14px;
-      margin-right: 16px;
-      padding: 0;
-    `;
-  }}
-`;
+import styled from 'styled-components';
 
 const Wrapper = styled.li`
   list-style-type: none;
@@ -47,40 +29,10 @@ const FlexBlock = styled.div`
   display: flex;
 `;
 
-const StyledTime = styled.time`
-  ${props => {
-    const gray = props.theme.palette.gray_font;
-    return css`
-      color: ${gray};
-    `;
-  }}
-  font-size: 15px;
-  font-weight: 400;
-  margin-right: 16px;
-`;
-
-const LikeButton = styled.button`
-  ${buttonStyle}
-`;
-
-const ReplyButton = styled.button`
-  ${buttonStyle}
-`;
-
 const ProfileWrapper = styled.div`
   margin-right: 18px;
 `;
 
-const BottomButtonGroup = styled.div`
-  margin-top: 16px;
-`;
-export {
-  StyledTime,
-  LikeButton,
-  ReplyButton,
-  FlexBlock,
-  ProfileWrapper,
-  BottomButtonGroup,
-};
+export { FlexBlock, ProfileWrapper };
 
 export default Wrapper;
