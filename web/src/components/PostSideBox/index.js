@@ -6,10 +6,10 @@ import PostContent from './PostContent';
 import CommentInput from '../CommentInput';
 import ConvenienceBox from './ConvenienceBox';
 
-function PostSideBox({ writer }) {
+function PostSideBox({ writer, myInfo, post }) {
   return (
     <SideBox>
-      <PostTop writer={writer} />
+      <PostTop writer={writer} myInfo={myInfo} post={post} />
       <PostContent />
       <ConvenienceBox />
       <CommentInput />
