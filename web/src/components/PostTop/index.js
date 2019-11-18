@@ -26,8 +26,8 @@ const PostTop = ({ writer, myInfo, post }) => {
         </div>
       </Wrapper>
       <MoreModal
-        visible={isMoreModalOpen}
-        setVisible={setIsMoreModalOpen}
+        visibility={isMoreModalOpen}
+        setVisibility={setIsMoreModalOpen}
         writer={writer}
         myInfo={myInfo}
         post={post}

@@ -6,12 +6,12 @@ import ModalBlock from './ModalBlock';
 import ModalContent from './ModalContent';
 import StyledLink from '../StyledLink';
 
-const MoreModal = ({ visible, setVisible, writer, myInfo, post }) => {
+const MoreModal = ({ visibility, setVisibility, writer, myInfo, post }) => {
   const clickCancel = () => {
-    setVisible(false);
+    setVisibility(false);
   };
 
-  if (!visible) return null;
+  if (!visibility) return null;
   return (
     <ModalBackground onClick={clickCancel}>
       <ModalBlock>
