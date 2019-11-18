@@ -16,16 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       content: {
         type: DataTypes.STRING(1000),
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     },
-    {},
+    { timestamps: false },
   );
 
   Post.associate = function(models) {};

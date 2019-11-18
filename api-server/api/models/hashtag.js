@@ -12,16 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING(45),
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     },
-    {},
+    { timestamps: false },
   );
 
   HashTag.associate = function(models) {};

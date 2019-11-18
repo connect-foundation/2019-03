@@ -15,16 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       depth: {
         type: DataTypes.STRING(30),
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     },
-    {},
+    { timestamps: false },
   );
 
   Reply.associate = function(models) {};

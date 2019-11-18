@@ -9,10 +9,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      createAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
       updateAt: {
         allowNull: false,
         type: Sequelize.DATE,

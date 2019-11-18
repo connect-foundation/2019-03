@@ -40,16 +40,12 @@ module.exports = (sequelize, DataTypes) => {
       isDeveloper: {
         type: DataTypes.BOOLEAN,
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     },
-    {},
+    { timestamps: false },
   );
 
   User.associate = function(models) {};

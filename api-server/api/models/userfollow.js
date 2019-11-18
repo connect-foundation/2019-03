@@ -16,16 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.INTEGER(1),
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
       },
     },
-    {},
+    { timestamps: false },
   );
 
   UserFollow.associate = function(models) {};
