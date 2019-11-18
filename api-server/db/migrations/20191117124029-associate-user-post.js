@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('Posts', 'UserId', {
       // Add User hasMany Post
-      type: Sequelize.UUID,
+      type: Sequelize.INTEGER,
       references: {
         model: 'Users',
         key: 'id',

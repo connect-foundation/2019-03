@@ -4,10 +4,9 @@ module.exports = {
     return queryInterface.createTable('Replies', {
       id: {
         allowNull: false,
-        autoIncrement: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
       },
       content: {
         type: Sequelize.STRING(1000),
@@ -17,7 +16,7 @@ module.exports = {
       },
       PostId: {
         allowNull: false,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         references: {
           model: 'Posts',
           key: 'id',
@@ -25,7 +24,7 @@ module.exports = {
       },
       UserId: {
         allowNull: false,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         references: {
           model: 'Users',
           key: 'id',

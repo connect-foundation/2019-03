@@ -6,9 +6,8 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        defaultValue: Sequelize.UUIDV4,
-        type: Sequelize.UUID,
-        autoIncrement: false,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       createAt: {
         allowNull: false,
@@ -20,7 +19,7 @@ module.exports = {
       },
       PostId: {
         allowNull: false,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         references: {
           model: 'Posts',
           key: 'id',
@@ -28,7 +27,7 @@ module.exports = {
       },
       HashTagId: {
         allowNull: false,
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         references: {
           model: 'HashTags',
           key: 'id',
