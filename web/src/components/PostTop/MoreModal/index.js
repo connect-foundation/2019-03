@@ -1,20 +1,18 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import ModalBackground from './ModalBackground';
-import ModalBlock from './ModalBlock';
-import ModalContent from './ModalContent';
-import StyledLink from '../StyledLink';
+import { ModalBackground, ModalWrapper, ModalContent } from './styles';
+import StyledLink from '../../StyledLink';
 
-const MoreModal = ({ visibility, setVisibility, writer, myInfo, post }) => {
-  const clickCancel = () => {
-    setVisibility(false);
+const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, post }) => {
+  const clickClose = () => {
+    setIsVisible(false);
   };
 
-  if (!visibility) return null;
+  if (!isVisible) return null;
   return (
-    <ModalBackground onClick={clickCancel}>
-      <ModalBlock>
+    <ModalBackground onClick={clickClose}>
+      <ModalWrapper>
         {writer.username !== myInfo.username && writer.isFollow && (
           <ModalContent followcancel>팔로우 취소</ModalContent>
         )}
@@ -24,10 +22,10 @@ const MoreModal = ({ visibility, setVisibility, writer, myInfo, post }) => {
         <CopyToClipboard text={`localhost:3000/p/${post.postHash}`}>
           <ModalContent>링크 복사하기</ModalContent>
         </CopyToClipboard>
-        <ModalContent cancel onClick={clickCancel}>
+        <ModalContent cancel onClick={clickClose}>
           취소
         </ModalContent>
-      </ModalBlock>
+      </ModalWrapper>
     </ModalBackground>
   );
 };
