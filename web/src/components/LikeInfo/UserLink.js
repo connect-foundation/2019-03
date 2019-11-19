@@ -1,20 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import StyledLink from '../StyledLink';
 
-const UserLink = styled(Link)`
+const UserLink = styled(StyledLink)`
   line-height: 25px;
   font-weight: 600;
-  text-decoration: none;
-
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: black;
-  }
 `;
 
 export default props => <UserLink {...props} />;
