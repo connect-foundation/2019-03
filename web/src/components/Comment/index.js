@@ -33,7 +33,7 @@ const Comment = ({ user, content, updatedAt, likers, commentId }) => {
             </BottomButtonGroup>
           </div>
         </FlexBlock>
-        <LikeIcon />
+        <LikeIcon ratio={10} />
       </FlexBlock>
     </Wrapper>
   );

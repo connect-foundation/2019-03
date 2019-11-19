@@ -1,13 +1,19 @@
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
+  flex: 0 0 56px;
   font-size: 14px;
   display: flex;
   align-items: center;
-  height: 56px;
   input {
     border: none;
   }
+  ${({ theme }) => {
+    const borderColor = theme.palette.border;
+    return css`
+      border-top: 1px solid ${borderColor};
+    `;
+  }}
 `;
 
 const FlexWrapper = styled.div`

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const PostTopWrapper = styled.header`
+  flex: 0 0 auto;
   width: 100%;
   padding: 16px;
   display: flex;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.li`
+const PostTextWrapper = styled.li`
   list-style-type: none;
   width: 100%;
   padding: 12px 16px 0px 16px;
@@ -25,14 +25,4 @@ const Wrapper = styled.li`
   }
 `;
 
-const FlexBlock = styled.div`
-  display: flex;
-`;
-
-const ProfileWrapper = styled.div`
-  margin-right: 18px;
-`;
-
-export { FlexBlock, ProfileWrapper };
-
-export default Wrapper;
+export default PostTextWrapper;
