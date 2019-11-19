@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { ConvenienceBoxWrapper, IconBox } from './styles';
+import { UtilityBlockWrapper, IconBox } from './styles';
 import Icon from '../../../../components/LikeIcon';
 
-function ConvenienceBox() {
+function UtilityBlock() {
   return (
-    <ConvenienceBoxWrapper>
+    <UtilityBlockWrapper>
       <IconBox>
         <Icon ratio={5} />
         <Icon ratio={5} />
@@ -13,8 +13,8 @@ function ConvenienceBox() {
       </IconBox>
       <h3>좋아요 23개</h3>
       <small>1일 전</small>
-    </ConvenienceBoxWrapper>
+    </UtilityBlockWrapper>
   );
 }
 
-export default ConvenienceBox;
+export default UtilityBlock;

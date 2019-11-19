@@ -4,7 +4,7 @@ import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
 import CommentInput from '../../../components/CommentInput';
-import ConvenienceBox from './ConvenienceBox';
+import ConvenienceBox from './UtilityBlock';
 
 function SideBox({ writer, myInfo, post }) {
   return (

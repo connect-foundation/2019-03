@@ -8,9 +8,11 @@ function PostDetailPage() {
   const postImg = new Image();
   const writer = { username: 'jack', isFollow: true };
   const myInfo = { username: 'sam' };
-  const post = { postHash: 'goddamn' };
-  postImg.src =
-    'http://image.chosun.com/sitedata/image/201705/11/2017051101043_0.jpg';
+  const post = {
+    postHash: 'goddamn',
+    scr: 'http://image.chosun.com/sitedata/image/201705/11/2017051101043_0.jpg',
+  };
+  postImg.src = post.scr;
   return (
     <PostDetailPageWrapper>
       <ViewPort img={postImg} />

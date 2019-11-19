@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const ConvenienceBoxWrapper = styled.div`
+const UtilityBlockWrapper = styled.div`
   ${({ theme }) => {
     const borderColor = theme.palette.border;
     return css`
@@ -10,4 +10,4 @@ const ConvenienceBoxWrapper = styled.div`
   padding: 0 16px;
 `;
 
-export default ConvenienceBoxWrapper;
+export default UtilityBlockWrapper;
