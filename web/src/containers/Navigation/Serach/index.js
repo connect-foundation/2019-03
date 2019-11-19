@@ -14,9 +14,15 @@ const Search = () => {
 
   return (
     <SearchWrapper>
-      <Icon ratio={10} posX={-260} posY={-625} />
+      <Icon ratio={10} posX={-260} posY={-625} style={{ marginTop: '2px' }} />
       <Input placeholder="검색" value={inputValue} onChange={onChange} />
-      <Icon ratio={10} posX={-390} posY={-625} onClick={clickClear} />
+      <Icon
+        ratio={10}
+        posX={-390}
+        posY={-625}
+        onClick={clickClear}
+        style={{ marginTop: '2px' }}
+      />
     </SearchWrapper>
   );
 };
