@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
+import Icon from '../Icon';
 
-import icon from '../../images/icon-1.png';
-
-import LikeIconSpan from './LikeIconSpan';
+const POS_X_OF_HEART = -130;
+const POS_Y_OF_EMPTY_HEART = -245;
+const POS_Y_OF_FILL_HEART = -375;
 
 const LikeIcon = ({ ratio }) => {
-  const [isFill, onToggle] = useState(false);
+  const [posY, setPosY] = useState(POS_Y_OF_EMPTY_HEART);
 
-  const onToggleHandler = () => {
-    onToggle(!isFill);
+  const onToggle = () => {
+    setPosY(
+      posY === POS_Y_OF_EMPTY_HEART
+        ? POS_Y_OF_FILL_HEART
+        : POS_Y_OF_EMPTY_HEART,
+    );
   };
 
   return (
-    <>
-      <LikeIconSpan
-        onClick={onToggleHandler}
-        isFill={isFill}
-        icon={icon}
-        ratio={ratio}
-      />
-    </>
+    <Icon onClick={onToggle} ratio={ratio} posX={POS_X_OF_HEART} posY={posY} />
   );
+};
+
+LikeIcon.defaultProps = {
+  ratio: 1,
 };
 
 export default LikeIcon;
