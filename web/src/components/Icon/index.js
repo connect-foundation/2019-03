@@ -1,9 +1,9 @@
 import React from 'react';
 
-import IconSpan from './IconSpan';
+import IconImage from './IconImage';
 
 const Icon = ({ ratio, posX, posY, onClick }) => {
-  return <IconSpan ratio={ratio} posX={posX} posY={posY} onClick={onClick} />;
+  return <IconImage ratio={ratio} posX={posX} posY={posY} onClick={onClick} />;
 };
 
 export default Icon;

@@ -31,13 +31,13 @@ const spanStyles = css`
   }}
 `;
 
-const IconSpan = styled.span`
+const IconImage = styled.span`
   ${backgroundStyles};
   ${spanStyles}
 `;
 
-IconSpan.defaultProps = {
+IconImage.defaultProps = {
   ratio: 1,
 };
 
-export default IconSpan;
+export default IconImage;
