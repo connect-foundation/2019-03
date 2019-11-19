@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import icon from '../../images/icon-1.png';
 

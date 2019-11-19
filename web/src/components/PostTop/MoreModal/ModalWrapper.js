@@ -1,7 +1,6 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 
-const ModalBlock = styled.div`
+const ModalWrapper = styled.div`
   width: 320px;
   z-index: 700;
   border-radius: 10px;
@@ -13,4 +12,4 @@ const ModalBlock = styled.div`
   }}
 `;
 
-export default ModalBlock;
+export default ModalWrapper;

@@ -1,7 +1,6 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 
-const Wrapper = styled.header`
+const PostTopWrapper = styled.header`
   width: 100%;
   padding: 16px;
   display: flex;
@@ -28,4 +27,4 @@ const Wrapper = styled.header`
   }
 `;
 
-export default Wrapper;
+export default PostTopWrapper;

@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import Wrapper from './Wrapper';
-import MoreIcon from './MoreIcon';
+
+import { MoreIcon, PostTopWrapper } from './styles';
 import Profile from '../ProfileIcon';
-import StyledLink from './StyledLink';
 import MoreModal from './MoreModal';
+import StyledLink from '../StyledLink';
 
 const PostTop = ({ writer, myInfo, post }) => {
-  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const clickMore = () => {
-    setIsMoreModalOpen(true);
-    console.log(isMoreModalOpen);
+    setIsVisible(true);
   };
 
   return (
     <>
-      <Wrapper>
+      <PostTopWrapper>
         <StyledLink to={`/${writer.username}`}>
           <div className="user">
             <Profile />
@@ -24,10 +23,10 @@ const PostTop = ({ writer, myInfo, post }) => {
         <div className="more">
           <MoreIcon onClick={clickMore} />
         </div>
-      </Wrapper>
+      </PostTopWrapper>
       <MoreModal
-        visibility={isMoreModalOpen}
-        setVisibility={setIsMoreModalOpen}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
         writer={writer}
         myInfo={myInfo}
         post={post}
