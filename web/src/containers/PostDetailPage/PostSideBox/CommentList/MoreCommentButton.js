@@ -1,9 +1,4 @@
-import styled, { css } from 'styled-components';
-
-const Wrapper = styled.ul`
-  padding: 0px;
-  overflow: auto;
-`;
+import styled from 'styled-components';
 
 const MoreCommentButton = styled.button`
   width: 100%;
@@ -21,6 +16,4 @@ const MoreCommentButton = styled.button`
   }
 `;
 
-export { MoreCommentButton };
-
-export default Wrapper;
+export default MoreCommentButton;

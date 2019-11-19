@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Wrapper, { ViewPort } from './Wrapper';
+import { PostDetailPageWrapper, ViewPort } from './styles';
 
-import PostSideBox from '../../components/PostSideBox';
+import PostSideBox from './PostSideBox';
 
 function PostDetailPage() {
   const postImg = new Image();
@@ -12,10 +12,10 @@ function PostDetailPage() {
   postImg.src =
     'http://image.chosun.com/sitedata/image/201705/11/2017051101043_0.jpg';
   return (
-    <Wrapper>
+    <PostDetailPageWrapper>
       <ViewPort img={postImg} />
       <PostSideBox writer={writer} myInfo={myInfo} post={post} />
-    </Wrapper>
+    </PostDetailPageWrapper>
   );
 }
 

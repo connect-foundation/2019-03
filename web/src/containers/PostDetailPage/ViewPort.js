@@ -1,12 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const Wrapper = styled.div`
-  width: 950px;
-  margin: 0 auto;
-  display: flex;
-  align-items: stretch;
-`;
-
 const ViewPort = styled.div`
   /* background */
   ${({ img }) => {
@@ -20,6 +13,4 @@ const ViewPort = styled.div`
   }}
 `;
 
-export { ViewPort };
-
-export default Wrapper;
+export default ViewPort;

@@ -1,16 +1,18 @@
 import React from 'react';
 
-import Wrapper, {
+import {
+  PostTextWrapper,
   FlexBlock,
   ProfileWrapper,
   StyledTime,
   BottomButtonGroup,
-} from './Wrapper';
-import ProfileIcon from '../../ProfileIcon';
+} from './styles';
+
+import ProfileIcon from '../../../../components/ProfileIcon';
 
 const PostText = ({ user, content, updatedAt }) => {
   return (
-    <Wrapper>
+    <PostTextWrapper>
       <FlexBlock>
         <FlexBlock>
           <ProfileWrapper>
@@ -29,7 +31,7 @@ const PostText = ({ user, content, updatedAt }) => {
           </div>
         </FlexBlock>
       </FlexBlock>
-    </Wrapper>
+    </PostTextWrapper>
   );
 };
 

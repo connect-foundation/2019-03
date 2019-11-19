@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const SideBox = styled.div`
+const SideBoxWrapper = styled.div`
   width: 335px;
   height: 614px;
   display: flex;
@@ -16,4 +16,4 @@ const SideBox = styled.div`
   }}
 `;
 
-export default SideBox;
+export default SideBoxWrapper;

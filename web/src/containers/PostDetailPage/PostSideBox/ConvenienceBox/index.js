@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Wrapper, { IconBox } from './Wrapper';
-import Icon from '../../LikeIcon';
+import { ConvenienceBoxWrapper, IconBox } from './styles';
+import Icon from '../../../../components/LikeIcon';
 
 function ConvenienceBox() {
   return (
-    <Wrapper>
+    <ConvenienceBoxWrapper>
       <IconBox>
         <Icon ratio={5} />
         <Icon ratio={5} />
@@ -13,7 +13,7 @@ function ConvenienceBox() {
       </IconBox>
       <h3>좋아요 23개</h3>
       <small>1일 전</small>
-    </Wrapper>
+    </ConvenienceBoxWrapper>
   );
 }
 

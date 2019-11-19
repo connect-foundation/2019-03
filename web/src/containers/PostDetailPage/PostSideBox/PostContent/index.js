@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Wrapper from './Wrapper';
+import PostContentWrapper from './PostContentWrapper';
 import PostText from '../PostText';
 import CommentList from '../CommentList';
 
@@ -14,10 +14,10 @@ function PostContent({ height }) {
     updatedAt: null,
   };
   return (
-    <Wrapper height={height}>
+    <PostContentWrapper height={height}>
       <PostText {...postContentTop} />
       <CommentList />
-    </Wrapper>
+    </PostContentWrapper>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Wrapper, { MoreCommentButton } from './Wrapper';
-import Comment from '../../Comment';
-import MoreIcon from '../../LikeIcon';
+import { CommentListWrapper, MoreCommentButton } from './styles';
+import Comment from '../../../../components/Comment';
+import MoreIcon from '../../../../components/LikeIcon';
 
 function CommentList() {
   const comments = [
@@ -53,14 +53,14 @@ function CommentList() {
   ];
 
   return (
-    <Wrapper>
+    <CommentListWrapper>
       {comments.map((comment, index) => (
         <Comment key={index} {...comment} />
       ))}
       <MoreCommentButton>
         <MoreIcon ratio={10} />
       </MoreCommentButton>
-    </Wrapper>
+    </CommentListWrapper>
   );
 }
 
