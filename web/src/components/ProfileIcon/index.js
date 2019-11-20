@@ -1,15 +1,19 @@
 import React from 'react';
 
-import defaultProfile from '../../images/default_profile.png';
-
 import Wrapper from './Wrapper';
 
-const Profile = () => {
+const Profile = ({ imgSrc }) => {
+  const images = require.context('../../images', true);
+  const img = images(`./${imgSrc}`);
   return (
     <Wrapper>
-      <img src={defaultProfile} alt="default profile" />
+      <img src={img} alt="default profile" />
     </Wrapper>
   );
+};
+
+Profile.defaultProps = {
+  imgSrc: 'default_profile.png',
 };
 
 export default Profile;
