@@ -6,7 +6,7 @@ import PostSideBox from './PostSideBox';
 
 function PostDetailPage() {
   const postImg = new Image();
-  const writer = { username: 'jack', isFollow: true };
+  const writer = { username: 'queen', isFollow: true, profileURL: 'queen.jpg' };
   const myInfo = { username: 'sam' };
   const post = {
     postHash: 'goddamn',

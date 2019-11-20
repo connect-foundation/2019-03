@@ -16,7 +16,7 @@ const PostTop = ({ writer, myInfo, post }) => {
       <PostTopWrapper>
         <StyledLink to={`/${writer.username}`}>
           <div className="user">
-            <Profile />
+            <Profile imgSrc={writer.profileURL} />
             <span className="username">{writer.username}</span>
           </div>
         </StyledLink>
