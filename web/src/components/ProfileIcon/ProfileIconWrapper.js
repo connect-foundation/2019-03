@@ -14,13 +14,13 @@ const profileImageStyle = css`
 `;
 
 const viewportStyle = css`
-  ${({ ratio }) => {
+  ${({ ratio, theme }) => {
     const PROFILE_LENGTH = (32 * ratio) / 10;
     return css`
       width: ${PROFILE_LENGTH}px;
       height: ${PROFILE_LENGTH}px;
       border-radius: 50%;
-      background-color: #fafafa;
+      background-color: ${theme.palette.gray_background};
       flex: none;
     `;
   }}
