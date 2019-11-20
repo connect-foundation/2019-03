@@ -25,15 +25,15 @@ const modalStyle = {
   width: '400px',
 };
 
-const UserListModal = ({ onClick }) => {
+const UserListModal = ({ onClick: onCancel }) => {
   const content = (
     <>
-      <ModalHeader />
+      <ModalHeader onClick={onCancel} />
       <UserItemList userList={userList} />
     </>
   );
 
-  return <Modal content={content} onClick={onClick} style={modalStyle} />;
+  return <Modal content={content} onClick={onCancel} style={modalStyle} />;
 };
 
 export default UserListModal;
