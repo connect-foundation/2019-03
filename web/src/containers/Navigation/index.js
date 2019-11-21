@@ -1,15 +1,14 @@
 import React from 'react';
-import Search from './Serach';
-import NavBackground from './NavBackground';
+import Search from './Search';
 import Icon from '../../components/Icon';
 import ProfileIcon from '../../components/ProfileIcon';
 import StyledLink from '../../components/StyledLink';
-import ItemGroup from './ItemGroup';
+import { NavBackground, NavItemGroup } from './styles';
 
 const Navigation = ({ myInfo }) => {
   return (
     <NavBackground>
-      <ItemGroup>
+      <NavItemGroup>
         <StyledLink to="/">
           <Icon ratio={6} posX={0} posY={-505} />
           <Icon
@@ -19,11 +18,11 @@ const Navigation = ({ myInfo }) => {
             style={{ width: '170px', height: '39px', marginTop: '18px' }}
           />
         </StyledLink>
-      </ItemGroup>
-      <ItemGroup>
+      </NavItemGroup>
+      <NavItemGroup>
         <Search />
-      </ItemGroup>
-      <ItemGroup>
+      </NavItemGroup>
+      <NavItemGroup>
         <StyledLink to="/nowpost">
           <Icon ratio={5} posX={-260} posY={-245} />
         </StyledLink>
@@ -32,7 +31,7 @@ const Navigation = ({ myInfo }) => {
         <StyledLink to={`/${myInfo.username}`}>
           <ProfileIcon ratio={8} />
         </StyledLink>
-      </ItemGroup>
+      </NavItemGroup>
     </NavBackground>
   );
 };
