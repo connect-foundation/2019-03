@@ -6,6 +6,7 @@ import HomePage from '../HomePage';
 import UserPage from '../UserPage';
 import PostDetailPage from '../PostDetailPage';
 import NewPostPage from '../NewPostPage';
+import Navigation from '../Navigation';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         },
       }}
     >
+      <Navigation />
       <Route path="/" exact component={HomePage} />
       <Route path="/:username" component={UserPage} />
       <Route path="/p/:postHash" component={PostDetailPage} />
