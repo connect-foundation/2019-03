@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
+  display: flex;
+  align-items: center;
 
   &:focus,
   &:hover,

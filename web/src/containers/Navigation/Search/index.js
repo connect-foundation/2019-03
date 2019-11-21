@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import SearchWrapper from './SearchWrapper';
-import Input from './Input';
+import { SearchWrapper, Input } from './styles';
 import Icon from '../../../components/Icon';
 
 const Search = () => {

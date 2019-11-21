@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 
 import HomePage from '../HomePage';
 import UserPage from '../UserPage';
 import PostDetailPage from '../PostDetailPage';
-
-const AppWrapper = styled.div``;
+import NewPostPage from '../NewPostPage';
+import Navigation from '../Navigation';
 
 export default function App() {
   return (
@@ -25,9 +25,11 @@ export default function App() {
         },
       }}
     >
+      <Navigation />
       <Route path="/" exact component={HomePage} />
       <Route path="/:username" component={UserPage} />
       <Route path="/p/:postHash" component={PostDetailPage} />
+      <Route path="/newpost" component={NewPostPage} />
     </ThemeProvider>
   );
 }
