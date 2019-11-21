@@ -4,14 +4,14 @@ import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
 import CommentInput from '../../../components/CommentInput';
-import ConvenienceBox from './UtilityBlock';
+import UtilityBlock from './UtilityBlock';
 
 function SideBox({ writer, myInfo, post }) {
   return (
     <SideBoxWrapper>
       <PostTop writer={writer} myInfo={myInfo} post={post} />
       <PostContent />
-      <ConvenienceBox />
+      <UtilityBlock />
       <CommentInput />
     </SideBoxWrapper>
   );

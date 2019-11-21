@@ -1,19 +1,20 @@
 import styled, { css } from 'styled-components';
 
+const borderStyle = css`
+  ${({ theme }) => css`
+    border-top: solid 1px ${theme.palette.border};
+    border-right: solid 1px ${theme.palette.border};
+    border-bottom: solid 1px ${theme.palette.border};
+  `}}
+`;
+
 const SideBoxWrapper = styled.div`
   width: 335px;
-  height: 614px;
+  height: ${({ theme }) => theme.post_length}px;
   display: flex;
   flex-direction: column;
-  ${({ theme }) => {
-    const borderColor = theme.palette.border;
-    return css`
-      border-top: solid 1px ${borderColor};
-      border-right: solid 1px ${borderColor};
-      border-bottom: solid 1px ${borderColor};
-      }
-    `;
-  }}
+  box-sizing: border-box;
+  ${borderStyle}
 `;
 
 export default SideBoxWrapper;

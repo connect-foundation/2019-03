@@ -14,6 +14,7 @@ const Wrapper = styled.div`
       border-top: 1px solid ${borderColor};
     `;
   }}
+  padding: 0 16px;
 `;
 
 const FlexWrapper = styled.div`

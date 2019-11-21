@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import { PostDetailPageWrapper, ViewPort } from './styles';
 
@@ -14,10 +15,12 @@ function PostDetailPage() {
   };
   postImg.src = post.scr;
   return (
-    <PostDetailPageWrapper>
-      <ViewPort img={postImg} />
-      <PostSideBox writer={writer} myInfo={myInfo} post={post} />
-    </PostDetailPageWrapper>
+    <ThemeProvider theme={{ post_length: 600 }}>
+      <PostDetailPageWrapper>
+        <ViewPort img={postImg} />
+        <PostSideBox writer={writer} myInfo={myInfo} post={post} />
+      </PostDetailPageWrapper>
+    </ThemeProvider>
   );
 }
 

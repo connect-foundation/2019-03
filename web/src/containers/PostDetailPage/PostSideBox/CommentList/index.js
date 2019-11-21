@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CommentListWrapper, MoreCommentButton } from './styles';
 import Comment from '../../../../components/Comment';
-import MoreIcon from '../../../../components/LikeIcon';
+import Icon from '../../../../components/Icon';
 
 function CommentList() {
   const comments = [
@@ -58,7 +58,7 @@ function CommentList() {
         <Comment key={index} {...comment} />
       ))}
       <MoreCommentButton>
-        <MoreIcon ratio={10} />
+        <Icon ratio={6} posX={-385} posY={-498} />
       </MoreCommentButton>
     </CommentListWrapper>
   );

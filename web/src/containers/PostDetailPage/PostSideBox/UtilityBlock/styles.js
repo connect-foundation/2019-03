@@ -1,4 +1,7 @@
 import UtilityBlockWrapper from './UtilityBlockWrapper';
-import IconBox from './IconBox';
+import IconList from './IconList';
+import IconWrapper from './IconWrapper';
+import LikerCount from './LikerCount';
+import TimePassed from './TimePassed';
 
-export { UtilityBlockWrapper, IconBox };
+export { UtilityBlockWrapper, IconList, IconWrapper, LikerCount, TimePassed };

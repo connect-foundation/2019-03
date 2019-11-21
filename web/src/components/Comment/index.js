@@ -7,6 +7,7 @@ import Wrapper, {
   ReplyButton,
   ProfileWrapper,
   BottomButtonGroup,
+  LikeIconWrapper,
 } from './Wrapper';
 import ProfileIcon from '../ProfileIcon';
 import LikeIcon from '../LikeIcon';
@@ -33,7 +34,9 @@ const Comment = ({ user, content, updatedAt, likers, commentId }) => {
             </BottomButtonGroup>
           </div>
         </FlexBlock>
-        <LikeIcon ratio={10} />
+        <LikeIconWrapper>
+          <LikeIcon ratio={10} />
+        </LikeIconWrapper>
       </FlexBlock>
     </Wrapper>
   );
