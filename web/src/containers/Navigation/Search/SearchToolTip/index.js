@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchToolTipWrapper from './SearchToolTipWrapper';
+import { SearchToolTipWrapper } from './styles';
 import SearchResultList from './SearchResultList';
 
 const SearchToolTip = ({ isVisible, searchResults }) => {

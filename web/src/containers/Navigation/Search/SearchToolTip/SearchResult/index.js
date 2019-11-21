@@ -1,7 +1,6 @@
 import React from 'react';
 import ProfileIcon from '../../../../../components/ProfileIcon';
-import SearchResultWrapper from './SearchResultWrapper';
-import ResultInfo from './ResultInfo';
+import { SearchResultWrapper, ResultInfo } from './styles';
 
 const SearchResult = ({ result }) => {
   const imgSrc = result.type === 'user' ? undefined : 'hashtag.png';

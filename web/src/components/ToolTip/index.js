@@ -1,7 +1,5 @@
 import React from 'react';
-import ToolTipWrapper from './ToolTipWrapper';
-import ToolTipArrow from './ToolTipArrow';
-import ToolTipBody from './ToolTipBody';
+import { ToolTipArrow, ToolTipBody, ToolTipWrapper } from './styles';
 
 const ToolTip = ({ className, wrapperStyle, arrowStyle, children }) => {
   return (
