@@ -7,7 +7,7 @@ const UtilityBlockWrapper = styled.div`
       border-top: 1px solid ${borderColor};
     `;
   }}
-  padding: 0 16px;
+  padding-bottom:8px;
 `;
 
 export default UtilityBlockWrapper;
