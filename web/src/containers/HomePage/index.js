@@ -1,7 +1,16 @@
 import React from 'react';
+import PostList from './PostList';
 
-function index(props) {
-  return <div />;
-}
+const myInfo = {
+  username: 'hahahah',
+};
 
-export default index;
+const HomePage = () => {
+  return (
+    <>
+      <PostList />
+    </>
+  );
+};
+
+export default HomePage;
