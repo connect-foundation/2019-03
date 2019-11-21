@@ -74,6 +74,10 @@ const ProfileWrapper = styled.div`
 const BottomButtonGroup = styled.div`
   margin-top: 16px;
 `;
+
+const LikeIconWrapper = styled.div`
+  margin-top: 10px;
+`;
 export {
   StyledTime,
   LikeButton,
@@ -81,6 +85,7 @@ export {
   FlexBlock,
   ProfileWrapper,
   BottomButtonGroup,
+  LikeIconWrapper,
 };
 
 export default Wrapper;
