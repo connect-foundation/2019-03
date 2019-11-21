@@ -16,7 +16,7 @@ const FollowButton = ({ followStatus }) => {
         setCurrentFollowStatus('팔로우');
         break;
       default:
-        setCurrentFollowStatus('오류. 새로고침해주십시오');
+        setCurrentFollowStatus('오류. 새로고침 해주십시오.');
         break;
     }
   };
