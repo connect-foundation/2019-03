@@ -8,8 +8,6 @@ import {
   LikerListModal,
 } from './styles';
 
-const space = '\u00A0';
-
 const LikeInfo = ({ myInfo, likerList, className, style }) => {
   const [isVisible, setIsVisible] = useState(false);
   const onToggle = () => {
