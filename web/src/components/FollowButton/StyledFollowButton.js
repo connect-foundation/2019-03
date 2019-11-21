@@ -17,13 +17,11 @@ const StyledFollowButton = styled.button`
 `;
 
 const followButtonCSS = css`
-  ${({ theme }) => {
-    return css`
-      background: ${theme.palette.blue};
-      color: ${theme.palette.white};
-      border-color: ${theme.palette.blue};
-    `;
-  }}
+  ${({ theme }) => css`
+    background: ${theme.palette.blue};
+    color: ${theme.palette.white};
+    border-color: ${theme.palette.blue};
+  `}
 `;
 
 const followingButtonCSS = css`
