@@ -9,6 +9,7 @@ import NewPostPage from '../NewPostPage';
 import Navigation from '../Navigation';
 
 export default function App() {
+  const myInfo = { username: 'sam' };
   return (
     <ThemeProvider
       theme={{
@@ -25,7 +26,7 @@ export default function App() {
         },
       }}
     >
-      <Navigation />
+      <Navigation myInfo={myInfo} />
       <Route path="/" exact component={HomePage} />
       <Route path="/:username" component={UserPage} />
       <Route path="/p/:postHash" component={PostDetailPage} />
