@@ -10,7 +10,7 @@ import {
 
 const space = '\u00A0';
 
-const LikeInfo = ({ myInfo, likerList }) => {
+const LikeInfo = ({ myInfo, likerList, className, style }) => {
   const [isVisible, setIsVisible] = useState(false);
   const onToggle = () => {
     setIsVisible(!isVisible);
@@ -26,7 +26,7 @@ const LikeInfo = ({ myInfo, likerList }) => {
   const isOther = username !== myInfo.username;
 
   return (
-    <LikeInfoWrapper>
+    <LikeInfoWrapper className={className} style={style}>
       {isOther && <Profile ratio={8} imgSrc={imgSrc} onClick={onToggle} />}
       {isMany && <LikerLink to={username}>{username}</LikerLink>}
       {isMany && `님${space}`}

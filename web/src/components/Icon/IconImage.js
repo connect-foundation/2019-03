@@ -35,6 +35,7 @@ const IconImage = styled.span`
   flex: 0 0 auto;
   ${backgroundStyles};
   ${spanStyles}
+  cursor: pointer;
 `;
 
 IconImage.defaultProps = {
