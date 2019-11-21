@@ -28,8 +28,11 @@ const LikeInfo = ({ myInfo, likerList, className, style }) => {
   return (
     <LikeInfoWrapper className={className} style={style}>
       {isOther && <Profile ratio={8} imgSrc={imgSrc} onClick={onToggle} />}
-      {isMany && <LikerLink to={username}>{username}</LikerLink>}
-      {isMany && `님${space}`}
+      {isMany && (
+        <>
+          <LikerLink to={username}>{username}</LikerLink>님&nbsp;
+        </>
+      )}
       <LikeCount onClick={onToggle}>
         {isMany ? `외 ${length - 1}명` : '좋아요 1개'}
       </LikeCount>

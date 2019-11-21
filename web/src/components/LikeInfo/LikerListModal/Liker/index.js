@@ -1,13 +1,13 @@
 import React from 'react';
 
 import {
-  ProfileIcon,
   LikerInfoWrapper,
   LikerWrapper,
   FollowButton,
   Username,
   Name,
 } from './styles';
+import ProfileIcon from '../../../ProfileIcon';
 
 const Liker = ({ liker }) => {
   const { username, name, profileImage } = liker;
