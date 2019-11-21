@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';
 
-function CommentInput() {
+function CommentInput({ style, className }) {
   const [text, setText] = useState('');
   const onChange = e => {
     setText(e.target.value);
@@ -13,7 +13,7 @@ function CommentInput() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper style={style} className={className}>
       <FlexWrapper>
         <StyledInput
           placeholder="댓글달기..."
