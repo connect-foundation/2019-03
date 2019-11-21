@@ -1,16 +1,16 @@
 import React from 'react';
 
 import PostContentWrapper from './PostContentWrapper';
-import PostText from '../PostText';
+import PostText from './PostText';
 import CommentList from '../CommentList';
 
 function PostContent({ height }) {
   const postContentTop = {
     user: {
-      username: 'qkqhro',
+      username: 'queen',
       profileURL: null,
     },
-    content: ' 소식이 뜸했네요. 털을 깎았습니다.',
+    content: '올 겨울 신상',
     updatedAt: null,
   };
   return (
