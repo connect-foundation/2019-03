@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 
-import {
-  LikeInfoWrapper,
-  Profile,
-  LikeCount,
-  LikerLink,
-  LikerListModal,
-} from './styles';
+import { LikeInfoWrapper, Profile, LikeCount, LikerLink } from './styles';
+import LikerListModal from './LikerListModal';
 
 const LikeInfo = ({ myInfo, likerList, className, style }) => {
   const [isVisible, setIsVisible] = useState(false);

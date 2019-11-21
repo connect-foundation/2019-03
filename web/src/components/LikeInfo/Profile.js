@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileIcon from '../ProfileIcon';
 
 const LENGTH = 25;
-const style = {
+const ProfileIconStyle = {
   marginRight: '5px',
   borderRadius: '50%',
   width: `${LENGTH}px`,
@@ -12,7 +12,7 @@ const style = {
 const Profile = ({ onClick, ...props }) => {
   return (
     <div onClick={onClick}>
-      <ProfileIcon {...props} style={style} />
+      <ProfileIcon {...props} style={ProfileIconStyle} />
     </div>
   );
 };

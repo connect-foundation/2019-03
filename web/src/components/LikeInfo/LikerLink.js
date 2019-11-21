@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import StyledLink from '../StyledLink';
 
@@ -7,6 +6,4 @@ const LikerLink = styled(StyledLink)`
   font-weight: 600;
 `;
 
-export default ({ children, ...props }) => (
-  <LikerLink {...props}>{children}</LikerLink>
-);
+export default LikerLink;
