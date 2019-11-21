@@ -1,5 +1,5 @@
-import ModalBackground from './ModalBackground';
+import StyledLink from '../../StyledLink';
 import ModalContent from './ModalContent';
-import ModalWrapper from './ModalWrapper';
+import Modal from '../../Modal';
 
-export { ModalBackground, ModalContent, ModalWrapper };
+export { StyledLink, ModalContent, Modal };
