@@ -1,44 +1,21 @@
 import React from 'react';
 
-import Wrapper, {
-  FlexBlock,
-  StyledTime,
-  LikeButton,
-  ReplyButton,
-  ProfileWrapper,
-  BottomButtonGroup,
-  LikeIconWrapper,
-} from './Wrapper';
+import { CommentWrapper, ProfileWrapper, LikeIconWrapper } from './styles';
 import ProfileIcon from '../ProfileIcon';
 import LikeIcon from '../LikeIcon';
+import Content from './Content';
 
-const Comment = ({ user, content, updatedAt, likers, commentId }) => {
+const Comment = ({ user, content, updatedAt, likerCount, commentId }) => {
   return (
-    <Wrapper>
-      <FlexBlock>
-        <FlexBlock>
-          <ProfileWrapper>
-            <ProfileIcon />
-          </ProfileWrapper>
-          <div>
-            <span>
-              <h3>
-                <a href="#">{user.username}</a>
-              </h3>
-              <article>{content}</article>
-            </span>
-            <BottomButtonGroup>
-              <StyledTime>5h</StyledTime>
-              <LikeButton>{likers} like</LikeButton>
-              <ReplyButton>Reply</ReplyButton>
-            </BottomButtonGroup>
-          </div>
-        </FlexBlock>
-        <LikeIconWrapper>
-          <LikeIcon ratio={10} />
-        </LikeIconWrapper>
-      </FlexBlock>
-    </Wrapper>
+    <CommentWrapper>
+      <ProfileWrapper>
+        <ProfileIcon />
+      </ProfileWrapper>
+      <Content content={content} user={user} likerCount={likerCount} />
+      <LikeIconWrapper>
+        <LikeIcon ratio={10} />
+      </LikeIconWrapper>
+    </CommentWrapper>
   );
 };
 
