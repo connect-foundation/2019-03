@@ -1,15 +1,13 @@
 import styled, { css } from 'styled-components';
 
 const ToolTipBody = styled.div`
-  display: inline-block;
-  left: 40%;
   ${({ theme }) => {
-    const { border } = theme.palette;
+    const { border, white } = theme.palette;
     return css`
       border: 1px solid ${border};
+      background: ${white};
     `;
   }}
-  padding: 20px;
   border-radius: 5px;
   z-index: 1;
 `;

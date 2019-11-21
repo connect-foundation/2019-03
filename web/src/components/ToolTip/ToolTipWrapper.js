@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const ToolTipWrapper = styled.div`
-  display: inline-block;
-  position: relative;
+  display: inline-flex;
 `;
 
 export default ToolTipWrapper;

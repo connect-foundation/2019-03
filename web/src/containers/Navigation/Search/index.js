@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SearchWrapper, Input } from './styles';
 import Icon from '../../../components/Icon';
-import ToolTip from '../../../components/ToolTip';
+import SearchToolTip from './SearchToolTip';
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('');
@@ -13,20 +13,23 @@ const Search = () => {
   };
 
   return (
-    <div style={{ display: 'inline-block' }}>
-      <SearchWrapper>
-        <Icon ratio={10} posX={-260} posY={-625} style={{ marginTop: '2px' }} />
-        <Input placeholder="검색" value={inputValue} onChange={onChange} />
-        <Icon
-          ratio={10}
-          posX={-390}
-          posY={-625}
-          onClick={clickClear}
-          style={{ marginTop: '2px' }}
-        />
-      </SearchWrapper>
-      <ToolTip />
-    </div>
+    <SearchWrapper>
+      <Input placeholder="검색" value={inputValue} onChange={onChange} />
+      <SearchToolTip />
+      <Icon
+        ratio={10}
+        posX={-260}
+        posY={-625}
+        style={{ marginTop: '2px', position: 'absolute' }}
+      />
+      <Icon
+        ratio={10}
+        posX={-390}
+        posY={-625}
+        onClick={clickClear}
+        style={{ marginTop: '2px' }}
+      />
+    </SearchWrapper>
   );
 };
 

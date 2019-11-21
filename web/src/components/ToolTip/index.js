@@ -3,11 +3,11 @@ import ToolTipWrapper from './ToolTipWrapper';
 import ToolTipArrow from './ToolTipArrow';
 import ToolTipBody from './ToolTipBody';
 
-const ToolTip = ({ style }) => {
+const ToolTip = ({ className, wrapperStyle, arrowStyle, children }) => {
   return (
-    <ToolTipWrapper>
-      <ToolTipArrow style={style} />
-      <ToolTipBody>hi</ToolTipBody>
+    <ToolTipWrapper style={wrapperStyle} className={className}>
+      <ToolTipArrow style={arrowStyle} />
+      <ToolTipBody>{children}</ToolTipBody>
     </ToolTipWrapper>
   );
 };
