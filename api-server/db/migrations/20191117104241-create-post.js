@@ -8,7 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      imageUrl: {
+      postURL: {
+        type: Sequelize.STRING(2048),
+      },
+      imageURL: {
         allowNull: true,
         type: Sequelize.STRING(2048),
       },
