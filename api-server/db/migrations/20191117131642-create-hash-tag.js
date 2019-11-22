@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('HashTags', {
@@ -9,6 +8,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
+        unique: true,
+        allowNull: false,
         type: Sequelize.STRING(45),
       },
       updatedAt: {

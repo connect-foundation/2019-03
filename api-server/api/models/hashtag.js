@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const HashTag = sequelize.define('HashTag', {
     id: {
@@ -8,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     name: {
+      unique: true,
+      allowNull: false,
       type: DataTypes.STRING(45),
     },
     updatedAt: {

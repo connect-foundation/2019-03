@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
+    postURL: {
+      type: Sequelize.STRING(2048),
+    },
     imageUrl: {
       allowNull: true,
       type: DataTypes.STRING(2048),
