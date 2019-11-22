@@ -51,10 +51,10 @@ module.exports = {
         updatedAt: new Date(),
       });
     }
-    return queryInterface.bulkInsert('users', userInfo, {});
+    return queryInterface.bulkInsert('Users', userInfo, {});
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('users', {});
+    return queryInterface.bulkDelete('Users', {});
   },
 };

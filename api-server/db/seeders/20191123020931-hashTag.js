@@ -16,10 +16,10 @@ module.exports = {
         updatedAt: new Date(),
       });
     }
-    return queryInterface.bulkInsert('hashtags', hashtagList, {});
+    return queryInterface.bulkInsert('Hashtags', hashtagList, {});
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('hashtags', {});
+    return queryInterface.bulkDelete('Hashtags', {});
   },
 };

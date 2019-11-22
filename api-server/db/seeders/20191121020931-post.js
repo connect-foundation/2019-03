@@ -24,10 +24,10 @@ module.exports = {
         UserId: Math.ceil(Math.random() * 100),
       });
     }
-    return queryInterface.bulkInsert('posts', postList, {});
+    return queryInterface.bulkInsert('Posts', postList, {});
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('posts', {});
+    return queryInterface.bulkDelete('Posts', {});
   },
 };
