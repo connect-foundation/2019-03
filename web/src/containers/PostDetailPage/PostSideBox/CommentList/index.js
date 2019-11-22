@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CommentListWrapper, MoreCommentButton } from './styles';
-import Comment from '../../../../components/Comment';
+import Comment from './Comment';
 import Icon from '../../../../components/Icon';
 
 function CommentList() {
