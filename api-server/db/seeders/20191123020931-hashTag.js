@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     const hashtagList = [
       {
         name: '해쉬태그는띄어쓰기가되지않는다',
@@ -19,7 +19,7 @@ module.exports = {
     return queryInterface.bulkInsert('hashtags', hashtagList, {});
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.bulkDelete('hashtags', {});
   },
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('Posts', 'UserId', {
@@ -12,7 +10,7 @@ module.exports = {
     });
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.removeColumn(
       // Remove User hasMany Post
       'Posts',

@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     const replyList = [
       {
         content: '정말 좋은 글이네요!',
@@ -23,7 +23,7 @@ module.exports = {
     return queryInterface.bulkInsert('replies', replyList, {});
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.bulkDelete('replies', {});
   },
 };
