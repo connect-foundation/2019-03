@@ -1,14 +1,21 @@
-import React from 'react';
-import ProfileIcon from '../../../../../components/ProfileIcon';
-import { SearchResultWrapper, ResultInfo } from './styles';
+import React from "react";
+import ProfileIcon from "../../../../../components/ProfileIcon";
+import { SearchResultWrapper, ResultInfo } from "./styles";
 
 const SearchResult = ({ result }) => {
-  const imgSrc = result.type === 'user' ? undefined : 'hashtag.png';
-  const id = result.type === 'user' ? result.username : `# ${result.name}`;
-  const option =
-    result.type === 'user' ? (
-      <span className="option">{result.name}</span>
-    ) : null;
+  let imgSrc;
+  let content;
+  let option;
+
+  if (result.type === "user") {
+    imgSrc = undefined;
+    content = result.username;
+    option = <span className="option">{result.name}</span>;
+  } else {
+    imgSrc = "hashtag.png";
+    content = `# ${result.name}`;
+    option = null;
+  }
 
   return (
     <SearchResultWrapper>
@@ -16,7 +23,7 @@ const SearchResult = ({ result }) => {
         <ProfileIcon imgSrc={imgSrc} />
       </div>
       <ResultInfo>
-        <span>{id}</span>
+        <span>{content}</span>
         {option}
       </ResultInfo>
     </SearchResultWrapper>
