@@ -1,5 +1,5 @@
 import ContentWrapper from './ContentWrapper';
-import StyledTime from './StyledTime';
+import UpdatedTime from './UpdatedTime';
 import GrayButton from './GrayButton';
 
-export { ContentWrapper, StyledTime, GrayButton };
+export { ContentWrapper, UpdatedTime, GrayButton };

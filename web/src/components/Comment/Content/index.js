@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ContentWrapper, StyledTime, GrayButton } from './styles';
+import { ContentWrapper, UpdatedTime, GrayButton } from './styles';
 import StyledLink from '../../StyledLink';
 
 function Content({ user, content, likerCount }) {
@@ -17,7 +17,7 @@ function Content({ user, content, likerCount }) {
         </h3>
         <article>{content}</article>
       </main>
-      <StyledTime>5h</StyledTime>
+      <UpdatedTime>5h</UpdatedTime>
       <GrayButton>{likerCount} like</GrayButton>
       <GrayButton>Reply</GrayButton>
     </ContentWrapper>
