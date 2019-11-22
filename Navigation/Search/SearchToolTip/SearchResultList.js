@@ -1,8 +1,7 @@
-import React from 'react';
-import SearchResult from './SearchResult';
+import React from "react";
+import SearchResult from "./SearchResult";
 
-const SearchResultList = props => {
-  const { searchResults } = props;
+const SearchResultList = ({ searchResults }) => {
   const renderedSearchResults = searchResults.map((result, index) => {
     return <SearchResult key={index} result={result} />;
   });
