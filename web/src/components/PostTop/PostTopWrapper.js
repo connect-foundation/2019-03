@@ -17,6 +17,7 @@ const PostTopWrapper = styled.header`
   .user {
     display: flex;
     flex-direction: row;
+    align-items: center;
     .username {
       margin-left: 10px;
     }

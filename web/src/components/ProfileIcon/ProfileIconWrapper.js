@@ -20,7 +20,6 @@ const viewportStyle = css`
       width: ${PROFILE_LENGTH}px;
       height: ${PROFILE_LENGTH}px;
       border-radius: 50%;
-      background-color: ${theme.palette.gray_background};
       flex: none;
     `;
   }}

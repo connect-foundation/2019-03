@@ -5,7 +5,7 @@ const Input = styled.input.attrs({
 })`
   border: none;
   outline: none;
-  margin-left: -20px;
+  margin-left: 20px;
 `;
 
 export default Input;
