@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     id: {
@@ -8,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     postURL: {
-      type: Sequelize.STRING(2048),
+      type: DataTypes.STRING(2048),
     },
     imageUrl: {
       allowNull: true,
