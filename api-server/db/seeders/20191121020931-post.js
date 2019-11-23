@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     const postList = [
       {
         imageURL: 'image.jpg',
@@ -24,10 +24,10 @@ module.exports = {
         UserId: Math.ceil(Math.random() * 100),
       });
     }
-    return queryInterface.bulkInsert('posts', postList, {});
+    return queryInterface.bulkInsert('Posts', postList, {});
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('posts', {});
+  down: queryInterface => {
+    return queryInterface.bulkDelete('Posts', {});
   },
 };

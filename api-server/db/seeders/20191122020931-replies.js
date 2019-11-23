@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     const replyList = [
       {
         content: '정말 좋은 글이네요!',
@@ -20,10 +20,10 @@ module.exports = {
         UserId: Math.ceil(Math.random() * 100),
       });
     }
-    return queryInterface.bulkInsert('replies', replyList, {});
+    return queryInterface.bulkInsert('Replies', replyList, {});
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('replies', {});
+  down: queryInterface => {
+    return queryInterface.bulkDelete('Replies', {});
   },
 };

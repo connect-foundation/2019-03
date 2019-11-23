@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     const userInfo = [
       {
         username: '_so_02',
@@ -51,10 +51,10 @@ module.exports = {
         updatedAt: new Date(),
       });
     }
-    return queryInterface.bulkInsert('users', userInfo, {});
+    return queryInterface.bulkInsert('Users', userInfo, {});
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('users', {});
+  down: queryInterface => {
+    return queryInterface.bulkDelete('Users', {});
   },
 };
