@@ -6,7 +6,7 @@ import CommentInputWrapper from './CommentInputWrapper';
 import PostBottomWrapper from './PostBottomWrapper';
 import IconWrapper from './IconWrapper';
 import IconGroup from './IconGroup';
-import AllCommentShowButton from './AllCommentShowButton';
+import AllCommentShowText from './AllCommentShowText';
 import UpdatedTime from './UpdatedTime';
 
 export {
@@ -16,7 +16,7 @@ export {
   IconGroup,
   IconWrapper,
   CommentInputWrapper,
-  AllCommentShowButton,
+  AllCommentShowText,
   UpdatedTime,
   Comment,
   CommentWrapper,

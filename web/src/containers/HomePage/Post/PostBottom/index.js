@@ -9,7 +9,7 @@ import {
   CommentWrapper,
   CommentIcon,
   CommentInputWrapper,
-  AllCommentShowButton,
+  AllCommentShowText,
   UpdatedTime,
 } from './styles';
 
@@ -29,6 +29,7 @@ const commentInputStyle = {
 };
 
 const PostBottom = ({ myInfo, likerList, post }) => {
+  const commentCount = 16;
   return (
     <PostBottomWrapper>
       <IconGroup>
@@ -44,10 +45,14 @@ const PostBottom = ({ myInfo, likerList, post }) => {
       </IconGroup>
       <LikeInfo myInfo={myInfo} likerList={likerList} style={likeInfoStyle} />
       <CommentWrapper>
-        <Comment isPostText />
-        <AllCommentShowButton>댓글 모두 16개 보기</AllCommentShowButton>
-        <Comment />
-        <Comment />
+        <Comment isPostText>테스트</Comment>
+        <AllCommentShowText post={post} commentCount={commentCount} />
+        <Comment>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
+          tempore libero similique, cupiditate explicabo, natus perferendis
+          maxime aliquam corrupti eveniet rerum nobis doloremque? Soluta dolorum
+          fugit inventore impedit, optio veritatis?
+        </Comment>
       </CommentWrapper>
       <UpdatedTime>1시간 전</UpdatedTime>
       <CommentInputWrapper>
