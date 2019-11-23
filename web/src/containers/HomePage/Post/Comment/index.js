@@ -8,6 +8,7 @@ import {
 } from './styles';
 import LikeIcon from '../../../../components/LikeIcon';
 import useComment from './useComment';
+import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
 
 const likcIconStyle = {
   marginTop: '2px',
@@ -26,7 +27,11 @@ const Comment = ({ isMainText, commenter, children }) => {
       <CommentMoreButton onClick={onUnfoldComment} isFold={isFold}>
         더 보기
       </CommentMoreButton>
-      {isMainText || <LikeIcon ratio={10} style={likcIconStyle} />}
+      {isMainText || (
+        <LikeProvider>
+          <LikeIcon ratio={10} style={likcIconStyle} />
+        </LikeProvider>
+      )}
     </CommentWrapper>
   );
 };

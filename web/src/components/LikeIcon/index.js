@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from '../Icon';
 
-const POS_X_OF_HEART = -130;
-const POS_Y_OF_EMPTY_HEART = -245;
-const POS_Y_OF_FILL_HEART = -375;
+import {
+  POS_X_OF_HEART,
+  TOGGLE_LIKE_ICON,
+  useLikeDispatch,
+  useLikeState,
+} from './Context/LikeContext';
 
 const LikeIcon = ({ ratio, style }) => {
-  const [posY, setPosY] = useState(POS_Y_OF_EMPTY_HEART);
-
-  const onToggle = () => {
-    setPosY(
-      posY === POS_Y_OF_EMPTY_HEART
-        ? POS_Y_OF_FILL_HEART
-        : POS_Y_OF_EMPTY_HEART,
-    );
-  };
+  const state = useLikeState();
+  const dispatch = useLikeDispatch();
+  const onToggle = () => dispatch({ type: TOGGLE_LIKE_ICON, state });
 
   return (
     <Icon
       onClick={onToggle}
       ratio={ratio}
       posX={POS_X_OF_HEART}
-      posY={posY}
+      posY={state}
       style={style}
     />
   );

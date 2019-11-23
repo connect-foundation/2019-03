@@ -16,6 +16,7 @@ import PostTop from '../../../components/PostTop';
 import LikeIcon from '../../../components/LikeIcon';
 import LikeInfo from '../../../components/LikeInfo';
 import CommentInput from '../../../components/CommentInput';
+import { LikeProvider } from '../../../components/LikeIcon/Context/LikeContext';
 
 const likeInfoStyle = {
   margin: '4px 15px',
@@ -41,19 +42,21 @@ const Post = ({ myInfo, post }) => {
   return (
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
-      <PostImage imgSrc={imgSrc} />
-      <IconGroup>
-        <IconWrapper>
-          <LikeIcon ratio={5} />
-        </IconWrapper>
-        <IconWrapper>
-          <CommentIcon post={post} />
-        </IconWrapper>
-        <IconWrapper>
-          <ShareIcon />
-        </IconWrapper>
-      </IconGroup>
-      <LikeInfo myInfo={myInfo} likerList={likerList} style={likeInfoStyle} />
+      <LikeProvider>
+        <PostImage imgSrc={imgSrc} />
+        <IconGroup>
+          <IconWrapper>
+            <LikeIcon ratio={5} />
+          </IconWrapper>
+          <IconWrapper>
+            <CommentIcon post={post} />
+          </IconWrapper>
+          <IconWrapper>
+            <ShareIcon />
+          </IconWrapper>
+        </IconGroup>
+        <LikeInfo myInfo={myInfo} likerList={likerList} style={likeInfoStyle} />
+      </LikeProvider>
       <Comment commenter={writer.username} isMainText>
         {mainText}
       </Comment>
