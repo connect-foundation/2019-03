@@ -6,14 +6,14 @@ const useComment = () => {
     setIsFold(!isFold);
   };
 
-  const comment = useRef(null);
+  const commentRef = useRef(null);
   useEffect(() => {
-    const { offsetWidth, scrollWidth } = comment.current;
+    const { offsetWidth, scrollWidth } = commentRef.current;
     const isOverflow = offsetWidth < scrollWidth;
     setIsFold(isOverflow);
   }, []);
 
-  return [isFold, comment, onUnfoldComment];
+  return [isFold, commentRef, onUnfoldComment];
 };
 
 export default useComment;

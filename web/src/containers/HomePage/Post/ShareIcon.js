@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from '../../../../components/Icon';
+import Icon from '../../../components/Icon';
 
 const SHARE_POS_X = 0;
 const SHARE_POS_Y = -248;

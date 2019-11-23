@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import StyledLink from '../../../../../components/StyledLink';
+import StyledLink from '../../../../components/StyledLink';
 
 const Commenter = styled(StyledLink)`
   margin-right: 8px;
