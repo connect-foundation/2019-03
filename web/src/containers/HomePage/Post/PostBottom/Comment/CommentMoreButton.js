@@ -11,6 +11,8 @@ const CommentMoreButton = styled.button`
   flex: 1 0 auto;
 
   cursor: pointer;
+
+  display: ${({ isFold }) => (isFold ? '' : 'none')};
 `;
 
 export default CommentMoreButton;

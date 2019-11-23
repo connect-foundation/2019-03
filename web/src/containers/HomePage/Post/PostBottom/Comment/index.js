@@ -7,19 +7,25 @@ import {
   Commenter,
 } from './styles';
 import LikeIcon from '../../../../../components/LikeIcon';
+import useComment from './useComment';
 
-const Comment = ({ isPostText }) => {
+const likcIconStyle = {
+  alignSelf: 'flex-start',
+};
+
+const Comment = ({ isPostText, children }) => {
+  const [isFold, comment, onUnfoldComment] = useComment();
+
   return (
     <CommentWrapper isPostText={isPostText}>
       <Commenter>Test</Commenter>
-      <CommentContent>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, tempore
-        libero similique, cupiditate explicabo, natus perferendis maxime aliquam
-        corrupti eveniet rerum nobis doloremque? Soluta dolorum fugit inventore
-        impedit, optio veritatis?
+      <CommentContent isFold={isFold} ref={comment}>
+        {children}
       </CommentContent>
-      <CommentMoreButton>더 보기</CommentMoreButton>
-      {isPostText || <LikeIcon ratio={10} />}
+      <CommentMoreButton onClick={onUnfoldComment} isFold={isFold}>
+        더 보기
+      </CommentMoreButton>
+      {isPostText || <LikeIcon ratio={10} style={likcIconStyle} />}
     </CommentWrapper>
   );
 };
