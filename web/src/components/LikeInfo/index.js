@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 
 import { LikeInfoWrapper, Profile, LikeCount, LikerLink } from './styles';
 import LikerListModal from './LikerListModal';
+import { useLikerListState } from './Context/LikerListContext';
 
-const LikeInfo = ({ myInfo, likerList, className, style }) => {
+const LikeInfo = ({ myInfo, className, style }) => {
+  const likerList = useLikerListState();
   const [isVisible, setIsVisible] = useState(false);
   const onToggle = () => {
     setIsVisible(!isVisible);

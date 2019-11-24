@@ -17,6 +17,7 @@ import LikeIcon from '../../../components/LikeIcon';
 import LikeInfo from '../../../components/LikeInfo';
 import CommentInput from '../../../components/CommentInput';
 import { LikeProvider } from '../../../components/LikeIcon/Context/LikeContext';
+import { LikerListProvider } from '../../../components/LikeInfo/Context/LikerListContext';
 
 const likeInfoStyle = {
   margin: '4px 15px',
@@ -38,25 +39,31 @@ const Post = ({ myInfo, post }) => {
     likerList,
     updatedAt,
   } = post;
-
+  const isLike = likerList.some(liker => liker.username === myInfo.username);
   return (
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
-      <LikeProvider>
-        <PostImage imgSrc={imgSrc} />
-        <IconGroup>
-          <IconWrapper>
-            <LikeIcon ratio={5} />
-          </IconWrapper>
-          <IconWrapper>
-            <CommentIcon post={post} />
-          </IconWrapper>
-          <IconWrapper>
-            <ShareIcon />
-          </IconWrapper>
-        </IconGroup>
-        <LikeInfo myInfo={myInfo} likerList={likerList} style={likeInfoStyle} />
-      </LikeProvider>
+      <LikerListProvider likerList={likerList}>
+        <LikeProvider isLike={isLike}>
+          <PostImage imgSrc={imgSrc} />
+          <IconGroup>
+            <IconWrapper>
+              <LikeIcon ratio={5} />
+            </IconWrapper>
+            <IconWrapper>
+              <CommentIcon post={post} />
+            </IconWrapper>
+            <IconWrapper>
+              <ShareIcon />
+            </IconWrapper>
+          </IconGroup>
+          <LikeInfo
+            myInfo={myInfo}
+            likerList={likerList}
+            style={likeInfoStyle}
+          />
+        </LikeProvider>
+      </LikerListProvider>
       <Comment commenter={writer.username} isMainText>
         {mainText}
       </Comment>
@@ -75,6 +82,7 @@ const Post = ({ myInfo, post }) => {
 Post.defaultProps = {
   myInfo: {
     username: 'test1',
+    name: 'aaaa',
   },
   post: {
     imgSrc:
