@@ -32,33 +32,34 @@ const Search = () => {
       }
     }`;
 
-    const resultsResponse = await fetch('http://localhost:3000/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({ query: searchQuery }),
-    });
-    const resultResponseJson = await resultsResponse.json();
+    try {
+      const resultsResponse = await fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      });
+      const resultResponseJson = await resultsResponse.json();
 
-    // resultResponseJson에 여러개의 배열을 하나로 합친다.
-    let results = [];
-    Object.keys(resultResponseJson.data).map(element => {
-      results = results.concat(resultResponseJson.data[element]);
-    });
+      // resultResponseJson에 여러개의 배열을 하나로 합친다.
+      let results = [];
+      Object.keys(resultResponseJson.data).map(element => {
+        results = results.concat(resultResponseJson.data[element]);
+      });
 
-    if (results.length === 0) {
+      if (results.length === 0) throw new Error();
+
+      results.sort(() => {
+        return Math.random() - Math.random();
+      });
+      setSearchResults(results);
+
+      setIsVisible(true);
+    } catch {
       setIsVisible(false);
-      return;
     }
-
-    results.sort(() => {
-      return Math.random() - Math.random();
-    });
-    setSearchResults(results);
-
-    setIsVisible(true);
   };
 
   return (
