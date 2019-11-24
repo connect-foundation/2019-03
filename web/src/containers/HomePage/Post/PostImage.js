@@ -6,10 +6,10 @@ import {
   useLikeState,
 } from '../../../components/LikeIcon/Context/LikeContext';
 import {
-  useLikerListDispatch,
+  useLikerInfoDispatch,
   DECREASE_LIKE,
   INCREASE_LIKE,
-} from '../../../components/LikeInfo/Context/LikerListContext';
+} from '../../../components/LikeInfo/Context/LikerInfoContext';
 
 const POST_IMAGE_LENGTH = 615;
 
@@ -26,20 +26,19 @@ const PostImageDiv = styled.div`
   cursor: pointer;
 `;
 
-const PostImage = ({ imgSrc }) => {
-  const likerListDispatch = useLikerListDispatch();
+const PostImage = ({ imageURL, myInfo }) => {
+  const likerInfoDispatch = useLikerInfoDispatch();
   const likeDispatch = useLikeDispatch();
   const isLike = useLikeState();
   const onToggle = () => {
     const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerListDispatch({
+    likerInfoDispatch({
       type: likerListActionType,
-      liker: { username: 'test1', name: 'aaaa' },
     });
     likeDispatch({ type: TOGGLE_LIKE_ICON });
   };
 
-  return <PostImageDiv imgSrc={imgSrc} onDoubleClick={onToggle} />;
+  return <PostImageDiv imageURL={imageURL} onDoubleClick={onToggle} />;
 };
 
 export default PostImage;

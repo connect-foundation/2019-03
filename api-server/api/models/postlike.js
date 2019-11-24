@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  PostLike.associate = function(models) {};
+  PostLike.associate = models => {
+    PostLike.belongsTo(models.User);
+    PostLike.belongsTo(models.Post);
+  };
 
   return PostLike;
 };

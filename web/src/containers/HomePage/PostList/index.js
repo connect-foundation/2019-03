@@ -3,15 +3,12 @@ import React from 'react';
 import Post from '../Post';
 import PostListWrapper from './PostListWrapper';
 
-const PostList = () => {
+const PostList = ({ myInfo, postList }) => {
   return (
     <PostListWrapper>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {postList.map(p => (
+        <Post key={p.id} post={p} myInfo={myInfo} />
+      ))}
     </PostListWrapper>
   );
 };

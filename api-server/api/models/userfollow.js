@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const UserFollow = sequelize.define('UserFollow', {
     from: {

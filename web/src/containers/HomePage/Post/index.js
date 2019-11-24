@@ -17,7 +17,7 @@ import LikeIcon from '../../../components/LikeIcon';
 import LikeInfo from '../../../components/LikeInfo';
 import CommentInput from '../../../components/CommentInput';
 import { LikeProvider } from '../../../components/LikeIcon/Context/LikeContext';
-import { LikerListProvider } from '../../../components/LikeInfo/Context/LikerListContext';
+import { LikerInfoProvider } from '../../../components/LikeInfo/Context/LikerInfoContext';
 
 const likeInfoStyle = {
   margin: '4px 15px',
@@ -31,105 +31,56 @@ const commentInputStyle = {
 
 const Post = ({ myInfo, post }) => {
   const {
+    imageURL,
+    postURL,
+    content,
     writer,
-    imgSrc,
-    mainText,
     commentCount,
     commentList,
-    likerList,
+    likerInfo,
     updatedAt,
   } = post;
-  const isLike = likerList.some(liker => liker.username === myInfo.username);
+
+  const isLike = false; // likerInfo.isLike
   return (
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
-      <LikerListProvider likerList={likerList}>
+      <LikerInfoProvider likerInfo={likerInfo}>
         <LikeProvider isLike={isLike}>
-          <PostImage imgSrc={imgSrc} />
+          <PostImage imgSrc={imageURL} />
           <IconGroup>
             <IconWrapper>
               <LikeIcon ratio={5} />
             </IconWrapper>
             <IconWrapper>
-              <CommentIcon post={post} />
+              <CommentIcon postURL={postURL} />
             </IconWrapper>
             <IconWrapper>
               <ShareIcon />
             </IconWrapper>
           </IconGroup>
-          <LikeInfo
-            myInfo={myInfo}
-            likerList={likerList}
-            style={likeInfoStyle}
-          />
+          <LikeInfo myInfo={myInfo} style={likeInfoStyle} />
         </LikeProvider>
-      </LikerListProvider>
+      </LikerInfoProvider>
       <Comment commenter={writer.username} isMainText>
-        {mainText}
+        {content}
       </Comment>
-      <AllCommentShowText post={post} commentCount={commentCount} />
-      {commentList.map(c => (
-        <Comment commenter={c.username}>{c.content}</Comment>
-      ))}
-      <UpdatedTime>1시간 전</UpdatedTime>
+      <AllCommentShowText postURL={postURL} commentCount={commentCount} />
+      {commentList.map(c => {
+        const { content: comment, writer: commenter } = c;
+        const { username } = commenter;
+        return (
+          <Comment key={username} commenter={username}>
+            {comment}
+          </Comment>
+        );
+      })}
+      <UpdatedTime>{updatedAt}</UpdatedTime>
       <CommentInputWrapper>
         <CommentInput style={commentInputStyle} post={post} />
       </CommentInputWrapper>
     </PostWrapper>
   );
-};
-
-Post.defaultProps = {
-  myInfo: {
-    username: 'test1',
-    name: 'aaaa',
-  },
-  post: {
-    imgSrc:
-      'http://image.chosun.com/sitedata/image/201705/11/2017051101043_0.jpg',
-    postHash: 'aaaaa',
-    writer: {
-      username: 'test2',
-      isFollow: true,
-    },
-    mainText: `이것은 본문입니다.`,
-    commentCount: 16,
-    commentList: [
-      {
-        username: 'logqwerty',
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
-        tempore libero similique, cupiditate explicabo, natus perferendis
-        maxime aliquam corrupti eveniet rerum nobis doloremque? Soluta dolorum
-        fugit inventore impedit, optio veritatis?`,
-      },
-      {
-        username: 'logasdf',
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
-        tempore libero similique, cupiditate explicabo, natus perferendis
-        maxime aliquam corrupti eveniet rerum nobis doloremque? Soluta dolorum
-        fugit inventore impedit, optio veritatis?`,
-      },
-    ],
-    likerList: [
-      {
-        username: 'test1',
-        name: 'aaaa',
-      },
-      {
-        username: 'test2',
-        name: 'bbbb',
-      },
-      {
-        username: 'test3',
-        name: 'cccc',
-      },
-      {
-        username: 'test4',
-        name: 'dddd',
-      },
-    ],
-    updatedAt: Date.now(),
-  },
 };
 
 export default Post;

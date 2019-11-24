@@ -20,7 +20,7 @@ const Comment = ({ isMainText, commenter, children }) => {
 
   return (
     <CommentWrapper>
-      <Commenter>{commenter}</Commenter>
+      <Commenter to={`/${commenter}`}>{commenter}</Commenter>
       <CommentContent isFold={isFold} ref={commentRef}>
         {children}
       </CommentContent>

@@ -9,11 +9,9 @@ const LinkStyle = {
   height: '25px',
 };
 
-const CommentIcon = ({ post, ratio }) => {
-  const { postHash } = post;
-
+const CommentIcon = ({ postURL, ratio }) => {
   return (
-    <StyledLink to={`/p/${postHash}`} style={LinkStyle}>
+    <StyledLink to={`/p/${postURL}`} style={LinkStyle}>
       <Icon ratio={ratio} posX={COMMENT_POS_X} posY={COMMENT_POS_Y} />
     </StyledLink>
   );

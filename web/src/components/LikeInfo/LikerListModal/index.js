@@ -6,11 +6,11 @@ const ModalStyle = {
   width: '400px',
 };
 
-const LikerListModal = ({ likerList, onClick }) => {
+const LikerListModal = ({ onClick }) => {
   return (
     <Modal style={ModalStyle} onClick={onClick}>
       <Header onClick={onClick} />
-      <LikerList likerList={likerList} />
+      <LikerList likerList={[]} />
     </Modal>
   );
 };

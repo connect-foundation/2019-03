@@ -13,10 +13,9 @@ const AllCommentShowTextSpan = styled.span`
   color: ${({ theme }) => theme.palette.gray_font};
 `;
 
-const AllCommentShowText = ({ post, commentCount }) => {
-  const { hash } = post;
+const AllCommentShowText = ({ postURL, commentCount }) => {
   return (
-    <StyledLink to={`/p/${hash}`}>
+    <StyledLink to={`/p/${postURL}`}>
       <AllCommentShowTextSpan>
         댓글 {commentCount}개 모두 보기
       </AllCommentShowTextSpan>

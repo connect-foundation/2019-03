@@ -6,6 +6,8 @@ const { WriterType } = require('./WriterType');
 const { AlarmFromUserType } = require('./AlarmFromUserType');
 const { AlarmPostType } = require('./AlarmPostType');
 const { LogType } = require('./LogType');
+const { LikerInfoType } = require('./LikerInfoType');
+const { PostType } = require('./PostType');
 
 module.exports = {
   CommentType,
@@ -16,4 +18,6 @@ module.exports = {
   AlarmFromUserType,
   AlarmPostType,
   LogType,
+  LikerInfoType,
+  PostType,
 };

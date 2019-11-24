@@ -10,19 +10,19 @@ import {
   useLikeState,
 } from './Context/LikeContext';
 import {
-  useLikerListDispatch,
+  useLikerInfoDispatch,
   DECREASE_LIKE,
   INCREASE_LIKE,
-} from '../LikeInfo/Context/LikerListContext';
+} from '../LikeInfo/Context/LikerInfoContext';
 
 const LikeIcon = ({ ratio, style }) => {
   const isLike = useLikeState();
   const likeDispatch = useLikeDispatch();
-  const likerListDispatch = useLikerListDispatch();
+  const likerInfoDispatch = useLikerInfoDispatch();
 
   const onToggle = () => {
     const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerListDispatch({
+    likerInfoDispatch({
       type: likerListActionType,
       liker: { username: 'test1', name: 'aaaa' },
     });
