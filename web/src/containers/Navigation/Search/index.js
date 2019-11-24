@@ -10,6 +10,7 @@ const Search = () => {
 
   const clickClear = () => {
     setInputValue('');
+    setIsVisible(false);
   };
 
   const onChange = async e => {
