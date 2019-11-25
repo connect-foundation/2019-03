@@ -28,12 +28,6 @@ const Navigation = ({ myInfo }) => {
           <StyledLink to="/nowpost">
             <Icon ratio={5} posX={-260} posY={-245} />
           </StyledLink>
-          <Icon
-            ratio={6}
-            posX={-130}
-            posY={-246}
-            style={{ marginTop: '1px' }}
-          />
           <Alarm />
           <Icon
             ratio={5}
