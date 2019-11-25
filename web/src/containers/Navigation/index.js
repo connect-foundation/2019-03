@@ -4,6 +4,7 @@ import Icon from '../../components/Icon';
 import ProfileIcon from '../../components/ProfileIcon';
 import StyledLink from '../../components/StyledLink';
 import { NavBackground, NavItemGroup } from './styles';
+import Alarm from './Alarm';
 
 const Navigation = ({ myInfo }) => {
   return (
@@ -33,6 +34,7 @@ const Navigation = ({ myInfo }) => {
             posY={-246}
             style={{ marginTop: '1px' }}
           />
+          <Alarm />
           <Icon
             ratio={5}
             posX={-130}
