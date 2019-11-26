@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 
 import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';
-import useFetch from '../../useFetch';
-import reducer from './reducer';
+import useMutation from '../../useMutation';
 
 function CommentInput({ style, className, dispatch, post }) {
-  const insertCommentQuery = `{
+  const [state, fetchMutation] = useMutation();
+  const { loading, data, error } = state;
 
-  }`;
-  const [state, refetch] = useFetch(insertCommentQuery, reducer, [], true);
-
+  const [text, setText] = useState('');
   const myInfo = {
+    id: 1,
     username: 'sam',
     profileImage: 'https://i.pravatar.cc/150?img=7',
   };
-  const [text, setText] = useState('');
+  const insertCommentQuery = `mutation{
+    createComment(
+      content:"${text}",
+      depth:null,
+      PostId:${post.id},
+      UserId:${myInfo.id},
+    ){
+      content
+    }
+  }`;
+
   const isEmpty = text === '';
   const onChange = e => {
     setText(e.target.value);
@@ -25,10 +34,12 @@ function CommentInput({ style, className, dispatch, post }) {
   };
 
   const submitHandler = () => {
-    dispatch({
-      type: 'NEWCOMMENT',
-      content: text,
-      writer: myInfo,
+    fetchMutation(insertCommentQuery, () => {
+      dispatch({
+        type: 'NEWCOMMENT',
+        content: text,
+        writer: myInfo,
+      });
     });
     onReset();
   };

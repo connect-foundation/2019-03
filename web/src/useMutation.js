@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-function defaultReducer(state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case 'LOADING':
       return {
@@ -25,14 +25,14 @@ function defaultReducer(state, action) {
   }
 }
 
-function useAsync(query, reducer = defaultReducer, deps = [], skip = false) {
+function useAsync() {
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
     error: false,
   });
 
-  const callback = () =>
+  const callback = query =>
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
       headers: {
@@ -42,24 +42,19 @@ function useAsync(query, reducer = defaultReducer, deps = [], skip = false) {
       body: JSON.stringify({ query }),
     });
 
-  const fetchData = async () => {
+  const fetchMutation = async (query, fn) => {
     dispatch({ type: 'LOADING' });
     try {
-      const response = await callback();
+      const response = await callback(query);
       const { data } = await response.json();
       dispatch({ type: 'SUCCESS', data });
+      fn();
     } catch (e) {
       dispatch({ type: 'ERROR', error: e });
     }
   };
 
-  useEffect(() => {
-    if (skip) return;
-    fetchData();
-    // eslint-disable-next-line
-  }, deps);
-
-  return [state, dispatch, fetchData];
+  return [state, fetchMutation];
 }
 
 export default useAsync;

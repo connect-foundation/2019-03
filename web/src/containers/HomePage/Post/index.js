@@ -73,7 +73,7 @@ const Post = ({ myInfo, post }) => {
       ))}
       <UpdatedTime>1시간 전</UpdatedTime>
       <CommentInputWrapper>
-        <CommentInput style={commentInputStyle} />
+        <CommentInput style={commentInputStyle} post={post} />
       </CommentInputWrapper>
     </PostWrapper>
   );
