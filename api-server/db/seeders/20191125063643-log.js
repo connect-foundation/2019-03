@@ -16,7 +16,7 @@ module.exports = {
         From: Math.ceil(Math.random() * 100),
         To: Math.ceil(Math.random() * 100),
         PostId: Math.ceil(Math.random() * 100),
-        status: Math.ceil(Math.random() * 4),
+        status: Math.ceil(Math.random() * 3),
         updatedAt: new Date(),
       });
     }

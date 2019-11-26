@@ -1,8 +1,7 @@
 import React from 'react';
-import AlarmResult from './AlarmToolTip/AlarmResult';
+import AlarmResult from './AlarmResult';
 
 const AlarmResultList = ({ alarmResults }) => {
-  console.log(alarmResults);
   const renderedAlarmResults = alarmResults.map((result, index) => {
     return <AlarmResult key={index} result={result} />;
   });

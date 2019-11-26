@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ToolTip from '../../../components/ToolTip';
+import ToolTip from '../../../../components/ToolTip';
 
 const AlarmToolTipWrapper = styled(ToolTip)`
   justify-content: center;

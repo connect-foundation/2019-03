@@ -48,6 +48,7 @@ const Search = () => {
       let results = [];
       Object.keys(resultResponseJson.data).map(element => {
         results = results.concat(resultResponseJson.data[element]);
+        return results;
       });
 
       if (results.length === 0) throw new Error();

@@ -12,7 +12,8 @@ const AlarmResult = ({ result }) => {
     case 1:
       content = (
         <span>
-          <b>{result.user.username}</b>님이 회원님을 팔로우하기 시작했습니다.
+          <b>{result.fromUser.username}</b>님이 회원님을 팔로우하기
+          시작했습니다.
         </span>
       );
       action = null; // follow 버튼 삽입 예정
@@ -20,18 +21,18 @@ const AlarmResult = ({ result }) => {
     case 2:
       content = (
         <span>
-          <b>{result.user.username}</b>님이 회원님의 게시물을 좋아합니다.
+          <b>{result.fromUser.username}</b>님이 회원님의 게시물을 좋아합니다.
         </span>
       );
-      action = <img src={result.post.imageURL} alt={result.post.imageURL} />;
+      action = <img src={result.post.imageURL} />;
       break;
     case 3:
       content = (
         <span>
-          <b>{result.user.username}</b>님이 댓글을 남겼습니다.
+          <b>{result.fromUser.username}</b>님이 댓글을 남겼습니다.
         </span>
       );
-      action = <img src={result.post.imageURL} alt={result.post.imageURL} />;
+      action = <img src={result.post.imageURL} />;
       break;
     default:
       break;
@@ -40,7 +41,7 @@ const AlarmResult = ({ result }) => {
   return (
     <AlarmResultWrapper>
       <AlarmProfileWrapper>
-        <ProfileIcon imgSRc={result.user.profileImage} />
+        <ProfileIcon imgSRc={result.fromUser.profileImage} />
       </AlarmProfileWrapper>
       <AlarmContentWrapper>{content}</AlarmContentWrapper>
       <AlarmActionWrapper>{action}</AlarmActionWrapper>
