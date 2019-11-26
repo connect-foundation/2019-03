@@ -20,7 +20,6 @@ const CommentType = new GraphQLObjectType({
     writer: {
       type: WriterType,
       resolve: comment => {
-        console.log(comment);
         return User.findOne({ where: { id: comment.UserId } });
       },
     },
