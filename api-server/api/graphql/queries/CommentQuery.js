@@ -1,6 +1,6 @@
 const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql');
 
-const { CommentType } = require('../types/CommentType');
+const { CommentType } = require('../types');
 const { Comment, Post } = require('../../../db');
 
 const commentQuery = {
