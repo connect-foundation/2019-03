@@ -4,7 +4,6 @@ const CommentInputWrapper = styled.div`
   display: flex;
   border-top: 1px solid ${({ theme }) => theme.palette.border};
 
-  margin-left: -8px;
   margin-top: 4px;
 
   width: 615px;

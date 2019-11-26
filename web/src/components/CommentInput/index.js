@@ -4,6 +4,7 @@ import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';
 
 function CommentInput({ style, className }) {
   const [text, setText] = useState('');
+  const isEmpty = text === '';
   const onChange = e => {
     setText(e.target.value);
   };
@@ -20,7 +21,9 @@ function CommentInput({ style, className }) {
           onChange={onChange}
           value={text}
         />
-        <StyledButton onClick={onReset}>게시</StyledButton>
+        <StyledButton onClick={onReset} disabled={isEmpty}>
+          게시
+        </StyledButton>
       </FlexWrapper>
     </Wrapper>
   );

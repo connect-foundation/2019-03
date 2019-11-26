@@ -7,6 +7,8 @@ const ProfileIconStyle = {
   borderRadius: '50%',
   width: `${LENGTH}px`,
   height: `${LENGTH}px`,
+
+  cursor: 'pointer',
 };
 
 const Profile = ({ onClick, ...props }) => {

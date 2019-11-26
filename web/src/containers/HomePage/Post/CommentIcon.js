@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Icon from '../../../../components/Icon';
-import StyledLink from '../../../../components/StyledLink';
+import Icon from '../../../components/Icon';
+import StyledLink from '../../../components/StyledLink';
 
 const COMMENT_POS_X = -520;
 const COMMENT_POS_Y = -248;

@@ -6,7 +6,7 @@ const UpdatedTime = styled.span`
   color: ${({ theme }) => theme.palette.gray_font};
   font-size: 0.8rem;
 
-  margin-left: 6.5px;
+  margin-left: 15px;
 `;
 
 export default UpdatedTime;
