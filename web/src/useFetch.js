@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-function reducer(state, action) {
+function defaultReducer(state, action) {
   switch (action.type) {
     case 'LOADING':
       return {
@@ -25,7 +25,8 @@ function reducer(state, action) {
   }
 }
 
-function useAsync(query, deps = [], skip = false) {
+function useAsync(query, reducer = defaultReducer, deps = [], skip = false) {
+  reducer = reducer || defaultReducer;
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
