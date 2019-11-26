@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-
 import { PostDetailPageWrapper, ViewPort } from './styles';
-
 import PostSideBox from './PostSideBox';
+import reducer from './reducer';
+import { PostProvider } from './context';
+import useFetch from '../../useFetch';
 
 function PostDetailPage() {
-  const postImg = new Image();
-  const writer = { username: 'queen', isFollow: true, profileURL: 'queen.jpg' };
-  const myInfo = { username: 'sam' };
-  const post = {
-    postHash: 'goddamn',
-    scr: 'http://image.chosun.com/sitedata/image/201705/11/2017051101043_0.jpg',
-  };
-  postImg.src = post.scr;
+  const postDetailQuery = `{
+    post(postURL:"123"){
+      id,
+      content,
+      writer{
+        username
+      }
+      imageURL,
+      postURL,
+      likeCount
+    }
+  }`;
+
+  const [state, dispatch, refetch] = useFetch(postDetailQuery);
+  const { loading, data, error } = state;
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!data) return null;
+  const { post } = data;
+  const images = require.context('../../images', true);
+  const postImage = images(`./${post.imageURL}`);
+
   return (
-    <ThemeProvider theme={{ post_length: 600 }}>
-      <PostDetailPageWrapper>
-        <ViewPort img={postImg} />
-        <PostSideBox writer={writer} myInfo={myInfo} post={post} />
-      </PostDetailPageWrapper>
-    </ThemeProvider>
+    <PostProvider value={{ data, dispatch }}>
+      <ThemeProvider theme={{ post_length: 600 }}>
+        <PostDetailPageWrapper>
+          <ViewPort img={postImage} />
+          <PostSideBox />
+        </PostDetailPageWrapper>
+      </ThemeProvider>
+    </PostProvider>
   );
 }
 

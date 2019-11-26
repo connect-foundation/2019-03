@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ReplyLikes', {
+    return queryInterface.createTable('CommentLikes', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -19,11 +19,11 @@ module.exports = {
           key: 'id',
         },
       },
-      ReplyId: {
+      CommentId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Replies',
+          model: 'Comments',
           key: 'id',
         },
       },
@@ -31,6 +31,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('ReplyLikes');
+    return queryInterface.dropTable('CommentLikes');
   },
 };

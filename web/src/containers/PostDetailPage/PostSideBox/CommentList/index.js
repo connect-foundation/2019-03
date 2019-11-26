@@ -1,56 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { CommentListWrapper, MoreCommentButton } from './styles';
 import Comment from './Comment';
 import Icon from '../../../../components/Icon';
+import PostContext from '../../context';
+import useFetch from '../../../../useFetch';
 
 function CommentList() {
-  const comments = [
-    {
-      user: {
-        username: 'jack',
-        profileURL: null,
-      },
-      content:
-        ' 11월 고고쉼 후원판매☃️ 여러분! 오늘은 이캠 하나스퀘어의 피아노 라운지 옆에서 고고쉼 후원판매를 진행하고 있으니 많이많이 가주세요!!',
-      updatedAt: null,
-      likers: 32,
-      commentId: 111,
-    },
-    {
-      user: {
-        username: 'sam',
-        profileURL: null,
-      },
-      content:
-        ' 11월 고고쉼 후원판매☃️ 여러분! 오늘은 이캠 하나스퀘어의 피아노 라운지 옆에서 고고쉼 후원판매를 진행하고 있으니 많이많이 가주세요!!',
-      updatedAt: null,
-      likers: 32,
-      commentId: 111,
-    },
-    {
-      user: {
-        username: 'sam',
-        profileURL: null,
-      },
-      content:
-        ' 11월 고고쉼 후원판매☃️ 여러분! 오늘은 이캠 하나스퀘어의 피아노 라운지 옆에서 고고쉼 후원판매를 진행하고 있으니 많이많이 가주세요!!',
-      updatedAt: null,
-      likers: 32,
-      commentId: 111,
-    },
-    {
-      user: {
-        username: 'pet',
-        profileURL: null,
-      },
-      content:
-        ' 11월 고고쉼 후원판매☃️ 여러분! 오늘은 이캠 하나스퀘어의 피아노 라운지 옆에서 고고쉼 후원판매를 진행하고 있으니 많이많이 가주세요!!',
-      updatedAt: null,
-      likers: 32,
-      commentId: 111,
-    },
-  ];
+  const postId = useContext(PostContext).data.post.id;
+
+  const commentListQuery = `{
+    commentList(postId:${postId}, limit:10, offset:0){
+      content,
+      writer{
+        username,
+        profileImage
+      }
+    }
+  }`;
+
+  const [state, dispatch, refetch] = useFetch(commentListQuery);
+  const { loading, data, error } = state;
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!data) return null;
+  const comments = data.commentList;
 
   return (
     <CommentListWrapper>

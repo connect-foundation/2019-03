@@ -1,6 +1,5 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Reply = sequelize.define('Reply', {
+  const Comment = sequelize.define('Comment', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -17,9 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
   });
 
-  Reply.associate = function(models) {};
+  Comment.associate = function(models) {};
 
-  return Reply;
+  return Comment;
 };
