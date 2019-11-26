@@ -1,14 +1,13 @@
-import React, { useReducer, useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
-import reducer from './reducer';
 import { PostProvider } from './context';
 import useFetch from '../../useFetch';
 
-function PostDetailPage() {
+function PostDetailPage({ match }) {
   const postDetailQuery = `{
-    post(postURL:"123"){
+    post(postURL:"${match.params.postURL}"){
       id,
       content,
       writer{
@@ -19,8 +18,7 @@ function PostDetailPage() {
       likeCount
     }
   }`;
-
-  const [state, dispatch, refetch] = useFetch(postDetailQuery);
+  const [state, dispatch] = useFetch(postDetailQuery);
   const { loading, data, error } = state;
 
   if (loading) return <div>로딩중..</div>;
