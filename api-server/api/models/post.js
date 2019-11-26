@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     postURL: {
       type: DataTypes.STRING(2048),
     },
-    imageUrl: {
+    imageURL: {
       allowNull: true,
       type: DataTypes.STRING(2048),
     },
@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+    },
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
     },
   });
 

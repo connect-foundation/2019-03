@@ -1,6 +1,6 @@
 module.exports = {
   up: queryInterface => {
-    const replyList = [
+    const commentList = [
       {
         content: '정말 좋은 글이네요!',
         depth: null,
@@ -12,7 +12,7 @@ module.exports = {
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 100; i++) {
-      replyList.push({
+      commentList.push({
         content: '정말 좋은 글이네요!',
         depth: null,
         PostId: Math.ceil(Math.random() * 100),
@@ -20,10 +20,10 @@ module.exports = {
         UserId: Math.ceil(Math.random() * 100),
       });
     }
-    return queryInterface.bulkInsert('Replies', replyList, {});
+    return queryInterface.bulkInsert('Comments', commentList, {});
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('Replies', {});
+    return queryInterface.bulkDelete('Comments', {});
   },
 };
