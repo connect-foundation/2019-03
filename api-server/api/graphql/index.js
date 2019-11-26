@@ -5,6 +5,7 @@ const {
   postDetailQuery,
   commentQuery,
 } = require('./queries');
+const { createComment } = require('./mutations');
 
 const rootQuery = new GraphQLObjectType({
   name: 'rootQuery',
@@ -18,12 +19,14 @@ const rootQuery = new GraphQLObjectType({
 
 const rootMutation = new GraphQLObjectType({
   name: 'rootMutation',
-  fields: () => ({}),
+  fields: () => ({
+    createComment,
+  }),
 });
 
 const schema = new GraphQLSchema({
   query: rootQuery,
-  // mutation: rootMutation,
+  mutation: rootMutation,
 });
 
 module.exports = { schema };
