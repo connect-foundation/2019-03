@@ -8,11 +8,11 @@ import UtilityBlock from './UtilityBlock';
 import PostContext from '../context';
 
 function SideBox() {
-  const { state } = useContext(PostContext);
+  const { data } = useContext(PostContext);
   const myInfo = { username: 'sam' };
   return (
     <SideBoxWrapper>
-      <PostTop writer={state.post.writer} myInfo={myInfo} post={state.post} />
+      <PostTop writer={data.post.writer} myInfo={myInfo} post={data.post} />
       <PostContent />
       <UtilityBlock />
       <CommentInput />

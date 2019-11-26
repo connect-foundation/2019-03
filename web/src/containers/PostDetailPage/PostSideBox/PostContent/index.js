@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import PostContentWrapper from './PostContentWrapper';
 import PostText from './PostText';
@@ -15,7 +15,7 @@ function PostContent({ height }) {
   };
   return (
     <PostContentWrapper height={height}>
-      <PostText {...postContentTop} />
+      <PostText />
       <CommentList />
     </PostContentWrapper>
   );

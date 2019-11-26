@@ -3,16 +3,16 @@ import React from 'react';
 import { ContentWrapper, UpdatedTime, GrayButton } from './styles';
 import StyledLink from '../../../../../../components/StyledLink';
 
-function Content({ user, content, likerCount }) {
+function Content({ writer, content, likerCount }) {
   return (
     <ContentWrapper>
       <main>
         <h3>
           <StyledLink
-            to={`/${user.username}`}
+            to={`/${writer.username}`}
             style={{ display: 'inline-block' }}
           >
-            {user.username}
+            {writer.username}
           </StyledLink>
         </h3>
         <article>{content}</article>

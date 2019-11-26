@@ -4,13 +4,13 @@ import { CommentWrapper, ProfileWrapper } from './styles';
 import ProfileIcon from '../../../../../components/ProfileIcon';
 import Content from './Content';
 
-const Comment = ({ user, content, updatedAt, likerCount, commentId }) => {
+const Comment = ({ writer, content, updatedAt, commentId }) => {
   return (
     <CommentWrapper>
       <ProfileWrapper>
         <ProfileIcon />
       </ProfileWrapper>
-      <Content content={content} user={user} likerCount={likerCount} />
+      <Content content={content} writer={writer} />
     </CommentWrapper>
   );
 };

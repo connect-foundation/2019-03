@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
   UtilityBlockWrapper,
@@ -9,8 +9,10 @@ import {
 } from './styles';
 import Icon from '../../../../components/Icon';
 import LikeIcon from '../../../../components/LikeIcon';
+import Context from '../../context';
 
 function UtilityBlock() {
+  const { likeCount } = useContext(Context).data.post;
   return (
     <UtilityBlockWrapper>
       <IconList>
@@ -24,7 +26,7 @@ function UtilityBlock() {
           <Icon ratio={5} posX={0} posY={-250} />
         </IconWrapper>
       </IconList>
-      <LikerCount>좋아요 23개</LikerCount>
+      <LikerCount>좋아요 {likeCount}개</LikerCount>
       <TimePassed>1일 전</TimePassed>
     </UtilityBlockWrapper>
   );
