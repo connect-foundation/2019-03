@@ -31,7 +31,11 @@ const Alarm = ({ myInfo }) => {
         style={{ marginTop: '1px' }}
         onClick={clickAlarmIcon}
       />
-      <AlarmToolTip isVisible={isVisible} alarmResults={data && data.log} />
+      <AlarmToolTip
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        alarmResults={data && data.log}
+      />
     </>
   );
 };

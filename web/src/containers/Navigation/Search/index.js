@@ -67,7 +67,11 @@ const Search = () => {
   return (
     <SearchWrapper>
       <Input placeholder="검색" value={inputValue} onChange={onChange} />
-      <SearchToolTip isVisible={isVisible} searchResults={searchResults} />
+      <SearchToolTip
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        searchResults={searchResults}
+      />
       <Icon
         ratio={10}
         posX={-260}

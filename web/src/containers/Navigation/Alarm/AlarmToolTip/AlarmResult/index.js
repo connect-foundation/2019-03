@@ -1,47 +1,57 @@
 import React from 'react';
 import ProfileIcon from '../../../../../components/ProfileIcon';
-import AlarmResultWrapper from './AlarmResultWrapper';
-import AlarmContentWrapper from './AlarmContentWrapper';
-import AlarmActionWrapper from './AlarmActionWrapper';
-import AlarmProfileWrapper from './AlarmProfileWrapper';
+import StyledLink from '../../../../../components/StyledLink';
+import {
+  AlarmResultWrapper,
+  AlarmContentWrapper,
+  AlarmActionWrapper,
+  AlarmProfileWrapper,
+} from './styles';
 
-const AlarmResult = ({ result }) => {
+const AlarmResult = ({ result, isLast }) => {
+  const commonContent = (
+    <StyledLink to={`/${result.fromUser.username}`}>
+      <b>{result.fromUser.username}</b>
+    </StyledLink>
+  );
+
   let content;
   let action;
   switch (result.status) {
     case 1:
       content = (
-        <span>
-          <b>{result.fromUser.username}</b>님이 회원님을 팔로우하기
-          시작했습니다.
-        </span>
+        <span>{commonContent}님이 회원님을 팔로우하기 시작했습니다.</span>
       );
       action = null; // follow 버튼 삽입 예정
       break;
     case 2:
-      content = (
-        <span>
-          <b>{result.fromUser.username}</b>님이 회원님의 게시물을 좋아합니다.
-        </span>
+      content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
+      action = (
+        <StyledLink to={`/${result.post.postURL}`}>
+          <img src={result.post.imageURL} />
+        </StyledLink>
       );
-      action = <img src={result.post.imageURL} />;
       break;
     case 3:
       content = (
-        <span>
-          <b>{result.fromUser.username}</b>님이 댓글을 남겼습니다.
-        </span>
+        <span>{commonContent}님이 회원님의 게시물에 댓글을 남겼습니다.</span>
       );
-      action = <img src={result.post.imageURL} />;
+      action = (
+        <StyledLink to={`/p/${result.post.postURL}`}>
+          <img src={result.post.imageURL} />
+        </StyledLink>
+      );
       break;
     default:
       break;
   }
 
   return (
-    <AlarmResultWrapper>
+    <AlarmResultWrapper isLast={isLast}>
       <AlarmProfileWrapper>
-        <ProfileIcon imgSRc={result.fromUser.profileImage} />
+        <StyledLink to={`/${result.fromUser.username}`}>
+          <ProfileIcon imgSRc={result.fromUser.profileImage} />
+        </StyledLink>
       </AlarmProfileWrapper>
       <AlarmContentWrapper>{content}</AlarmContentWrapper>
       <AlarmActionWrapper>{action}</AlarmActionWrapper>

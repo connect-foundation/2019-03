@@ -3,8 +3,8 @@ import Search from './Search';
 import Icon from '../../components/Icon';
 import ProfileIcon from '../../components/ProfileIcon';
 import StyledLink from '../../components/StyledLink';
-import { NavBackground, NavItemGroup } from './styles';
 import Alarm from './Alarm';
+import { NavBackground, NavItemGroup } from './styles';
 
 const Navigation = ({ myInfo }) => {
   return (
@@ -28,7 +28,7 @@ const Navigation = ({ myInfo }) => {
           <StyledLink to="/nowpost">
             <Icon ratio={5} posX={-260} posY={-245} />
           </StyledLink>
-          <Alarm myInfo={{ username: '_so_02' }} />
+          <Alarm myInfo={{ username: '_lwzm8uszy' }} />
           <Icon
             ratio={5}
             posX={-130}
