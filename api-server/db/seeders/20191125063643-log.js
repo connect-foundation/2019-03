@@ -4,7 +4,7 @@ module.exports = {
       {
         From: 1,
         To: 2,
-        Post: 1,
+        PostId: 1,
         status: 1,
         updatedAt: new Date(),
       },
@@ -15,7 +15,7 @@ module.exports = {
       logList.push({
         From: Math.ceil(Math.random() * 100),
         To: Math.ceil(Math.random() * 100),
-        Post: Math.ceil(Math.random() * 100),
+        PostId: Math.ceil(Math.random() * 100),
         status: Math.ceil(Math.random() * 4),
         updatedAt: new Date(),
       });

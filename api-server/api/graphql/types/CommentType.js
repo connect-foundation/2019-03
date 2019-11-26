@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
 const { User } = require('../../../db');
-const { WriterType } = require('./WriterType');
+const { WriterType } = require('./index');
 
 const CommentType = new GraphQLObjectType({
   name: 'Comment',

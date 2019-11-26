@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
     },
   });
-  Log.associate = () => {};
+  Log.associate = models => {
+    Log.belongsTo(models.User, { foreignKey: 'From', targetKey: 'id' });
+    Log.belongsTo(models.User, { foreignKey: 'To', targetKey: 'id' });
+    Log.belongsTo(models.Post, { foreignKey: 'PostId', targetKey: 'id' });
+  };
   return Log;
 };

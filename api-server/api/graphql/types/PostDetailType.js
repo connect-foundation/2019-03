@@ -4,7 +4,7 @@ const {
   GraphQLInt,
   GraphQLID,
 } = require('graphql');
-const { WriterType } = require('./WriterType');
+const { WriterType } = require('./index');
 const { User, PostLike } = require('../../../db');
 
 const PostDetailType = new GraphQLObjectType({

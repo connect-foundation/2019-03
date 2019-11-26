@@ -23,8 +23,7 @@ module.exports = {
           key: 'id',
         },
       },
-      Post: {
-        allowNull: false,
+      PostId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Posts',
