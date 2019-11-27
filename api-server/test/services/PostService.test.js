@@ -5,9 +5,12 @@ const {
   getCommentCount,
   getLikerInfo,
   getLikerList,
+  setPostLike,
+  unsetPostLike,
+  checkUserLikePost,
 } = require('../../api/services/PostService');
 const { dbInit } = require('../data');
-const { sequelize } = require('../../db');
+const { sequelize, PostLike } = require('../../db');
 
 beforeAll(async () => {
   await dbInit();
@@ -64,5 +67,48 @@ describe('Post Servcie 테스트', () => {
     // console.log(JSON.stringify(likerList, null, 4));
     expect(likerList).not.toBeUndefined();
     expect(likerList.length).toEqual(4);
+  });
+
+  describe('checkUserLikePost 테스트', () => {
+    test('User1 Likes Post3', async () => {
+      const userId = 1;
+      const postId = 3;
+
+      const result = await checkUserLikePost(userId, postId);
+
+      expect(result).toBeTruthy();
+    });
+
+    test("User1 Don't Likes Post1", async () => {
+      const userId = 1;
+      const postId = 1;
+
+      const result = await checkUserLikePost(userId, postId);
+
+      expect(result).not.toBeTruthy();
+    });
+  });
+
+  describe('setPostLike & unsetPostLike', () => {
+    const userId = 2;
+    const postId = 3;
+
+    test('setPostLike 테스트', async () => {
+      await setPostLike(userId, postId);
+
+      const result = await PostLike.findOne({
+        where: { UserId: userId, PostId: postId },
+      });
+      expect(result).not.toBeNull();
+    });
+
+    test('unsetPostLike 테스트', async () => {
+      await unsetPostLike(userId, postId);
+
+      const result = await PostLike.findOne({
+        where: { UserId: userId, PostId: postId },
+      });
+      expect(result).toBeNull();
+    });
   });
 });

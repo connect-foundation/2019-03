@@ -10,8 +10,10 @@ const followingPostListQuery = {
       type: GraphQLInt,
     },
   },
-  resolve: async (_, { id }) => {
+  resolve: async (_, { id }, context) => {
     try {
+      // eslint-disable-next-line no-param-reassign
+      context.userId = id;
       const postList = await getFollowingPostList(id);
       return postList;
     } catch (err) {

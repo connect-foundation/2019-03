@@ -1,88 +1,18 @@
 import React from 'react';
 
-import {
-  PostWrapper,
-  PostImage,
-  IconGroup,
-  IconWrapper,
-  ShareIcon,
-  Comment,
-  CommentIcon,
-  CommentInputWrapper,
-  AllCommentShowText,
-  UpdatedTime,
-} from './styles';
+import PostWrapper from './PostWrapper';
 import PostTop from '../../../components/PostTop';
-import LikeIcon from '../../../components/LikeIcon';
-import LikeInfo from '../../../components/LikeInfo';
-import CommentInput from '../../../components/CommentInput';
-import { LikeProvider } from '../../../components/LikeIcon/Context/LikeContext';
-import { LikerInfoProvider } from '../../../components/LikeInfo/Context/LikerInfoContext';
-import { getDateDiffText } from '../../../utils';
-
-const likeInfoStyle = {
-  margin: '4px 15px',
-};
-
-const commentInputStyle = {
-  flex: '1 0 auto',
-  borderTop: 'none',
-  padding: '0 14.5px',
-};
+import PostMiddle from './PostMiiddle';
+import PostBottom from './PostBottom';
 
 const Post = ({ myInfo, post }) => {
-  const {
-    id,
-    imageURL,
-    postURL,
-    content,
-    writer,
-    commentCount,
-    commentList,
-    likerInfo,
-    updatedAt,
-  } = post;
-
-  const isLike = false; // likerInfo.isLike
-  const dateDiffText = getDateDiffText(+updatedAt, new Date());
+  const { writer } = post;
 
   return (
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
-      <LikerInfoProvider likerInfo={likerInfo}>
-        <LikeProvider isLike={isLike}>
-          <PostImage imgSrc={imageURL} />
-          <IconGroup>
-            <IconWrapper>
-              <LikeIcon ratio={5} />
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon postURL={postURL} />
-            </IconWrapper>
-            <IconWrapper>
-              <ShareIcon />
-            </IconWrapper>
-          </IconGroup>
-          <LikeInfo myInfo={myInfo} postId={id} style={likeInfoStyle} />
-        </LikeProvider>
-      </LikerInfoProvider>
-      <Comment commenter={writer.username} isMainText>
-        {content}
-      </Comment>
-      <AllCommentShowText postURL={postURL} commentCount={commentCount} />
-      {commentList.map(c => {
-        const { content: comment, writer: commenter } = c;
-        const { username } = commenter;
-        return (
-          <Comment key={username} commenter={username}>
-            {comment}
-          </Comment>
-        );
-      })}
-      <UpdatedTime>{dateDiffText}</UpdatedTime>
-      <CommentInputWrapper>
-        <CommentInput style={commentInputStyle} post={post} />
-      </CommentInputWrapper>
+      <PostMiddle myInfo={myInfo} post={post} />
+      <PostBottom post={post} />
     </PostWrapper>
   );
 };

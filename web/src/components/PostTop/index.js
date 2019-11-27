@@ -16,7 +16,7 @@ const PostTop = ({ writer, myInfo, postURL }) => {
       <PostTopWrapper>
         <StyledLink to={`/${writer.username}`}>
           <div className="user">
-            <Profile imgSrc={writer.profileImage} />
+            <Profile imageURL={writer.profileImage} />
             <span className="username">{writer.username}</span>
           </div>
         </StyledLink>
@@ -29,7 +29,7 @@ const PostTop = ({ writer, myInfo, postURL }) => {
         setIsVisible={setIsVisible}
         writer={writer}
         myInfo={myInfo}
-        post={postURL}
+        postURL={postURL}
       />
     </>
   );

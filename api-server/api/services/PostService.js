@@ -30,6 +30,18 @@ async function getFollowingPostList(userId) {
   return postList;
 }
 
+async function checkUserLikePost(userId, postId) {
+  const result = await PostLike.findOne({
+    attributes: ['id'],
+    where: {
+      UserId: userId,
+      PostId: postId,
+    },
+  });
+
+  return result !== null;
+}
+
 async function getTwoComments(postId) {
   const twoComments = await Comment.findAll({
     where: { PostId: postId },
@@ -73,7 +85,7 @@ async function getLikerInfo(postId) {
 }
 
 async function getLikerList(postId) {
-  const likerList = PostLike.findAll({
+  const likerList = await PostLike.findAll({
     attributes: ['id'],
     where: { PostId: postId },
     include: {
@@ -86,10 +98,27 @@ async function getLikerList(postId) {
   return likerList;
 }
 
+async function setPostLike(userId, postId) {
+  await PostLike.create({
+    UserId: userId,
+    PostId: postId,
+    updatedAt: new Date(),
+  });
+}
+
+async function unsetPostLike(userId, postId) {
+  await PostLike.destroy({
+    where: { PostId: postId, UserId: userId },
+  });
+}
+
 module.exports = {
   getFollowingPostList,
+  checkUserLikePost,
   getTwoComments,
   getCommentCount,
   getLikerInfo,
   getLikerList,
+  setPostLike,
+  unsetPostLike,
 };

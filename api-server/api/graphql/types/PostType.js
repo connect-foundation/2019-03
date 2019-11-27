@@ -3,11 +3,13 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLString,
+  GraphQLBoolean,
 } = require('graphql');
 const {
   getCommentCount,
   getTwoComments,
   getLikerInfo,
+  checkUserLikePost,
 } = require('../../services/PostService');
 const { LikerInfoType } = require('./LikerInfoType');
 const { WriterType } = require('./WriterType');
@@ -34,6 +36,18 @@ const PostType = new GraphQLObjectType({
     writer: {
       type: WriterType,
       resolve: ({ User }) => User,
+    },
+    isLike: {
+      type: GraphQLBoolean,
+      resolve: ({ id: postId }, _, context) => {
+        try {
+          const { userId } = context;
+          const isLike = checkUserLikePost(userId, postId);
+          return isLike;
+        } catch (err) {
+          return { error: err.message };
+        }
+      },
     },
     commentCount: {
       type: GraphQLInt,

@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ModalContent, StyledLink, Modal } from './styles';
 
-const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, post }) => {
+const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   const clickClose = () => {
     setIsVisible(false);
   };
@@ -14,10 +14,10 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, post }) => {
       {writer.username !== myInfo.username && writer.isFollow && (
         <ModalContent followcancel>팔로우 취소</ModalContent>
       )}
-      <StyledLink to={`/p/${post.postURL}`}>
+      <StyledLink to={`/p/${postURL}`}>
         <ModalContent>게시물로 이동</ModalContent>
       </StyledLink>
-      <CopyToClipboard text={`localhost:3000/p/${post.postURL}`}>
+      <CopyToClipboard text={`localhost:3000/p/${postURL}`}>
         <ModalContent>링크 복사하기</ModalContent>
       </CopyToClipboard>
       <ModalContent cancel onClick={clickClose}>

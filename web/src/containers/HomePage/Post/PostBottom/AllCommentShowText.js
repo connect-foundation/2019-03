@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import StyledLink from '../../../components/StyledLink';
+import StyledLink from '../../../../components/StyledLink';
 
 const AllCommentShowTextSpan = styled.span`
   margin-left: 15px;

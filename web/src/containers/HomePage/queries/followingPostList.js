@@ -4,6 +4,8 @@ const followingPostListQuery = myId => `{
     imageURL
     postURL
     content
+    isLike
+    updatedAt
     writer {
       username
       isFollow
@@ -11,6 +13,7 @@ const followingPostListQuery = myId => `{
     }
     commentCount
     commentList {
+      id
       content
       writer {
         username
@@ -21,7 +24,6 @@ const followingPostListQuery = myId => `{
       username	
       profileImage
     }
-    updatedAt
   }
 }`;
 

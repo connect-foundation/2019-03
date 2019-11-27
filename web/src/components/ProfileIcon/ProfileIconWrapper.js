@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
 const profileImageStyle = css`
-  ${({ img, ratio }) => {
+  ${({ imageURL, ratio }) => {
     const PROFILE_LENGTH = (32 * ratio) / 10;
     return css`
-      background-image: url(${img});
+      background-image: url(${imageURL});
       background-size: cover;
       background-repeat: no-repeat;
       width: ${PROFILE_LENGTH}px;
@@ -14,7 +14,7 @@ const profileImageStyle = css`
 `;
 
 const viewportStyle = css`
-  ${({ ratio, theme }) => {
+  ${({ ratio }) => {
     const PROFILE_LENGTH = (32 * ratio) / 10;
     return css`
       width: ${PROFILE_LENGTH}px;
