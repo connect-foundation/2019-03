@@ -14,32 +14,26 @@ const AlarmResult = ({ result, isLast }) => {
       <b>{result.fromUser.username}</b>
     </StyledLink>
   );
+  let action = (
+    <StyledLink to={`/${result.post.postURL}`}>
+      <img src={result.post.imageURL} />
+    </StyledLink>
+  );
 
   let content;
-  let action;
   switch (result.status) {
-    case 1:
+    case 'follow':
       content = (
         <span>{commonContent}님이 회원님을 팔로우하기 시작했습니다.</span>
       );
       action = null; // follow 버튼 삽입 예정
       break;
-    case 2:
+    case 'like':
       content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
-      action = (
-        <StyledLink to={`/${result.post.postURL}`}>
-          <img src={result.post.imageURL} />
-        </StyledLink>
-      );
       break;
-    case 3:
+    case 'comment':
       content = (
         <span>{commonContent}님이 회원님의 게시물에 댓글을 남겼습니다.</span>
-      );
-      action = (
-        <StyledLink to={`/p/${result.post.postURL}`}>
-          <img src={result.post.imageURL} />
-        </StyledLink>
       );
       break;
     default:

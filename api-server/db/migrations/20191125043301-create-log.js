@@ -32,7 +32,7 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       updatedAt: {
         allowNull: false,

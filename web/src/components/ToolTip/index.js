@@ -6,6 +6,8 @@ import {
   ToolTipBackground,
 } from './styles';
 
+const stopPropagation = e => e.stopPropagation();
+
 const ToolTip = ({
   onClick,
   className,
@@ -13,8 +15,6 @@ const ToolTip = ({
   arrowStyle,
   children,
 }) => {
-  const stopPropagation = e => e.stopPropagation();
-
   return (
     <ToolTipBackground onClick={onClick}>
       <ToolTipWrapper
