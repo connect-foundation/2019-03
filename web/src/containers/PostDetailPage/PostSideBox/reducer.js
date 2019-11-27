@@ -1,7 +1,6 @@
 import produce from 'immer';
 
 function reducer(state, action) {
-  console.log('일해라');
   switch (action.type) {
     case 'LOADING':
       return {

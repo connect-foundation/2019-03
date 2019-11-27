@@ -1,7 +1,6 @@
 import { useReducer } from 'react';
 
 function defaultReducer(state, action) {
-  console.log(action);
   switch (action.type) {
     case 'LOADING':
       return {
