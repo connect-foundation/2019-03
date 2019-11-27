@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 
 function defaultReducer(state, action) {
+  console.log(action);
   switch (action.type) {
     case 'LOADING':
       return {
@@ -25,7 +26,7 @@ function defaultReducer(state, action) {
   }
 }
 
-function useAsync(reducer = defaultReducer) {
+function useFetch(reducer = defaultReducer) {
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
@@ -54,10 +55,10 @@ function useAsync(reducer = defaultReducer) {
     }
   };
 
-  return [state, dispatch, fetchData];
+  return { state, dispatch, fetchData };
 }
 
-export default useAsync;
+export default useFetch;
 
 /**
  * honor code: https://react.vlpt.us/

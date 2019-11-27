@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
-import useFetch from '../../useFetch';
+import { useFetch } from '../../hooks';
 
 function PostDetailPage({ match }) {
   const postDetailQuery = `{
@@ -18,7 +18,11 @@ function PostDetailPage({ match }) {
       likeCount
     }
   }`;
-  const [state, dispatch] = useFetch(postDetailQuery);
+  const { state, dispatch, fetchData } = useFetch();
+  useEffect(() => {
+    fetchData(postDetailQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { loading, data, error } = state;
 
   if (loading) return <div>로딩중..</div>;

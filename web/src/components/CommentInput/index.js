@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';
-import useMutation from '../../useMutation';
+import { useFetch } from '../../hooks';
 
 function CommentInput({ style, className, dispatch, post }) {
-  const [state, fetchMutation] = useMutation();
+  const { state, fetchData } = useFetch();
   const { loading, data, error } = state;
 
   const [text, setText] = useState('');
@@ -34,7 +34,7 @@ function CommentInput({ style, className, dispatch, post }) {
   };
 
   const submitHandler = () => {
-    fetchMutation(insertCommentQuery, () => {
+    fetchData(insertCommentQuery, () => {
       dispatch({
         type: 'NEWCOMMENT',
         content: text,
