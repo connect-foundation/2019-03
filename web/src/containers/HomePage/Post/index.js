@@ -18,6 +18,7 @@ import LikeInfo from '../../../components/LikeInfo';
 import CommentInput from '../../../components/CommentInput';
 import { LikeProvider } from '../../../components/LikeIcon/Context/LikeContext';
 import { LikerInfoProvider } from '../../../components/LikeInfo/Context/LikerInfoContext';
+import { getDateDiffText } from '../../../utils';
 
 const likeInfoStyle = {
   margin: '4px 15px',
@@ -42,6 +43,8 @@ const Post = ({ myInfo, post }) => {
   } = post;
 
   const isLike = false; // likerInfo.isLike
+  const dateDiffText = getDateDiffText(+updatedAt, new Date());
+
   return (
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
@@ -75,7 +78,7 @@ const Post = ({ myInfo, post }) => {
           </Comment>
         );
       })}
-      <UpdatedTime>{updatedAt}</UpdatedTime>
+      <UpdatedTime>{dateDiffText}</UpdatedTime>
       <CommentInputWrapper>
         <CommentInput style={commentInputStyle} post={post} />
       </CommentInputWrapper>

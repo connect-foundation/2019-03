@@ -16,9 +16,6 @@ const LikeInfo = ({ myInfo, className, style }) => {
 
   const isMany = likerCount >= 2;
   const isOther = username !== myInfo.username;
-  // const { username, profileImage: imgSrc } = isMany
-  //   ? likerInfo.find(liker => liker.username !== myInfo.username)
-  //   : likerInfo[0];
 
   return (
     <LikeInfoWrapper className={className} style={style}>

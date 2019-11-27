@@ -32,15 +32,7 @@ async function getFollowingPostList(userId) {
 
 async function getTwoComments(postId) {
   const twoComments = await Comment.findAll({
-    include: [
-      {
-        model: Post,
-        attributes: [],
-        where: {
-          id: postId,
-        },
-      },
-    ],
+    where: { PostId: postId },
     order: [['updatedAt', 'DESC']],
     limit: 2,
   });
@@ -58,15 +50,11 @@ async function getLikerInfo(postId) {
     attributes: ['id', 'updatedAt'],
     include: [
       {
-        model: Post,
-        attributes: [],
-      },
-      {
         model: User,
         attributes: ['username', 'profileImage'],
       },
     ],
-    where: { '$Post.id$': postId },
+    where: { PostId: postId },
     order: [['updatedAt', 'ASC']],
   });
 

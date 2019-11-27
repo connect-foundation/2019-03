@@ -21,12 +21,11 @@ const LikeIcon = ({ ratio, style }) => {
   const likerInfoDispatch = useLikerInfoDispatch();
 
   const onToggle = () => {
-    const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerInfoDispatch({
-      type: likerListActionType,
-      liker: { username: 'test1', name: 'aaaa' },
-    });
     likeDispatch({ type: TOGGLE_LIKE_ICON });
+
+    if (!likerInfoDispatch) return;
+    const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
+    likerInfoDispatch({ type: likerListActionType });
   };
 
   return (

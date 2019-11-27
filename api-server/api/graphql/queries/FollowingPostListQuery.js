@@ -1,6 +1,6 @@
 const { GraphQLList, GraphQLInt } = require('graphql');
 
-const { PostType } = require('../types/PostType');
+const { PostType } = require('../types');
 const { getFollowingPostList } = require('../../services/PostService');
 
 const followingPostListQuery = {

@@ -10,8 +10,9 @@ import LikeIcon from '../../../../components/LikeIcon';
 import useComment from './hooks/useComment';
 import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
 
-const likcIconStyle = {
+const likeIconStyle = {
   marginTop: '2px',
+  marginLeft: 'auto',
   alignSelf: 'flex-start',
 };
 
@@ -29,7 +30,7 @@ const Comment = ({ isMainText, commenter, children }) => {
       </CommentMoreButton>
       {isMainText || (
         <LikeProvider>
-          <LikeIcon ratio={10} style={likcIconStyle} />
+          <LikeIcon ratio={10} style={likeIconStyle} />
         </LikeProvider>
       )}
     </CommentWrapper>
