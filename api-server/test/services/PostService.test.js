@@ -4,6 +4,7 @@ const {
   getTwoComments,
   getCommentCount,
   getLikerInfo,
+  getLikerList,
 } = require('../../api/services/PostService');
 const { dbInit } = require('../data');
 const { sequelize } = require('../../db');
@@ -53,5 +54,15 @@ describe('Post Servcie 테스트', () => {
     expect(likerCount).toEqual(4);
     expect(username).toEqual('ss23');
     expect(profileImage).toEqual('profile4');
+  });
+
+  test('getLikerList 테스트', async () => {
+    const postId = 4;
+
+    const likerList = await getLikerList(postId);
+
+    // console.log(JSON.stringify(likerList, null, 4));
+    expect(likerList).not.toBeUndefined();
+    expect(likerList.length).toEqual(4);
   });
 });

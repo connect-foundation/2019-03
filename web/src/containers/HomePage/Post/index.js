@@ -32,6 +32,7 @@ const commentInputStyle = {
 
 const Post = ({ myInfo, post }) => {
   const {
+    id,
     imageURL,
     postURL,
     content,
@@ -62,7 +63,7 @@ const Post = ({ myInfo, post }) => {
               <ShareIcon />
             </IconWrapper>
           </IconGroup>
-          <LikeInfo myInfo={myInfo} style={likeInfoStyle} />
+          <LikeInfo myInfo={myInfo} postId={id} style={likeInfoStyle} />
         </LikeProvider>
       </LikerInfoProvider>
       <Comment commenter={writer.username} isMainText>

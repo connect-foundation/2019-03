@@ -6,6 +6,7 @@ const {
   commentQuery,
   logQuery,
   followingPostListQuery,
+  likerListQuery,
 } = require('./queries');
 const { createComment } = require('./mutations');
 
@@ -18,6 +19,7 @@ const rootQuery = new GraphQLObjectType({
     commentList: commentQuery,
     log: logQuery,
     followingPostList: followingPostListQuery,
+    likerList: likerListQuery,
   }),
 });
 

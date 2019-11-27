@@ -72,9 +72,24 @@ async function getLikerInfo(postId) {
   return likerInfo;
 }
 
+async function getLikerList(postId) {
+  const likerList = PostLike.findAll({
+    attributes: ['id'],
+    where: { PostId: postId },
+    include: {
+      model: User,
+      attributes: ['username', 'name', 'profileImage'],
+    },
+    order: [['updatedAt', 'ASC']],
+  });
+
+  return likerList;
+}
+
 module.exports = {
   getFollowingPostList,
   getTwoComments,
   getCommentCount,
   getLikerInfo,
+  getLikerList,
 };

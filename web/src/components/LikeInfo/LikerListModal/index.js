@@ -1,16 +1,20 @@
 import React from 'react';
 
-import { Modal, LikerList, Header } from './styles';
+import { Modal, Liker, LikerListWapper, Header } from './styles';
 
 const ModalStyle = {
   width: '400px',
 };
 
-const LikerListModal = ({ onClick }) => {
+const LikerListModal = ({ likerList, onClick }) => {
   return (
     <Modal style={ModalStyle} onClick={onClick}>
       <Header onClick={onClick} />
-      <LikerList likerList={[]} />
+      <LikerListWapper>
+        {likerList.map(liker => (
+          <Liker key={liker.id} liker={liker} />
+        ))}
+      </LikerListWapper>
     </Modal>
   );
 };
