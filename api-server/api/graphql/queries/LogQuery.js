@@ -11,6 +11,7 @@ const logQuery = {
     username: { type: GraphQLString },
   },
   resolve: (log, args) => {
+    console.log(111);
     return Log.findAll({
       include: [
         {

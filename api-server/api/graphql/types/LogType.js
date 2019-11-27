@@ -1,5 +1,6 @@
 const { GraphQLObjectType, GraphQLInt } = require('graphql');
-const { AlarmFromUserType, AlarmPostType } = require('./index');
+const { AlarmFromUserType } = require('./AlarmFromUserType');
+const { AlarmPostType } = require('./AlarmPostType');
 const { User, Post } = require('../../../db');
 
 const LogType = new GraphQLObjectType({
