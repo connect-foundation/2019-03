@@ -11,7 +11,7 @@ const myInfo = {
 };
 
 function HomePage() {
-  const [state, dispatch] = useFetch(followingPostListQuery(51));
+  const [state, dispatch] = useFetch(followingPostListQuery(41));
   const { loading, data, error } = state;
 
   if (loading) return <div>로딩중..</div>;

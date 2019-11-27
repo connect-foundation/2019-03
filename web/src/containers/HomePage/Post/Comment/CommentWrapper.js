@@ -5,7 +5,7 @@ const CommentWrapper = styled.div`
   align-items: center;
 
   font-size: 0.95rem;
-  margin: 0px 15px;
+  margin: 2px 15px 0px;
 `;
 
 export default CommentWrapper;

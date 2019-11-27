@@ -5,7 +5,6 @@ import StyledLink from '../../../components/StyledLink';
 
 const AllCommentShowTextSpan = styled.span`
   margin-left: 15px;
-  margin-bottom: 10px;
   padding: 0px;
 
   line-height: 1;
@@ -14,12 +13,17 @@ const AllCommentShowTextSpan = styled.span`
 `;
 
 const AllCommentShowText = ({ postURL, commentCount }) => {
+  const isVisible = commentCount >= 3;
   return (
-    <StyledLink to={`/p/${postURL}`}>
-      <AllCommentShowTextSpan>
-        댓글 {commentCount}개 모두 보기
-      </AllCommentShowTextSpan>
-    </StyledLink>
+    <>
+      {isVisible && (
+        <StyledLink to={`/p/${postURL}`} style={{ marginBottom: '8px' }}>
+          <AllCommentShowTextSpan>
+            댓글 {commentCount}개 모두 보기
+          </AllCommentShowTextSpan>
+        </StyledLink>
+      )}
+    </>
   );
 };
 

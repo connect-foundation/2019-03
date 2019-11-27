@@ -7,7 +7,7 @@ import {
   Commenter,
 } from './styles';
 import LikeIcon from '../../../../components/LikeIcon';
-import useComment from './useComment';
+import useComment from './hooks/useComment';
 import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
 
 const likcIconStyle = {
