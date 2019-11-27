@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Post.associate = function(models) {};
+  Post.associate = function(models) {
+    Post.hasMany(models.Log, { foreignKey: 'PostId', soureKey: 'id' });
+  };
 
   return Post;
 };

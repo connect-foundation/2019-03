@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileIcon from '../../../../../components/ProfileIcon';
 import { SearchResultWrapper, ResultInfo } from './styles';
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, isLast }) => {
   const imgSrc = result.type === 'user' ? undefined : 'hashtag.png';
   const id = result.type === 'user' ? result.username : `# ${result.name}`;
   const option =
@@ -11,7 +11,7 @@ const SearchResult = ({ result }) => {
     ) : null;
 
   return (
-    <SearchResultWrapper>
+    <SearchResultWrapper isLast={isLast}>
       <div>
         <ProfileIcon imgSrc={imgSrc} />
       </div>

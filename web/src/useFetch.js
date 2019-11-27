@@ -25,7 +25,9 @@ function defaultReducer(state, action) {
   }
 }
 
-function useAsync(query, reducer = defaultReducer, deps = [], skip = false) {
+function useAsync(query, reducer, deps = [], skip = false) {
+  // eslint-disable-next-line no-param-reassign
+  reducer = reducer && defaultReducer;
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,

@@ -48,6 +48,7 @@ const Search = () => {
       let results = [];
       Object.keys(resultResponseJson.data).map(element => {
         results = results.concat(resultResponseJson.data[element]);
+        return results;
       });
 
       if (results.length === 0) throw new Error();
@@ -66,7 +67,11 @@ const Search = () => {
   return (
     <SearchWrapper>
       <Input placeholder="검색" value={inputValue} onChange={onChange} />
-      <SearchToolTip isVisible={isVisible} searchResults={searchResults} />
+      <SearchToolTip
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        searchResults={searchResults}
+      />
       <Icon
         ratio={10}
         posX={-260}

@@ -4,6 +4,7 @@ const {
   searchHashtagQuery,
   postDetailQuery,
   commentQuery,
+  logQuery,
 } = require('./queries');
 const { createComment } = require('./mutations');
 
@@ -14,6 +15,7 @@ const rootQuery = new GraphQLObjectType({
     searchHashtag: searchHashtagQuery,
     post: postDetailQuery,
     commentList: commentQuery,
+    log: logQuery,
   }),
 });
 
