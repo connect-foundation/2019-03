@@ -26,9 +26,14 @@ function SideBox() {
     }
   }`;
 
-  useEffect(() => {
+  const requestMoreComments = () => {
+    if (state.loading) return;
     fetchData(commentListQuery);
     setOffset(offset + 10);
+  };
+
+  useEffect(() => {
+    requestMoreComments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,7 +43,7 @@ function SideBox() {
     profileImage: 'https://i.pravatar.cc/150?img=7',
   };
   return (
-    <CommentProvider value={{ state, dispatch }}>
+    <CommentProvider value={{ state, dispatch, requestMoreComments }}>
       <SideBoxWrapper>
         <PostTop writer={post.writer} myInfo={myInfo} post={post} />
         <PostContent />

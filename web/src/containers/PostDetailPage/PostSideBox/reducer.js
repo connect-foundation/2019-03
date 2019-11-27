@@ -11,7 +11,12 @@ function reducer(state, action) {
     case 'SUCCESS':
       return {
         loading: false,
-        data: state.data ? state.data.concat(action.data) : action.data,
+        data: {
+          ...state.data,
+          commentList: state.data
+            ? state.data.commentList.concat(action.data.commentList)
+            : action.data.commentList,
+        },
         error: null,
       };
     case 'ERROR':
