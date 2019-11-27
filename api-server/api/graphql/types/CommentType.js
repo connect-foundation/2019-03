@@ -1,10 +1,19 @@
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+} = require('graphql');
 const { User } = require('../../../db');
 const { WriterType } = require('./WriterType');
 
 const CommentType = new GraphQLObjectType({
   name: 'Comment',
   fields: () => ({
+    id: {
+      type: GraphQLID,
+      resolve: post => post.id,
+    },
     content: {
       type: GraphQLString,
       resolve: comment => comment.content,

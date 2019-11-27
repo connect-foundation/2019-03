@@ -21,7 +21,6 @@ function reducer(state, action) {
         error: action.error,
       };
     case 'NEWCOMMENT':
-      console.log(action);
       return produce(state, draft => {
         draft.data.commentList.unshift({
           content: action.content,

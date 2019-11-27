@@ -1,6 +1,6 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer } from 'react';
 
-function reducer(state, action) {
+function defaultReducer(state, action) {
   switch (action.type) {
     case 'LOADING':
       return {
@@ -25,14 +25,14 @@ function reducer(state, action) {
   }
 }
 
-function useAsync() {
+function useFetch(reducer = defaultReducer) {
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
     error: false,
   });
 
-  const callback = query =>
+  const fetchToAPI = query =>
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
       headers: {
@@ -42,22 +42,22 @@ function useAsync() {
       body: JSON.stringify({ query }),
     });
 
-  const fetchMutation = async (query, fn) => {
+  const fetchData = async (query, callback = () => {}) => {
     dispatch({ type: 'LOADING' });
     try {
-      const response = await callback(query);
+      const response = await fetchToAPI(query);
       const { data } = await response.json();
       dispatch({ type: 'SUCCESS', data });
-      fn();
+      callback();
     } catch (e) {
       dispatch({ type: 'ERROR', error: e });
     }
   };
 
-  return [state, fetchMutation];
+  return { state, dispatch, fetchData };
 }
 
-export default useAsync;
+export default useFetch;
 
 /**
  * honor code: https://react.vlpt.us/

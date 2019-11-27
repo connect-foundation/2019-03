@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SideBoxWrapper from './SideBoxWrapper';
 
 import PostTop from '../../../components/PostTop';
@@ -6,7 +6,7 @@ import PostContent from './PostContent';
 import CommentInput from '../../../components/CommentInput';
 import UtilityBlock from './UtilityBlock';
 import PostContext from '../context';
-import useFetch from '../../../useFetch';
+import { useFetch } from '../../../hooks';
 import reducer from './reducer';
 import { CommentProvider } from './context';
 
@@ -14,6 +14,7 @@ function SideBox() {
   const postId = useContext(PostContext).data.post.id;
   const commentListQuery = `{
     commentList(postId:${postId}, limit:10, offset:0){
+      id,
       content,
       writer{
         username,
@@ -21,8 +22,11 @@ function SideBox() {
       }
     }
   }`;
-
-  const [state, dispatch] = useFetch(commentListQuery, reducer);
+  const { state, dispatch, fetchData } = useFetch(reducer);
+  useEffect(() => {
+    fetchData(commentListQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { post } = useContext(PostContext).data;
   const myInfo = {
