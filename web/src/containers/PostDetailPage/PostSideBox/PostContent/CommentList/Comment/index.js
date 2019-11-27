@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { CommentWrapper, ProfileWrapper, LikeIconWrapper } from './styles';
-import ProfileIcon from '../../../../../components/ProfileIcon';
-import LikeIcon from '../../../../../components/LikeIcon';
+import ProfileIcon from '../../../../../../components/ProfileIcon';
+import LikeIcon from '../../../../../../components/LikeIcon';
 import Content from './Content';
 
-const Comment = ({ writer, content, updatedAt, likerCount, commentId }) => {
+const Comment = ({ writer, content, likerCount }) => {
   return (
     <CommentWrapper>
       <ProfileWrapper>

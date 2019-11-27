@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SideBoxWrapper from './SideBoxWrapper';
 
 import PostTop from '../../../components/PostTop';
@@ -12,8 +12,11 @@ import { CommentProvider } from './context';
 
 function SideBox() {
   const postId = useContext(PostContext).data.post.id;
+  const [offset, setOffset] = useState(0);
+  const { state, dispatch, fetchData } = useFetch(reducer);
+
   const commentListQuery = `{
-    commentList(postId:${postId}, limit:10, offset:0){
+    commentList(postId:${postId}, limit:10, offset:${offset}){
       id,
       content,
       writer{
@@ -22,9 +25,10 @@ function SideBox() {
       }
     }
   }`;
-  const { state, dispatch, fetchData } = useFetch(reducer);
+
   useEffect(() => {
     fetchData(commentListQuery);
+    setOffset(offset + 10);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
