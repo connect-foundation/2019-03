@@ -5,6 +5,7 @@
   "dependencies": {
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "immer": "^5.0.0",
     "polished": "^3.4.2",
     "react": "^16.11.0",
     "react-copy-to-clipboard": "^5.0.2",

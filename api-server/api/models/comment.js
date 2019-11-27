@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
+    PostId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
   });
 
   Comment.associate = function(models) {};

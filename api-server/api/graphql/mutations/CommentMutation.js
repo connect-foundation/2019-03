@@ -1,28 +1,39 @@
 const { GraphQLString, GraphQLInt, GraphQLNonNull } = require('graphql');
 
-const { CommentType } = require('../types');
-const { Note } = require('../../models');
+const { CommentType } = require('../types/CommentType');
+const { Comment } = require('../../../db');
 
-const createNote = {
-  type: NoteType,
-  description: 'The mutation that allows you to create a new Note',
+const createComment = {
+  type: CommentType,
+  description: 'The mutation that allows you to create a new Comment',
   args: {
-    userId: {
-      name: 'userId',
-      type: new GraphQLNonNull(GraphQLInt),
-    },
-    note: {
-      name: 'note',
+    content: {
+      name: 'content',
       type: new GraphQLNonNull(GraphQLString),
     },
+    depth: {
+      name: 'depth',
+      type: GraphQLInt,
+    },
+    PostId: {
+      name: 'PostId',
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+    UserId: {
+      name: 'UserId',
+      type: new GraphQLNonNull(GraphQLInt),
+    },
   },
-  resolve: (value, { userId, note }) =>
-    Note.create({
-      userId,
-      note,
+  resolve: (value, { content, depth, PostId, UserId }) =>
+    Comment.create({
+      content,
+      depth,
+      PostId,
+      UserId,
+      updatedAt: new Date(),
     }),
 };
 
 module.exports = {
-  createNote,
+  createComment,
 };
