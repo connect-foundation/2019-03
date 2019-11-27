@@ -14,6 +14,7 @@ function SideBox() {
   const postId = useContext(PostContext).data.post.id;
   const commentListQuery = `{
     commentList(postId:${postId}, limit:10, offset:0){
+      id,
       content,
       writer{
         username,
