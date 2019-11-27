@@ -8,6 +8,7 @@ const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [state, dispatch, fetchData] = useFetch(
     alarmQuery(myInfo.username),
+    true,
     [],
     true,
   );
