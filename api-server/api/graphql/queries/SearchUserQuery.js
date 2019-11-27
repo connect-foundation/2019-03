@@ -1,6 +1,6 @@
 const { GraphQLString, GraphQLList } = require('graphql');
 
-const { SearchUserType } = require('../types/SearchUserType');
+const { SearchUserType } = require('../types');
 const { User, Sequelize } = require('../../../db');
 
 const { Op } = Sequelize;

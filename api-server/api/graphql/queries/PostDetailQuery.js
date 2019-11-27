@@ -1,6 +1,6 @@
 const { GraphQLString } = require('graphql');
 
-const { PostDetailType } = require('../types/PostDetailType');
+const { PostDetailType } = require('../types');
 const { Post } = require('../../../db');
 
 const postDetailQuery = {

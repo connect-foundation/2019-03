@@ -1,6 +1,6 @@
 const { GraphQLString, GraphQLList } = require('graphql');
 
-const { SearchHashtagType } = require('../types/SearchHashtagType');
+const { SearchHashtagType } = require('../types');
 const { HashTag, Sequelize } = require('../../../db');
 
 const { Op } = Sequelize;

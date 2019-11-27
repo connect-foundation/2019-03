@@ -1,8 +1,10 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
-const { searchUserQuery } = require('./queries/SearchUserQuery');
-const { searchHashtagQuery } = require('./queries/SearchHashtagQuery');
-const { postDetailQuery } = require('./queries/PostDetailQuery');
-const { commentQuery } = require('./queries/CommentQuery');
+const {
+  searchUserQuery,
+  searchHashtagQuery,
+  postDetailQuery,
+  commentQuery,
+} = require('./queries');
 
 const rootQuery = new GraphQLObjectType({
   name: 'rootQuery',
