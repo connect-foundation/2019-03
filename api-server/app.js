@@ -40,8 +40,6 @@ app.use(
 );
 
 app.use('/upload', (req, res, next) => {
-  console.log(req.body);
-
   upload(req, res, err => {
     if (err instanceof multer.MulterError) {
       return next(err);
@@ -53,9 +51,9 @@ app.use('/upload', (req, res, next) => {
     Post.create({
       imageURL: req.file.key,
       postURL: req.file.etag,
-      content: '소영이가 최고야',
+      content: req.body.content,
       updatedAt: new Date(),
-      UserId: 1,
+      UserId: +req.body.userId,
     });
     return res.json({ data: 'success' });
   });

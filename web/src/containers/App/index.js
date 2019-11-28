@@ -10,7 +10,7 @@ import NewPostPage from '../NewPostPage';
 import Navigation from '../Navigation';
 
 export default function App() {
-  const myInfo = { username: 'sam' };
+  const myInfo = { id: 1, username: 'sam' };
   return (
     <AppWrapper>
       <ThemeProvider

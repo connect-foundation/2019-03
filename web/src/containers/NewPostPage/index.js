@@ -14,21 +14,23 @@ const readFile = file => {
   });
 };
 
-const blobToFile = (theBlob, fileName) => {
+const blobToFile = (theBlob, fileName, content) => {
   // A Blob() is almost a File() - it's just missing the two properties below which we will add
   theBlob.lastModifiedDate = new Date();
   theBlob.name = fileName;
+  theBlob.content = content;
   return theBlob;
 };
 
 const minZoom = 1;
 
-const NewPostPage = () => {
+const NewPostPage = ({ myInfo }) => {
   const [originalImage, setOriginalImage] = useState(null);
   const [originalImageUrl, setOriginalImageUrl] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(minZoom);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [contentValue, setContentValue] = useState(null);
 
   const inputImage = async e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -46,7 +48,11 @@ const NewPostPage = () => {
       );
       const croppedImageResponse = await fetch(`${croppedImageDataUrl}`);
       const blob = await croppedImageResponse.blob();
-      const croppedImageBolb = blobToFile(blob, `${originalImage.name}`);
+      const croppedImageBolb = blobToFile(
+        blob,
+        `${originalImage.name}`,
+        contentValue,
+      );
       const croppedImageFile = new File(
         [croppedImageBolb],
         `${originalImage.name}`,
@@ -56,14 +62,15 @@ const NewPostPage = () => {
       );
       const formData = new FormData();
       formData.append('file', croppedImageFile);
-
+      formData.append('content', contentValue);
+      formData.append('userId', 1);
       const storedImageResponse = await fetch('http://localhost:4000/upload', {
         method: 'POST',
         body: formData,
       });
       const { data } = await storedImageResponse.json();
     } catch (e) {}
-  }, [croppedAreaPixels, originalImage, originalImageUrl]);
+  }, [contentValue, croppedAreaPixels, originalImage, originalImageUrl]);
 
   const onCropComplete = useCallback(
     (croppedArea, currentcroppedAreaPixels) => {
@@ -71,6 +78,10 @@ const NewPostPage = () => {
     },
     [],
   );
+
+  const changeContent = e => {
+    setContentValue(e.target.value);
+  };
 
   return (
     <NewPostWrapper>
@@ -114,7 +125,7 @@ const NewPostPage = () => {
         </>
       )}
       <div className="section">
-        <Input />
+        <Input value={contentValue} onChange={changeContent} />
       </div>
       <div className="section">
         <Button onClick={post}>게시</Button>

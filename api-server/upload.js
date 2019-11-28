@@ -22,7 +22,6 @@ const storage = multerS3({
   bucket: '',
   acl: 'public-read',
   key(req, file, cb) {
-    console.log(file);
     cb(null, `post/${Date.now().toString()}_${file.originalname}`);
   },
 });
