@@ -50,7 +50,7 @@ app.use('/upload', (req, res, next) => {
 
     Post.create({
       imageURL: req.file.key,
-      postURL: 'soyoungstar',
+      postURL: req.file.etag,
       content: '소영이가 최고야',
       updatedAt: new Date(),
       UserId: 1,

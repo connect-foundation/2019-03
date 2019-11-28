@@ -22,7 +22,7 @@ const storage = multerS3({
   bucket: '',
   acl: 'public-read',
   key(req, file, cb) {
-    cb(null, `${Date.now().toString()}_${file.originalname}`);
+    cb(null, `post/${Date.now().toString()}_${file.originalname}`);
   },
 });
 
