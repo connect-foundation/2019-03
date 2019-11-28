@@ -40,6 +40,8 @@ app.use(
 );
 
 app.use('/upload', (req, res, next) => {
+  console.log(req.body);
+
   upload(req, res, err => {
     if (err instanceof multer.MulterError) {
       return next(err);
