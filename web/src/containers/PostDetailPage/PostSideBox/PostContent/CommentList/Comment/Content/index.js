@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ContentWrapper, UpdatedTime, GrayButton } from './styles';
-import StyledLink from '../../../../../../components/StyledLink';
+import StyledLink from '../../../../../../../components/StyledLink';
 
 function Content({ writer, content, likerCount }) {
   return (

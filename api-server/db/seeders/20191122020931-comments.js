@@ -11,6 +11,17 @@ module.exports = {
     ];
 
     // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 20; i++) {
+      commentList.push({
+        content: '더미더미더미데스',
+        depth: null,
+        PostId: 1,
+        updatedAt: new Date(),
+        UserId: Math.ceil(Math.random() * 100),
+      });
+    }
+
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 100; i++) {
       commentList.push({
         content: '정말 좋은 글이네요!',

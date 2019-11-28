@@ -5,19 +5,24 @@ function reducer(state, action) {
     case 'LOADING':
       return {
         loading: true,
-        data: null,
+        data: state.data || null,
         error: null,
       };
     case 'SUCCESS':
       return {
         loading: false,
-        data: action.data,
+        data: {
+          ...state.data,
+          commentList: state.data
+            ? state.data.commentList.concat(action.data.commentList)
+            : action.data.commentList,
+        },
         error: null,
       };
     case 'ERROR':
       return {
         loading: false,
-        data: null,
+        data: state.data || null,
         error: action.error,
       };
     case 'NEWCOMMENT':
