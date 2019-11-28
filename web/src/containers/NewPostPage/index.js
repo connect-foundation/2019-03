@@ -4,6 +4,7 @@ import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
 import NewPostWrapper from './NewPostWrapper';
 import Input from './Input';
+import Button from './Button';
 
 const readFile = file => {
   return new Promise(resolve => {
@@ -20,7 +21,7 @@ const blobToFile = (theBlob, fileName) => {
   return theBlob;
 };
 
-const minZoom = 0.6;
+const minZoom = 1;
 
 const NewPostPage = () => {
   const [originalImage, setOriginalImage] = useState(null);
@@ -116,9 +117,7 @@ const NewPostPage = () => {
         <Input />
       </div>
       <div className="section">
-        <button type="button" onClick={post}>
-          게시
-        </button>
+        <Button onClick={post}>게시</Button>
       </div>
     </NewPostWrapper>
   );
