@@ -12,7 +12,7 @@ const Post = ({ myInfo, post }) => {
     <PostWrapper>
       <PostTop myInfo={myInfo} writer={writer} post={post} />
       <PostMiddle myInfo={myInfo} post={post} />
-      <PostBottom post={post} />
+      <PostBottom myInfo={myInfo} post={post} />
     </PostWrapper>
   );
 };

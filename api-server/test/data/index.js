@@ -237,20 +237,43 @@ const commentsData = [
   },
 ];
 
+const commentLikesData = [
+  {
+    id: 1,
+    UserId: 1,
+    CommentId: 1,
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    UserId: 2,
+    CommentId: 3,
+    updatedAt: new Date(),
+  },
+  {
+    id: 3,
+    UserId: 1,
+    CommentId: 3,
+    updatedAt: new Date(),
+  },
+];
+
 const dbInit = async () => {
   // init test db;
   try {
-    await queryInterface.bulkDelete('Users');
-    await queryInterface.bulkDelete('Posts');
-    await queryInterface.bulkDelete('PostLikes');
-    await queryInterface.bulkDelete('UserFollows');
+    await queryInterface.bulkDelete('CommentLikes');
     await queryInterface.bulkDelete('Comments');
+    await queryInterface.bulkDelete('UserFollows');
+    await queryInterface.bulkDelete('PostLikes');
+    await queryInterface.bulkDelete('Posts');
+    await queryInterface.bulkDelete('Users');
 
     await queryInterface.bulkInsert('Users', usersData);
     await queryInterface.bulkInsert('Posts', postsData);
     await queryInterface.bulkInsert('PostLikes', postLikesData);
     await queryInterface.bulkInsert('UserFollows', userFollowsData);
     await queryInterface.bulkInsert('Comments', commentsData);
+    await queryInterface.bulkInsert('CommentLikes', commentLikesData);
   } catch (err) {
     console.log(err);
   }

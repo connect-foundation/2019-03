@@ -1,19 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 
-const useComment = () => {
+const useText = () => {
   const [isFold, setIsFold] = useState(true);
-  const onUnfoldComment = () => {
+  const onUnfoldText = () => {
     setIsFold(!isFold);
   };
 
-  const commentRef = useRef(null);
+  const textRef = useRef(null);
   useEffect(() => {
-    const { offsetWidth, scrollWidth } = commentRef.current;
+    const { offsetWidth, scrollWidth } = textRef.current;
     const isOverflow = offsetWidth < scrollWidth;
     setIsFold(isOverflow);
   }, []);
 
-  return [isFold, commentRef, onUnfoldComment];
+  return [isFold, textRef, onUnfoldText];
 };
 
-export default useComment;
+export default useText;

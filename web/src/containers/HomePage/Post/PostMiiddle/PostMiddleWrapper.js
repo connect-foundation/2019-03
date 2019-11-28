@@ -25,6 +25,7 @@ const PostMiddleWrapper = props => {
   const isLike = useLikeState();
 
   const onDoubleClick = ({ target }) => {
+    if (!postImage) return;
     if (!isPostImage(target, postImage.current)) {
       return;
     }
@@ -32,6 +33,7 @@ const PostMiddleWrapper = props => {
   };
 
   const onClick = ({ target }) => {
+    if (!likeIcon) return;
     if (!isLikeIcon(target, likeIcon.current)) {
       return;
     }

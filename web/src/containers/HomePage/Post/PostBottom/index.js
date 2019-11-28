@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-  AllCommentShowText,
-  Comment,
-  CommentInputWrapper,
-  UpdatedTime,
-} from './styles';
+import { AllCommentShowText, CommentInputWrapper, UpdatedTime } from './styles';
+import { Comment, MainText } from '../PostText';
 import CommentInput from '../../../../components/CommentInput';
 import { getDateDiffText } from '../../../../utils';
 
@@ -15,7 +11,7 @@ const commentInputStyle = {
   padding: '0 14.5px',
 };
 
-const PostBottom = ({ post }) => {
+const PostBottom = ({ myInfo, post }) => {
   const {
     writer,
     commentCount,
@@ -28,14 +24,10 @@ const PostBottom = ({ post }) => {
 
   return (
     <>
-      <Comment commenter={writer.username} isMainText>
-        {mainText}
-      </Comment>
+      <MainText writer={writer} mainText={mainText} />
       <AllCommentShowText postURL={postURL} commentCount={commentCount} />
       {commentList.map(c => (
-        <Comment key={c.id} commenter={c.writer.username}>
-          {c.content}
-        </Comment>
+        <Comment key={c.id} myInfo={myInfo} comment={c} />
       ))}
       <UpdatedTime>{dateDiffText}</UpdatedTime>
       <CommentInputWrapper>

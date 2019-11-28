@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 const {
   getFollowingPostList,
-  getTwoComments,
-  getCommentCount,
   getLikerInfo,
   getLikerList,
   setPostLike,
@@ -29,24 +27,6 @@ describe('Post Servcie 테스트', () => {
     // console.log(JSON.stringify(postList, null, 4));
     expect(postList).not.toBeUndefined();
     expect(postList.length).toEqual(5);
-  });
-
-  test('getTwoComments 테스트', async () => {
-    const postId = 4;
-
-    const commentList = await getTwoComments(postId);
-
-    // console.log(JSON.stringify(commentList, null, 4));
-    expect(commentList).not.toBeUndefined();
-    expect(commentList.length).toEqual(2);
-  });
-
-  test('getCommentCount 테스트', async () => {
-    const postId = 4;
-
-    const commentCount = await getCommentCount(postId);
-
-    expect(commentCount).toEqual(2);
   });
 
   test('getLikerInfo 테스트', async () => {

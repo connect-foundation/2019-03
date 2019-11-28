@@ -1,11 +1,4 @@
-const {
-  Sequelize,
-  User,
-  Post,
-  UserFollow,
-  Comment,
-  PostLike,
-} = require('../../db');
+const { Sequelize, User, Post, UserFollow, PostLike } = require('../../db');
 
 const { Op } = Sequelize;
 
@@ -40,21 +33,6 @@ async function checkUserLikePost(userId, postId) {
   });
 
   return result !== null;
-}
-
-async function getTwoComments(postId) {
-  const twoComments = await Comment.findAll({
-    where: { PostId: postId },
-    order: [['updatedAt', 'DESC']],
-    limit: 2,
-  });
-
-  return twoComments;
-}
-
-async function getCommentCount(postId) {
-  const commentCount = await Comment.count({ where: { PostId: postId } });
-  return commentCount;
 }
 
 async function getLikerInfo(postId) {
@@ -115,8 +93,6 @@ async function unsetPostLike(userId, postId) {
 module.exports = {
   getFollowingPostList,
   checkUserLikePost,
-  getTwoComments,
-  getCommentCount,
   getLikerInfo,
   getLikerList,
   setPostLike,

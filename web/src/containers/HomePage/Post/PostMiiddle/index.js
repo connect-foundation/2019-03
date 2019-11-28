@@ -25,37 +25,35 @@ const PostMiddle = ({ myInfo, post }) => {
   const wrapperProps = { postImage, likeIcon, userId: myInfo.id, postId };
 
   return (
-    <>
-      <LikerInfoProvider likerInfo={likerInfo}>
-        <LikeProvider isLike={isLike}>
-          <PostMiddleWrapper {...wrapperProps}>
-            <PostImage
-              userId={myInfo.id}
-              postId={postId}
-              imageURL={imageURL}
-              ref={postImage}
-            />
-            <IconGroup>
-              <IconWrapper>
-                <LikeIcon
-                  userId={myInfo.id}
-                  postId={postId}
-                  ratio={5}
-                  ref={likeIcon}
-                />
-              </IconWrapper>
-              <IconWrapper>
-                <CommentIcon postURL={postURL} />
-              </IconWrapper>
-              <IconWrapper>
-                <ShareIcon />
-              </IconWrapper>
-            </IconGroup>
-            <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
-          </PostMiddleWrapper>
-        </LikeProvider>
-      </LikerInfoProvider>
-    </>
+    <LikerInfoProvider likerInfo={likerInfo}>
+      <LikeProvider isLike={isLike}>
+        <PostMiddleWrapper {...wrapperProps}>
+          <PostImage
+            userId={myInfo.id}
+            postId={postId}
+            imageURL={imageURL}
+            ref={postImage}
+          />
+          <IconGroup>
+            <IconWrapper>
+              <LikeIcon
+                userId={myInfo.id}
+                postId={postId}
+                ratio={5}
+                ref={likeIcon}
+              />
+            </IconWrapper>
+            <IconWrapper>
+              <CommentIcon postURL={postURL} />
+            </IconWrapper>
+            <IconWrapper>
+              <ShareIcon />
+            </IconWrapper>
+          </IconGroup>
+          <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
+        </PostMiddleWrapper>
+      </LikeProvider>
+    </LikerInfoProvider>
   );
 };
 

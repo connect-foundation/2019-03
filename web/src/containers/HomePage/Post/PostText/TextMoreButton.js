@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CommentMoreButton = styled.button`
+const TextMoreButton = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
@@ -15,4 +15,4 @@ const CommentMoreButton = styled.button`
   display: ${({ isFold }) => (isFold ? '' : 'none')};
 `;
 
-export default CommentMoreButton;
+export default TextMoreButton;

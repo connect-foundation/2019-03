@@ -6,11 +6,13 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 const {
-  getCommentCount,
-  getTwoComments,
   getLikerInfo,
   checkUserLikePost,
 } = require('../../services/PostService');
+const {
+  getCommentCount,
+  getTwoComments,
+} = require('../../services/CommentService');
 const { LikerInfoType } = require('./LikerInfoType');
 const { WriterType } = require('./WriterType');
 const { CommentType } = require('./CommentType');

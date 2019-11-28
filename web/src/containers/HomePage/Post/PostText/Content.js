@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const CommentContent = styled.span`
+const Content = styled.span`
   padding-right: 2px;
   line-height: 1;
 
@@ -15,4 +15,4 @@ const CommentContent = styled.span`
   }}
 `;
 
-export default CommentContent;
+export default Content;

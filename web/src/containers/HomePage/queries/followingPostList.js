@@ -15,6 +15,7 @@ const followingPostListQuery = myId => `{
     commentList {
       id
       content
+      isLike
       writer {
         username
       }
