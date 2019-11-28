@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import StyledFollowButton from './StyledFollowButton';
 import FollowCheckingModal from '../FollowCheckingModal';
 
-const FollowButton = ({ followStatus }) => {
+const FollowButton = ({ followStatus, className }) => {
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -33,6 +33,7 @@ const FollowButton = ({ followStatus }) => {
       <StyledFollowButton
         status={currentFollowStatus}
         onClick={changeFollowStatus}
+        className={className}
       >
         {currentFollowStatus}
       </StyledFollowButton>
