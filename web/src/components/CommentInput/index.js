@@ -20,6 +20,7 @@ function CommentInput({ style, className, dispatch, post }) {
       PostId:${post.id},
       UserId:${myInfo.id},
     ){
+      id
       content
     }
   }`;
@@ -34,9 +35,10 @@ function CommentInput({ style, className, dispatch, post }) {
   };
 
   const submitHandler = () => {
-    fetchData(insertCommentQuery, () => {
+    fetchData(insertCommentQuery, ({ createComment }) => {
       dispatch({
         type: 'NEWCOMMENT',
+        id: createComment.id,
         content: text,
         writer: myInfo,
       });
