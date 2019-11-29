@@ -10,7 +10,13 @@ import NewPostPage from '../NewPostPage';
 import Navigation from '../Navigation';
 
 export default function App() {
-  const myInfo = { id: 1, username: 'sam' };
+  const myInfo = {
+    id: 1,
+    username: '_so_02',
+    name: '정소영',
+    profileImage: 'https://i.pravatar.cc/150?img=9',
+  };
+
   return (
     <AppWrapper>
       <ThemeProvider

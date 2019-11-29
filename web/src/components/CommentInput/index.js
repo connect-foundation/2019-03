@@ -10,8 +10,9 @@ function CommentInput({ style, className, dispatch, post }) {
   const [text, setText] = useState('');
   const myInfo = {
     id: 1,
-    username: 'sam',
-    profileImage: 'https://i.pravatar.cc/150?img=7',
+    username: '_so_02',
+    name: '정소영',
+    profileImage: 'https://i.pravatar.cc/150?img=9',
   };
   const insertCommentQuery = `mutation{
     createComment(
@@ -20,6 +21,7 @@ function CommentInput({ style, className, dispatch, post }) {
       PostId:${post.id},
       UserId:${myInfo.id},
     ){
+      id
       content
     }
   }`;
@@ -34,9 +36,10 @@ function CommentInput({ style, className, dispatch, post }) {
   };
 
   const submitHandler = () => {
-    fetchData(insertCommentQuery, () => {
+    fetchData(insertCommentQuery, ({ createComment }) => {
       dispatch({
         type: 'NEWCOMMENT',
+        id: createComment.id,
         content: text,
         writer: myInfo,
       });

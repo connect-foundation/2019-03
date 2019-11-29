@@ -33,7 +33,7 @@ const Navigation = ({ myInfo }) => {
               style={{ marginTop: '6px' }}
             />
           </StyledLink>
-          <Alarm myInfo={{ username: '_so_02' }} />
+          <Alarm myInfo={myInfo} />
           <Icon
             ratio={5}
             posX={-130}

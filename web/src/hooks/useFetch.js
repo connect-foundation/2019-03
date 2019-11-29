@@ -48,7 +48,7 @@ function useFetch(reducer = defaultReducer) {
       const response = await fetchToAPI(query);
       const { data } = await response.json();
       dispatch({ type: 'SUCCESS', data });
-      callback();
+      callback(data);
     } catch (e) {
       dispatch({ type: 'ERROR', error: e });
     }

@@ -28,6 +28,7 @@ function reducer(state, action) {
     case 'NEWCOMMENT':
       return produce(state, draft => {
         draft.data.commentList.unshift({
+          id: action.id,
           content: action.content,
           writer: action.writer,
         });

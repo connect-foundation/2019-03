@@ -6,9 +6,10 @@ import { followingPostListQuery } from './queries';
 import { useFetch } from '../../hooks';
 
 const myInfo = {
-  username: 'aaaa',
-  name: 'aaaaa',
-  id: 41,
+  id: 1,
+  username: '_so_02',
+  name: '정소영',
+  profileImage: 'https://i.pravatar.cc/150?img=9',
 };
 
 function HomePage() {
