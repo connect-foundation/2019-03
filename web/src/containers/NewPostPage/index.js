@@ -2,9 +2,7 @@ import React, { useState, useCallback } from 'react';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
-import NewPostWrapper from './NewPostWrapper';
-import Input from './Input';
-import Button from './Button';
+import { NewPostWrapper, Input, Button } from './styles';
 
 const readFile = file => {
   return new Promise(resolve => {
@@ -14,12 +12,17 @@ const readFile = file => {
   });
 };
 
-const blobToFile = (theBlob, fileName, content) => {
+const blobToFile = (theBlob, fileName) => {
   // A Blob() is almost a File() - it's just missing the two properties below which we will add
   theBlob.lastModifiedDate = new Date();
   theBlob.name = fileName;
-  theBlob.content = content;
   return theBlob;
+};
+
+const newBlob = async dataURL => {
+  const croppedImageResponse = await fetch(`${dataURL}`);
+  const blob = await croppedImageResponse.blob();
+  return blob;
 };
 
 const minZoom = 1;
@@ -35,6 +38,7 @@ const NewPostPage = ({ myInfo }) => {
   const inputImage = async e => {
     if (e.target.files && e.target.files.length > 0) {
       setOriginalImage(e.target.files[0]);
+
       const originalImageDataUrl = await readFile(e.target.files[0]);
       setOriginalImageUrl(originalImageDataUrl);
     }
@@ -46,19 +50,12 @@ const NewPostPage = ({ myInfo }) => {
         originalImageUrl,
         croppedAreaPixels,
       );
-      const croppedImageResponse = await fetch(`${croppedImageDataUrl}`);
-      const blob = await croppedImageResponse.blob();
-      const croppedImageBolb = blobToFile(
-        blob,
-        `${originalImage.name}`,
-        contentValue,
-      );
+      const blob = await newBlob(croppedImageDataUrl);
+      const croppedImageBolb = blobToFile(blob, `${originalImage.name}`);
       const croppedImageFile = new File(
         [croppedImageBolb],
         `${originalImage.name}`,
-        {
-          type: 'image/png',
-        },
+        { type: 'image/png' },
       );
       const formData = new FormData();
       formData.append('file', croppedImageFile);
@@ -85,51 +82,53 @@ const NewPostPage = ({ myInfo }) => {
 
   return (
     <NewPostWrapper>
-      <div className="section">
-        <input type="file" onChange={inputImage} />
-      </div>
-      {originalImage && (
-        <>
-          <div
-            className="crop-container"
-            style={{
-              position: 'relative',
-              width: '650px',
-              height: '650px',
-            }}
-          >
-            <Cropper
-              minZoom={minZoom}
-              image={originalImageUrl}
-              crop={crop}
-              zoom={zoom}
-              aspect={2 / 2}
-              restrictPosition={false}
-              onCropChange={setCrop}
-              onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
-              cropSize={{ width: 600, height: 600 }}
-            />
-          </div>
-          <div className="controls" style={{ width: '20%' }}>
-            <Slider
-              value={originalImage.zoom}
-              min={minZoom}
-              max={3}
-              step={0.1}
-              aria-labelledby="Zoom"
-              onChange={(e, currentzoom) => setZoom(currentzoom)}
-              classes={{ container: 'slider' }}
-            />
-          </div>
-        </>
-      )}
-      <div className="section">
-        <Input value={contentValue} onChange={changeContent} />
-      </div>
-      <div className="section">
-        <Button onClick={post}>게시</Button>
-      </div>
+      <form onSubmit={post}>
+        <div className="section">
+          <input type="file" onChange={inputImage} />
+        </div>
+        {originalImage && (
+          <>
+            <div
+              className="crop-container"
+              style={{
+                position: 'relative',
+                width: '650px',
+                height: '650px',
+              }}
+            >
+              <Cropper
+                minZoom={minZoom}
+                image={originalImageUrl}
+                crop={crop}
+                zoom={zoom}
+                aspect={2 / 2}
+                restrictPosition={false}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+                cropSize={{ width: 600, height: 600 }}
+              />
+            </div>
+            <div className="controls" style={{ width: '20%' }}>
+              <Slider
+                value={originalImage.zoom}
+                min={minZoom}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e, currentzoom) => setZoom(currentzoom)}
+                classes={{ container: 'slider' }}
+              />
+            </div>
+          </>
+        )}
+        <div className="section">
+          <Input value={contentValue} onChange={changeContent} />
+        </div>
+        <div className="section">
+          <Button type="submit">게시</Button>
+        </div>
+      </form>
     </NewPostWrapper>
   );
 };
