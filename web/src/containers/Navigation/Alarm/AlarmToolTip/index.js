@@ -7,7 +7,7 @@ const AalrmToolTip = ({ isVisible, setIsVisible, alarmResults }) => {
   };
 
   if (!isVisible) return null;
-  if (alarmResults.length === 0) {
+  if (alarmResults === null || alarmResults.length === 0) {
     return (
       <AlarmToolTipWrapper arrowStyle={{ left: '85%' }} onClick={clickClose}>
         <AlarmNoResult>
