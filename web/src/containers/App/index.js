@@ -36,8 +36,8 @@ export default function App() {
       >
         <Navigation myInfo={myInfo} />
         <Route path="/" exact component={HomePage} />
-        <Route path="/:username" component={UserPage} />
-        <Route path="/p/:postURL" component={PostDetailPage} />
+        <Route path="/p/:postURL" exact component={PostDetailPage} />
+        <Route path="/:username" exact component={UserPage} />
         <Route path="/newpost" component={NewPostPage} />
       </ThemeProvider>
     </AppWrapper>
