@@ -23,6 +23,7 @@ function CommentInput({ style, className, dispatch, post }) {
     ){
       id
       content
+      PostId
     }
   }`;
 
@@ -42,6 +43,7 @@ function CommentInput({ style, className, dispatch, post }) {
         id: createComment.id,
         content: text,
         writer: myInfo,
+        target: createComment.PostId,
       });
     });
     onReset();
