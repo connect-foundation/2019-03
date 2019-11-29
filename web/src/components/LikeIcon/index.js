@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Icon from '../Icon';
 
 import {
@@ -10,23 +10,22 @@ import {
   useLikeState,
 } from './Context/LikeContext';
 import {
-  useLikerListDispatch,
+  useLikerInfoDispatch,
   DECREASE_LIKE,
   INCREASE_LIKE,
-} from '../LikeInfo/Context/LikerListContext';
+} from '../LikeInfo/Context/LikerInfoContext';
 
-const LikeIcon = ({ ratio, style }) => {
+const LikeIcon = forwardRef(({ ratio, style }, ref) => {
   const isLike = useLikeState();
   const likeDispatch = useLikeDispatch();
-  const likerListDispatch = useLikerListDispatch();
+  const likerInfoDispatch = useLikerInfoDispatch();
 
   const onToggle = () => {
-    const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerListDispatch({
-      type: likerListActionType,
-      liker: { username: 'test1', name: 'aaaa' },
-    });
     likeDispatch({ type: TOGGLE_LIKE_ICON });
+
+    if (!likerInfoDispatch) return;
+    const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
+    likerInfoDispatch({ type: likerListActionType });
   };
 
   return (
@@ -36,9 +35,10 @@ const LikeIcon = ({ ratio, style }) => {
       posX={POS_X_OF_HEART}
       posY={isLike ? POS_Y_OF_FILL_HEART : POS_Y_OF_EMPTY_HEART}
       style={style}
+      ref={ref}
     />
   );
-};
+});
 
 LikeIcon.defaultProps = {
   ratio: 1,

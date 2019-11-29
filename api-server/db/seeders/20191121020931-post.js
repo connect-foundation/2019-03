@@ -13,7 +13,7 @@ module.exports = {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 100; i++) {
       postList.push({
-        imageURL: 'image.jpg',
+        imageURL: `https://picsum.photos/id/${i}/615/615`,
         postURL: `${Math.random()
           .toString(36)
           .substr(2, 6)}`,

@@ -14,7 +14,7 @@ const Liker = ({ liker }) => {
 
   return (
     <LikerWrapper>
-      <ProfileIcon imgSrc={profileImage} />
+      <ProfileIcon imageURL={profileImage} />
       <LikerInfoWrapper>
         <Username>{username}</Username>
         <Name>{name}</Name>

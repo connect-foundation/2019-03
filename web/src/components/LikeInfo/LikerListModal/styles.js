@@ -1,5 +1,6 @@
-import LikerList from './LikerList';
+import LikerListWapper from './LikerListWapper';
+import Liker from './Liker';
 import Header from './Header';
 import Modal from '../../Modal';
 
-export { LikerList, Header, Modal };
+export { LikerListWapper, Header, Modal, Liker };
