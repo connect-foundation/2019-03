@@ -25,7 +25,7 @@ const Navigation = ({ myInfo }) => {
           <Search />
         </NavItemGroup>
         <NavItemGroup>
-          <StyledLink to="/nowpost">
+          <StyledLink to="/newpost">
             <Icon ratio={5} posX={-260} posY={-245} />
           </StyledLink>
           <Alarm myInfo={{ username: '_so_02' }} />

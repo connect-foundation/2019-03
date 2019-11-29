@@ -4,8 +4,8 @@ const multerS3 = require('multer-s3');
 
 const endpoint = new AWS.Endpoint('https://kr.object.ncloudstorage.com');
 const region = 'kr-standard';
-const access_key = '';
-const secret_key = '';
+const access_key = process.env.ACCESS_KEY;
+const secret_key = process.env.SECRET_KEY;
 
 AWS.config.update({
   accessKeyId: access_key,
