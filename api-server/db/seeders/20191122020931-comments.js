@@ -22,7 +22,7 @@ module.exports = {
     }
 
     // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1000; i++) {
       commentList.push({
         content: '정말 좋은 글이네요!',
         depth: null,

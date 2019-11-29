@@ -29,14 +29,12 @@ function PostDetailPage({ match }) {
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data) return null;
   const { post } = data;
-  const images = require.context('../../images', true);
-  const postImage = images(`./${post.imageURL}`);
 
   return (
     <PostProvider value={{ data, dispatch }}>
       <ThemeProvider theme={{ post_length: 600 }}>
         <PostDetailPageWrapper>
-          <ViewPort img={postImage} />
+          <ViewPort img={post.imageURL} />
           <PostSideBox />
         </PostDetailPageWrapper>
       </ThemeProvider>
