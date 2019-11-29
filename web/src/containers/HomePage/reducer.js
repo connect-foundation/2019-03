@@ -5,13 +5,21 @@ function reducer(state, action) {
     case 'LOADING':
       return {
         loading: true,
-        data: null,
+        data: state.data || null,
         error: null,
       };
     case 'SUCCESS':
+      // eslint-disable-next-line no-case-declarations
+      const isEnd = action.data.followingPostList.length === 0;
       return {
         loading: false,
-        data: action.data,
+        data: {
+          ...state.data,
+          isEnd,
+          followingPostList: state.data
+            ? state.data.followingPostList.concat(action.data.followingPostList)
+            : action.data.followingPostList,
+        },
         error: null,
       };
     case 'ERROR':
