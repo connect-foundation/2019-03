@@ -7,7 +7,7 @@ module.exports = {
         email: 'hana@gmail.com',
         name: '정소영',
         cellPhone: '000-0000-0000',
-        profileImage: 'https://i.pravatar.cc/150?img=50',
+        profileImage: 'https://i.pravatar.cc/150?img=9',
         isPrivate: 0,
         isFacebook: 0,
         isDeveloper: 0,

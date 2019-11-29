@@ -1,11 +1,31 @@
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; // 최댓값은 제외, 최솟값은 포함
+}
+
 module.exports = {
   up: queryInterface => {
     const logList = [
       {
-        From: 1,
-        To: 2,
+        From: 2,
+        To: 1,
         PostId: 1,
         status: 'follow',
+        updatedAt: new Date(),
+      },
+      {
+        From: 3,
+        To: 1,
+        PostId: 1,
+        status: 'like',
+        updatedAt: new Date(),
+      },
+      {
+        From: 4,
+        To: 1,
+        PostId: 1,
+        status: 'comment',
         updatedAt: new Date(),
       },
     ];
@@ -14,9 +34,9 @@ module.exports = {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 100; i++) {
       logList.push({
-        From: Math.ceil(Math.random() * 100),
-        To: Math.ceil(Math.random() * 100),
-        PostId: Math.ceil(Math.random() * 100),
+        From: getRandomInt(3, 100),
+        To: getRandomInt(3, 100),
+        PostId: getRandomInt(1, 100),
         status: `${statusList[Math.floor(Math.random() * statusList.length)]}`,
         updatedAt: new Date(),
       });
