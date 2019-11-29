@@ -11,7 +11,7 @@ const unchosenTheme = css`
 `;
 
 const BorderTopLink = styled(StyledLink)`
-  ${({ isSelected }) => (isSelected ? selectedTheme : unchosenTheme)}
+  ${({ isselected }) => (isselected ? selectedTheme : unchosenTheme)}
   width: 52.141px;
   margin-right: 60px;
   display: inline-flex;

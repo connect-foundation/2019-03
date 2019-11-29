@@ -2,10 +2,10 @@ import React from 'react';
 
 import { BorderTopLink, TabText } from './styles';
 
-const SelectionTab = ({ children, username, isSelected }) => {
+const SelectionTab = ({ children, username, isselected }) => {
   return (
-    <BorderTopLink to={`/${username}`} isSelected={isSelected}>
-      <TabText isSelected={isSelected}>{children}</TabText>
+    <BorderTopLink to={`/${username}`} isselected={isselected}>
+      <TabText isselected={isselected}>{children}</TabText>
     </BorderTopLink>
   );
 };

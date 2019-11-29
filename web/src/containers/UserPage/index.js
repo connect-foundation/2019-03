@@ -26,13 +26,12 @@ const UserPage = ({ match }) => {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data) return null;
-  console.log(data);
   return (
     <UserPageWrapper>
       <UserPageSection>
         <UserPageInfo username={username} />
         <ListSelector username={username} />
-        <PostCardList />
+        <PostCardList data={data} />
       </UserPageSection>
     </UserPageWrapper>
   );

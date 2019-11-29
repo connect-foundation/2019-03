@@ -6,10 +6,10 @@ import { ListSelectorWrapper } from './styles';
 const ListSelector = ({ username }) => {
   return (
     <ListSelectorWrapper>
-      <SelectionTab username={username} isSelected>
+      <SelectionTab username={username} isselected>
         게시물
       </SelectionTab>
-      <SelectionTab username={username} isSelected={false}>
+      <SelectionTab username={username} isselected={false}>
         태그됨
       </SelectionTab>
     </ListSelectorWrapper>

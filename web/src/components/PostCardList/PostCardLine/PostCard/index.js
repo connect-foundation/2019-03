@@ -3,11 +3,12 @@ import React from 'react';
 import StyledLink from '../../../StyledLink';
 import { StyledPostCard, MarginalPostCard } from './styles';
 
-const PostCard = ({ isLast }) => {
+const PostCard = ({ postInfo }) => {
+  const { postURL, imageURL } = postInfo;
   return (
-    <MarginalPostCard isLast={isLast}>
-      <StyledLink to="/">
-        <StyledPostCard />
+    <MarginalPostCard>
+      <StyledLink to={`/p/${postURL}`}>
+        <StyledPostCard imageURL={imageURL} />
       </StyledLink>
     </MarginalPostCard>
   );

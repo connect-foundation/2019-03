@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 const TabText = styled.div`
-  ${({ theme, isSelected }) => css`
-    color: ${isSelected ? 'black' : theme.palette.gray_font};
+  ${({ theme, isselected }) => css`
+    color: ${isselected ? 'black' : theme.palette.gray_font};
   `}
   cursor: pointer;
   letter-spacing: 1px;

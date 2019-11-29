@@ -3,12 +3,12 @@ import React from 'react';
 import PostCard from './PostCard';
 import PostCardLineWrapper from './PostCardLineWrapper';
 
-const PostCardLine = () => {
+const PostCardLine = ({ postLineInfo }) => {
   return (
     <PostCardLineWrapper>
-      <PostCard />
-      <PostCard />
-      <PostCard isLast />
+      {postLineInfo.map(postInfo => (
+        <PostCard postInfo={postInfo} />
+      ))}
     </PostCardLineWrapper>
   );
 };
