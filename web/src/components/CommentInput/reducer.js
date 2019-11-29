@@ -1,3 +1,7 @@
+/**
+ * state 관리
+ */
+
 function reducer(state, action) {
   switch (action.type) {
     case 'LOADING':

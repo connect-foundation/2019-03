@@ -1,3 +1,7 @@
+/**
+ * state 관리
+ */
+
 import React, { useContext, useEffect, useState } from 'react';
 import SideBoxWrapper from './SideBoxWrapper';
 

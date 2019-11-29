@@ -1,3 +1,7 @@
+/**
+ * state 관리
+ */
+
 import React, { useState } from 'react';
 
 import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';

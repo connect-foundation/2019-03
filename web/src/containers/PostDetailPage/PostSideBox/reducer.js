@@ -1,3 +1,7 @@
+/**
+ * state 관리
+ */
+
 import produce from 'immer';
 
 function reducer(state, action) {
