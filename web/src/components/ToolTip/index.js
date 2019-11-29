@@ -16,7 +16,8 @@ const ToolTip = ({
   children,
 }) => {
   return (
-    <ToolTipBackground onClick={onClick}>
+    <>
+      <ToolTipBackground onClick={onClick}> </ToolTipBackground>
       <ToolTipWrapper
         style={wrapperStyle}
         className={className}
@@ -25,7 +26,7 @@ const ToolTip = ({
         <ToolTipArrow style={arrowStyle} />
         <ToolTipBody>{children}</ToolTipBody>
       </ToolTipWrapper>
-    </ToolTipBackground>
+    </>
   );
 };
 

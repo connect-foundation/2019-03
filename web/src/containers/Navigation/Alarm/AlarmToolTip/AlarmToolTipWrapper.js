@@ -4,8 +4,8 @@ import ToolTip from '../../../../components/ToolTip';
 const AlarmToolTipWrapper = styled(ToolTip)`
   justify-content: center;
   position: absolute;
-  top: 75px;
-  right: 333px;
+  top: 50px;
+  left: -400px;
 `;
 
 export default AlarmToolTipWrapper;

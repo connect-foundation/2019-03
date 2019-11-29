@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { relative } from 'path';
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
 import useFetch from '../../../useFetch';
@@ -24,12 +25,12 @@ const Alarm = ({ myInfo }) => {
   };
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       <Icon
         ratio={6}
         posX={-130}
         posY={-246}
-        style={{ marginTop: '1px' }}
+        style={{ marginTop: '5px' }}
         onClick={clickAlarmIcon}
       />
       <AlarmToolTip
@@ -37,7 +38,7 @@ const Alarm = ({ myInfo }) => {
         setIsVisible={setIsVisible}
         alarmResults={data && data.log}
       />
-    </>
+    </div>
   );
 };
 
