@@ -16,6 +16,7 @@ export default function App() {
     name: '정소영',
     profileImage: 'https://i.pravatar.cc/150?img=9',
   };
+
   return (
     <AppWrapper>
       <ThemeProvider

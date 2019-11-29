@@ -11,6 +11,7 @@ const NavBackground = styled.nav`
   border-bottom: 1px solid ${({ theme }) => theme.palette.border_secondary};
   box-sizing: border-box;
   padding: 0px 20%;
+  z-index: 100;
 
   display: flex;
   flex-direction: row;
