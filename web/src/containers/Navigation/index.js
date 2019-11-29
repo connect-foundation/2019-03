@@ -28,7 +28,7 @@ const Navigation = ({ myInfo }) => {
           <StyledLink to="/nowpost">
             <Icon ratio={5} posX={-260} posY={-245} />
           </StyledLink>
-          <Alarm myInfo={{ username: '_so_02' }} />
+          <Alarm myInfo={myInfo} />
           <Icon
             ratio={5}
             posX={-130}
