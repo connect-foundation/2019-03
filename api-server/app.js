@@ -7,8 +7,10 @@ const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
-
+const multer = require('multer');
 const { schema } = require('./api/graphql');
+const upload = require('./upload');
+const { Post } = require('./db');
 
 const app = express();
 
@@ -36,6 +38,26 @@ app.use(
     graphiql: isProduction,
   }),
 );
+
+app.use('/upload', (req, res, next) => {
+  upload(req, res, err => {
+    if (err instanceof multer.MulterError) {
+      return next(err);
+    }
+    if (err) {
+      return next(err);
+    }
+
+    Post.create({
+      imageURL: req.file.key,
+      postURL: 'soyoungstar',
+      content: '소영이가 최고야',
+      updatedAt: new Date(),
+      UserId: 1,
+    });
+    return res.json({ data: 'success' });
+  });
+});
 
 app.use((req, res, next) => {
   next(createError(404));
