@@ -11,7 +11,7 @@ const commentInputStyle = {
   padding: '0 14.5px',
 };
 
-const PostBottom = ({ myInfo, post }) => {
+const PostBottom = ({ myInfo, post, dispatch }) => {
   const {
     writer,
     commentCount,
@@ -31,7 +31,11 @@ const PostBottom = ({ myInfo, post }) => {
       ))}
       <UpdatedTime>{dateDiffText}</UpdatedTime>
       <CommentInputWrapper>
-        <CommentInput style={commentInputStyle} post={post} />
+        <CommentInput
+          style={commentInputStyle}
+          post={post}
+          dispatch={dispatch}
+        />
       </CommentInputWrapper>
     </>
   );

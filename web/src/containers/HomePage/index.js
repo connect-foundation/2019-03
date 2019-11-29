@@ -4,6 +4,7 @@ import PostListWrapper from './PostListWrapper';
 
 import { followingPostListQuery } from './queries';
 import { useFetch } from '../../hooks';
+import reducer from './reducer';
 
 const myInfo = {
   id: 1,
@@ -13,7 +14,7 @@ const myInfo = {
 };
 
 function HomePage() {
-  const { state, fetchData } = useFetch();
+  const { state, dispatch, fetchData } = useFetch(reducer);
   const { loading, data, error } = state;
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function HomePage() {
   return (
     <PostListWrapper>
       {posts.map(p => (
-        <Post key={p.id} post={p} myInfo={myInfo} />
+        <Post key={p.id} post={p} myInfo={myInfo} dispatch={dispatch} />
       ))}
     </PostListWrapper>
   );
