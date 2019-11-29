@@ -39,8 +39,10 @@ function SideBox() {
 
   const { post } = useContext(PostContext).data;
   const myInfo = {
-    username: 'sam',
-    profileImage: 'https://i.pravatar.cc/150?img=7',
+    id: 1,
+    username: '_so_02',
+    name: '정소영',
+    profileImage: 'https://i.pravatar.cc/150?img=9',
   };
   return (
     <CommentProvider value={{ state, dispatch, requestMoreComments }}>
