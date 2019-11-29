@@ -35,7 +35,7 @@ function useAsync(query, reducer, deps = [], skip = false) {
   });
 
   const callback = () =>
-    fetch('http://localhost:4000/graphql', {
+    fetch(`${process.env.REACT_APP_API_URL}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

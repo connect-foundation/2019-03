@@ -34,14 +34,17 @@ const Search = () => {
     }`;
 
     try {
-      const resultsResponse = await fetch('http://localhost:4000/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+      const resultsResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/graphql`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({ query: searchQuery }),
         },
-        body: JSON.stringify({ query: searchQuery }),
-      });
+      );
       const resultResponseJson = await resultsResponse.json();
 
       // resultResponseJson에 여러개의 배열을 하나로 합친다.

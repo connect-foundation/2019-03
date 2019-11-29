@@ -61,10 +61,13 @@ const NewPostPage = ({ myInfo }) => {
       formData.append('file', croppedImageFile);
       formData.append('content', contentValue);
       formData.append('userId', 1);
-      const storedImageResponse = await fetch('http://localhost:4000/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const storedImageResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
       const { data } = await storedImageResponse.json();
     } catch (e) {}
   }, [contentValue, croppedAreaPixels, originalImage, originalImageUrl]);
