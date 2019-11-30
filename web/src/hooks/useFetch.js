@@ -26,6 +26,7 @@ function defaultReducer(state, action) {
 }
 
 function useFetch(reducer = defaultReducer) {
+  console.log(process.env);
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
@@ -33,7 +34,7 @@ function useFetch(reducer = defaultReducer) {
   });
 
   const fetchToAPI = query =>
-    fetch('http://localhost:4000/graphql', {
+    fetch(`${process.env.REACT_APP_API_URL}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
