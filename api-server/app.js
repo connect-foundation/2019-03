@@ -49,7 +49,7 @@ app.use('/upload', (req, res, next) => {
     }
 
     Post.create({
-      imageURL: req.file.key,
+      imageURL: req.file.location,
       postURL: req.file.etag,
       content: req.body.content,
       updatedAt: new Date(),
