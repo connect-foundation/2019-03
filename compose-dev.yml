@@ -15,4 +15,4 @@ services:
       context: ./api-server
       dockerfile: Dockerfile-dev
     ports:
-      - "3000:3000"
+      - "4000:4000"
