@@ -1,5 +1,5 @@
-const followingPostListQuery = myId => `{
-  followingPostList(id: ${myId}) {
+const followingPostListQuery = (myId, offset, limit = 10) => `{
+  followingPostList(id: ${myId}, offset: ${offset}, limit: ${limit}) {
     id
     imageURL
     postURL

@@ -2,22 +2,26 @@ const { Sequelize, User, Post, UserFollow, PostLike } = require('../../db');
 
 const { Op } = Sequelize;
 
-async function getFollowingPostList(userId) {
-  const followingList = await UserFollow.findAll({
+async function getFollowingPostList(userId, offset = 0, limit = 10) {
+  const result = await UserFollow.findAll({
     attributes: ['to'],
     where: { from: userId },
   });
 
+  const followingList = [userId, ...result.map(f => f.to)];
   const postList = await Post.findAll({
     include: {
       model: User,
       attributes: ['id', 'username', 'profileImage'],
       where: {
         id: {
-          [Op.in]: followingList.map(f => f.to),
+          [Op.in]: followingList,
         },
       },
     },
+    offset,
+    limit,
+    order: [['updatedAt', 'DESC']],
   });
 
   return postList;
@@ -45,7 +49,7 @@ async function getLikerInfo(postId) {
       },
     ],
     where: { PostId: postId },
-    order: [['updatedAt', 'ASC']],
+    order: [['updatedAt', 'DESC']],
   });
 
   let likerInfo = {
@@ -70,7 +74,7 @@ async function getLikerList(postId) {
       model: User,
       attributes: ['username', 'name', 'profileImage'],
     },
-    order: [['updatedAt', 'ASC']],
+    order: [['updatedAt', 'DESC']],
   });
 
   return likerList;
