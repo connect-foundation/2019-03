@@ -1,79 +1,92 @@
-import React, { useState } from 'react';
-import { SearchWrapper, Input } from './styles';
+import React, { useEffect, useReducer } from 'react';
 import Icon from '../../../components/Icon';
 import SearchToolTip from './SearchToolTip';
+import { useFetch } from '../../../hooks';
+import { searchQuery } from '../../../query/navigationQuery';
+import { SearchWrapper, Input } from './styles';
+
+const searchResultsRandomSort = results => {
+  return results.sort(() => {
+    return Math.random() - Math.random();
+  });
+};
+
+const initialState = {
+  inputValue: '',
+  isVisibl: false,
+  searchResults: [],
+};
+
+const searchReducer = (state, action) => {
+  switch (action.type) {
+    case 'CLEAR':
+      return initialState;
+    case 'CHANGE_INPUT':
+      return {
+        ...state,
+        inputValue: action.value,
+      };
+    case 'CLOSE_TOOLTIP':
+      return {
+        ...state,
+        isVisible: false,
+      };
+    case 'FINISH_SEARCH':
+      return {
+        ...state,
+        isVisible: true,
+        searchResults: action.results,
+      };
+    default:
+      return {
+        state,
+      };
+  }
+};
 
 const Search = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchState, searchDispatch] = useReducer(searchReducer, initialState);
+  const { state, dispatch, fetchData } = useFetch();
+  const { loading, data, error } = state;
 
   const clickClear = () => {
-    setInputValue('');
-    setIsVisible(false);
+    searchDispatch({ type: 'CLEAR' });
   };
 
-  const onChange = async e => {
-    setInputValue(e.target.value);
+  const onChange = e => {
+    searchDispatch({ type: 'CHANGE_INPUT', value: e.target.value });
     if (e.target.value === '') {
-      setIsVisible(false);
+      searchDispatch({ type: 'CLOSE_TOOLTIP' });
       return;
     }
 
-    const searchQuery = `{
-      searchUser(id: "${e.target.value}"){
-        type
-        username
-        name
-        profileImage
-      }
-      searchHashtag(id: "${e.target.value}") {
-        type
-        name
-      }
-    }`;
-
-    try {
-      const resultsResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/graphql`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({ query: searchQuery }),
-        },
-      );
-      const resultResponseJson = await resultsResponse.json();
-
-      // resultResponseJson에 여러개의 배열을 하나로 합친다.
-      let results = [];
-      Object.keys(resultResponseJson.data).map(element => {
-        results = results.concat(resultResponseJson.data[element]);
-        return results;
-      });
-
-      if (results.length === 0) throw new Error();
-
-      results.sort(() => {
-        return Math.random() - Math.random();
-      });
-      setSearchResults(results);
-
-      setIsVisible(true);
-    } catch {
-      setIsVisible(false);
-    }
+    fetchData(searchQuery(e.target.value));
   };
+
+  useEffect(() => {
+    if (loading === null || loading || error) {
+      searchDispatch({ type: 'CLOSE_TOOLTIP' });
+      return;
+    }
+
+    let results = [];
+    Object.keys(data).map(element => {
+      results = results.concat(data[element]);
+      return results;
+    });
+
+    if (results.length !== 0) results = searchResultsRandomSort(results);
+
+    searchDispatch({ type: 'FINISH_SEARCH', results });
+  }, [data, error, loading]);
 
   return (
     <SearchWrapper>
-      <Input placeholder="검색" value={inputValue} onChange={onChange} />
+      <Input value={searchState.inputValue} onChange={onChange} />
       <SearchToolTip
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        searchResults={searchResults}
+        isVisible={searchState.isVisible}
+        searchDispatch={searchDispatch}
+        searchResults={searchState.searchResults}
       />
       <Icon
         ratio={10}
@@ -86,7 +99,7 @@ const Search = () => {
         posX={-390}
         posY={-625}
         onClick={clickClear}
-        style={{ marginTop: '2px' }}
+        style={{ marginTop: '2px', zIndex: '200' }}
       />
     </SearchWrapper>
   );
