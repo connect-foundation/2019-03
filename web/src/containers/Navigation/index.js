@@ -25,7 +25,7 @@ const Navigation = ({ myInfo }) => {
           <Search />
         </NavItemGroup>
         <NavItemGroup>
-          <StyledLink to="/newpost">
+          <StyledLink to="/new/post">
             <Icon
               ratio={5.5}
               posX={-260}
