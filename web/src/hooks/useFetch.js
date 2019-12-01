@@ -26,7 +26,6 @@ function defaultReducer(state, action) {
 }
 
 function useFetch(reducer = defaultReducer) {
-  console.log(process.env);
   const [state, dispatch] = useReducer(reducer, {
     loading: null,
     data: null,
