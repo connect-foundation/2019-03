@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
+import ShareModal from '../../../../components/ShareModal';
+import ShareIcon from '../../../../components/ShareIcon';
 import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
 import { LikerInfoProvider } from '../../../../components/LikeInfo/Context/LikerInfoContext';
 import {
   CommentIcon,
-  ShareIcon,
   IconGroup,
   IconWrapper,
   PostImage,
@@ -20,9 +21,15 @@ const likeInfoStyle = {
 
 const PostMiddle = ({ myInfo, post }) => {
   const { id: postId, isLike, imageURL, postURL, likerInfo } = post;
+
+  const [isVisible, setIsVisible] = useState(false);
   const postImage = useRef(null);
   const likeIcon = useRef(null);
   const wrapperProps = { postImage, likeIcon, userId: myInfo.id, postId };
+
+  const onToggleModal = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <LikerInfoProvider likerInfo={likerInfo}>
@@ -47,10 +54,15 @@ const PostMiddle = ({ myInfo, post }) => {
               <CommentIcon postURL={postURL} />
             </IconWrapper>
             <IconWrapper>
-              <ShareIcon />
+              <ShareIcon onClick={onToggleModal} />
             </IconWrapper>
           </IconGroup>
           <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
+          <ShareModal
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+            postURL={postURL}
+          />
         </PostMiddleWrapper>
       </LikeProvider>
     </LikerInfoProvider>

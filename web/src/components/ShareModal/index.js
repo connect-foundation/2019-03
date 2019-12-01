@@ -13,7 +13,7 @@ const ShareModal = ({ isVisible, setIsVisible, postURL }) => {
   return (
     <Modal onClick={onClose}>
       <ModalContent>Facebook 공유</ModalContent>
-      <CopyToClipboard text={`${process.env.REACT_APP_API_URL}/p/${postURL}`}>
+      <CopyToClipboard text={`${process.env.REACT_APP_WEB_URL}/p/${postURL}`}>
         <ModalContent>링크 복사하기</ModalContent>
       </CopyToClipboard>
       <ModalContent cancel onClick={onClose}>
