@@ -21,7 +21,7 @@ const UserPage = ({ match }) => {
   useEffect(() => {
     fetchData(postCardURL);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [postCardURL]);
   const { loading, data, error } = state;
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
