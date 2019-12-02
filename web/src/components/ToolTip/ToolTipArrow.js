@@ -12,7 +12,7 @@ const ToolTipArrow = styled.div`
   transform: rotate(45deg);
   width: 14px;
   height: 14px;
-  z-index: 3;
+  z-index: 203;
   position: relative;
   left: 50%;
   bottom: 8px;

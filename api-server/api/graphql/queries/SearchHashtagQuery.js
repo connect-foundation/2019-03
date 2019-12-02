@@ -13,6 +13,7 @@ const searchHashtagQuery = {
   resolve: (hashtag, args) => {
     return HashTag.findAll({
       where: { name: { [Op.like]: `%${args.id}%` } },
+      limit: 10,
     });
   },
 };

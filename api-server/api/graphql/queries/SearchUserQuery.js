@@ -18,6 +18,7 @@ const searchUserQuery = {
           { name: { [Op.like]: `%${args.id}%` } },
         ],
       },
+      limit: 10,
     });
   },
 };

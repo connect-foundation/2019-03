@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileIcon from '../../../../../components/ProfileIcon';
 import { SearchResultWrapper, ResultInfo } from './styles';
 
 const SearchResult = ({ result, isLast }) => {
-  const imgSrc = result.type === 'user' ? undefined : 'hashtag.png';
-  const id = result.type === 'user' ? result.username : `# ${result.name}`;
-  const option =
-    result.type === 'user' ? (
-      <span className="option">{result.name}</span>
-    ) : null;
+  const [resultInfo, setResultInfo] = useState({
+    imgSrc: null,
+    content: null,
+    option: null,
+  });
+
+  useEffect(() => {
+    if (result.type === 'user') {
+      setResultInfo({
+        imgSrc: undefined, // 나중에 user.profileImage로 변경
+        content: result.username,
+        option: <span className="option">{result.name}</span>,
+      });
+    } else {
+      setResultInfo({
+        imgSrc: 'hashtag.png',
+        content: `# ${result.name}`,
+        option: null,
+      });
+    }
+  }, [result, setResultInfo]);
 
   return (
     <SearchResultWrapper isLast={isLast}>
       <div>
-        <ProfileIcon imgSrc={imgSrc} />
+        <ProfileIcon imgSrc={resultInfo.imgSrc} />
       </div>
       <ResultInfo>
-        <span>{id}</span>
-        {option}
+        <span>{resultInfo.content}</span>
+        {resultInfo.option}
       </ResultInfo>
     </SearchResultWrapper>
   );

@@ -9,7 +9,7 @@ const ResultInfo = styled.div`
   .option {
     margin-top: 2px;
     font-size: 0.8em;
-    color: gray;
+    color: ${({ theme }) => theme.palette.gray_font};
   }
 `;
 

@@ -16,4 +16,19 @@ const alarmQuery = username => {
     `;
 };
 
-module.exports = { alarmQuery };
+const searchQuery = value => {
+  return `{
+    searchUser(id: "${value}"){
+      type
+      username
+      name
+      profileImage
+    }
+    searchHashtag(id: "${value}") {
+      type
+      name
+    }
+  }`;
+};
+
+module.exports = { alarmQuery, searchQuery };

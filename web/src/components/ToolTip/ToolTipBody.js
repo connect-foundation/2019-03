@@ -9,7 +9,7 @@ const ToolTipBody = styled.div`
     `;
   }}
   border-radius: 5px;
-  z-index: 1;
+  z-index: 200;
   max-height: 400px;
   overflow-y: scroll;
 `;
