@@ -1,20 +1,21 @@
-const { GraphQLList, GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLList, GraphQLInt } = require('graphql');
 
 const { CommentType } = require('../types');
-const { Comment, Post } = require('../../../db');
+const { Comment } = require('../../../db');
 
 const commentQuery = {
   type: new GraphQLList(CommentType),
   args: {
-    postId: { type: GraphQLInt },
+    PostId: { type: GraphQLInt },
     limit: { type: GraphQLInt },
     offset: { type: GraphQLInt },
   },
   resolve: (post, args) => {
     return Comment.findAll({
-      where: { postId: args.postId },
+      where: { PostId: args.PostId },
       offset: args.offset,
       limit: args.limit,
+      order: [['updatedAt', 'DESC']],
     });
   },
 };
