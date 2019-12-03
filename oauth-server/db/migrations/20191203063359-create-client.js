@@ -27,6 +27,12 @@ module.exports = {
       description: {
         type: Sequelize.STRING(2048)
       },
+      clientID: {
+        type: Sequelize.STRING(2048)
+      },
+      clientSecret: {
+        type: Sequelize.STRING(2048)
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
