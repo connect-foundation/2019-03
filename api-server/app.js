@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   session({
-    secret: '@#@youth$romantic$flex@#@',
+    secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
   }),
