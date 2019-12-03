@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 import App from './containers/App';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-  }
-`;
+const client = new ApolloClient({
+  uri: `${process.env.REACT_APP_API_URL}/graphql`,
+});
 
 ReactDOM.render(
   <BrowserRouter>
-    <GlobalStyle />
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );
