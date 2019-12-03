@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,6 +16,10 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.0.1",
     "sequelize": "^5.21.2",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "url-regex": "^5.0.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }
