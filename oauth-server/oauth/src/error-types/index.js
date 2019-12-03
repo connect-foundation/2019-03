@@ -4,6 +4,7 @@ const AccessDeniedError = require("./access-denied-error");
 const UnsupportedResonseTypeError = require("./unsupported-response-type-error");
 const InvalidScopeError = require("./invalid-scope-error");
 const ServerError = require("./server-error");
+const TempUnavailableError = require("./temporarily-unavailable-error");
 
 module.exports = {
   InvalidRequestError,
@@ -11,5 +12,6 @@ module.exports = {
   AccessDeniedError,
   UnsupportedResonseTypeError,
   InvalidScopeError,
-  ServerError
+  ServerError,
+  TempUnavailableError
 };
