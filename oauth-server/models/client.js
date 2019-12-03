@@ -10,21 +10,20 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       clientType: {
+        allowNull: false,
         type: DataTypes.STRING(100)
       },
       redirectionURI: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.STRING(2048)
       },
       appName: {
         type: DataTypes.STRING(2048)
       },
       website: {
-        allowNull: false,
         type: DataTypes.STRING(2048)
       },
       description: {
-        allowNull: false,
         type: DataTypes.STRING(2048)
       },
       clientID: {

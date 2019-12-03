@@ -13,7 +13,7 @@ sequelize = new Sequelize(
   config
 );
 
-const modelsPath = path.join(__dirname, "../api/models/");
+const modelsPath = path.join(__dirname, "../models/");
 fs.readdirSync(modelsPath)
   .filter(file => {
     return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
