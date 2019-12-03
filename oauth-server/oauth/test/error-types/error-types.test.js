@@ -1,6 +1,7 @@
 const {
   InvalidRequestError,
-  UnauthorizedClientError
+  UnauthorizedClientError,
+  AccessDeniedError
 } = require("../../src/error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
@@ -22,6 +23,17 @@ describe("OAuth 2.0 Error Response Type 테스트", () => {
 
       expect(error.message).toEqual(message);
       expect(error.name).toEqual("unauthorized_client");
+      expect(error.status).toEqual(400);
+    });
+  });
+
+  describe("AccessDeniedError 테스트", () => {
+    test("AccessDeniedError 생성자 테스트", () => {
+      const message = "This is a test!";
+      const error = new AccessDeniedError(message);
+
+      expect(error.message).toEqual(message);
+      expect(error.name).toEqual("access_denied");
       expect(error.status).toEqual(400);
     });
   });
