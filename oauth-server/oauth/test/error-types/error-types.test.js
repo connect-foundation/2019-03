@@ -7,7 +7,8 @@ const {
   ServerError,
   TempUnavailableError,
   InvalidClientError,
-  InvalidGrantError
+  InvalidGrantError,
+  UnsupportedGrantTypeError
 } = require("../../src/error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
@@ -99,13 +100,24 @@ describe("OAuth 2.0 Error Response Type 테스트", () => {
     });
   });
 
-  describe("InvalidGrantTypeError 테스트", () => {
-    test("InvalidGrantTypeError 생성자 테스트", () => {
+  describe("InvalidGrantError 테스트", () => {
+    test("InvalidGrantError 생성자 테스트", () => {
       const message = "This is a test!";
       const error = new InvalidGrantError(message);
 
       expect(error.message).toEqual(message);
       expect(error.name).toEqual("invalid_grant");
+      expect(error.status).toEqual(400);
+    });
+  });
+
+  describe("UnsupportedGrantTypeError 테스트", () => {
+    test("UnsupportedGrantTypeError 생성자 테스트", () => {
+      const message = "This is a test!";
+      const error = new UnsupportedGrantTypeError(message);
+
+      expect(error.message).toEqual(message);
+      expect(error.name).toEqual("unsupported_grant_type");
       expect(error.status).toEqual(400);
     });
   });
