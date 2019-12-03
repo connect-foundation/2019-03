@@ -4,11 +4,11 @@ import PostContentWrapper from './PostContentWrapper';
 import PostText from './PostText';
 import CommentList from './CommentList';
 
-function PostContent({ height }) {
+function PostContent({ post }) {
   return (
-    <PostContentWrapper height={height}>
-      <PostText />
-      <CommentList />
+    <PostContentWrapper>
+      <PostText post={post} />
+      <CommentList PostId={+post.id} />
     </PostContentWrapper>
   );
 }

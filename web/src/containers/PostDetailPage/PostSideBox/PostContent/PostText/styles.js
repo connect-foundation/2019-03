@@ -1,4 +1,4 @@
-import CommentWrapper from './CommentWrapper';
+import PostTextWrapper from './PostTextWrapper';
 import ProfileWrapper from './ProfileWrapper';
 
-export { CommentWrapper, ProfileWrapper };
+export { PostTextWrapper, ProfileWrapper };

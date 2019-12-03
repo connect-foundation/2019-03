@@ -1,12 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { ContentWrapper, StyledTime } from './styles';
 import StyledLink from '../../../../../../components/StyledLink';
-import Context from '../../../../context';
 
-function Content() {
-  const { data } = useContext(Context);
-  const { post } = data;
+function Content({ post }) {
   const { writer, content } = post;
   return (
     <ContentWrapper>

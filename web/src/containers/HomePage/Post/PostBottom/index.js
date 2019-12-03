@@ -31,11 +31,11 @@ const PostBottom = ({ myInfo, post, dispatch }) => {
       ))}
       <UpdatedTime>{dateDiffText}</UpdatedTime>
       <CommentInputWrapper>
-        <CommentInput
+        {/* <CommentInput
           style={commentInputStyle}
           post={post}
           dispatch={dispatch}
-        />
+        /> */}
       </CommentInputWrapper>
     </>
   );

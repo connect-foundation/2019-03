@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CommentWrapper = styled.li`
+const PostTextWrapper = styled.li`
   display: flex;
   list-style-type: none;
   width: 100%;
@@ -19,4 +19,4 @@ const CommentWrapper = styled.li`
   }
 `;
 
-export default CommentWrapper;
+export default PostTextWrapper;

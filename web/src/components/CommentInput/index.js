@@ -1,67 +1,68 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 
-import Wrapper, { FlexWrapper, StyledButton, StyledInput } from './Wrapper';
-import { useFetch } from '../../hooks';
+import {
+  StyledForm,
+  StyledButton,
+  StyledInput,
+  CommentInputWrapper,
+} from './styles';
 
-function CommentInput({ style, className, dispatch, post }) {
-  const { state, fetchData } = useFetch();
-  const { loading, data, error } = state;
+const myInfo = {
+  id: 1,
+  username: '_so_02',
+  name: '정소영',
+  profileImage: 'https://i.pravatar.cc/150?img=9',
+};
+
+function CommentInput({ PostId, ADD_COMMENT, COMMENT_LIST, variables }) {
+  const [addComment] = useMutation(ADD_COMMENT, {
+    update(cache, { data: { createComment } }) {
+      const { commentList } = cache.readQuery({
+        query: COMMENT_LIST,
+        variables: {
+          PostId,
+          ...variables,
+        },
+      });
+      cache.writeQuery({
+        query: COMMENT_LIST,
+        variables: {
+          PostId,
+          ...variables,
+        },
+        data: { commentList: [createComment].concat(commentList) },
+      });
+    },
+  });
 
   const [text, setText] = useState('');
-  const myInfo = {
-    id: 1,
-    username: '_so_02',
-    name: '정소영',
-    profileImage: 'https://i.pravatar.cc/150?img=9',
-  };
-  const insertCommentQuery = `mutation{
-    createComment(
-      content:"${text}",
-      depth:null,
-      PostId:${post.id},
-      UserId:${myInfo.id},
-    ){
-      id
-      content
-      PostId
-    }
-  }`;
 
   const isEmpty = text === '';
+
   const onChange = e => {
     setText(e.target.value);
   };
 
-  const onReset = () => {
+  const submitHandler = e => {
+    e.preventDefault();
+    addComment({ variables: { content: text, PostId, UserId: myInfo.id } });
     setText('');
   };
 
-  const submitHandler = () => {
-    fetchData(insertCommentQuery, ({ createComment }) => {
-      dispatch({
-        type: 'NEWCOMMENT',
-        id: createComment.id,
-        content: text,
-        writer: myInfo,
-        target: createComment.PostId,
-      });
-    });
-    onReset();
-  };
-
   return (
-    <Wrapper style={style} className={className}>
-      <FlexWrapper>
+    <CommentInputWrapper>
+      <StyledForm onSubmit={submitHandler}>
         <StyledInput
           placeholder="댓글달기..."
           onChange={onChange}
           value={text}
         />
-        <StyledButton onClick={submitHandler} disabled={isEmpty}>
+        <StyledButton type="submit" disabled={isEmpty}>
           게시
         </StyledButton>
-      </FlexWrapper>
-    </Wrapper>
+      </StyledForm>
+    </CommentInputWrapper>
   );
 }
 
