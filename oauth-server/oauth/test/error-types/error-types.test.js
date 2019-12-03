@@ -5,7 +5,8 @@ const {
   UnsupportedResonseTypeError,
   InvalidScopeError,
   ServerError,
-  TempUnavailableError
+  TempUnavailableError,
+  InvalidClientError
 } = require("../../src/error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
@@ -83,6 +84,17 @@ describe("OAuth 2.0 Error Response Type 테스트", () => {
       expect(error.message).toEqual(message);
       expect(error.name).toEqual("temporarily_unavailable");
       expect(error.status).toEqual(503);
+    });
+  });
+
+  describe("InvalidClientError 테스트", () => {
+    test("InvalidClientError 생성자 테스트", () => {
+      const message = "This is a test!";
+      const error = new InvalidClientError(message);
+
+      expect(error.message).toEqual(message);
+      expect(error.name).toEqual("invalid_client");
+      expect(error.status).toEqual(401);
     });
   });
 });
