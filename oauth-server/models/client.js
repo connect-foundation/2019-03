@@ -27,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(2048)
       },
+      clientID: {
+        type: DataTypes.STRING(2048)
+      },
+      clientSecret: {
+        type: DataTypes.STRING(2048)
+      },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
