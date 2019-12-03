@@ -1,7 +1,8 @@
 const {
   InvalidRequestError,
   UnauthorizedClientError,
-  AccessDeniedError
+  AccessDeniedError,
+  UnsupportedResonseTypeError
 } = require("../../src/error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
@@ -34,6 +35,17 @@ describe("OAuth 2.0 Error Response Type 테스트", () => {
 
       expect(error.message).toEqual(message);
       expect(error.name).toEqual("access_denied");
+      expect(error.status).toEqual(400);
+    });
+  });
+
+  describe("UnsupportedResonseTypeError 테스트", () => {
+    test("UnsupportedResonseTypeError 생성자 테스트", () => {
+      const message = "This is a test!";
+      const error = new UnsupportedResonseTypeError(message);
+
+      expect(error.message).toEqual(message);
+      expect(error.name).toEqual("unsupported_response_type");
       expect(error.status).toEqual(400);
     });
   });
