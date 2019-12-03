@@ -4,7 +4,8 @@ const {
   AccessDeniedError,
   UnsupportedResonseTypeError,
   InvalidScopeError,
-  ServerError
+  ServerError,
+  TempUnavailableError
 } = require("../../src/error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
@@ -71,6 +72,17 @@ describe("OAuth 2.0 Error Response Type 테스트", () => {
       expect(error.message).toEqual(message);
       expect(error.name).toEqual("server_error");
       expect(error.status).toEqual(500);
+    });
+  });
+
+  describe("TempUnavailableError 테스트", () => {
+    test("TempUnavailableError 생성자 테스트", () => {
+      const message = "This is a test!";
+      const error = new TempUnavailableError(message);
+
+      expect(error.message).toEqual(message);
+      expect(error.name).toEqual("temporarily_unavailable");
+      expect(error.status).toEqual(503);
     });
   });
 });
