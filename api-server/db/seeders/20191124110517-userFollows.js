@@ -6,39 +6,15 @@ function getRandomInt(min, max) {
 
 module.exports = {
   up: queryInterface => {
-    const data = [
-      {
+    const data = [];
+    for (let to = 2; to <= 101; to += 1) {
+      data.push({
         from: 1,
-        to: 2,
+        to,
         status: 0,
         updatedAt: new Date(),
-      },
-      {
-        from: 1,
-        to: 3,
-        status: 0,
-        updatedAt: new Date(),
-      },
-      {
-        from: 1,
-        to: 4,
-        status: 0,
-        updatedAt: new Date(),
-      },
-      {
-        from: 2,
-        to: 1,
-        status: 0,
-        updatedAt: new Date(),
-      },
-      ...Array.from(Array(100)).map(() => ({
-        from: getRandomInt(5, 100),
-        to: getRandomInt(5, 100),
-        status: 0,
-        updatedAt: new Date(),
-      })),
-    ];
-
+      });
+    }
     return queryInterface.bulkInsert('UserFollows', data, {});
   },
 
