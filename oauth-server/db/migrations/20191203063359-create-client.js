@@ -21,13 +21,13 @@ module.exports = {
         type: Sequelize.STRING(2048)
       },
       website: {
-        allowNull: false,
         type: Sequelize.STRING(2048)
       },
       description: {
         type: Sequelize.STRING(2048)
       },
       clientID: {
+        allowNull: false,
         type: Sequelize.STRING(2048)
       },
       clientSecret: {
