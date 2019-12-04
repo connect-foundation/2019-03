@@ -10,6 +10,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "graphql": "^14.5.8",
     "immer": "^5.0.0",
+    "intersection-observer": "^0.7.0",
     "polished": "^3.4.2",
     "react": "^16.11.0",
     "react-copy-to-clipboard": "^5.0.2",
