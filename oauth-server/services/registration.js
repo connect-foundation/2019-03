@@ -2,26 +2,31 @@ const uuidv4 = require("uuid/v4");
 const sha256 = require("js-sha256");
 const cryptoRandomString = require("crypto-random-string");
 const Validator = require("../oauth/src/validator/index");
-const clientError = require("../oauth/src/error-types/client-error");
+const { InvalidRequestError } = require("../oauth/src/error-types");
 const { Client } = require("../db");
+
+const clientType = {
+  WEB: "web-server-app",
+  SPA: "single-page-app"
+};
 
 const registration = async client => {
   try {
     if (!client.type) {
-      throw new clientError("Type is required.");
+      throw new InvalidRequestError("Type is required.");
     }
 
     if (!client.redirectionURI) {
-      throw new clientError("url is required.");
+      throw new InvalidRequestError("url is required.");
     }
 
     if (!Validator.isUrl(client.redirectionURI)) {
-      throw new clientError("url is invalid");
+      throw new InvalidRequestError("url is invalid");
     }
 
     const clientId = uuidv4();
     let clientSecret;
-    if (client.type === "web-server-app") {
+    if (client.type === clientType.WEB) {
       clientSecret = cryptoRandomString({ length: 32 });
     }
 
