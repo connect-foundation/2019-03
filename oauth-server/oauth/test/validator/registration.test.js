@@ -32,7 +32,7 @@ describe("registration 함수 테스트", () => {
     });
   });
 
-  describe("database 오류", () => {
+  describe("database insert 오류", () => {
     test("appName 없을 때 error", async () => {
       client = { type: "web-server-app", redirectionURI: "https://naver.com" };
       try {
