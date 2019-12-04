@@ -13,11 +13,6 @@ const COMMENT_LIST = gql`
   }
 `;
 
-const commentListVariables = {
-  offset: 0,
-  limit: 5,
-};
-
 const ADD_COMMENT = gql`
   mutation AddComment($PostId: Int!, $UserId: Int!, $content: String!) {
     createComment(
@@ -37,4 +32,4 @@ const ADD_COMMENT = gql`
   }
 `;
 
-export { COMMENT_LIST, ADD_COMMENT, commentListVariables };
+export { COMMENT_LIST, ADD_COMMENT };
