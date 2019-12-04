@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
-import { relative } from 'path';
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
-import useFetch from '../../../useFetch';
-import { alarmQuery } from '../../../query/navigationQuery';
+import { useFetch } from '../../../hooks';
+import { alarmQuery } from '../query';
 
 const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [state, dispatch, fetchData] = useFetch(
-    alarmQuery(myInfo.username),
-    true,
-    [],
-    true,
-  );
+  const [state, dispatch, fetchData] = useFetch();
   const { loading, data, error } = state;
 
   const clickAlarmIcon = async () => {
@@ -20,7 +14,7 @@ const Alarm = ({ myInfo }) => {
       setIsVisible(false);
       return;
     }
-    await fetchData();
+    await fetchData(alarmQuery(myInfo.id));
     setIsVisible(true);
   };
 
