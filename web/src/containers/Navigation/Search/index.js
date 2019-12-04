@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import Icon from '../../../components/Icon';
 import SearchToolTip from './SearchToolTip';
 import { useFetch } from '../../../hooks';
-import { searchQuery } from '../../../query/navigationQuery';
+import { searchQuery } from '../query';
 import { SearchWrapper, Input } from './styles';
 
 const searchResultsRandomSort = results => {
