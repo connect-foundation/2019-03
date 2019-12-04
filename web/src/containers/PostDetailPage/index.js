@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
-import { useFetch } from '../../hooks';
 
 function PostDetailPage({ match }) {
-  const postDetailQuery = `{
-    post(postURL:"${match.params.postURL}"){
-      id,
-      content,
-      writer{
-        username
+  const POST_DETAIL = gql`
+    query Post($postURL: String!) {
+      post(postURL: $postURL) {
+        id
+        content
+        writer {
+          username
+        }
+        imageURL
+        postURL
+        likeCount
       }
-      imageURL,
-      postURL,
-      likeCount
     }
-  }`;
-  const { state, dispatch, fetchData } = useFetch();
-  useEffect(() => {
-    fetchData(postDetailQuery);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const { loading, data, error } = state;
+  `;
+  const { loading, error, data } = useQuery(POST_DETAIL, {
+    variables: { postURL: match.params.postURL },
+  });
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
@@ -31,11 +31,11 @@ function PostDetailPage({ match }) {
   const { post } = data;
 
   return (
-    <PostProvider value={{ data, dispatch }}>
+    <PostProvider value={{ data }}>
       <ThemeProvider theme={{ post_length: 600 }}>
         <PostDetailPageWrapper>
           <ViewPort img={post.imageURL} />
-          <PostSideBox />
+          <PostSideBox post={post} />
         </PostDetailPageWrapper>
       </ThemeProvider>
     </PostProvider>

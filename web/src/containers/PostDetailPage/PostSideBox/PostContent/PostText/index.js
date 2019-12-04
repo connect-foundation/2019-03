@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { CommentWrapper, ProfileWrapper } from './styles';
+import { PostTextWrapper, ProfileWrapper } from './styles';
 import ProfileIcon from '../../../../../components/ProfileIcon';
 import Content from './Content';
 
-const Comment = ({ writer, content, updatedAt, commentId }) => {
+const PostText = ({ post }) => {
   return (
-    <CommentWrapper>
+    <PostTextWrapper>
       <ProfileWrapper>
         <ProfileIcon />
       </ProfileWrapper>
-      <Content content={content} writer={writer} />
-    </CommentWrapper>
+      <Content post={post} />
+    </PostTextWrapper>
   );
 };
 
-export default Comment;
+export default PostText;
