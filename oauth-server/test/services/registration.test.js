@@ -1,4 +1,4 @@
-const registration = require("../../../services/registration");
+const registration = require("../../services/registration");
 
 describe("registration 함수 테스트", () => {
   describe("client type", () => {
