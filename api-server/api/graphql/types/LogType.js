@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
 const { AlarmFromUserType } = require('./AlarmFromUserType');
 const { AlarmPostType } = require('./AlarmPostType');
 const { User, Post } = require('../../../db');
@@ -6,6 +6,10 @@ const { User, Post } = require('../../../db');
 const LogType = new GraphQLObjectType({
   name: 'Log',
   fields: () => ({
+    id: {
+      type: GraphQLInt,
+      resolve: log => log.id,
+    },
     status: {
       type: GraphQLString,
       resolve: log => log.status,

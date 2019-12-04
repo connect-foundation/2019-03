@@ -5,7 +5,7 @@ const AlarmResultList = ({ alarmResults }) => {
   const renderedAlarmResults = alarmResults.map((result, index, array) => {
     return (
       <AlarmResult
-        key={index}
+        key={result.id}
         result={result}
         isLast={index === array.length - 1}
       />

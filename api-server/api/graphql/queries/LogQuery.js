@@ -1,9 +1,7 @@
 const { GraphQLInt, GraphQLList } = require('graphql');
 
 const { LogType } = require('../types');
-const { Log, User, Sequelize } = require('../../../db');
-
-const { Op } = Sequelize;
+const { Log } = require('../../../db');
 
 const logQuery = {
   type: new GraphQLList(LogType),
@@ -12,7 +10,7 @@ const logQuery = {
   },
   resolve: (log, args) => {
     return Log.findAll({
-      attributes: ['status', 'From', 'PostId'],
+      attributes: ['id', 'status', 'From', 'PostId'],
       where: { to: args.id },
     });
   },
