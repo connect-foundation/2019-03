@@ -21,24 +21,19 @@ const Comment = ({ myInfo, comment }) => {
   const [isFold, commentRef, onUnfoldComment] = useComment();
   const likeIcon = useRef(null);
 
-  const { isLike, id: commentId, writer: commenter, content } = comment;
+  const { id: commentId, writer: commenter, content } = comment;
   const wrapperProps = { userId: myInfo.id, commentId, likeIcon };
 
   return (
-    <LikeProvider isLike={isLike}>
-      <CommentWrapper {...wrapperProps}>
-        <Commenter to={`/${commenter.username}`}>
-          {commenter.username}
-        </Commenter>
-        <CommentContent isFold={isFold} ref={commentRef}>
-          {content}
-        </CommentContent>
-        <CommentMoreButton onClick={onUnfoldComment} isFold={isFold}>
-          더 보기
-        </CommentMoreButton>
-        <LikeIcon ratio={10} style={likeIconStyle} ref={likeIcon} />
-      </CommentWrapper>
-    </LikeProvider>
+    <CommentWrapper {...wrapperProps}>
+      <Commenter to={`/${commenter.username}`}>{commenter.username}</Commenter>
+      <CommentContent isFold={isFold} ref={commentRef}>
+        {content}
+      </CommentContent>
+      <CommentMoreButton onClick={onUnfoldComment} isFold={isFold}>
+        더 보기
+      </CommentMoreButton>
+    </CommentWrapper>
   );
 };
 

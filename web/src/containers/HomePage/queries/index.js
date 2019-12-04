@@ -1,3 +1,4 @@
-import followingPostListQuery from './followingPostList';
+import FOLLOWING_POST_LIST from './followingPostList';
+import CREATE_COMMENT from './createComment';
 
-export { followingPostListQuery };
+export { FOLLOWING_POST_LIST, CREATE_COMMENT };

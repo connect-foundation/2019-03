@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
+import { ADD_COMMENT, COMMENT_LIST } from '../../queries';
 
 import {
   StyledForm,
@@ -15,21 +16,23 @@ const myInfo = {
   profileImage: 'https://i.pravatar.cc/150?img=9',
 };
 
-function CommentInput({ PostId, ADD_COMMENT, COMMENT_LIST, variables }) {
+function CommentInput({ PostId }) {
   const [addComment] = useMutation(ADD_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { commentList } = cache.readQuery({
         query: COMMENT_LIST,
         variables: {
           PostId,
-          ...variables,
+          offset: 0,
+          limit: 5,
         },
       });
       cache.writeQuery({
         query: COMMENT_LIST,
         variables: {
           PostId,
-          ...variables,
+          offset: 0,
+          limit: 5,
         },
         data: { commentList: [createComment].concat(commentList) },
       });

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import 'intersection-observer';
+
 import Post from './Post';
 import PostListWrapper from './PostListWrapper';
-
-import { followingPostListQuery } from './queries';
-import { infiniteScroll } from '../../utils';
-import { useFetch } from '../../hooks';
-import reducer from './reducer';
+import { FOLLOWING_POST_LIST } from './queries';
 
 const myInfo = {
   id: 1,
@@ -14,49 +13,65 @@ const myInfo = {
   profileImage: 'https://i.pravatar.cc/150?img=9',
 };
 
-const LIMIT = 10;
-
 function HomePage() {
-  const loading = useRef(false);
-  const offset = useRef(0);
-  const { state, dispatch, fetchData } = useFetch(reducer);
-  const { data, error } = state;
+  const lastChild = useRef();
 
-  const refetchData = () => {
-    if (data && data.isEnd) return;
-    if (loading.current) return;
-    fetchData(followingPostListQuery(myInfo.id, offset.current, LIMIT));
-    offset.current += LIMIT;
-    loading.current = true;
+  const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
+    variables: {
+      myId: myInfo.id,
+      offset: 0,
+      limit: 5,
+    },
+    fetchPolicy: 'cache-and-network',
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const options = {
+    root: null,
+    threshold: 0,
   };
 
+  const getMorePosts = entries => {
+    const lastPost = [...entries].pop();
+    if (loading) return;
+    if (!lastPost.isIntersecting) return;
+    fetchMore({
+      variables: {
+        offset: data.followingPostList.length,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          ...prev,
+          followingPostList: [
+            ...prev.followingPostList,
+            ...fetchMoreResult.followingPostList,
+          ],
+        };
+      },
+    });
+  };
+
+  const observer = new IntersectionObserver(getMorePosts, options);
+
+  const { followingPostList } = data || { followingPostList: [] };
+
+  const postList = followingPostList.map(post => (
+    <Post key={post.id} post={post} myInfo={myInfo} ref={lastChild} />
+  ));
+
   useEffect(() => {
-    fetchData(followingPostListQuery(myInfo.id, 0, LIMIT));
-    offset.current += LIMIT;
-    loading.current = true;
-    window.addEventListener(
-      'scroll',
-      infiniteScroll.bind(null, refetchData),
-      true,
-    );
+    if (!lastChild.current) return;
+    observer.observe(lastChild.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [followingPostList]);
 
   if (error) return <div>에러가 발생했습니다</div>;
-
-  let postList = null;
-  if (data) {
-    const { followingPostList } = data;
-    postList = followingPostList.map(p => (
-      <Post key={p.id} post={p} myInfo={myInfo} dispatch={dispatch} />
-    ));
-    loading.current = false;
-  }
 
   return (
     <PostListWrapper>
       {postList}
-      {loading.current && <div>로딩중...</div>}
+      <div>loading...</div>
     </PostListWrapper>
   );
 }
