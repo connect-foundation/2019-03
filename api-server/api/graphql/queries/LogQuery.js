@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLList } = require('graphql');
+const { GraphQLInt, GraphQLList } = require('graphql');
 
 const { LogType } = require('../types');
 const { Log, User, Sequelize } = require('../../../db');
@@ -8,18 +8,12 @@ const { Op } = Sequelize;
 const logQuery = {
   type: new GraphQLList(LogType),
   args: {
-    username: { type: GraphQLString },
+    id: { type: GraphQLInt },
   },
   resolve: (log, args) => {
     return Log.findAll({
-      include: [
-        {
-          model: User,
-          where: {
-            [Op.and]: [{ username: args.username }],
-          },
-        },
-      ],
+      attributes: ['status', 'From', 'PostId'],
+      where: { to: args.id },
     });
   },
 };

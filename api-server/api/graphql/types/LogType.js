@@ -13,13 +13,19 @@ const LogType = new GraphQLObjectType({
     fromUser: {
       type: AlarmFromUserType,
       resolve: log => {
-        return User.findOne({ where: { id: log.From } });
+        return User.findOne({
+          attributes: ['id', 'username', 'profileImage'],
+          where: { id: log.From },
+        });
       },
     },
     post: {
       type: AlarmPostType,
       resolve: log => {
-        return Post.findOne({ where: { id: log.PostId } });
+        return Post.findOne({
+          attributes: ['id', 'postURL', 'imageURL'],
+          where: { id: log.PostId },
+        });
       },
     },
   }),

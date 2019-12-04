@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { relative } from 'path';
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
 import { useFetch } from '../../../hooks';
@@ -6,7 +7,7 @@ import { alarmQuery } from '../query';
 
 const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [state, dispatch, fetchData] = useFetch();
+  const { state, dispatch, fetchData } = useFetch();
   const { loading, data, error } = state;
 
   const clickAlarmIcon = async () => {

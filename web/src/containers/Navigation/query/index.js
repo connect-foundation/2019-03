@@ -1,7 +1,7 @@
-const alarmQuery = username => {
+const alarmQuery = id => {
   return `
     {
-        log(username: "${username}" ) {
+        log(id: ${id}) {
           status
         fromUser{
           username
@@ -11,7 +11,7 @@ const alarmQuery = username => {
           postURL
           imageURL
         }
-        }
+      }
     }
     `;
 };
