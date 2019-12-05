@@ -1,7 +1,6 @@
 const { commentQuery } = require('./CommentQuery');
 const { postDetailQuery } = require('./PostDetailQuery');
-const { searchHashtagQuery } = require('./SearchHashtagQuery');
-const { searchUserQuery } = require('./SearchUserQuery');
+const { searchQuery } = require('./SearchQuery');
 const { logQuery } = require('./LogQuery');
 const { followingPostListQuery } = require('./FollowingPostListQuery');
 const { likerListQuery } = require('./LikerListQuery');
@@ -10,8 +9,7 @@ const { postCardQuery } = require('./PostCardQuery');
 module.exports = {
   commentQuery,
   postDetailQuery,
-  searchHashtagQuery,
-  searchUserQuery,
+  searchQuery,
   logQuery,
   followingPostListQuery,
   likerListQuery,

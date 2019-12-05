@@ -69,15 +69,7 @@ const Search = () => {
       return;
     }
 
-    let results = [];
-    Object.keys(data).map(element => {
-      results = results.concat(data[element]);
-      return results;
-    });
-
-    if (results.length !== 0) results = searchResultsRandomSort(results);
-
-    searchDispatch({ type: 'FINISH_SEARCH', results });
+    searchDispatch({ type: 'FINISH_SEARCH', results: data.search });
   }, [data, error, loading]);
 
   return (

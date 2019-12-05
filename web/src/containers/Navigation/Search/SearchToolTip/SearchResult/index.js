@@ -10,17 +10,17 @@ const SearchResult = ({ result, isLast }) => {
   });
 
   useEffect(() => {
-    if (result.type === 'user') {
+    if (!result.username) {
+      setResultInfo({
+        imgSrc: 'https://kr.object.ncloudstorage.com/youngstargram/hashtag.png',
+        content: `# ${result.name}`,
+        option: null,
+      });
+    } else {
       setResultInfo({
         imgSrc: undefined, // 나중에 user.profileImage로 변경
         content: result.username,
         option: <span className="option">{result.name}</span>,
-      });
-    } else {
-      setResultInfo({
-        imgSrc: 'hashtag.png',
-        content: `# ${result.name}`,
-        option: null,
       });
     }
   }, [result, setResultInfo]);
@@ -28,7 +28,7 @@ const SearchResult = ({ result, isLast }) => {
   return (
     <SearchResultWrapper isLast={isLast}>
       <div>
-        <ProfileIcon imgSrc={resultInfo.imgSrc} />
+        <ProfileIcon imageURL={resultInfo.imgSrc} />
       </div>
       <ResultInfo>
         <span>{resultInfo.content}</span>
