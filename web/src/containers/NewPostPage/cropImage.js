@@ -59,3 +59,8 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   // As a blob
   return canvas.toDataURL('image/png', 1);
 }
+
+/**
+ * honor code : npm react-easy-crop example
+ * location : https://codesandbox.io/s/q8q1mnr01w
+ */

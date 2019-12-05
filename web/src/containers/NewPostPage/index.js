@@ -109,12 +109,12 @@ const NewPostPage = ({ myInfo }) => {
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}
-                cropSize={{ width: 600, height: 600 }}
+                cropSize={{ width: 615, height: 615 }}
               />
             </div>
             <div className="controls" style={{ width: '20%' }}>
               <Slider
-                value={originalImage.zoom}
+                value={zoom}
                 min={minZoom}
                 max={3}
                 step={0.1}
