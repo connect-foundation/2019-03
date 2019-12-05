@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { relative } from 'path';
+import { useLazyQuery } from '@apollo/react-hooks';
+
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
-import { useFetch } from '../../../hooks';
-import { alarmQuery } from '../query';
+import { GET_LOG } from '../queries';
 
 const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { state, dispatch, fetchData } = useFetch();
-  const { loading, data, error } = state;
 
-  const clickAlarmIcon = async () => {
+  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOG);
+
+  const clickAlarmIcon = () => {
     if (isVisible) {
       setIsVisible(false);
       return;
     }
-    await fetchData(alarmQuery(myInfo.id));
+    getLog({ variables: { id: myInfo.id } });
     setIsVisible(true);
   };
-
   return (
     <div style={{ position: 'relative' }}>
       <Icon
@@ -31,7 +30,9 @@ const Alarm = ({ myInfo }) => {
       <AlarmToolTip
         isVisible={isVisible}
         setIsVisible={setIsVisible}
-        alarmResults={data && data.log}
+        data={data}
+        loading={loading}
+        error={error}
       />
     </div>
   );
