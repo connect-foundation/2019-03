@@ -182,7 +182,7 @@ async function insertHashTagOfPost(content, postId) {
       HashTagsOfPost.create({
         PostId: postId,
         HashTagId: newHashTagId,
-        updateAt: new Date(),
+        updatedAt: new Date(),
       });
       return;
     }
@@ -190,7 +190,7 @@ async function insertHashTagOfPost(content, postId) {
     await HashTagsOfPost.create({
       PostId: postId,
       HashTagId: hashTag.dataValues.id,
-      updateAt: new Date(),
+      updatedAt: new Date(),
     });
   });
 }
