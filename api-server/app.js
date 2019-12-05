@@ -10,7 +10,7 @@ const graphqlHTTP = require('express-graphql');
 const multer = require('multer');
 const { schema } = require('./api/graphql');
 const upload = require('./upload');
-const { Post } = require('./db');
+const { insertPost } = require('./api/services/PostService');
 
 const app = express();
 
@@ -48,13 +48,8 @@ app.use('/upload', (req, res, next) => {
       return next(err);
     }
 
-    Post.create({
-      imageURL: req.file.location,
-      postURL: req.file.etag,
-      content: req.body.content,
-      updatedAt: new Date(),
-      UserId: +req.body.userId,
-    });
+    insertPost(req.file, req.body);
+
     return res.json({ data: 'success' });
   });
 });

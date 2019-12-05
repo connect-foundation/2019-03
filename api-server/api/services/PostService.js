@@ -1,4 +1,13 @@
-const { Sequelize, User, Post, UserFollow, PostLike } = require('../../db');
+const {
+  Sequelize,
+  User,
+  Post,
+  UserFollow,
+  PostLike,
+  HashTagsOfPost,
+  HashTag,
+  UserTag,
+} = require('../../db');
 
 const { Op } = Sequelize;
 
@@ -94,6 +103,98 @@ async function unsetPostLike(userId, postId) {
   });
 }
 
+async function insertPost(file, postInfo) {
+  try {
+    const result = await Post.create({
+      imageURL: file.location,
+      postURL: file.etag,
+      content: postInfo.content,
+      updatedAt: new Date(),
+      UserId: +postInfo.userId,
+    });
+
+    const postId = result.dataValues.id;
+    insertHashTagOfPost(postInfo.content, postId);
+    insertUserTag(postInfo.content, postId);
+  } catch {}
+}
+
+async function insertUserTag(content, postId) {
+  const users = makeUserArray(content);
+  if (users.length === 0) return;
+  users.forEach(async element => {
+    await UserTag.create({
+      username: element.substring(1, element.length),
+      PostId: postId,
+      updatedAt: new Date(),
+    });
+  });
+}
+
+function makeUserArray(content) {
+  const allWords = content.split(' ');
+  const userIncludedWords = allWords.filter(word => {
+    return word.includes('@');
+  });
+  const users = userIncludedWords.reduce((acc, cur) => {
+    const regexp = /@[\S][^@]*/g;
+    const username = cur.match(regexp);
+
+    return [...acc, ...username];
+  }, []);
+
+  return users;
+}
+
+function makeHashTagArray(content) {
+  const allWords = content.split(' ');
+  const hashTagIncludedWords = allWords.filter(word => {
+    return word.includes('#');
+  });
+  const hashTags = hashTagIncludedWords.reduce((acc, cur) => {
+    const regexp = /#[\S][^#]*/g;
+    const hashTagWord = cur.match(regexp);
+
+    return [...acc, ...hashTagWord];
+  }, []);
+
+  return hashTags;
+}
+
+async function insertHashTagOfPost(content, postId) {
+  const hashTags = makeHashTagArray(content);
+  if (hashTags.length === 0) return;
+  hashTags.forEach(async element => {
+    const hashTag = await HashTag.findOne({
+      attributes: ['id'],
+      where: {
+        name: `${element.substring(1, element.length)}`,
+      },
+    });
+
+    if (!hashTag) {
+      const newHashTag = await HashTag.create({
+        name: `${element.substring(1, element.length)}`,
+        updatedAt: new Date(),
+      });
+
+      const newHashTagId = newHashTag.dataValues.id;
+      HashTagsOfPost.create({
+        PostId: postId,
+        HashTagId: newHashTagId,
+        updatedAt: new Date(),
+      });
+      return;
+    }
+
+    await HashTagsOfPost.create({
+      PostId: postId,
+      HashTagId: hashTag.dataValues.id,
+      updatedAt: new Date(),
+    });
+  });
+}
+
 module.exports = {
   getFollowingPostList,
   checkUserLikePost,
@@ -101,4 +202,5 @@ module.exports = {
   getLikerList,
   setPostLike,
   unsetPostLike,
+  insertPost,
 };
