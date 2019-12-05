@@ -1,13 +1,31 @@
 import React from 'react';
 import { AlarmToolTipWrapper, AlarmResultList, AlarmNoResult } from './styles';
 
-const AalrmToolTip = ({ isVisible, setIsVisible, alarmResults }) => {
+const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
   const clickClose = () => {
     setIsVisible(false);
   };
-
   if (!isVisible) return null;
-  if (alarmResults === null || alarmResults.length === 0) {
+  if (loading) {
+    return (
+      <AlarmToolTipWrapper arrowStyle={{ left: '85%' }} onClick={clickClose}>
+        <AlarmNoResult>
+          <span>로딩중.</span>
+        </AlarmNoResult>
+      </AlarmToolTipWrapper>
+    );
+  }
+  if (error) {
+    return (
+      <AlarmToolTipWrapper arrowStyle={{ left: '85%' }} onClick={clickClose}>
+        <AlarmNoResult>
+          <span>에러가 발생했습니다.</span>
+        </AlarmNoResult>
+      </AlarmToolTipWrapper>
+    );
+  }
+  const { log } = data;
+  if (log.length === 0) {
     return (
       <AlarmToolTipWrapper arrowStyle={{ left: '85%' }} onClick={clickClose}>
         <AlarmNoResult>
@@ -18,9 +36,9 @@ const AalrmToolTip = ({ isVisible, setIsVisible, alarmResults }) => {
   }
   return (
     <AlarmToolTipWrapper arrowStyle={{ left: '85%' }} onClick={clickClose}>
-      <AlarmResultList alarmResults={alarmResults} />
+      <AlarmResultList alarmResults={log} />
     </AlarmToolTipWrapper>
   );
 };
 
-export default AalrmToolTip;
+export default AlarmToolTip;
