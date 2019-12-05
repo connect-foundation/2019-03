@@ -1,6 +1,4 @@
 const uuidv4 = require("uuid/v4");
-const sha256 = require("js-sha256");
-const cryptoRandomString = require("crypto-random-string");
 const Validator = require("../oauth/src/validator/index");
 const { InvalidRequestError } = require("../oauth/src/error-types");
 const { Client } = require("../db");
@@ -25,9 +23,8 @@ const registration = async client => {
     }
 
     const clientId = uuidv4();
-    let clientSecret;
+    let clientSecret = null;
     if (client.type === clientType.WEB) {
-      clientSecret = cryptoRandomString({ length: 32 });
     }
 
     await Client.create({
@@ -37,7 +34,7 @@ const registration = async client => {
       website: client.website,
       description: client.description,
       clientID: clientId,
-      clientSecret: sha256(clientSecret),
+      clientSecret,
       updatedAt: new Date()
     });
 
