@@ -1,4 +1,12 @@
-const { Sequelize, User, Post, UserFollow, PostLike } = require('../../db');
+const {
+  Sequelize,
+  User,
+  Post,
+  UserFollow,
+  PostLike,
+  HashTagsOfPost,
+  HashTag,
+} = require('../../db');
 
 const { Op } = Sequelize;
 
@@ -94,6 +102,70 @@ async function unsetPostLike(userId, postId) {
   });
 }
 
+async function insertPost(file, postInfo) {
+  try {
+    const result = await Post.create({
+      imageURL: file.location,
+      postURL: file.etag,
+      content: postInfo.content,
+      updatedAt: new Date(),
+      UserId: +postInfo.userId,
+    });
+
+    const postId = result.dataValues.id;
+    insertHashTagOfPost(postInfo.content, postId);
+  } catch {}
+}
+
+function makeHashTagArray(content) {
+  const allWords = content.split(' ');
+  const hashTagIncludedWords = allWords.filter(word => {
+    return word.includes('#');
+  });
+  const hashTags = hashTagIncludedWords.reduce((acc, cur) => {
+    const regexp = /#[\S][^#]*/g;
+    const hashTagWord = cur.match(regexp);
+
+    return [...acc, ...hashTagWord];
+  }, []);
+
+  return hashTags;
+}
+
+async function insertHashTagOfPost(content, postId) {
+  const hashTags = makeHashTagArray(content);
+  if (hashTags.length === 0) return;
+  hashTags.forEach(async element => {
+    const hashTag = await HashTag.findOne({
+      attributes: ['id'],
+      where: {
+        name: `${element.substring(1, element.length)}`,
+      },
+    });
+
+    if (!hashTag) {
+      const newHashTag = await HashTag.create({
+        name: `${element.substring(1, element.length)}`,
+        updatedAt: new Date(),
+      });
+
+      const newHashTagId = newHashTag.dataValues.id;
+      HashTagsOfPost.create({
+        PostId: postId,
+        HashTagId: newHashTagId,
+        updateAt: new Date(),
+      });
+      return;
+    }
+
+    await HashTagsOfPost.create({
+      PostId: postId,
+      HashTagId: hashTag.dataValues.id,
+      updateAt: new Date(),
+    });
+  });
+}
+
 module.exports = {
   getFollowingPostList,
   checkUserLikePost,
@@ -101,4 +173,5 @@ module.exports = {
   getLikerList,
   setPostLike,
   unsetPostLike,
+  insertPost,
 };
