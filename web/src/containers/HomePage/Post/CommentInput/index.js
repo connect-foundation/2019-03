@@ -31,8 +31,7 @@ function CommentInput({ PostId }) {
 
       changedFollowingPostList
         .find(post => +post.id === PostId)
-        .commentList.unshift(createComment);
-
+        .commentList.push(createComment);
       cache.writeQuery({
         query: FOLLOWING_POST_LIST,
         variables: {
