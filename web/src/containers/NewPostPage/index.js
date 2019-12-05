@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
@@ -27,60 +27,93 @@ const newBlob = async dataURL => {
 
 const minZoom = 1;
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INPUT_IMAGE':
+      return {
+        ...state,
+        originalImage: action.value,
+      };
+    case 'INPUT_IMAGE_URL':
+      return {
+        ...state,
+        originalImageUrl: action.value,
+      };
+    case 'INPUT_CROPPED_AREA':
+      return {
+        ...state,
+        croppedAreaPixels: action.value,
+      };
+    case 'INPUT_CONTENT':
+      return {
+        ...state,
+        contentValue: action.value,
+      };
+    case 'CHANGE_ZOOM':
+      return {
+        ...state,
+        zoom: action.value,
+      };
+    case 'CHANGE_CROP':
+      return {
+        ...state,
+        crop: action.value,
+      };
+    default:
+      return null;
+  }
+};
+
 const NewPostPage = ({ myInfo }) => {
-  const [originalImage, setOriginalImage] = useState(null);
-  const [originalImageUrl, setOriginalImageUrl] = useState(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(minZoom);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [contentValue, setContentValue] = useState(null);
+  const initialState = {
+    originalImage: null,
+    originalImageUrl: null,
+    crop: { x: 0, y: 0 },
+    zoom: minZoom,
+    croppedAreaPixels: null,
+    contentValue: '',
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const inputImage = async e => {
     if (e.target.files && e.target.files.length > 0) {
-      setOriginalImage(e.target.files[0]);
+      dispatch({ type: 'INPUT_IMAGE', value: e.target.files[0] });
 
       const originalImageDataUrl = await readFile(e.target.files[0]);
-      setOriginalImageUrl(originalImageDataUrl);
+      dispatch({ type: 'INPUT_IMAGE_URL', value: originalImageDataUrl });
     }
   };
 
   const post = useCallback(async () => {
     try {
       const croppedImageDataUrl = await getCroppedImg(
-        originalImageUrl,
-        croppedAreaPixels,
+        state.originalImageUrl,
+        state.croppedAreaPixels,
       );
       const blob = await newBlob(croppedImageDataUrl);
-      const croppedImageBolb = blobToFile(blob, `${originalImage.name}`);
+      const croppedImageBolb = blobToFile(blob, `${state.originalImage.name}`);
       const croppedImageFile = new File(
         [croppedImageBolb],
-        `${originalImage.name}`,
+        `${state.originalImage.name}`,
         { type: 'image/png' },
       );
       const formData = new FormData();
       formData.append('file', croppedImageFile);
-      formData.append('content', contentValue);
+      formData.append('content', state.contentValue);
       formData.append('userId', 1);
-      const storedImageResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/upload`,
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
-      const { data } = await storedImageResponse.json();
+      await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
     } catch (e) {}
-  }, [contentValue, croppedAreaPixels, originalImage, originalImageUrl]);
+  }, [state]);
 
-  const onCropComplete = useCallback(
-    (croppedArea, currentcroppedAreaPixels) => {
-      setCroppedAreaPixels(currentcroppedAreaPixels);
-    },
-    [],
-  );
+  const onCropComplete = useCallback(currentcroppedAreaPixels => {
+    dispatch({ type: 'INPUT_CROPPED_AREA', value: currentcroppedAreaPixels });
+  }, []);
 
   const changeContent = e => {
-    setContentValue(e.target.value);
+    dispatch({ type: 'INPUT_CONTENT', value: e.target.value });
   };
 
   return (
@@ -89,7 +122,7 @@ const NewPostPage = ({ myInfo }) => {
         <div className="section">
           <input type="file" onChange={inputImage} />
         </div>
-        {originalImage && (
+        {state.originalImage && (
           <>
             <div
               className="crop-container"
@@ -101,32 +134,34 @@ const NewPostPage = ({ myInfo }) => {
             >
               <Cropper
                 minZoom={minZoom}
-                image={originalImageUrl}
-                crop={crop}
-                zoom={zoom}
-                aspect={2 / 2}
+                image={state.originalImageUrl}
+                crop={state.crop}
+                zoom={state.zoom}
+                aspect={1 / 1}
                 restrictPosition={false}
-                onCropChange={setCrop}
+                onCropChange={crop =>
+                  dispatch({ type: 'CHANGE_CROP', value: crop })}
                 onCropComplete={onCropComplete}
-                onZoomChange={setZoom}
-                cropSize={{ width: 600, height: 600 }}
+                onZoomChange={zoom =>
+                  dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
+                cropSize={{ width: 615, height: 615 }}
               />
             </div>
             <div className="controls" style={{ width: '20%' }}>
               <Slider
-                value={originalImage.zoom}
+                value={state.zoom}
                 min={minZoom}
                 max={3}
                 step={0.1}
                 aria-labelledby="Zoom"
-                onChange={(e, currentzoom) => setZoom(currentzoom)}
-                classes={{ container: 'slider' }}
+                onChange={(e, currentzoom) =>
+                  dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
               />
             </div>
           </>
         )}
         <div className="section">
-          <Input value={contentValue} onChange={changeContent} />
+          <Input value={state.contentValue} onChange={changeContent} />
         </div>
         <div className="section">
           <Button type="submit">게시</Button>
