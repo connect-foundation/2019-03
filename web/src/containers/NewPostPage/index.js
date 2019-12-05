@@ -1,4 +1,5 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
@@ -64,7 +65,7 @@ const reducer = (state, action) => {
   }
 };
 
-const NewPostPage = ({ myInfo }) => {
+const NewPostPage = () => {
   const initialState = {
     originalImage: null,
     originalImageUrl: null,
@@ -74,6 +75,7 @@ const NewPostPage = ({ myInfo }) => {
     contentValue: '',
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isSuccess, setSuccess] = useState(false);
 
   const inputImage = async e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -101,12 +103,21 @@ const NewPostPage = ({ myInfo }) => {
       formData.append('file', croppedImageFile);
       formData.append('content', state.contentValue);
       formData.append('userId', 1);
-      await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
-        method: 'POST',
-        body: formData,
-      });
-    } catch (e) {}
-  }, [state]);
+      const resultJSON = await fetch(
+        `${process.env.REACT_APP_API_URL}/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+      const result = await resultJSON.json();
+      if (result.data === 'success') {
+        setSuccess(true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [setSuccess, state]);
 
   const onCropComplete = useCallback(currentcroppedAreaPixels => {
     dispatch({ type: 'INPUT_CROPPED_AREA', value: currentcroppedAreaPixels });
@@ -116,57 +127,62 @@ const NewPostPage = ({ myInfo }) => {
     dispatch({ type: 'INPUT_CONTENT', value: e.target.value });
   };
 
+  if (isSuccess) {
+    console.log('ㅡㅡ');
+    return <Redirect to="/" />;
+  }
+
   return (
     <NewPostWrapper>
-      <form onSubmit={post}>
-        <div className="section">
-          <input type="file" onChange={inputImage} />
-        </div>
-        {state.originalImage && (
-          <>
-            <div
-              className="crop-container"
-              style={{
-                position: 'relative',
-                width: '650px',
-                height: '650px',
-              }}
-            >
-              <Cropper
-                minZoom={minZoom}
-                image={state.originalImageUrl}
-                crop={state.crop}
-                zoom={state.zoom}
-                aspect={1 / 1}
-                restrictPosition={false}
-                onCropChange={crop =>
-                  dispatch({ type: 'CHANGE_CROP', value: crop })}
-                onCropComplete={onCropComplete}
-                onZoomChange={zoom =>
-                  dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
-                cropSize={{ width: 615, height: 615 }}
-              />
-            </div>
-            <div className="controls" style={{ width: '20%' }}>
-              <Slider
-                value={state.zoom}
-                min={minZoom}
-                max={3}
-                step={0.1}
-                aria-labelledby="Zoom"
-                onChange={(e, currentzoom) =>
-                  dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
-              />
-            </div>
-          </>
-        )}
-        <div className="section">
-          <Input value={state.contentValue} onChange={changeContent} />
-        </div>
-        <div className="section">
-          <Button type="submit">게시</Button>
-        </div>
-      </form>
+      <div className="section">
+        <input type="file" onChange={inputImage} />
+      </div>
+      {state.originalImage && (
+        <>
+          <div
+            className="crop-container"
+            style={{
+              position: 'relative',
+              width: '650px',
+              height: '650px',
+            }}
+          >
+            <Cropper
+              minZoom={minZoom}
+              image={state.originalImageUrl}
+              crop={state.crop}
+              zoom={state.zoom}
+              aspect={1 / 1}
+              restrictPosition={false}
+              onCropChange={crop =>
+                dispatch({ type: 'CHANGE_CROP', value: crop })}
+              onCropComplete={onCropComplete}
+              onZoomChange={zoom =>
+                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
+              cropSize={{ width: 615, height: 615 }}
+            />
+          </div>
+          <div className="controls" style={{ width: '20%' }}>
+            <Slider
+              value={state.zoom}
+              min={minZoom}
+              max={3}
+              step={0.1}
+              aria-labelledby="Zoom"
+              onChange={(e, currentzoom) =>
+                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
+            />
+          </div>
+        </>
+      )}
+      <div className="section">
+        <Input value={state.contentValue} onChange={changeContent} />
+      </div>
+      <div className="section">
+        <Button type="button" onClick={post}>
+          게시
+        </Button>
+      </div>
     </NewPostWrapper>
   );
 };
