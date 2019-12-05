@@ -114,9 +114,7 @@ const NewPostPage = () => {
       if (result.data === 'success') {
         setSuccess(true);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }, [setSuccess, state]);
 
   const onCropComplete = useCallback(currentcroppedAreaPixels => {
@@ -128,7 +126,6 @@ const NewPostPage = () => {
   };
 
   if (isSuccess) {
-    console.log('ㅡㅡ');
     return <Redirect to="/" />;
   }
 
