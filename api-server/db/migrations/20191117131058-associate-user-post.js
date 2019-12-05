@@ -11,13 +11,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      UserId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
+      username: {
+        type: Sequelize.STRING(100),
       },
       PostId: {
         allowNull: false,

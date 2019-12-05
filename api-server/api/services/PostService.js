@@ -6,6 +6,7 @@ const {
   PostLike,
   HashTagsOfPost,
   HashTag,
+  UserTag,
 } = require('../../db');
 
 const { Op } = Sequelize;
@@ -114,7 +115,35 @@ async function insertPost(file, postInfo) {
 
     const postId = result.dataValues.id;
     insertHashTagOfPost(postInfo.content, postId);
+    insertUserTag(postInfo.content, postId);
   } catch {}
+}
+
+async function insertUserTag(content, postId) {
+  const users = makeUserArray(content);
+  if (users.length === 0) return;
+  users.forEach(async element => {
+    await UserTag.create({
+      username: element.substring(1, element.length),
+      PostId: postId,
+      updatedAt: new Date(),
+    });
+  });
+}
+
+function makeUserArray(content) {
+  const allWords = content.split(' ');
+  const userIncludedWords = allWords.filter(word => {
+    return word.includes('@');
+  });
+  const users = userIncludedWords.reduce((acc, cur) => {
+    const regexp = /@[\S][^@]*/g;
+    const username = cur.match(regexp);
+
+    return [...acc, ...username];
+  }, []);
+
+  return users;
 }
 
 function makeHashTagArray(content) {
