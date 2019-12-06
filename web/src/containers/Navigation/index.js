@@ -11,7 +11,11 @@ const Navigation = ({ myInfo }) => {
     <>
       <NavBackground>
         <NavItemGroup>
-          <StyledLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <StyledLink
+            to="/"
+            style={{ display: 'flex', alignItems: 'center' }}
+            onClick={() => window.scrollTo(0, 0)}
+          >
             <Icon ratio={6} posX={0} posY={-505} />
             <Icon
               ratio={6}
