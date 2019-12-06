@@ -41,7 +41,7 @@ const Navigation = ({ myInfo }) => {
             style={{ marginTop: '7px' }}
           />
           <StyledLink to={`/${myInfo.username}`}>
-            <ProfileIcon ratio={8} />
+            <ProfileIcon imageURL={myInfo.profileImage} ratio={8} />
           </StyledLink>
         </NavItemGroup>
       </NavBackground>
