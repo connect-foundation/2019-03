@@ -87,6 +87,10 @@ const NewPostPage = () => {
   };
 
   const post = useCallback(async () => {
+    if (!state.originalImage) {
+      alert('사진을 선택해주세요!');
+    }
+
     try {
       const croppedImageDataUrl = await getCroppedImg(
         state.originalImageUrl,
@@ -155,10 +159,12 @@ const NewPostPage = () => {
               aspect={1 / 1}
               restrictPosition={false}
               onCropChange={crop =>
-                dispatch({ type: 'CHANGE_CROP', value: crop })}
+                dispatch({ type: 'CHANGE_CROP', value: crop })
+              }
               onCropComplete={onCropComplete}
               onZoomChange={zoom =>
-                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
+                dispatch({ type: 'CHANGE_ZOOM', value: zoom })
+              }
               cropSize={{ width: 615, height: 615 }}
             />
           </div>
@@ -170,7 +176,8 @@ const NewPostPage = () => {
               step={0.1}
               aria-labelledby="Zoom"
               onChange={(e, currentzoom) =>
-                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
+                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })
+              }
             />
           </div>
         </>
