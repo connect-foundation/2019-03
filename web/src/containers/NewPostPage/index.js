@@ -117,9 +117,12 @@ const NewPostPage = () => {
     } catch (e) {}
   }, [setSuccess, state]);
 
-  const onCropComplete = useCallback(currentcroppedAreaPixels => {
-    dispatch({ type: 'INPUT_CROPPED_AREA', value: currentcroppedAreaPixels });
-  }, []);
+  const onCropComplete = useCallback(
+    (croppedArea, currentcroppedAreaPixels) => {
+      dispatch({ type: 'INPUT_CROPPED_AREA', value: currentcroppedAreaPixels });
+    },
+    [],
+  );
 
   const changeContent = e => {
     dispatch({ type: 'INPUT_CONTENT', value: e.target.value });
