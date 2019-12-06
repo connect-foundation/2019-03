@@ -6,7 +6,7 @@ const SearchResultList = props => {
   const renderedSearchResults = searchResults.map((result, index, array) => {
     return (
       <SearchResult
-        key={index}
+        key={result.id}
         result={result}
         isLast={index === array.length - 1}
       />

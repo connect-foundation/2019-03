@@ -1,7 +1,6 @@
 const { CommentType } = require('./CommentType');
 const { PostDetailType } = require('./PostDetailType');
-const { SearchHashtagType } = require('./SearchHashtagType');
-const { SearchUserType } = require('./SearchUserType');
+const { SearchType } = require('./SearchType');
 const { WriterType } = require('./WriterType');
 const { AlarmFromUserType } = require('./AlarmFromUserType');
 const { AlarmPostType } = require('./AlarmPostType');
@@ -14,8 +13,7 @@ const { PostCardType } = require('./PostCardType');
 module.exports = {
   CommentType,
   PostDetailType,
-  SearchHashtagType,
-  SearchUserType,
+  SearchType,
   WriterType,
   AlarmFromUserType,
   AlarmPostType,

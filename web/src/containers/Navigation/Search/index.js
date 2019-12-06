@@ -1,15 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import Icon from '../../../components/Icon';
 import SearchToolTip from './SearchToolTip';
 import { useFetch } from '../../../hooks';
 import { searchQuery } from '../queries';
 import { SearchWrapper, Input } from './styles';
-
-const searchResultsRandomSort = results => {
-  return results.sort(() => {
-    return Math.random() - Math.random();
-  });
-};
 
 const initialState = {
   inputValue: '',
@@ -48,19 +42,29 @@ const Search = () => {
   const [searchState, searchDispatch] = useReducer(searchReducer, initialState);
   const { state, dispatch, fetchData } = useFetch();
   const { loading, data, error } = state;
+  const [timer, setTimer] = useState('');
 
   const clickClear = () => {
     searchDispatch({ type: 'CLEAR' });
   };
 
   const onChange = e => {
-    searchDispatch({ type: 'CHANGE_INPUT', value: e.target.value });
+    const { value } = e.target;
+    searchDispatch({ type: 'CHANGE_INPUT', value });
+
     if (e.target.value === '') {
       searchDispatch({ type: 'CLOSE_TOOLTIP' });
       return;
     }
 
-    fetchData(searchQuery(e.target.value));
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(
+      setTimeout(() => {
+        fetchData(searchQuery(value));
+      }, 100),
+    );
   };
 
   useEffect(() => {
@@ -69,15 +73,7 @@ const Search = () => {
       return;
     }
 
-    let results = [];
-    Object.keys(data).map(element => {
-      results = results.concat(data[element]);
-      return results;
-    });
-
-    if (results.length !== 0) results = searchResultsRandomSort(results);
-
-    searchDispatch({ type: 'FINISH_SEARCH', results });
+    searchDispatch({ type: 'FINISH_SEARCH', results: data.search });
   }, [data, error, loading]);
 
   return (

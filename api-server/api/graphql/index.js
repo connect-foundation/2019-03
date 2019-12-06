@@ -1,13 +1,12 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 const {
-  searchUserQuery,
-  searchHashtagQuery,
   postDetailQuery,
   commentQuery,
   logQuery,
   followingPostListQuery,
   likerListQuery,
   postCardQuery,
+  searchQuery,
 } = require('./queries');
 const {
   createComment,
@@ -20,8 +19,7 @@ const {
 const rootQuery = new GraphQLObjectType({
   name: 'rootQuery',
   fields: () => ({
-    searchUser: searchUserQuery,
-    searchHashtag: searchHashtagQuery,
+    search: searchQuery,
     post: postDetailQuery,
     commentList: commentQuery,
     log: logQuery,

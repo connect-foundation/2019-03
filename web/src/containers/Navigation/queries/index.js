@@ -18,15 +18,11 @@ const GET_LOG = gql`
 
 const searchQuery = value => {
   return `{
-    searchUser(id: "${value}"){
-      type
+    search(value: "${value}"){
+      id
       username
       name
       profileImage
-    }
-    searchHashtag(id: "${value}") {
-      type
-      name
     }
   }`;
 };
