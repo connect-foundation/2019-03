@@ -87,6 +87,11 @@ const NewPostPage = () => {
   };
 
   const post = useCallback(async () => {
+    if (!state.originalImage) {
+      alert('사진을 선택해주세요!');
+      return;
+    }
+
     try {
       const croppedImageDataUrl = await getCroppedImg(
         state.originalImageUrl,
