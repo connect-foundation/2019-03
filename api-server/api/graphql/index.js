@@ -5,8 +5,8 @@ const {
   logQuery,
   followingPostListQuery,
   likerListQuery,
-  postCardQuery,
   searchQuery,
+  userPageQuery,
 } = require('./queries');
 const {
   createComment,
@@ -25,7 +25,7 @@ const rootQuery = new GraphQLObjectType({
     log: logQuery,
     followingPostList: followingPostListQuery,
     likerList: likerListQuery,
-    postCard: postCardQuery,
+    userPage: userPageQuery,
   }),
 });
 
