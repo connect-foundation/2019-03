@@ -12,12 +12,16 @@ const deletePost = {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve: (_, { postURL }) =>
-    Post.destroy({
+  resolve: async (_, { postURL }) => {
+    await Post.destroy({
       where: {
         postURL,
       },
-    }),
+    });
+    return {
+      postURL,
+    };
+  },
 };
 
 module.exports = {
