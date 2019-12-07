@@ -26,6 +26,14 @@ const newBlob = async dataURL => {
   return blob;
 };
 
+const isFileTypeImage = filename => {
+  const filenameDivided = filename.split('.');
+  const fileExtension = filenameDivided[filenameDivided.length - 1];
+
+  const imageExtension = ['jpg', 'jpge', 'png', 'gif'];
+  return imageExtension.includes(fileExtension);
+};
+
 const minZoom = 1;
 
 const reducer = (state, action) => {
@@ -92,6 +100,11 @@ const NewPostPage = () => {
       return;
     }
 
+    if (!isFileTypeImage(state.originalImage.name)) {
+      alert('이미지 파일만 업로드 할 수 있습니다!');
+      return;
+    }
+
     try {
       const croppedImageDataUrl = await getCroppedImg(
         state.originalImageUrl,
@@ -140,7 +153,11 @@ const NewPostPage = () => {
   return (
     <NewPostWrapper>
       <div className="section">
-        <input type="file" onChange={inputImage} />
+        <input
+          type="file"
+          accept="image/x-png,image/gif,image/jpeg"
+          onChange={inputImage}
+        />
       </div>
       {state.originalImage && (
         <>
