@@ -22,7 +22,7 @@ function HomePage() {
       offset: 0,
       limit: 5,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -31,10 +31,11 @@ function HomePage() {
     threshold: 0,
   };
 
-  const getMorePosts = entries => {
+  const getMorePosts = (entries, observer) => {
     const lastPost = [...entries].pop();
     if (loading) return;
     if (!lastPost.isIntersecting) return;
+    observer.unobserve(lastChild.current);
     fetchMore({
       variables: {
         offset: data.followingPostList.length,
