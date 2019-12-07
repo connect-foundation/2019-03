@@ -14,6 +14,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       To: {
         allowNull: false,
@@ -22,6 +24,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       PostId: {
         type: Sequelize.INTEGER,
@@ -29,6 +33,8 @@ module.exports = {
           model: 'Posts',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       status: {
         allowNull: false,
@@ -40,7 +46,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Logs');
   },
 };
