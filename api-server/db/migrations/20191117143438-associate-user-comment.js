@@ -18,6 +18,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       CommentId: {
         allowNull: false,
@@ -26,6 +28,8 @@ module.exports = {
           model: 'Comments',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
     });
   },
