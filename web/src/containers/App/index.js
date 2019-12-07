@@ -7,6 +7,7 @@ import HomePage from '../HomePage';
 import UserPage from '../UserPage';
 import PostDetailPage from '../PostDetailPage';
 import NewPostPage from '../NewPostPage';
+import EditPostPage from '../EditPostPage';
 import Navigation from '../Navigation';
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
         <Navigation myInfo={myInfo} />
         <Route path="/" exact component={HomePage} />
         <Route path="/new/post" component={NewPostPage} />
+        <Route path="/edit/:postURL" exact component={EditPostPage} />
         <Route path="/p/:postURL" exact component={PostDetailPage} />
         <Route path="/:username" exact component={UserPage} />
       </ThemeProvider>
