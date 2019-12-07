@@ -1,4 +1,4 @@
-const { GraphQLNonNull, GraphQLID, GraphQLString } = require('graphql');
+const { GraphQLNonNull, GraphQLString } = require('graphql');
 
 const { PostType } = require('../types');
 const { Post } = require('../../../db');
@@ -24,6 +24,32 @@ const deletePost = {
   },
 };
 
+const updatePost = {
+  type: PostType,
+  description: 'The mutation that allows you to update a Post',
+  args: {
+    content: {
+      name: 'content',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    postURL: {
+      name: 'postURL',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
+  resolve: (_, { postURL, content }) => {
+    return Post.update(
+      { content },
+      {
+        where: {
+          postURL,
+        },
+      },
+    );
+  },
+};
+
 module.exports = {
   deletePost,
+  updatePost,
 };

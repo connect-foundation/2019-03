@@ -37,7 +37,7 @@ app.use(
   require('./api/middlewares/Authenticator').isAuthenticated,
   graphqlHTTP({
     schema,
-    graphiql: process.env.NODE_ENV === 'develop',
+    graphiql: process.env.NODE_ENV === 'development',
   }),
 );
 
