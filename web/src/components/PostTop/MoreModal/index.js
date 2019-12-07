@@ -12,7 +12,17 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   return (
     <Modal onClick={clickClose}>
       {writer.username !== myInfo.username && writer.isFollow && (
-        <ModalContent followcancel>팔로우 취소</ModalContent>
+        <>
+          <ModalContent followcancel>팔로우 취소</ModalContent>
+        </>
+      )}
+      {writer.username === myInfo.username && (
+        <>
+          <StyledLink to={`edit/${postURL}`}>
+            <ModalContent>게시물 수정</ModalContent>
+          </StyledLink>
+          <ModalContent onClick={clickClose}>게시물 삭제</ModalContent>
+        </>
       )}
       <StyledLink to={`/p/${postURL}`}>
         <ModalContent>게시물로 이동</ModalContent>
