@@ -30,6 +30,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/account', require('./api/routes/AccountRoute'));
+
 const isProduction = process.env.NODE_ENV !== 'production';
 app.use(
   '/graphql',
