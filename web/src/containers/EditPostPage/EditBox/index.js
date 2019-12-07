@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks';
+
+import { UPDATE_POST } from '../queries';
 
 import {
   EditBoxWrapper,
@@ -11,19 +14,23 @@ import {
 function EditBox({ post }) {
   const [redirect, setRedirect] = useState(false);
   const [text, setText] = useState(post.content);
-  const onTextChange = e => {
-    setText(e.target.value);
+  const [updatePost, { loading, error, data }] = useMutation(UPDATE_POST);
+
+  const onTextChange = e => setText(e.target.value);
+  const editPost = () => {
+    updatePost({ variables: { postURL: post.postURL, content: text } });
   };
 
   const cancelEdit = () => setRedirect(true);
-  if (redirect) return <Redirect to="/" />;
+
+  if (redirect || data) return <Redirect to="/" />;
   return (
     <EditBoxWrapper>
-      <StyledTextBox contentEditable="true" onChange={onTextChange}>
-        {text}
-      </StyledTextBox>
+      <StyledTextBox onChange={onTextChange} value={text} />
       <ButtonGroup>
-        <StyledButton blue>수정</StyledButton>
+        <StyledButton onClick={editPost} blue>
+          수정
+        </StyledButton>
         <StyledButton onClick={cancelEdit}>취소</StyledButton>
       </ButtonGroup>
     </EditBoxWrapper>

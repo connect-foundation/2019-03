@@ -1,26 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import EditBox from './EditBox';
+import { GET_POST } from './queries';
 
 function PostDetailPage({ match }) {
-  const POST_DETAIL = gql`
-    query Post($postURL: String!) {
-      post(postURL: $postURL) {
-        id
-        content
-        writer {
-          username
-        }
-        imageURL
-        postURL
-        likeCount
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(POST_DETAIL, {
+  const { loading, error, data } = useQuery(GET_POST, {
     variables: { postURL: match.params.postURL },
   });
 
