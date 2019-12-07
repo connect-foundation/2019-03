@@ -1,12 +1,49 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useMutation } from '@apollo/react-hooks';
+import { Redirect } from 'react-router-dom';
 
 import { ModalContent, StyledLink, Modal } from './styles';
+import { DELETE_POST } from './queries';
+import { FOLLOWING_POST_LIST } from '../../../containers/HomePage/queries';
 
 const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
+  const [deletePost] = useMutation(DELETE_POST, {
+    update(cache, { data: { deletePost } }) {
+      const { followingPostList } = cache.readQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+      });
+      cache.writeQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+        data: {
+          followingPostList: followingPostList.filter(
+            post => post.postURL !== deletePost.postURL,
+          ),
+        },
+      });
+    },
+  });
+
   const clickClose = () => {
     setIsVisible(false);
   };
+
+  const clickDeletePost = () => {
+    deletePost({ variables: { postURL } });
+    clickClose();
+    return <Redirect to="/" />;
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -21,7 +58,7 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
           <StyledLink to={`edit/${postURL}`}>
             <ModalContent>게시물 수정</ModalContent>
           </StyledLink>
-          <ModalContent onClick={clickClose}>게시물 삭제</ModalContent>
+          <ModalContent onClick={clickDeletePost}>게시물 삭제</ModalContent>
         </>
       )}
       <StyledLink to={`/p/${postURL}`}>
