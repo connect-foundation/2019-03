@@ -1,7 +1,9 @@
 const Router = require('express');
+const passport = require('passport');
+
+const userService = require('../services/UserService');
 
 const account = new Router();
-const userService = require('../services/UserService');
 
 account.post('/signup', async (req, res, next) => {
   try {
@@ -12,6 +14,20 @@ account.post('/signup', async (req, res, next) => {
     next(err.original);
   }
 });
+
+account.get('/login', (req, res) => {
+  res.status(200).json();
+});
+
+account.post(
+  '/login',
+  passport.authenticate('local', {
+    failureRedirect: '/account/login',
+  }),
+  (req, res) => {
+    res.status(200).json({ message: 'Login success' });
+  },
+);
 
 account.use((err, req, res, next) => {
   if (err.code === 'ER_DUP_ENTRY') {

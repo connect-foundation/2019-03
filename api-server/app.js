@@ -32,12 +32,12 @@ app.use(cookieParser());
 
 app.use('/account', require('./api/routes/AccountRoute'));
 
-const isProduction = process.env.NODE_ENV !== 'production';
 app.use(
   '/graphql',
+  require('./api/middlewares/Authenticator').isAuthenticated,
   graphqlHTTP({
     schema,
-    graphiql: isProduction,
+    graphiql: process.env.NODE_ENV === 'develop',
   }),
 );
 

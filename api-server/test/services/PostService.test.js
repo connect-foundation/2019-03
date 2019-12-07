@@ -26,17 +26,15 @@ describe('Post Servcie 테스트', () => {
 
     // console.log(JSON.stringify(postList, null, 4));
     expect(postList).not.toBeUndefined();
-    expect(postList.length).toEqual(5);
+    expect(postList.length).toEqual(6);
   });
 
   test('getLikerInfo 테스트', async () => {
     const postId = 4;
 
-    const { username, profileImage, likerCount } = await getLikerInfo(postId);
+    const { likerCount } = await getLikerInfo(postId);
 
     expect(likerCount).toEqual(4);
-    expect(username).toEqual('ss23');
-    expect(profileImage).toEqual('profile4');
   });
 
   test('getLikerList 테스트', async () => {
