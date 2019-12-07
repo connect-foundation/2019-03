@@ -22,7 +22,7 @@ function HomePage() {
       offset: 0,
       limit: 5,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
     notifyOnNetworkStatusChange: true,
   });
 
