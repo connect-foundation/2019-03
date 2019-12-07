@@ -22,7 +22,7 @@ const userPageQuery = {
       const data = { isExistingUser: !!userCount, postCard };
       return data;
     } catch (e) {
-      console.log(e);
+      return { error: e.message };
     }
   },
 };
