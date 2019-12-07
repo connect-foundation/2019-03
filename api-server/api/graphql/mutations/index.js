@@ -1,6 +1,6 @@
 const { createComment } = require('./CommentMutation');
 const { createPostLike, deletePostLike } = require('./PostLikeMutation');
-const { deletePost } = require('./PostMutation');
+const { deletePost, updatePost } = require('./PostMutation');
 const {
   createCommentLike,
   deleteCommentLike,
@@ -8,6 +8,7 @@ const {
 
 module.exports = {
   deletePost,
+  updatePost,
   createComment,
   createPostLike,
   deletePostLike,

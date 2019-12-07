@@ -15,6 +15,7 @@ const {
   deletePostLike,
   createCommentLike,
   deleteCommentLike,
+  updatePost,
 } = require('./mutations');
 
 const rootQuery = new GraphQLObjectType({
@@ -34,6 +35,7 @@ const rootMutation = new GraphQLObjectType({
   name: 'rootMutation',
   fields: () => ({
     deletePost,
+    updatePost,
     createComment,
     createPostLike,
     deletePostLike,
