@@ -17,4 +17,13 @@ const getPostCard = async args => {
   return postCard;
 };
 
-module.exports = { getUserCount, getPostCard };
+const getUserPageData = async args => {
+  const userCount = await getUserCount(args);
+  const isExistingUser = !!userCount;
+  let postCard = [];
+  if (isExistingUser) postCard = await getPostCard(args);
+  const data = { isExistingUser, postCard };
+  return data;
+};
+
+module.exports = { getUserPageData };

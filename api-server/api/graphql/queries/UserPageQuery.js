@@ -1,7 +1,7 @@
 const { GraphQLString } = require('graphql');
 
 const { UserPageType } = require('../types');
-const { getUserCount, getPostCard } = require('../../services/UserPageService');
+const { getUserPageData } = require('../../services/UserPageService');
 
 const userPageQuery = {
   type: UserPageType,
@@ -10,11 +10,7 @@ const userPageQuery = {
   },
   resolve: async (post, args) => {
     try {
-      const userCount = await getUserCount(args);
-      const isExistingUser = !!userCount;
-      let postCard = [];
-      if (isExistingUser) postCard = await getPostCard(args);
-      const data = { isExistingUser, postCard };
+      const data = await getUserPageData(args);
       return data;
     } catch (e) {
       return { error: e.message };
