@@ -30,12 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-const isProduction = process.env.NODE_ENV !== 'production';
+app.use('/account', require('./api/routes/AccountRoute'));
+
 app.use(
   '/graphql',
+  require('./api/middlewares/Authenticator').isAuthenticated,
   graphqlHTTP({
     schema,
-    graphiql: isProduction,
+    graphiql: process.env.NODE_ENV === 'develop',
   }),
 );
 
