@@ -11,8 +11,8 @@ const searchQuery = {
   },
   resolve: (search, args) => {
     const query = `
-    ((SELECT id, username, name, profileImage FROM users WHERE username like :search_value or name like :search_value limit 10)
-    union all (SELECT id, null, name as name, null FROM hashtags WHERE name like :search_value limit 10)) ORDER BY CASE 
+    ((SELECT id, username, name, profileImage FROM Users WHERE username like :search_value or name like :search_value limit 10)
+    union all (SELECT id, null, name as name, null FROM Hashtags WHERE name like :search_value limit 10)) ORDER BY CASE 
     WHEN name LIKE :first THEN 1 
     WHEN name LIKE :second THEN 2 
     WHEN name LIKE :last THEN 4 
