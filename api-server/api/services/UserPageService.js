@@ -1,10 +1,5 @@
 const { Post, User, UserFollow } = require('../../db');
 
-// const getUserCount = async args => {
-//   const userCount = await User.count({ where: { username: args.writer } });
-//   return userCount;
-// };
-
 const getUserInfo = async writer => {
   const userInfo = await User.findOne({
     attributes: ['name', 'id'],
@@ -47,12 +42,10 @@ const getPostCard = async userId => {
 const getUserPageData = async args => {
   const { writer, myId } = args;
   let userInfo = await getUserInfo(writer);
-  //   const userCount = await getUserCount(args);
   const isExistingUser = !!userInfo;
   let postCard = [];
   if (isExistingUser) {
     const userId = userInfo.id;
-    // delete userId.id;
     const isFollowing = await checkFollowing(userId, myId);
     const followersNum = await getFollowersNum(userId);
     const followsNum = await getFollowsNum(userId);
