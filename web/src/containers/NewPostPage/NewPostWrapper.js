@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const NewPostWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;

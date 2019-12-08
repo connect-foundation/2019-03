@@ -4,6 +4,7 @@ import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from './cropImage';
 import { NewPostWrapper, Input, Button } from './styles';
+import Loading from '../../components/Loading';
 
 const readFile = file => {
   return new Promise(resolve => {
@@ -76,6 +77,7 @@ const NewPostPage = () => {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isSuccess, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const inputImage = async e => {
     if (e.target.files && e.target.files.length > 0) {
@@ -93,6 +95,7 @@ const NewPostPage = () => {
     }
 
     try {
+      setLoading(true);
       const croppedImageDataUrl = await getCroppedImg(
         state.originalImageUrl,
         state.croppedAreaPixels,
@@ -139,6 +142,7 @@ const NewPostPage = () => {
 
   return (
     <NewPostWrapper>
+      {loading && <Loading size={50} />}
       <div className="section">
         <input type="file" onChange={inputImage} />
       </div>
