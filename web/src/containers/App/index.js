@@ -40,7 +40,11 @@ export default function App() {
         <Route path="/new/post" component={NewPostPage} />
         <Route path="/edit/:postURL" exact component={EditPostPage} />
         <Route path="/p/:postURL" exact component={PostDetailPage} />
-        <Route path="/:username" exact component={UserPage} />
+        <Route
+          path="/:username"
+          exact
+          render={props => <UserPage {...props} myInfo={myInfo} />}
+        />
       </ThemeProvider>
     </AppWrapper>
   );
