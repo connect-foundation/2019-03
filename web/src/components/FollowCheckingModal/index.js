@@ -18,7 +18,12 @@ const modalHeaderStyle = {
   padding: '32 16 16 16',
 };
 
-const FollowCheckingModal = ({ isVisible, onClick }) => {
+const FollowCheckingModal = ({
+  isVisible,
+  onClick,
+  cancelFollowing,
+  username,
+}) => {
   const stopPropagation = e => e.stopPropagation();
   if (!isVisible) return <></>;
   return (
@@ -28,11 +33,13 @@ const FollowCheckingModal = ({ isVisible, onClick }) => {
           <div style={modalHeaderStyle}>
             <ProfileIcon ratio={28.125} />
             <ModalHeaderText>
-              @learnupkr님의 팔로우를 취소하시겠어요?
+              @{username}님의 팔로우를 취소하시겠어요?
             </ModalHeaderText>
           </div>
         </ModalContent>
-        <ModalContent followcancel>팔로우 취소</ModalContent>
+        <ModalContent followcancel onClick={cancelFollowing}>
+          팔로우 취소
+        </ModalContent>
         <ModalContent cancel onClick={onClick}>
           취소
         </ModalContent>

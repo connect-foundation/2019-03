@@ -10,6 +10,7 @@ const { PostType } = require('./PostType');
 const { LikerType } = require('./LikerType');
 const { PostCardType } = require('./PostCardType');
 const { UserPageType } = require('./UserPageType');
+const { UserFollower } = require('./UserFollower');
 
 module.exports = {
   CommentType,
@@ -24,4 +25,5 @@ module.exports = {
   LikerType,
   PostCardType,
   UserPageType,
+  UserFollower,
 };

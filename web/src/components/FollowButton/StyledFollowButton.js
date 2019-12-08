@@ -12,8 +12,7 @@ const StyledFollowButton = styled.button`
   outline: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  ${({ status }) =>
-    status === '팔로우' ? followButtonCSS : followingButtonCSS}
+  ${({ status }) => (status === 0 ? followButtonCSS : followingButtonCSS)}
 `;
 
 const followButtonCSS = css`
