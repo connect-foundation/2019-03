@@ -9,7 +9,7 @@ const {
   InvalidClientError,
   InvalidGrantError,
   UnsupportedGrantTypeError
-} = require("../../src/error-types");
+} = require("../../error-types");
 
 describe("OAuth 2.0 Error Response Type 테스트", () => {
   describe("InvalidRequestError 테스트", () => {

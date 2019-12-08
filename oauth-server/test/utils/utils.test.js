@@ -1,7 +1,4 @@
-const {
-  generateRandomBytes,
-  generateHexUsingHash
-} = require("../../src/utils");
+const { generateRandomBytes, generateHexUsingHash } = require("../../utils");
 
 /**
  * Honor Code : https://github.com/facebook/jest/issues/1377
@@ -36,9 +33,7 @@ describe("utils 모듈 테스트", () => {
     });
 
     test("음수 size 입력 시 에러", async () => {
-      const syncRandomBytes = await syncify(generateRandomBytes.bind(null, -1));
-
-      expect(syncRandomBytes).toThrow();
+      await expect(generateRandomBytes(-1)).rejects.toThrow();
     });
   });
 

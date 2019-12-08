@@ -1,4 +1,4 @@
-const Validator = require("../../src/validator");
+const Validator = require("../../validator");
 
 describe("Validator 클래스 테스트", () => {
   describe("isVSCHAR 메소드 테스트", () => {

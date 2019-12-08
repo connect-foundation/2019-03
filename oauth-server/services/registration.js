@@ -1,6 +1,6 @@
 const uuidv4 = require("uuid/v4");
-const Validator = require("../oauth/src/validator/index");
-const { InvalidRequestError } = require("../oauth/src/error-types");
+const Validator = require("../validator");
+const { InvalidRequestError } = require("../error-types");
 const { Client } = require("../db");
 
 const clientType = {
