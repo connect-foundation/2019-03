@@ -1,28 +1,71 @@
-const { Post, User } = require('../../db');
+const { Post, User, UserFollow } = require('../../db');
 
-const getUserCount = async args => {
-  const userCount = await User.count({ where: { username: args.writer } });
-  return userCount;
+// const getUserCount = async args => {
+//   const userCount = await User.count({ where: { username: args.writer } });
+//   return userCount;
+// };
+
+const getUserInfo = async writer => {
+  const userInfo = await User.findOne({
+    attributes: ['name', 'id'],
+    where: { username: writer },
+  });
+  return userInfo;
 };
 
-const getPostCard = async args => {
+const checkFollowing = async (userId, myId) => {
+  const isFollowing = await UserFollow.count({
+    where: {
+      from: myId,
+      to: userId,
+    },
+  });
+  return !!isFollowing;
+};
+
+const getFollowersNum = async userId => {
+  const followers = await UserFollow.count({
+    where: { to: userId },
+  });
+  return followers;
+};
+
+const getFollowsNum = async userId => {
+  const follows = await UserFollow.count({
+    where: { from: userId },
+  });
+  return follows;
+};
+
+const getPostCard = async userId => {
   const postCard = await Post.findAll({
-    include: [
-      {
-        model: User,
-        where: { username: args.writer },
-      },
-    ],
+    where: { UserId: userId },
   });
   return postCard;
 };
 
 const getUserPageData = async args => {
-  const userCount = await getUserCount(args);
-  const isExistingUser = !!userCount;
+  const { writer, myId } = args;
+  let userInfo = await getUserInfo(writer);
+  //   const userCount = await getUserCount(args);
+  const isExistingUser = !!userInfo;
   let postCard = [];
-  if (isExistingUser) postCard = await getPostCard(args);
-  const data = { isExistingUser, postCard };
+  if (isExistingUser) {
+    const userId = userInfo.id;
+    // delete userId.id;
+    const isFollowing = await checkFollowing(userId, myId);
+    const followersNum = await getFollowersNum(userId);
+    const followsNum = await getFollowsNum(userId);
+    postCard = await getPostCard(userId);
+    userInfo = {
+      ...userInfo.dataValues,
+      isFollowing,
+      postNumber: postCard.length,
+      followersNum,
+      followsNum,
+    };
+  }
+  const data = { isExistingUser, userInfo, postCard };
   return data;
 };
 

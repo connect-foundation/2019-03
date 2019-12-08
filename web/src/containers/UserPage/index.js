@@ -7,13 +7,21 @@ import UserPageInfo from './UserPageInfo';
 import ListSelector from './ListSelector';
 import { UserPageWrapper, UserPageSection } from './styles';
 
-const UserPage = ({ match }) => {
+const UserPage = ({ match, myInfo }) => {
   const { username } = match.params;
+  const { id } = myInfo;
 
   const userPageQuery = gql`
-    query UserPage($writer: String!) {
-      userPage(writer: $writer) {
+    query UserPage($writer: String!, $myId: Int!) {
+      userPage(writer: $writer, myId: $myId) {
         isExistingUser
+        userInfo {
+          name
+          isFollowing
+          postNumber
+          followersNum
+          followsNum
+        }
         postCard {
           postURL
           imageURL
@@ -23,7 +31,7 @@ const UserPage = ({ match }) => {
   `;
 
   const { loading, error, data, refetch } = useQuery(userPageQuery, {
-    variables: { writer: username },
+    variables: { writer: username, myId: id },
   });
   useEffect(() => {
     refetch();
@@ -35,7 +43,7 @@ const UserPage = ({ match }) => {
   return (
     <UserPageWrapper>
       <UserPageSection>
-        <UserPageInfo username={username} />
+        <UserPageInfo username={username} data={data.userPage.userInfo} />
         <ListSelector username={username} />
         <PostCardList data={data.userPage} />
       </UserPageSection>

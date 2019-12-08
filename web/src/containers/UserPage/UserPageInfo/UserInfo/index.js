@@ -11,7 +11,7 @@ import {
   NameWrapper,
 } from './styles';
 
-const UserInfo = ({ username }) => {
+const UserInfo = ({ username, data }) => {
   return (
     <UserInfoWrapper>
       <UserInfoHeader>
@@ -19,10 +19,10 @@ const UserInfo = ({ username }) => {
         <StyledFollowButton />
       </UserInfoHeader>
       <UserInfoBody>
-        <CountIndicator />
+        <CountIndicator data={data} />
       </UserInfoBody>
       <UserInfoFooter>
-        <NameWrapper>Name</NameWrapper>
+        <NameWrapper>{data.name}</NameWrapper>
       </UserInfoFooter>
     </UserInfoWrapper>
   );
