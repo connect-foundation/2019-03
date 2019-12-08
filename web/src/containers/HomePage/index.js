@@ -3,8 +3,9 @@ import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 
 import Post from './Post';
-import PostListWrapper from './PostListWrapper';
+import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from './queries';
+import Spinner from '../../components/Spinner';
 
 const myInfo = {
   id: 1,
@@ -72,7 +73,9 @@ function HomePage() {
   return (
     <PostListWrapper>
       {postList}
-      <div>loading...</div>
+      <SpinnerWrapper>
+        <Spinner size={50} />
+      </SpinnerWrapper>
     </PostListWrapper>
   );
 }

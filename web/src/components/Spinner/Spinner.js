@@ -10,6 +10,12 @@ const spinner = keyframes`
     }
 `;
 
+const spinnerColor = css`
+  ${({ theme }) => css`
+    border-top-color: ${theme.palette.blue};
+  `}
+`;
+
 const Spinner = styled.div`
   &:before {
     ${({ size }) => css`
@@ -26,7 +32,7 @@ const Spinner = styled.div`
 
     border-radius: 50%;
     border: 2px solid #ccc;
-    border-top-color: #000;
+    ${spinnerColor}
     animation: ${spinner} 0.6s linear infinite;
   }
 `;
