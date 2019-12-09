@@ -43,12 +43,7 @@ const PostMiddle = ({ myInfo, post }) => {
           />
           <IconGroup>
             <IconWrapper>
-              <LikeIcon
-                userId={myInfo.id}
-                postId={postId}
-                ratio={5}
-                ref={likeIcon}
-              />
+              <LikeIcon myInfo={myInfo} ratio={5} ref={likeIcon} />
             </IconWrapper>
             <IconWrapper>
               <CommentIcon postURL={postURL} />
