@@ -5,6 +5,10 @@ const {
   createCommentLike,
   deleteCommentLike,
 } = require('./CommentLikeMutation');
+const { RequestFollowing } = require('./RequestFollowing');
+const {
+  RequestFollowingCancellation,
+} = require('./RequestFollowingCancellation');
 
 module.exports = {
   deletePost,
@@ -14,4 +18,6 @@ module.exports = {
   deletePostLike,
   createCommentLike,
   deleteCommentLike,
+  RequestFollowing,
+  RequestFollowingCancellation,
 };

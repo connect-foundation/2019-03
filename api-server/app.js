@@ -34,7 +34,7 @@ app.use('/account', require('./api/routes/AccountRoute'));
 
 app.use(
   '/graphql',
-  require('./api/middlewares/Authenticator').isAuthenticated,
+  // require('./api/middlewares/Authenticator').isAuthenticated,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV === 'development',

@@ -17,6 +17,7 @@ const UserPage = ({ match, myInfo }) => {
         isExistingUser
         userInfo {
           name
+          id
           isFollowing
           postNumber
           followersNum
@@ -43,7 +44,11 @@ const UserPage = ({ match, myInfo }) => {
   return (
     <UserPageWrapper>
       <UserPageSection>
-        <UserPageInfo username={username} data={data.userPage.userInfo} />
+        <UserPageInfo
+          username={username}
+          myId={id}
+          data={data.userPage.userInfo}
+        />
         <ListSelector username={username} />
         <PostCardList data={data.userPage} />
       </UserPageSection>
