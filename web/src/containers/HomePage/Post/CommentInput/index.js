@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../queries';
+import Loading from '../../../../components/Loading';
 
 import {
   StyledForm,
@@ -17,7 +18,7 @@ const myInfo = {
 };
 
 function CommentInput({ PostId }) {
-  const [addComment] = useMutation(CREATE_COMMENT, {
+  const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { followingPostList } = cache.readQuery({
         query: FOLLOWING_POST_LIST,
@@ -60,6 +61,7 @@ function CommentInput({ PostId }) {
 
   return (
     <CommentInputWrapper>
+      {loading && <Loading size={20} />}
       <StyledForm onSubmit={submitHandler}>
         <StyledInput
           placeholder="댓글달기..."

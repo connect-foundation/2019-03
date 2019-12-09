@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div`
+  position: relative;
   flex: 0 0 56px;
   font-size: 14px;
   display: flex;
