@@ -9,6 +9,8 @@ import PostDetailPage from '../PostDetailPage';
 import NewPostPage from '../NewPostPage';
 import EditPostPage from '../EditPostPage';
 import Navigation from '../Navigation';
+import DeveloperPage from '../DeveloperPage';
+import Registration from '../DeveloperPage/Registration';
 
 export default function App() {
   const myInfo = {
@@ -45,6 +47,8 @@ export default function App() {
           exact
           render={props => <UserPage {...props} myInfo={myInfo} />}
         />
+        <Route path="/developer/main" exact component={DeveloperPage} />
+        <Route path="/developer/registration" exact component={Registration} />
       </ThemeProvider>
     </AppWrapper>
   );
