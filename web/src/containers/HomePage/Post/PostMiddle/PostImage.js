@@ -26,7 +26,7 @@ const PostImageDiv = styled.div`
   cursor: pointer;
 `;
 
-const PostImage = forwardRef(({ imageURL }, ref) => {
+const PostImage = forwardRef(({ imageURL, myInfo }, ref) => {
   const likerInfoDispatch = useLikerInfoDispatch();
   const likeDispatch = useLikeDispatch();
   const isLike = useLikeState();
@@ -35,7 +35,7 @@ const PostImage = forwardRef(({ imageURL }, ref) => {
     likeDispatch({ type: TOGGLE_LIKE_ICON });
 
     const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerInfoDispatch({ type: likerListActionType });
+    likerInfoDispatch({ type: likerListActionType, myInfo });
   };
 
   return (
