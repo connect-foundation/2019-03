@@ -14,7 +14,7 @@ import {
 const ClientRegistration = () => {
   const [state, setstate] = useState({
     type: 'web-server-app',
-    appname: '',
+    appName: '',
     redirectionURI: '',
     website: '',
     description: '',
@@ -26,7 +26,7 @@ const ClientRegistration = () => {
 
     if (
       state.type.length === 0 ||
-      state.appname.length === 0 ||
+      state.appName.length === 0 ||
       state.redirectionURI.length === 0
     ) {
       alert('필수 요소를 입력해주세요.');
@@ -42,12 +42,15 @@ const ClientRegistration = () => {
       const requestResult = await fetch(
         `${process.env.REACT_APP_OAUTH_SERVER_URL}/register`,
         {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
           method: 'POST',
-          body: state,
+          body: JSON.stringify(state),
         },
       );
-      const ResultToJson = requestResult.json();
-
+      const ResultToJson = await requestResult.json();
       if (ResultToJson.result !== 'fail') {
         setIsSuccess(true);
       } else {
@@ -82,7 +85,7 @@ const ClientRegistration = () => {
         </div>
         <div>
           <P required>app name</P>
-          <Input name="appname" onBlur={onBlur} />
+          <Input name="appName" onBlur={onBlur} />
         </div>
         <div>
           <P required>redirection url</P>
