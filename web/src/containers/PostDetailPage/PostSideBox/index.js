@@ -15,7 +15,7 @@ function SideBox({ post }) {
   };
   return (
     <SideBoxWrapper>
-      <PostTop writer={post.writer} myInfo={myInfo} post={post} />
+      <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
       <PostContent post={post} />
       <UtilityBlock />
       <CommentInput PostId={+post.id} />

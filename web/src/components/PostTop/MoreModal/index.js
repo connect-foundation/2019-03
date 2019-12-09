@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { DELETE_POST } from './queries';
 import { FOLLOWING_POST_LIST } from '../../../containers/HomePage/queries';
 
 const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
+  const [redirect, setRedirect] = useState(false);
   const [deletePost] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
       const { followingPostList } = cache.readQuery({
@@ -41,9 +42,10 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   const clickDeletePost = () => {
     deletePost({ variables: { postURL } });
     clickClose();
-    return <Redirect to="/" />;
+    setRedirect(true);
   };
 
+  if (redirect) return <Redirect to="/" />;
   if (!isVisible) return null;
 
   return (
@@ -55,7 +57,7 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
       )}
       {writer.username === myInfo.username && (
         <>
-          <StyledLink to={`edit/${postURL}`}>
+          <StyledLink to={`/edit/${postURL}`}>
             <ModalContent>게시물 수정</ModalContent>
           </StyledLink>
           <ModalContent onClick={clickDeletePost}>게시물 삭제</ModalContent>
