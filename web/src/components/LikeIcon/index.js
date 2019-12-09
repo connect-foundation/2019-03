@@ -15,7 +15,7 @@ import {
   INCREASE_LIKE,
 } from '../LikeInfo/Context/LikerInfoContext';
 
-const LikeIcon = forwardRef(({ ratio, style }, ref) => {
+const LikeIcon = forwardRef(({ myInfo, ratio, style }, ref) => {
   const isLike = useLikeState();
   const likeDispatch = useLikeDispatch();
   const likerInfoDispatch = useLikerInfoDispatch();
@@ -25,7 +25,7 @@ const LikeIcon = forwardRef(({ ratio, style }, ref) => {
 
     if (!likerInfoDispatch) return;
     const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerInfoDispatch({ type: likerListActionType });
+    likerInfoDispatch({ type: likerListActionType, myInfo });
   };
 
   return (
