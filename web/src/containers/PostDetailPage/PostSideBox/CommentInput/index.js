@@ -49,6 +49,7 @@ function CommentInput({ PostId }) {
   };
 
   const submitHandler = e => {
+    if (loading) return;
     e.preventDefault();
     addComment({ variables: { content: text, PostId, UserId: myInfo.id } });
     setText('');
