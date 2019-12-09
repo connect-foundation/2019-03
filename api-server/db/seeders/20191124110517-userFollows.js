@@ -1,9 +1,3 @@
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; // 최댓값은 제외, 최솟값은 포함
-}
-
 module.exports = {
   up: queryInterface => {
     const data = [];
@@ -12,7 +6,7 @@ module.exports = {
         from: 1,
         to,
         status: 0,
-        updatedAt: new Date(),
+        updatedAt: new Date(new Date().getTime() + 1000 * to),
       });
     }
     return queryInterface.bulkInsert('UserFollows', data, {});

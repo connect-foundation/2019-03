@@ -1,11 +1,6 @@
 module.exports = {
   up: queryInterface => {
-    const hashtagList = [
-      {
-        name: '해쉬태그는띄어쓰기가되지않는다',
-        updatedAt: new Date(),
-      },
-    ];
+    const hashtagList = [];
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 100; i++) {
@@ -13,7 +8,7 @@ module.exports = {
         name: `${Math.random()
           .toString(36)
           .substr(2, 6)}`,
-        updatedAt: new Date(),
+        updatedAt: new Date(new Date().getTime() + 1000 * i),
       });
     }
     return queryInterface.bulkInsert('HashTags', hashtagList, {});
