@@ -33,7 +33,8 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE(6),
+        defaultValue: Sequelize.NOW,
       },
     });
   },
