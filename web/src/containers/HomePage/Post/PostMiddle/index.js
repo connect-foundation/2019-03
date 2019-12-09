@@ -35,12 +35,7 @@ const PostMiddle = ({ myInfo, post }) => {
     <LikerInfoProvider likerInfo={likerInfo}>
       <LikeProvider isLike={isLike}>
         <PostMiddleWrapper {...wrapperProps}>
-          <PostImage
-            userId={myInfo.id}
-            postId={postId}
-            imageURL={imageURL}
-            ref={postImage}
-          />
+          <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
           <IconGroup>
             <IconWrapper>
               <LikeIcon myInfo={myInfo} ratio={5} ref={likeIcon} />
