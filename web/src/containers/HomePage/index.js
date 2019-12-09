@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 
@@ -16,11 +16,9 @@ const myInfo = {
 
 function HomePage() {
   const lastChild = useRef();
-
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
       myId: myInfo.id,
-      offset: 0,
       limit: 5,
     },
     fetchPolicy: 'cache-and-network',
@@ -32,14 +30,17 @@ function HomePage() {
     threshold: 0,
   };
 
-  const getMorePosts = (entries, observer) => {
+  const getMorePosts = entries => {
     const lastPost = [...entries].pop();
     if (loading) return;
     if (!lastPost.isIntersecting) return;
-    observer.unobserve(lastChild.current);
+
+    const list = data.followingPostList;
+    const cursor = list.length ? [...list].pop().updatedAt : null;
+
     fetchMore({
       variables: {
-        offset: data.followingPostList.length,
+        cursor,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -54,17 +55,20 @@ function HomePage() {
     });
   };
 
-  const observer = new IntersectionObserver(getMorePosts, options);
-
   const { followingPostList } = data || { followingPostList: [] };
 
   const postList = followingPostList.map(post => (
-    <Post key={post.id} post={post} myInfo={myInfo} ref={lastChild} />
+    <Post key={post.id} post={post} myInfo={myInfo} />
   ));
 
   useEffect(() => {
     if (!lastChild.current) return;
+    const observer = new IntersectionObserver(getMorePosts, options);
     observer.observe(lastChild.current);
+
+    // eslint-disable-next-line consistent-return
+    return () => observer.unobserve(lastChild.current);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followingPostList]);
 
@@ -73,7 +77,7 @@ function HomePage() {
   return (
     <PostListWrapper>
       {postList}
-      <SpinnerWrapper>
+      <SpinnerWrapper ref={lastChild}>
         <Spinner size={50} />
       </SpinnerWrapper>
     </PostListWrapper>

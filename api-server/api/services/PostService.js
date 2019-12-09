@@ -11,14 +11,15 @@ const {
 
 const { Op } = Sequelize;
 
-async function getFollowingPostList(userId, offset = 0, limit = 10) {
+async function getFollowingPostList(userId, cursor, limit = 10) {
   const result = await UserFollow.findAll({
     attributes: ['to'],
     where: { from: userId },
   });
 
   const followingList = [userId, ...result.map(f => f.to)];
-  const postList = await Post.findAll({
+
+  const options = {
     include: {
       model: User,
       attributes: ['id', 'username', 'profileImage'],
@@ -28,10 +29,19 @@ async function getFollowingPostList(userId, offset = 0, limit = 10) {
         },
       },
     },
-    offset,
+    where: {},
     limit,
     order: [['updatedAt', 'DESC']],
-  });
+  };
+
+  if (cursor) {
+    console.log(new Date(+cursor));
+    options.where.updatedAt = {
+      [Op.lt]: new Date(+cursor),
+    };
+  }
+
+  const postList = await Post.findAll(options);
 
   return postList;
 }
