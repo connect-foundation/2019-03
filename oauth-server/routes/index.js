@@ -7,20 +7,11 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-/*
-req.body = {
-  type
-  redirectionURI
-  app_name
-  website
-  description
-}
-*/
 router.get("/register", async function(req, res, next) {
-  const client = req.body;
   try {
-    const clientInfo = await registration(client);
-    res.json({ data: clientInfo });
+    const client = req.body;
+    await registration(client);
+    res.json({ result: "success" });
   } catch (e) {
     if (e.name === "client_error") {
       res.json({ result: "fail", message: "e.message" });
