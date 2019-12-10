@@ -18,6 +18,8 @@ const PostImageDiv = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
 
+  border-bottom: 1px solid ${({ theme }) => theme.palette.border};
+
   width: ${POST_IMAGE_LENGTH}px;
   height: ${POST_IMAGE_LENGTH}px;
 
