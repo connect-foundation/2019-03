@@ -5,6 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
+import ErrorWrapper from '../ErrorPage/ErrorWrapper';
+import ErrorPage from '../ErrorPage';
 
 function PostDetailPage({ match }) {
   const POST_DETAIL = gql`
@@ -26,7 +28,7 @@ function PostDetailPage({ match }) {
   });
 
   if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <ErrorPage />;
   if (!data) return null;
   const { post } = data;
 
