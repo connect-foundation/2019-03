@@ -9,9 +9,29 @@ import PostDetailPage from '../PostDetailPage';
 import NewPostPage from '../NewPostPage';
 import EditPostPage from '../EditPostPage';
 import Navigation from '../Navigation';
-import DeveloperPage from '../DeveloperPage';
-import Registration from '../DeveloperPage/Registration';
 import HashTagPage from '../HashTagPage';
+import SettingPage from '../SettingPage';
+import EditProfilePage from '../EditProfilePage';
+import ChangePasswordPage from '../ChangePasswordPage';
+import RegisterAppPage from '../RegisterAppPage';
+
+const settingPageList = [
+  {
+    title: '프로필 편집',
+    url: 'edit/profile',
+    PageComponent: EditProfilePage,
+  },
+  {
+    title: '비밀번호 변경',
+    url: 'change/password',
+    PageComponent: ChangePasswordPage,
+  },
+  {
+    title: '새 어플리케이션 등록',
+    url: 'applications/register',
+    PageComponent: RegisterAppPage,
+  },
+];
 
 export default function App() {
   const myInfo = {
@@ -19,6 +39,8 @@ export default function App() {
     username: '_so_02',
     name: '정소영',
     profileImage: 'https://i.pravatar.cc/150?img=9',
+    email: 'soyeong@naver.com',
+    cellPhone: '010-0101-0101',
   };
 
   return (
@@ -26,8 +48,9 @@ export default function App() {
       <ThemeProvider
         theme={{
           palette: {
-            gray_background: '#FAFAFA',
+            background: '#FAFAFA',
             gray_button: '#FDFDFD',
+            gray_bright: '#F5F5F5',
             gray_font: '#999999',
             border: '#e6e6e6',
             border_secondary: '#dbdbdb',
@@ -45,12 +68,20 @@ export default function App() {
         <Route path="/p/:postURL" exact component={PostDetailPage} />
         <Route path="/h/:hashTag" exact component={HashTagPage} />
         <Route
+          path="/setting"
+          component={props => (
+            <SettingPage
+              {...props}
+              myInfo={myInfo}
+              pageList={settingPageList}
+            />
+          )}
+        />
+        <Route
           path="/:username"
           exact
           render={props => <UserPage {...props} myInfo={myInfo} />}
         />
-        <Route path="/developer/main" exact component={DeveloperPage} />
-        <Route path="/developer/registration" exact component={Registration} />
       </ThemeProvider>
     </AppWrapper>
   );

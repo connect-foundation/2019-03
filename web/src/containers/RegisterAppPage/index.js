@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import urlRegex from 'url-regex';
-import {
-  Input,
-  RegistrationWrapper,
-  Title,
-  Select,
-  Button,
-  P,
-  Span,
-} from './styles';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import { RegistrationWrapper, Title, Select, P, Span } from './styles';
 
-const ClientRegistration = () => {
+const ClientRegistration = ({ setItem }) => {
+  useEffect(() => {
+    setItem('새 어플리케이션 등록');
+    return () => setItem(null);
+  }, [setItem]);
+
   const [state, setstate] = useState({
     type: 'web-server-app',
     appName: '',
