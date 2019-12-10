@@ -20,11 +20,10 @@ module.exports = {
         },
         updatedAt: {
           allowNull: false,
-          type: Sequelize.DATE(6),
-          defaultValue: Sequelize.NOW,
+          type: Sequelize.DATE(3),
         },
       })
-      .then(() => queryInterface.addIndex('Posts', ['postURL']));
+      .then(() => queryInterface.addIndex('Posts', ['postURL', 'updatedAt']));
   },
   down: queryInterface => {
     return queryInterface.dropTable('Posts');

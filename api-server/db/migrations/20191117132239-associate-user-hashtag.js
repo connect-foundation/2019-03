@@ -9,7 +9,7 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE(3),
       },
       UserId: {
         allowNull: false,

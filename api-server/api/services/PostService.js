@@ -11,7 +11,8 @@ const {
 
 const { Op } = Sequelize;
 
-async function getFollowingPostList(userId, cursor, limit = 10) {
+const defaultLimitValue = 10;
+async function getFollowingPostList(userId, cursor, limit = defaultLimitValue) {
   const result = await UserFollow.findAll({
     attributes: ['to'],
     where: { from: userId },
@@ -35,7 +36,6 @@ async function getFollowingPostList(userId, cursor, limit = 10) {
   };
 
   if (cursor) {
-    console.log(new Date(+cursor));
     options.where.updatedAt = {
       [Op.lt]: new Date(+cursor),
     };
