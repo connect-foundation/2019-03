@@ -43,6 +43,12 @@ app.use(
 
 app.use('/upload', (req, res, next) => {
   upload(req, res, err => {
+    console.log(req.file);
+    const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+    if (!extensionRegex.test(req.file.originalname)) {
+      return res.json({ result: 'fail', message: 'extension' });
+    }
+
     if (err instanceof multer.MulterError) {
       return next(err);
     }
@@ -52,7 +58,7 @@ app.use('/upload', (req, res, next) => {
 
     insertPost(req.file, req.body);
 
-    return res.json({ data: 'success' });
+    return res.json({ result: 'success' });
   });
 });
 

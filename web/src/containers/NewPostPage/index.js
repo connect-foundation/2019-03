@@ -131,7 +131,7 @@ const NewPostPage = () => {
         },
       );
       const result = await resultJSON.json();
-      if (result.data === 'success') {
+      if (result.result === 'success') {
         setSuccess(true);
       }
     } catch (e) {}
@@ -180,12 +180,10 @@ const NewPostPage = () => {
               aspect={1 / 1}
               restrictPosition={false}
               onCropChange={crop =>
-                dispatch({ type: 'CHANGE_CROP', value: crop })
-              }
+                dispatch({ type: 'CHANGE_CROP', value: crop })}
               onCropComplete={onCropComplete}
               onZoomChange={zoom =>
-                dispatch({ type: 'CHANGE_ZOOM', value: zoom })
-              }
+                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
               cropSize={{ width: 615, height: 615 }}
             />
           </div>
@@ -197,8 +195,7 @@ const NewPostPage = () => {
               step={0.1}
               aria-labelledby="Zoom"
               onChange={(e, currentzoom) =>
-                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })
-              }
+                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
             />
           </div>
         </>
