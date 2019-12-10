@@ -27,6 +27,11 @@ const newBlob = async dataURL => {
   return blob;
 };
 
+const isFileTypeImage = filename => {
+  const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+  return extensionRegex.test(filename);
+};
+
 const minZoom = 1;
 
 const reducer = (state, action) => {
@@ -96,6 +101,11 @@ const NewPostPage = () => {
       return;
     }
 
+    if (!isFileTypeImage(state.originalImage.name)) {
+      alert('이미지 파일만 업로드 할 수 있습니다!');
+      return;
+    }
+
     try {
       setLoading(true);
       const croppedImageDataUrl = await getCroppedImg(
@@ -121,11 +131,11 @@ const NewPostPage = () => {
         },
       );
       const result = await resultJSON.json();
-      if (result.data === 'success') {
+      if (result.result === 'success') {
         setSuccess(true);
       }
     } catch (e) {}
-  }, [setSuccess, state]);
+  }, [loading, state]);
 
   const onCropComplete = useCallback(
     (croppedArea, currentcroppedAreaPixels) => {
@@ -146,7 +156,11 @@ const NewPostPage = () => {
     <NewPostWrapper>
       {loading && <Loading size={50} />}
       <div className="section">
-        <input type="file" onChange={inputImage} />
+        <input
+          type="file"
+          accept="image/x-png,image/gif,image/jpeg"
+          onChange={inputImage}
+        />
       </div>
       {state.originalImage && (
         <>
@@ -166,12 +180,10 @@ const NewPostPage = () => {
               aspect={1 / 1}
               restrictPosition={false}
               onCropChange={crop =>
-                dispatch({ type: 'CHANGE_CROP', value: crop })
-              }
+                dispatch({ type: 'CHANGE_CROP', value: crop })}
               onCropComplete={onCropComplete}
               onZoomChange={zoom =>
-                dispatch({ type: 'CHANGE_ZOOM', value: zoom })
-              }
+                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
               cropSize={{ width: 615, height: 615 }}
             />
           </div>
@@ -183,8 +195,7 @@ const NewPostPage = () => {
               step={0.1}
               aria-labelledby="Zoom"
               onChange={(e, currentzoom) =>
-                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })
-              }
+                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
             />
           </div>
         </>
