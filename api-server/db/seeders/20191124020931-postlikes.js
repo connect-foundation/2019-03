@@ -5,9 +5,9 @@ module.exports = {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < 1000; i++) {
       postlikeList.push({
-        UserId: `${Math.ceil(Math.random() * 100)}`,
-        PostId: `${Math.ceil(Math.random() * 100)}`,
-        updatedAt: new Date(),
+        UserId: (i % 10) + 1,
+        PostId: i + 1,
+        updatedAt: new Date(new Date().getTime() + 1000 * i),
       });
     }
     return queryInterface.bulkInsert('PostLikes', postlikeList, {});

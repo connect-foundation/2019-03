@@ -48,7 +48,7 @@ module.exports = {
         isPrivate: 0,
         isFacebook: 0,
         isDeveloper: 0,
-        updatedAt: new Date(),
+        updatedAt: new Date(new Date().getTime() + 1000 * (i + 1)),
       });
     }
     return queryInterface.bulkInsert('Users', userInfo, {});

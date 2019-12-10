@@ -9,7 +9,7 @@ module.exports = {
           autoIncrement: true,
         },
         postURL: {
-          type: Sequelize.STRING(2048),
+          type: Sequelize.STRING(500),
         },
         imageURL: {
           allowNull: true,
@@ -20,10 +20,10 @@ module.exports = {
         },
         updatedAt: {
           allowNull: false,
-          type: Sequelize.DATE,
+          type: Sequelize.DATE(3),
         },
       })
-      .then(() => queryInterface.addIndex('Posts'), ['postURL']);
+      .then(() => queryInterface.addIndex('Posts', ['postURL', 'updatedAt']));
   },
   down: queryInterface => {
     return queryInterface.dropTable('Posts');

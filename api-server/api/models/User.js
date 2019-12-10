@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: {
       allowNull: false,
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(3),
+      defaultValue: new Date(),
     },
   });
 
