@@ -8,10 +8,11 @@ const PostTopWrapper = styled.header`
   flex-direction: row;
   justify-content: space-between;
   box-sizing: border-box;
-  ${props => {
-    const borderColor = props.theme.palette.border;
+  ${({ theme }) => {
+    const borderColor = theme.palette.border;
     return css`
       border-bottom: 1px solid ${borderColor};
+      background-color: ${theme.palette.white};
     `;
   }}
   .user {

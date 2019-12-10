@@ -12,6 +12,8 @@ const PostWrapper = styled.div`
   border-width: 1px;
   border-style: solid;
 
+  background-color: ${({ theme }) => theme.palette.white};
+
   & + & {
     margin-top: 60px;
   }
