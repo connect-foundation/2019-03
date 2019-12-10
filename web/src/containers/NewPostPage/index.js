@@ -28,11 +28,8 @@ const newBlob = async dataURL => {
 };
 
 const isFileTypeImage = filename => {
-  const filenameDivided = filename.split('.');
-  const fileExtension = filenameDivided[filenameDivided.length - 1];
-
-  const imageExtension = ['jpg', 'jpge', 'png', 'gif'];
-  return imageExtension.includes(fileExtension);
+  const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+  return extensionRegex.test(filename);
 };
 
 const minZoom = 1;
@@ -138,7 +135,7 @@ const NewPostPage = () => {
         setSuccess(true);
       }
     } catch (e) {}
-  }, [setSuccess, state]);
+  }, [loading, state]);
 
   const onCropComplete = useCallback(
     (croppedArea, currentcroppedAreaPixels) => {
