@@ -11,6 +11,7 @@ import EditPostPage from '../EditPostPage';
 import Navigation from '../Navigation';
 import DeveloperPage from '../DeveloperPage';
 import Registration from '../DeveloperPage/Registration';
+import HashTagPage from '../HashTagPage';
 
 export default function App() {
   const myInfo = {
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/new/post" component={NewPostPage} />
         <Route path="/edit/:postURL" exact component={EditPostPage} />
         <Route path="/p/:postURL" exact component={PostDetailPage} />
+        <Route path="/h/:hashTag" exact component={HashTagPage} />
         <Route
           path="/:username"
           exact

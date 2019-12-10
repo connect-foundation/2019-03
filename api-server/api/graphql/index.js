@@ -7,6 +7,7 @@ const {
   likerListQuery,
   searchQuery,
   userPageQuery,
+  hashTagPageQuery,
 } = require('./queries');
 const {
   createComment,
@@ -30,6 +31,7 @@ const rootQuery = new GraphQLObjectType({
     followingPostList: followingPostListQuery,
     likerList: likerListQuery,
     userPage: userPageQuery,
+    hashTagPage: hashTagPageQuery,
   }),
 });
 
