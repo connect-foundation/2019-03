@@ -5,8 +5,8 @@ import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
 import { POST_DETAIL } from './queries';
-import ErrorPage from '../ErrorPage';
 import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 function PostDetailPage({ match }) {
   const { loading, error, data } = useQuery(POST_DETAIL, {
@@ -14,7 +14,7 @@ function PostDetailPage({ match }) {
   });
 
   if (loading) return <Loading size={50} />;
-  if (error) return <ErrorPage />;
+  if (error) return <Error />;
   if (!data) return null;
   const { post } = data;
 
