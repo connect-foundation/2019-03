@@ -60,13 +60,7 @@ async function checkUserLikePost(userId, postId) {
 
 async function getLikerInfo(postId) {
   const { rows, count } = await PostLike.findAndCountAll({
-    attributes: ['id', 'updatedAt'],
-    include: [
-      {
-        model: User,
-        attributes: ['username', 'profileImage'],
-      },
-    ],
+    attributes: ['id', 'updatedAt', 'UserId'],
     where: { PostId: postId },
     order: [['updatedAt', 'DESC']],
   });
@@ -77,10 +71,12 @@ async function getLikerInfo(postId) {
     likerCount: count,
   };
 
-  if (rows.length > 0) {
-    const { username, profileImage } = rows[0].User;
-    likerInfo = { ...likerInfo, username, profileImage };
-  }
+  if (rows.length === 0) return likerInfo;
+  const { username, profileImage } = await User.findOne({
+    attributes: ['username', 'profileImage'],
+    where: { id: rows[0].UserId },
+  });
+  likerInfo = { ...likerInfo, username, profileImage };
 
   return likerInfo;
 }
