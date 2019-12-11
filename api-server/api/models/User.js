@@ -59,12 +59,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.hasMany(models.UserFollow, { foreignKey: 'from', soureKey: 'id' });
     User.hasMany(models.UserFollow, { foreignKey: 'to', soureKey: 'id' });
-    // User.belongsToMany(models.User, {
-    //   as: 'UserFollow',
-    //   through: 'UserFollows',
-    //   foreignKey: 'from',
-    //   otherKey: 'to',
-    // });
   };
 
   User.beforeCreate(async user => {

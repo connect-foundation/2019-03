@@ -4,19 +4,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
     },
     to: {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
     },
     status: {
       type: DataTypes.INTEGER(1),
