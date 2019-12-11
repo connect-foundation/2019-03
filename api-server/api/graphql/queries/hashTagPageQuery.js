@@ -1,7 +1,7 @@
 const { GraphQLString } = require('graphql');
 
 const { HashTagPageType } = require('../types');
-const { HashTag, HashTagsOfPost } = require('../../../db');
+const { getHashTagPageData } = require('../../services/HashTagPageService');
 
 const hashTagPageQuery = {
   type: HashTagPageType,
@@ -9,22 +9,8 @@ const hashTagPageQuery = {
     hashTagName: { type: GraphQLString },
   },
   resolve: async (_, args) => {
-    const name = args.hashTagName;
     try {
-      const hashTagId = await HashTag.findOne({
-        attributes: ['id'],
-        where: { name },
-      });
-      let data = { isExistingHashTag: !!hashTagId, postIds: [] };
-      if (hashTagId) {
-        const postIds = await HashTagsOfPost.findAll({
-          attributes: ['PostId'],
-          where: {
-            HashTagId: hashTagId.id,
-          },
-        });
-        data = { ...data, postIds };
-      }
+      const data = await getHashTagPageData(args);
       return data;
     } catch (e) {
       console.log(e.message);
