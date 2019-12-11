@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ErrorWrapper, ErrorImage } from './styles';
 
-const ErrorPage = ({ status }) => {
+const Error = ({ status }) => {
   const [image, setImage] = useState('');
   useEffect(() => {
     if (status === 404) {
@@ -19,8 +19,8 @@ const ErrorPage = ({ status }) => {
   );
 };
 
-ErrorPage.defaultProps = {
+Error.defaultProps = {
   status: 404,
 };
 
-export default ErrorPage;
+export default Error;
