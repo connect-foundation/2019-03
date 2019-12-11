@@ -27,7 +27,9 @@ const AlarmResult = ({ result, isLast }) => {
       content = (
         <span>{commonContent}님이 회원님을 팔로우하기 시작했습니다.</span>
       );
-      action = <AlarmFollowButton />;
+      action = (
+        <AlarmFollowButton followStatus={result.fromUser.follow.status} />
+      );
       break;
     case 'like':
       content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
