@@ -14,19 +14,19 @@ const {
   getTwoComments,
 } = require('../../services/CommentService');
 const { LikerInfoType } = require('./LikerInfoType');
-const { WriterType } = require('./WriterType');
+const { UserType } = require('./UserType');
 const { CommentType } = require('./CommentType');
 
 const PostType = new GraphQLObjectType({
-  name: 'PostType',
+  name: 'Post',
   fields: () => ({
     id: {
       type: GraphQLInt,
     },
-    imageURL: {
+    postURL: {
       type: GraphQLString,
     },
-    postURL: {
+    imageURL: {
       type: GraphQLString,
     },
     content: {
@@ -36,7 +36,7 @@ const PostType = new GraphQLObjectType({
       type: GraphQLString,
     },
     writer: {
-      type: WriterType,
+      type: UserType,
       resolve: ({ User }) => User,
     },
     isLike: {

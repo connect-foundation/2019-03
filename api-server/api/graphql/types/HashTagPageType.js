@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLBoolean, GraphQLList } = require('graphql');
 
-const { PostCardType } = require('./PostCardType');
+const { PostType } = require('./PostType');
 const { Post } = require('../../../db');
 
 const HashTagPageType = new GraphQLObjectType({
@@ -11,7 +11,7 @@ const HashTagPageType = new GraphQLObjectType({
       resolve: data => data.isExistingHashTag,
     },
     postCard: {
-      type: new GraphQLList(PostCardType),
+      type: new GraphQLList(PostType),
       resolve: data => {
         const postCards = data.postIds.map(async postId => {
           const postCard = await Post.findOne({

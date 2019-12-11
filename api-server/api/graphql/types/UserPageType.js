@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLBoolean, GraphQLList } = require('graphql');
 
 const { UserInfoType } = require('./UserInfoType');
-const { PostCardType } = require('./PostCardType');
+const { PostType } = require('./PostType');
 
 const UserPageType = new GraphQLObjectType({
   name: 'userPage',
@@ -15,7 +15,7 @@ const UserPageType = new GraphQLObjectType({
       resolve: data => data.userInfo,
     },
     postCard: {
-      type: new GraphQLList(PostCardType),
+      type: new GraphQLList(PostType),
       resolve: data => data.postCard,
     },
   }),

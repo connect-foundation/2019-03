@@ -1,10 +1,10 @@
 const { GraphQLString } = require('graphql');
 
-const { PostDetailType } = require('../types');
+const { PostType } = require('../types');
 const { Post } = require('../../../db');
 
 const postDetailQuery = {
-  type: PostDetailType,
+  type: PostType,
   args: {
     postURL: { type: GraphQLString },
   },
