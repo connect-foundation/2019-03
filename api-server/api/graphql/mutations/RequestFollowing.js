@@ -10,7 +10,6 @@ const RequestFollowing = {
     userId: { type: GraphQLInt },
   },
   resolve: async (obj, { myId, userId }) => {
-    console.log('Im resolver');
     const userFollower = await UserFollow.create({
       from: myId,
       to: userId,
