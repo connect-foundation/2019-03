@@ -15,7 +15,7 @@ const ToolTipArrow = styled.div`
   z-index: 203;
   position: relative;
   left: 50%;
-  bottom: 8px;
+  top: 8px;
 `;
 
 export default ToolTipArrow;
