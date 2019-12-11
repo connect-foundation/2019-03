@@ -49,7 +49,8 @@ export default function App() {
         theme={{
           palette: {
             background: '#FAFAFA',
-            gray_button: '#FDFDFD',
+            secondary: '#6C757D',
+            light: '#F8F9FA',
             gray_bright: '#F5F5F5',
             gray_font: '#999999',
             border: '#e6e6e6',
