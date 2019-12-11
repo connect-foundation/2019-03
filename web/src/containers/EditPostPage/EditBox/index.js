@@ -3,13 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 
 import { UPDATE_POST } from '../queries';
+import Loading from '../../../components/Loading';
+import Button from '../../../components/Button';
 
-import {
-  EditBoxWrapper,
-  StyledTextBox,
-  ButtonGroup,
-  StyledButton,
-} from './styles';
+import { EditBoxWrapper, StyledTextBox, ButtonGroup } from './styles';
 
 function EditBox({ post }) {
   const [redirect, setRedirect] = useState(false);
@@ -24,16 +21,22 @@ function EditBox({ post }) {
   const cancelEdit = () => setRedirect(true);
 
   if (redirect || data) return <Redirect to="/" />;
+  if (error) return <div>에러가 발생했습니다!!</div>;
   return (
-    <EditBoxWrapper>
-      <StyledTextBox onChange={onTextChange} value={text} />
-      <ButtonGroup>
-        <StyledButton onClick={editPost} blue>
-          수정
-        </StyledButton>
-        <StyledButton onClick={cancelEdit}>취소</StyledButton>
-      </ButtonGroup>
-    </EditBoxWrapper>
+    <>
+      {loading && <Loading size={50} />}
+      <EditBoxWrapper>
+        <StyledTextBox onChange={onTextChange} value={text} />
+        <ButtonGroup>
+          <Button onClick={editPost} btnStyle="primary">
+            수정
+          </Button>
+          <Button onClick={cancelEdit} btnStyle="secondary">
+            취소
+          </Button>
+        </ButtonGroup>
+      </EditBoxWrapper>
+    </>
   );
 }
 

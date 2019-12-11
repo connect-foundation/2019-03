@@ -1,5 +1,19 @@
 import { gql } from 'apollo-boost';
 
+const POST_DETAIL = gql`
+  query Post($postURL: String!) {
+    post(postURL: $postURL) {
+      id
+      content
+      writer {
+        username
+      }
+      imageURL
+      postURL
+    }
+  }
+`;
+
 const COMMENT_LIST = gql`
   query CommentList($PostId: Int!, $offset: Int, $limit: Int) {
     commentList(PostId: $PostId, offset: $offset, limit: $limit) {
@@ -32,4 +46,4 @@ const ADD_COMMENT = gql`
   }
 `;
 
-export { COMMENT_LIST, ADD_COMMENT };
+export { COMMENT_LIST, ADD_COMMENT, POST_DETAIL };

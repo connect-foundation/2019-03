@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 
@@ -56,7 +56,7 @@ function HomePage() {
   };
 
   const { followingPostList } = data || { followingPostList: [] };
-
+  console.log(followingPostList);
   const postList = followingPostList.map(post => (
     <Post key={post.id} post={post} myInfo={myInfo} />
   ));
@@ -67,7 +67,7 @@ function HomePage() {
     observer.observe(lastChild.current);
 
     // eslint-disable-next-line consistent-return
-    return () => observer.unobserve(lastChild.current);
+    return () => observer.disconnect();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followingPostList]);

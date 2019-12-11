@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
+import { Redirect } from 'react-router-dom';
+
 import InputRow from '../../components/InputRow';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -51,6 +53,8 @@ function EditProfilePage({ setItem, myInfo }) {
       message = '사용할 수 없는 사용자 이름입니다. 다른 이름을 사용하세요.';
     alert(message);
   }
+
+  if (data) return <Redirect to="./" />;
 
   return (
     <Form onSubmit={submitHanlder}>

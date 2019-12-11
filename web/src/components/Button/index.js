@@ -7,7 +7,6 @@ const StyledButton = styled.button`
   outline: none;
   border: none;
   border-radius: 4px;
-  color: white;
   font-weight: 600;
   cursor: pointer;
   padding: 5px 9px;
@@ -24,9 +23,13 @@ const StyledButton = styled.button`
         color = theme.palette.white;
         backgroundColor = theme.palette.blue;
         break;
+      case 'secondary':
+        color = theme.palette.white;
+        backgroundColor = theme.palette.secondary;
+        break;
       case 'light':
         color = theme.palette.black;
-        backgroundColor = theme.palette.gray_button;
+        backgroundColor = theme.palette.light;
         break;
       default:
         break;
