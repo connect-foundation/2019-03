@@ -3,7 +3,9 @@ import { Redirect } from 'react-router-dom';
 import urlRegex from 'url-regex';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { RegistrationWrapper, Title, Select, P, Span } from './styles';
+import InputRow from '../../components/InputRow';
+import Form from '../../components/Form';
+import { Select, Span } from './styles';
 
 const ClientRegistration = ({ setItem }) => {
   useEffect(() => {
@@ -72,38 +74,47 @@ const ClientRegistration = ({ setItem }) => {
   }
 
   return (
-    <RegistrationWrapper>
-      <form onSubmit={onSubmit}>
-        <Title>New app registration</Title>
-        <div>
-          <P required>client type</P>
+    <Form onSubmit={onSubmit}>
+      <InputRow
+        required
+        label="client type"
+        rightComponent={(
           <Select name="type" onBlur={onBlur}>
             <option value="web-server-app">web-server-app</option>
             <option value="single-page-app">single-page-app</option>
           </Select>
-        </div>
-        <div>
-          <P required>app name</P>
-          <Input name="appName" onBlur={onBlur} />
-        </div>
-        <div>
-          <P required>redirection url</P>
-          <Input name="redirectionURI" onBlur={onBlur} />
-          <Span>반드시 full url을 적어주세요.</Span>
-        </div>
-        <div>
-          <P>web site</P>
-          <Input name="website" onBlur={onBlur} />
-        </div>
-        <div>
-          <P>description</P>
-          <Input name="description" onBlur={onBlur} />
-        </div>
-        <div>
-          <Button type="submit">register</Button>
-        </div>
-      </form>
-    </RegistrationWrapper>
+        )}
+      />
+
+      <InputRow
+        required
+        label="app name"
+        rightComponent={<Input name="appName" onBlur={onBlur} />}
+      />
+
+      <InputRow
+        required
+        label="redirection url"
+        rightComponent={(
+          <section>
+            <Input name="redirectionURI" onBlur={onBlur} />
+            <Span>반드시 full url을 적어주세요.</Span>
+          </section>
+        )}
+      />
+
+      <InputRow
+        label="web site"
+        rightComponent={<Input name="website" onBlur={onBlur} />}
+      />
+
+      <InputRow
+        label="description"
+        rightComponent={<Input name="description" onBlur={onBlur} />}
+      />
+
+      <InputRow rightComponent={<Button type="submit">register</Button>} />
+    </Form>
   );
 };
 

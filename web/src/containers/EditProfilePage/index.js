@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
 import InputRow from '../../components/InputRow';
-import { StyledForm } from './styles';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import Form from '../../components/Form';
 
 function EditProfilePage({ setItem, myInfo }) {
-  const [username, setUsername] = useState(myInfo.username);
-  const [name, setName] = useState(myInfo.name);
-  const [email, setEmail] = useState(myInfo.email);
-  const [cellPhone, setCellPhone] = useState(myInfo.cellPhone);
+  const [state, setstate] = useState({
+    name: myInfo.name,
+    username: myInfo.username,
+    email: myInfo.email,
+    cellPhone: myInfo.cellPhone,
+  });
+
+  const onInputValueChanged = e => {
+    setstate({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   useEffect(() => {
     setItem('프로필 편집');
@@ -19,28 +30,57 @@ function EditProfilePage({ setItem, myInfo }) {
   };
 
   return (
-    <StyledForm onSubmit={submitHanlder}>
-      <InputRow label="이름" text={name} setText={setName} rowStyle="input" />
+    <Form onSubmit={submitHanlder}>
+      <InputRow
+        label="이름"
+        rightComponent={
+          <Input
+            name="name"
+            id="pep이름"
+            defaultValue={state.name}
+            onBlur={onInputValueChanged}
+          />
+        }
+      />
       <InputRow
         label="사용자 이름"
-        text={username}
-        setText={setUsername}
-        rowStyle="input"
+        rightComponent={
+          <Input
+            name="username"
+            id="pep사용자 이름"
+            defaultValue={state.username}
+            onBlur={onInputValueChanged}
+          />
+        }
       />
       <InputRow
         label="이메일"
-        text={email}
-        setText={setEmail}
-        rowStyle="input"
+        rightComponent={
+          <Input
+            id="pep이메일"
+            defaultValue={state.email}
+            onBlur={onInputValueChanged}
+          />
+        }
       />
       <InputRow
         label="전화번호"
-        text={cellPhone}
-        setText={setCellPhone}
-        rowStyle="input"
+        rightComponent={
+          <Input
+            id="pep전화번호"
+            defaultValue={state.cellPhone}
+            onBlur={onInputValueChanged}
+          />
+        }
       />
-      <InputRow text="제출" rowStyle="button" />
-    </StyledForm>
+      <InputRow
+        rightComponent={
+          <Button btnStyle="primary" type="submit">
+            제출
+          </Button>
+        }
+      />
+    </Form>
   );
 }
 

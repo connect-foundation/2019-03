@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import InputRow from '../../components/InputRow';
-import { StyledForm } from './styles';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import Form from '../../components/Form';
 
 function ChangePasswordPage({ setItem, myInfo }) {
   const [password, setPassword] = useState('');
@@ -18,30 +20,47 @@ function ChangePasswordPage({ setItem, myInfo }) {
   };
 
   return (
-    <StyledForm onSubmit={submitHanlder}>
+    <Form onSubmit={submitHanlder}>
       <InputRow
         label="이전 비밀번호"
-        text={password}
-        setText={setPassword}
-        rowStyle="input"
-        inputType="password"
+        rightComponent={(
+          <Input
+            id="pep이전 비밀번호"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            type="password"
+          />
+        )}
       />
+
       <InputRow
         label="새 비밀번호"
-        text={newPassword}
-        setText={setNewPassword}
-        rowStyle="input"
-        inputType="password"
+        rightComponent={(
+          <Input
+            id="pep새 비밀번호"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            type="password"
+          />
+        )}
       />
+
       <InputRow
         label="새 비밀번호 확인"
-        text={newPasswordCheck}
-        setText={setNewPasswordCheck}
-        rowStyle="input"
-        inputType="password"
+        rightComponent={(
+          <Input
+            id="pep새 비밀번호 확인"
+            value={newPasswordCheck}
+            onChange={e => setNewPasswordCheck(e.target.value)}
+            type="password"
+          />
+        )}
       />
-      <InputRow text="비밀 번호 변경" rowStyle="button" />
-    </StyledForm>
+
+      <InputRow
+        rightComponent={<Button type="submit">비밀 번호 변경</Button>}
+      />
+    </Form>
   );
 }
 

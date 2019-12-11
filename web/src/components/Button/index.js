@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { darken, lighten } from 'polished';
 
 const StyledButton = styled.button`
   /* 공통 스타일 */
@@ -22,12 +21,12 @@ const StyledButton = styled.button`
     let backgroundColor;
     switch (btnStyle) {
       case 'primary':
-        color = theme.palette['white'];
-        backgroundColor = theme.palette['blue'];
+        color = theme.palette.white;
+        backgroundColor = theme.palette.blue;
         break;
-      case 'secondary':
-        color = theme.palette['black'];
-        backgroundColor = theme.palette['gray_button'];
+      case 'light':
+        color = theme.palette.black;
+        backgroundColor = theme.palette.gray_button;
         break;
       default:
         break;
