@@ -5,17 +5,21 @@ const {
   GraphQLString,
   GraphQLBoolean,
 } = require('graphql');
+
 const {
   getLikerInfo,
   checkUserLikePost,
 } = require('../../services/PostService');
+
 const {
   getCommentCount,
   getTwoComments,
 } = require('../../services/CommentService');
+
 const { LikerInfoType } = require('./LikerInfoType');
 const { UserType } = require('./UserType');
 const { CommentType } = require('./CommentType');
+const { User } = require('../../../db');
 
 const PostType = new GraphQLObjectType({
   name: 'Post',
@@ -37,7 +41,7 @@ const PostType = new GraphQLObjectType({
     },
     writer: {
       type: UserType,
-      resolve: ({ User }) => User,
+      resolve: ({ UserId }) => User.findByPk(UserId),
     },
     isLike: {
       type: GraphQLBoolean,

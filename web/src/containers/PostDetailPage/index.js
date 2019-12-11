@@ -19,7 +19,6 @@ function PostDetailPage({ match }) {
         }
         imageURL
         postURL
-        likeCount
       }
     }
   `;
