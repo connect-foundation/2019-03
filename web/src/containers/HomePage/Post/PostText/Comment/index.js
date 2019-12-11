@@ -8,14 +8,6 @@ import {
 } from '../styles';
 import CommentWrapper from './CommentWrapper';
 import { useText as useComment } from '../hooks';
-import LikeIcon from '../../../../../components/LikeIcon';
-import { LikeProvider } from '../../../../../components/LikeIcon/Context/LikeContext';
-
-const likeIconStyle = {
-  marginTop: '2px',
-  marginLeft: 'auto',
-  alignSelf: 'flex-start',
-};
 
 const Comment = ({ myInfo, comment }) => {
   const [isFold, commentRef, onUnfoldComment] = useComment();

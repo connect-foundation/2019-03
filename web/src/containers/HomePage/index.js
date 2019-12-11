@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 

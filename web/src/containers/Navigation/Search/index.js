@@ -40,7 +40,7 @@ const searchReducer = (state, action) => {
 
 const Search = () => {
   const [searchState, searchDispatch] = useReducer(searchReducer, initialState);
-  const { state, dispatch, fetchData } = useFetch();
+  const { state, fetchData } = useFetch();
   const { loading, data, error } = state;
   const [timer, setTimer] = useState('');
 
