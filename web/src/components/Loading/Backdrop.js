@@ -7,6 +7,9 @@ const Backdrop = styled.div`
   background-color: white;
   opacity: 0.5;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Backdrop;
