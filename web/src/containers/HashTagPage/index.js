@@ -10,9 +10,12 @@ import {
 } from './styles';
 import ProfileIcon from '../../components/ProfileIcon';
 import PostCardList from '../../components/PostCardList';
+import AnnouncementMessage from '../../components/AnnouncementMessage';
+import Loading from '../../components/Loading';
 
 const HashTagPage = ({ match }) => {
   const { hashTag } = match.params;
+  const loadingSize = 120;
 
   const hashtagPageQuery = gql`
     query HashTagPage($hashTagName: String!) {
@@ -34,13 +37,20 @@ const HashTagPage = ({ match }) => {
     refetch();
   }, [hashTag, refetch]);
 
-  if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다.</div>;
+  if (loading) return <Loading size={loadingSize} />;
+  if (error)
+    return <AnnouncementMessage>에러가 발생했습니다.</AnnouncementMessage>;
   if (!data.hashTagPage.isExistingHashTag)
-    return <div>존재하지않는 해쉬태그입니다.</div>;
+    return (
+      <AnnouncementMessage>존재하지않는 해쉬태그입니다.</AnnouncementMessage>
+    );
   const isPostCardExisting = !!data.hashTagPage.postCard[0];
   if (!isPostCardExisting)
-    return <div>#{hashTag}관련 게시물이 존재하지 않습니다.</div>;
+    return (
+      <AnnouncementMessage>
+        #{hashTag}관련 게시물이 존재하지 않습니다.
+      </AnnouncementMessage>
+    );
   return (
     <HashTagPageWrapper>
       <HashTagInfoWrapper>
