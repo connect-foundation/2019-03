@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   input {
     border: none;
+    margin-left: 16px;
   }
   ${({ theme }) => {
     const borderColor = theme.palette.border;
@@ -15,7 +16,6 @@ const Wrapper = styled.div`
       border-top: 1px solid ${borderColor};
     `;
   }}
-  padding: 0 16px;
 `;
 
 export default Wrapper;

@@ -10,6 +10,7 @@ const StyledButton = styled.button`
       background: 0 0;
       border: 0;
       padding: 0;
+      margin-right: 16px;
       opacity: ${disabled ? 0.5 : 1};
     `;
   }}

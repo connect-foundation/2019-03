@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, SpinnerWrapper } from './styles';
+import { Backdrop } from './styles';
 import Spinner from '../Spinner';
 
 const defaultSizeOfSpinner = 20;
@@ -7,9 +7,7 @@ const defaultSizeOfSpinner = 20;
 function Loading({ size = { defaultSizeOfSpinner } }) {
   return (
     <Backdrop>
-      <SpinnerWrapper>
-        <Spinner size={size} />
-      </SpinnerWrapper>
+      <Spinner size={size} />
     </Backdrop>
   );
 }
