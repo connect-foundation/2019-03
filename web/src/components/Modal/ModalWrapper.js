@@ -1,15 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
   width: 320px;
   z-index: 700;
   border-radius: 10px;
-  ${({ theme }) => {
-    const grayBackground = theme.palette.gray_background;
-    return css`
-      background-color: ${grayBackground};
-    `;
-  }}
+  background-color: white;
 `;
 
 export default ModalWrapper;
