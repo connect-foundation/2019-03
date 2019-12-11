@@ -16,7 +16,7 @@ const AlarmResult = ({ result, isLast }) => {
     </StyledLink>
   );
   let action = (
-    <StyledLink to={`/${result.post.postURL}`}>
+    <StyledLink to={`/p/${result.post.postURL}`}>
       <img src={result.post.imageURL} alt="none" />
     </StyledLink>
   );
