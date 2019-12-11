@@ -3,11 +3,13 @@ const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
 const multer = require('multer');
+const initPassport = require('./config/passport-config');
+const { isAuthenticated } = require('./api/middlewares/Authenticator');
+
 const { schema } = require('./api/graphql');
 const upload = require('./upload');
 const { insertPost } = require('./api/services/PostService');
@@ -21,20 +23,19 @@ app.use(
     saveUninitialized: true,
   }),
 );
-app.use(passport.initialize());
-app.use(passport.session());
+initPassport(app);
 app.use(helmet());
 app.use(cors());
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/account', require('./api/routes/AccountRoute'));
 
 app.use(
   '/graphql',
-  // require('./api/middlewares/Authenticator').isAuthenticated,
+  isAuthenticated,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV === 'development',
