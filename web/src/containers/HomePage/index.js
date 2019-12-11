@@ -67,7 +67,7 @@ function HomePage() {
     observer.observe(lastChild.current);
 
     // eslint-disable-next-line consistent-return
-    return () => observer.unobserve(lastChild.current);
+    return () => observer.disconnect();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followingPostList]);
