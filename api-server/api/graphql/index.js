@@ -10,6 +10,7 @@ const {
   hashTagPageQuery,
 } = require('./queries');
 const {
+  updateUser,
   createComment,
   deletePost,
   createPostLike,
@@ -38,6 +39,7 @@ const rootQuery = new GraphQLObjectType({
 const rootMutation = new GraphQLObjectType({
   name: 'rootMutation',
   fields: () => ({
+    updateUser,
     deletePost,
     updatePost,
     createComment,

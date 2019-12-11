@@ -9,34 +9,41 @@ const updateUser = {
   args: {
     id: {
       name: 'id',
-      type: new GraphQLNonNull(GraphQLID),
+      type: GraphQLNonNull(GraphQLID),
     },
     name: {
       name: 'name',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     username: {
       name: 'username',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     email: {
       name: 'email',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     cellPhone: {
       name: 'cellPhone',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
   },
-  resolve: (_, { id, name, username, email, cellPhone }) => {
-    return User.update(
-      { name, username, email, cellPhone },
-      {
+  resolve: async (_, { id, name, username, email, cellPhone }) => {
+    const target = {};
+    if (name) target.name = name;
+    if (username) target.username = username;
+    if (email) target.email = email;
+    if (cellPhone) target.cellPhone = cellPhone;
+    try {
+      await User.update(target, {
         where: {
           id,
         },
-      },
-    );
+      });
+      return target;
+    } catch (err) {
+      return err;
+    }
   },
 };
 
