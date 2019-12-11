@@ -7,6 +7,7 @@ import SignInput from './SignInput';
 import SignWrapper from './SignWrapper';
 import SignLink from './SignLink';
 import Title from './Title';
+import ValidationMessage from './ValidationMessage';
 
 export {
   SignForm,
@@ -18,4 +19,5 @@ export {
   SignWrapper,
   SignLink,
   Title,
+  ValidationMessage,
 };

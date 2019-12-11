@@ -14,6 +14,7 @@
     "intersection-observer": "^0.7.0",
     "polished": "^3.4.2",
     "react": "^16.11.0",
+    "react-cookie": "^4.0.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.11.0",
     "react-easy-crop": "^1.16.2",

@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
 const multer = require('multer');
 const initPassport = require('./config/passport-config');
-const { isAuthenticated } = require('./api/middlewares/Authenticator');
+const { isAuthenticated } = require('./api/middlewares/auth');
 
 const { schema } = require('./api/graphql');
 const upload = require('./upload');
@@ -16,6 +16,13 @@ const { insertPost } = require('./api/services/PostService');
 
 const app = express();
 
+app.use(helmet());
+app.use(
+  cors({
+    origin: process.env.WEB_URL,
+    credentials: true,
+  }),
+);
 app.use(
   session({
     secret: process.env.SESSION_KEY,
@@ -24,14 +31,12 @@ app.use(
   }),
 );
 initPassport(app);
-app.use(helmet());
-app.use(cors());
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/account', require('./api/routes/AccountRoute'));
+app.use('/account', require('./api/routes/account-route'));
 
 app.use(
   '/graphql',

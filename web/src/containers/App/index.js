@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { withCookies } from 'react-cookie';
 
 import AppWrapper from './AppWrapper';
 import HomePage from '../HomePage';
@@ -14,6 +15,10 @@ import SettingPage from '../SettingPage';
 import EditProfilePage from '../EditProfilePage';
 import ChangePasswordPage from '../ChangePasswordPage';
 import RegisterAppPage from '../RegisterAppPage';
+import SignInPage from '../AccountPage/SignIn';
+import SignUpPage from '../AccountPage/SignUp';
+import AuthRoute from './AuthRoute';
+import AccountRoute from './AccountRoute';
 
 const settingPageList = [
   {
@@ -33,15 +38,9 @@ const settingPageList = [
   },
 ];
 
-export default function App() {
-  const myInfo = {
-    id: 1,
-    username: '_so_02',
-    name: '정소영',
-    profileImage: 'https://i.pravatar.cc/150?img=9',
-    email: 'soyeong@naver.com',
-    cellPhone: '010-0101-0101',
-  };
+function App({ cookies }) {
+  const [isAuth, setIsAuth] = useState(false);
+  const myInfo = cookies.get('myInfo');
 
   return (
     <AppWrapper>
@@ -62,28 +61,44 @@ export default function App() {
           },
         }}
       >
-        <Navigation myInfo={myInfo} />
-        <Route path="/" exact component={HomePage} />
-        <Route path="/new/post" component={NewPostPage} />
-        <Route path="/edit/:postURL" exact component={EditPostPage} />
-        <Route path="/p/:postURL" exact component={PostDetailPage} />
-        <Route path="/h/:hashTag" exact component={HashTagPage} />
-        <Route
-          path="/setting"
-          component={props => (
-            <SettingPage
-              {...props}
-              myInfo={myInfo}
-              pageList={settingPageList}
-            />
-          )}
-        />
-        <Route
-          path="/:username"
-          exact
-          render={props => <UserPage {...props} myInfo={myInfo} />}
-        />
+        <AuthRoute path="/" myInfo={myInfo}>
+          <Navigation myInfo={myInfo} />
+          <Route path="/" exact component={HomePage} />
+          <Route path="/new/post" exact component={NewPostPage} />
+          <Route path="/edit/:postURL" exact component={EditPostPage} />
+          <Route path="/p/:postURL" exact component={PostDetailPage} />
+          <Route path="/h/:hashTag" exact component={HashTagPage} />
+          <Route
+            path="/setting"
+            component={props => (
+              <SettingPage
+                {...props}
+                myInfo={myInfo}
+                pageList={settingPageList}
+              />
+            )}
+          />
+          <Route
+            path="/:username"
+            exact
+            render={props => <UserPage {...props} myInfo={myInfo} />}
+          />
+        </AuthRoute>
+        <AccountRoute path="/account" myInfo={myInfo}>
+          <Route
+            path="/account/signin"
+            exact
+            render={props => <SignInPage {...props} setIsAuth={setIsAuth} />}
+          />
+          <Route
+            path="/account/signup"
+            exact
+            render={props => <SignUpPage {...props} setIsAuth={setIsAuth} />}
+          />
+        </AccountRoute>
       </ThemeProvider>
     </AppWrapper>
   );
 }
+
+export default withCookies(App);

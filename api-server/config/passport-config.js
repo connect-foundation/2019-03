@@ -26,13 +26,6 @@ module.exports = app => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.use(
-    'signup',
-    new LocalStrategy({ passReqToCallback: true }, signup),
-  );
-
-  passport.use('signin', new LocalStrategy(signin));
-
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -40,4 +33,11 @@ module.exports = app => {
   passport.deserializeUser((user, done) => {
     done(null, user);
   });
+
+  passport.use(
+    'signup',
+    new LocalStrategy({ passReqToCallback: true }, signup),
+  );
+
+  passport.use('signin', new LocalStrategy(signin));
 };
