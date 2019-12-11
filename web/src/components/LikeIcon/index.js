@@ -2,9 +2,6 @@ import React, { forwardRef } from 'react';
 import Icon from '../Icon';
 
 import {
-  POS_X_OF_HEART,
-  POS_Y_OF_FILL_HEART,
-  POS_Y_OF_EMPTY_HEART,
   TOGGLE_LIKE_ICON,
   useLikeDispatch,
   useLikeState,
@@ -31,9 +28,8 @@ const LikeIcon = forwardRef(({ myInfo, ratio, style }, ref) => {
   return (
     <Icon
       onClick={onToggle}
+      name={isLike ? 'fullHeart' : 'emptyhHeart'}
       ratio={ratio}
-      posX={POS_X_OF_HEART}
-      posY={isLike ? POS_Y_OF_FILL_HEART : POS_Y_OF_EMPTY_HEART}
       style={style}
       ref={ref}
     />
