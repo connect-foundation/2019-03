@@ -10,7 +10,6 @@ const GET_POST = gql`
       }
       imageURL
       postURL
-      likeCount
     }
   }
 `;

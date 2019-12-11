@@ -56,7 +56,7 @@ function HomePage() {
   };
 
   const { followingPostList } = data || { followingPostList: [] };
-
+  console.log(followingPostList);
   const postList = followingPostList.map(post => (
     <Post key={post.id} post={post} myInfo={myInfo} />
   ));
