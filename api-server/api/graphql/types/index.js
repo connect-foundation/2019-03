@@ -21,7 +21,6 @@ module.exports = {
   LikerInfoType,
   PostType,
   LikerType,
-  PostType,
   UserPageType,
   UserFollower,
   HashTagPageType,
