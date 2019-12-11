@@ -78,12 +78,12 @@ const Search = () => {
 
   return (
     <SearchWrapper>
-      <Input value={searchState.inputValue} onChange={onChange} />
       <SearchToolTip
         isVisible={searchState.isVisible}
         searchDispatch={searchDispatch}
         searchResults={searchState.searchResults}
       />
+      <Input value={searchState.inputValue} onChange={onChange} />
       <Icon
         ratio={10}
         posX={-260}

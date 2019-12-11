@@ -19,7 +19,7 @@ const SearchToolTip = ({ isVisible, searchDispatch, searchResults }) => {
   }
   return (
     <SearchToolTipWrapper onClick={clickClose}>
-      <SearchResultList searchResults={searchResults} />
+      <SearchResultList searchResults={searchResults} clickClose={clickClose} />
     </SearchToolTipWrapper>
   );
 };
