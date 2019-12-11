@@ -32,12 +32,15 @@ const HashTagPage = ({ match }) => {
 
   useEffect(() => {
     refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hashTag]);
+  }, [hashTag, refetch]);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!data.hashTagPage.isExistingHashTag)
     return <div>존재하지않는 해쉬태그입니다.</div>;
+  const isPostCardExisting = !!data.hashTagPage.postCard[0];
+  if (!isPostCardExisting)
+    return <div>#{hashTag}관련 게시물이 존재하지 않습니다.</div>;
   return (
     <HashTagPageWrapper>
       <HashTagInfoWrapper>
