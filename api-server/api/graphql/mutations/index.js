@@ -9,8 +9,10 @@ const { RequestFollowing } = require('./RequestFollowing');
 const {
   RequestFollowingCancellation,
 } = require('./RequestFollowingCancellation');
+const { updateUser } = require('./UserMutation');
 
 module.exports = {
+  updateUser,
   deletePost,
   updatePost,
   createComment,

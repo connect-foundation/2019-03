@@ -1,8 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 
-const Input = styled.input.attrs({
-  type: 'text',
-})`
+const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.palette.border};
   border-radius: 5px;
   outline: none;
@@ -10,5 +9,9 @@ const Input = styled.input.attrs({
   height: 20px;
   padding: 10px;
 `;
+
+function Input({ children, ...rest }) {
+  return <StyledInput {...rest}>{children}</StyledInput>;
+}
 
 export default Input;
