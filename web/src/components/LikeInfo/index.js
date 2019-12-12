@@ -5,7 +5,7 @@ import LikerListModal from './LikerListModal';
 import { useFetch } from '../../hooks';
 import { likerListQuery } from './queries';
 
-const LikeInfo = ({ myInfo, postId, className, style, diff, likerInfo }) => {
+const LikeInfo = ({ myInfo, postId, className, diff, likerInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { state, fetchData } = useFetch();
   const { data } = state;
@@ -32,7 +32,12 @@ const LikeInfo = ({ myInfo, postId, className, style, diff, likerInfo }) => {
   const isOther = username !== myInfo.username;
 
   return (
-    <LikeInfoWrapper className={className} style={style}>
+    <LikeInfoWrapper
+      className={className}
+      style={{
+        margin: '4px 15px',
+      }}
+    >
       {isOther && (
         <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
       )}
