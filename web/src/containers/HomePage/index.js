@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 
@@ -8,13 +8,14 @@ import { FOLLOWING_POST_LIST } from './queries';
 import Spinner from '../../components/Spinner';
 
 const myInfo = {
-  id: 1,
+  id: 2,
   username: '_so_02',
   name: '정소영',
   profileImage: 'https://i.pravatar.cc/150?img=9',
 };
 
 function HomePage() {
+  const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
@@ -44,6 +45,7 @@ function HomePage() {
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
+        if (!fetchMoreResult.followingPostList.length) setNoMorePost(true);
         return {
           ...prev,
           followingPostList: [
@@ -56,13 +58,21 @@ function HomePage() {
   };
 
   const { followingPostList } = data || { followingPostList: [] };
-  console.log(followingPostList);
+
   const postList = followingPostList.map(post => (
     <Post key={post.id} post={post} myInfo={myInfo} />
   ));
 
+  const spinner = noMorePost ? (
+    <div>더 이상 게시글이 없습니다.</div>
+  ) : (
+    <SpinnerWrapper ref={lastChild}>
+      <Spinner size={50} />
+    </SpinnerWrapper>
+  );
   useEffect(() => {
     if (!lastChild.current) return;
+    if (noMorePost) return;
     const observer = new IntersectionObserver(getMorePosts, options);
     observer.observe(lastChild.current);
 
@@ -77,9 +87,7 @@ function HomePage() {
   return (
     <PostListWrapper>
       {postList}
-      <SpinnerWrapper ref={lastChild}>
-        <Spinner size={50} />
-      </SpinnerWrapper>
+      {spinner}
     </PostListWrapper>
   );
 }
