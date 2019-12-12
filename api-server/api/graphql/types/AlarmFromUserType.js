@@ -15,7 +15,7 @@ const AlarmFromUserType = new GraphQLObjectType({
     follow: {
       type: UserFollower,
       resolve: user => {
-        if (!user.UserFollows) return null;
+        if (!user.UserFollows) return { status: null };
         return user.UserFollows[0];
       },
     },
