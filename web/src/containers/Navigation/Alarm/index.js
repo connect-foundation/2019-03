@@ -21,11 +21,9 @@ const Alarm = ({ myInfo }) => {
   return (
     <div style={{ position: 'relative' }}>
       <Icon
-        ratio={6}
-        posX={-130}
-        posY={-246}
-        style={{ marginTop: '5px' }}
+        name="emptyhHeart"
         onClick={clickAlarmIcon}
+        style={{ marginTop: '5px' }}
       />
       <AlarmToolTip
         isVisible={isVisible}

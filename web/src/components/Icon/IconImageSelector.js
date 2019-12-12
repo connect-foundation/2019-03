@@ -5,9 +5,8 @@ import icon from '../../images/icon-1.png';
 const TOTAL_LENGTH = 1000;
 const ICON_LENGTH = 125;
 
-const backgroundStyles = css`
+const iconPicker = css`
   background-repeat: no-repeat;
-
   ${({ ratio, posX, posY }) => {
     const bgSize = TOTAL_LENGTH / ratio;
     return css`
@@ -19,9 +18,7 @@ const backgroundStyles = css`
   }}
 `;
 
-const spanStyles = css`
-  display: inline-block;
-
+const sizes = css`
   ${({ ratio }) => {
     const length = ICON_LENGTH / ratio;
     return css`
@@ -32,10 +29,10 @@ const spanStyles = css`
 `;
 
 const IconImage = styled.span`
-  flex: 0 0 auto;
-  ${backgroundStyles};
-  ${spanStyles}
+  display: inline-block;
   cursor: pointer;
+  ${iconPicker};
+  ${sizes}
 `;
 
 IconImage.defaultProps = {
