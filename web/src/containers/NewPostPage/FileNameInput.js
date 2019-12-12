@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-const FileNameInput = styled.input`
+const FileNameInput = styled.input.attrs({
+  type: 'text',
+  disabled: 'disabled',
+})`
   display: inline-flex;
   outline: none;
   border: 1px solid ${({ theme }) => theme.palette.border};
