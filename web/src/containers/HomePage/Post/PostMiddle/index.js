@@ -21,7 +21,12 @@ const PostMiddle = ({ myInfo, post }) => {
 
   const [isLikeClicked, setLikeState] = useState(isLike);
 
-  const likeBtnClickHandler = () => {};
+  const likeBtnClickHandler = () => {
+    // isLikeClicked 
+    // true면 만들고
+    // false면 제거
+
+  };
 
   const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 300), []);
 
