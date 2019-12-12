@@ -9,7 +9,8 @@ import { UserPageWrapper, UserPageSection } from './styles';
 
 const UserPage = ({ match, myInfo }) => {
   const { username } = match.params;
-  const { id } = myInfo;
+  const { id, username: myname } = myInfo;
+  const isMyPage = username === myname;
 
   const userPageQuery = gql`
     query UserPage($username: String!, $myId: Int!) {
@@ -46,6 +47,7 @@ const UserPage = ({ match, myInfo }) => {
           username={username}
           myId={id}
           data={data.userPage.userInfo}
+          isMyPage={isMyPage}
         />
         <ListSelector username={username} />
         <PostCardList data={data.userPage} />

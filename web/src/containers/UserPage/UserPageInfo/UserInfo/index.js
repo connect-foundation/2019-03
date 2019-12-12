@@ -1,5 +1,7 @@
 import React from 'react';
 
+import StyledLink from '../../../../components/StyledLink';
+import Button from '../../../../components/Button';
 import UserNameLabel from './UserNameLabel';
 import CountIndicator from './CountIndicator';
 import {
@@ -11,12 +13,22 @@ import {
   NameWrapper,
 } from './styles';
 
-const UserInfo = ({ username, myId, data }) => {
+const UserInfo = ({ username, myId, data, isMyPage }) => {
+  const btnStyle = 'light';
+  let button = (
+    <StyledFollowButton username={username} myId={myId} userId={data.id} />
+  );
+  if (isMyPage)
+    button = (
+      <StyledLink to="/setting/edit/profile">
+        <Button btnStyle={btnStyle}>개인정보 설정</Button>
+      </StyledLink>
+    );
   return (
     <UserInfoWrapper>
       <UserInfoHeader>
         <UserNameLabel username={username} />
-        <StyledFollowButton username={username} myId={myId} userId={data.id} />
+        {button}
       </UserInfoHeader>
       <UserInfoBody>
         <CountIndicator data={data} />
