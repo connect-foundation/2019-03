@@ -1,43 +1,26 @@
-import React, { forwardRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from '../Icon';
 
-import {
-  TOGGLE_LIKE_ICON,
-  useLikeDispatch,
-  useLikeState,
-} from './Context/LikeContext';
-import {
-  useLikerInfoDispatch,
-  DECREASE_LIKE,
-  INCREASE_LIKE,
-} from '../LikeInfo/Context/LikerInfoContext';
+const LikeIcon = ({ isLike, likeBtnClickHandler }) => {
+  const [isFull, setFull] = useState(false);
+  useEffect(() => {
+    if (!isLike) return;
+    setFull(true);
+  }, [isLike]);
 
-const LikeIcon = forwardRef(({ myInfo, ratio, style }, ref) => {
-  const isLike = useLikeState();
-  const likeDispatch = useLikeDispatch();
-  const likerInfoDispatch = useLikerInfoDispatch();
-
-  const onToggle = () => {
-    likeDispatch({ type: TOGGLE_LIKE_ICON });
-
-    if (!likerInfoDispatch) return;
-    const likerListActionType = isLike ? DECREASE_LIKE : INCREASE_LIKE;
-    likerInfoDispatch({ type: likerListActionType, myInfo });
+  const toggleHeart = () => {
+    setFull(!isFull);
+    if (!likeBtnClickHandler) return;
+    likeBtnClickHandler(isLike);
   };
 
   return (
     <Icon
-      onClick={onToggle}
-      name={isLike ? 'fullHeart' : 'emptyhHeart'}
-      ratio={ratio}
-      style={style}
-      ref={ref}
+      name={isFull ? 'fullHeart' : 'emptyhHeart'}
+      ratio={5}
+      style={{ marginTop: '4px' }}
+      onClick={toggleHeart}
     />
   );
-});
-
-LikeIcon.defaultProps = {
-  ratio: 1,
 };
-
 export default LikeIcon;

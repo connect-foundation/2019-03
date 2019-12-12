@@ -23,8 +23,7 @@ const PostMiddle = ({ myInfo, post }) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const postImage = useRef(null);
-  const likeIcon = useRef(null);
-  const wrapperProps = { postImage, likeIcon, userId: myInfo.id, postId };
+  const wrapperProps = { postImage, userId: myInfo.id, postId };
 
   return (
     <LikerInfoProvider likerInfo={likerInfo}>
@@ -33,7 +32,7 @@ const PostMiddle = ({ myInfo, post }) => {
           <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
           <IconGroup>
             <IconWrapper>
-              <LikeIcon myInfo={myInfo} ratio={5} ref={likeIcon} />
+              <LikeIcon myInfo={myInfo} />
             </IconWrapper>
             <IconWrapper>
               <CommentIcon postURL={postURL} />
