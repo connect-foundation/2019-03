@@ -6,7 +6,7 @@ import StyledFollowButton from './StyledFollowButton';
 import FollowCheckingModal from '../FollowCheckingModal';
 
 const FollowButton = ({ followStatus, className, username, myId, userId }) => {
-  // folowStatus {0: 팔로우하고있지 않은 상태(팔로우하지 않을 때 삭제? 0?), 1: 비공개 계정에 요청한 상태, 2: 팔로우하고 있는 상태}
+  // folowStatus {null: 팔로우하고있지 않은 상태(팔로우하지 않을 때 삭제? 0?), 0: 팔로우하고 있는 상태, 1: 비공개 계정에 요청한 상태}
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -38,21 +38,21 @@ const FollowButton = ({ followStatus, className, username, myId, userId }) => {
 
   const cancelFollowing = () => {
     requestFollowingCancellation({ variables: { myId, userId } });
-    setCurrentFollowStatus(0);
+    setCurrentFollowStatus(null);
     onClick();
   };
 
   const changeFollowStatus = () => {
     switch (currentFollowStatus) {
-      case 0:
+      case null:
         requestFollowing({ variables: { myId, userId } });
-        setCurrentFollowStatus(2);
+        setCurrentFollowStatus(0);
         break;
       // case 1:
       //   setCurrentFollowStatus('팔로잉');
       //   setIsVisible(isVisible => !isVisible);
       //   break;
-      case 2:
+      case 0:
         setIsVisible(isVisible => !isVisible);
         break;
       default:
@@ -61,6 +61,23 @@ const FollowButton = ({ followStatus, className, username, myId, userId }) => {
         );
     }
   };
+
+  const getButtonText = () => {
+    switch (currentFollowStatus) {
+      case null:
+        return '팔로우';
+      case 0:
+        return '팔로잉';
+      case 1:
+        return '요청됨';
+      default:
+        throw new Error(
+          `Current follow status is wrong : ${currentFollowStatus}`,
+        );
+    }
+  };
+  const buttonText = getButtonText();
+
   return (
     <>
       <StyledFollowButton
@@ -68,7 +85,7 @@ const FollowButton = ({ followStatus, className, username, myId, userId }) => {
         onClick={changeFollowStatus}
         className={className}
       >
-        {currentFollowStatus === 0 ? '팔로우' : '팔로잉'}
+        {buttonText}
       </StyledFollowButton>
       <FollowCheckingModal
         isVisible={isVisible}
@@ -81,8 +98,7 @@ const FollowButton = ({ followStatus, className, username, myId, userId }) => {
 };
 
 FollowButton.defaultProps = {
-  // 추후 삭제할 것
-  followStatus: 0,
+  followStatus: null,
 };
 
 export default FollowButton;
