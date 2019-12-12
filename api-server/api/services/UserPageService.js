@@ -2,7 +2,7 @@ const { Post, User, UserFollow } = require('../../db');
 
 const getUserInfo = async username => {
   const userInfo = await User.findOne({
-    attributes: ['name', 'id'],
+    attributes: ['name', 'id', 'profileImage'],
     where: { username },
   });
   return userInfo;

@@ -18,6 +18,7 @@ const UserPage = ({ match, myInfo }) => {
         userInfo {
           name
           id
+          profileImage
           isFollowing
           postNumber
           followersNum
