@@ -6,7 +6,7 @@ const { getUserPageData } = require('../../services/UserPageService');
 const userPageQuery = {
   type: UserPageType,
   args: {
-    writer: { type: GraphQLString },
+    username: { type: GraphQLString },
     myId: { type: GraphQLInt },
   },
   resolve: async (post, args) => {

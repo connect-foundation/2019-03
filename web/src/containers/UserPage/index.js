@@ -12,8 +12,8 @@ const UserPage = ({ match, myInfo }) => {
   const { id } = myInfo;
 
   const userPageQuery = gql`
-    query UserPage($writer: String!, $myId: Int!) {
-      userPage(writer: $writer, myId: $myId) {
+    query UserPage($username: String!, $myId: Int!) {
+      userPage(username: $username, myId: $myId) {
         isExistingUser
         userInfo {
           name
@@ -32,7 +32,7 @@ const UserPage = ({ match, myInfo }) => {
   `;
 
   const { loading, error, data, refetch } = useQuery(userPageQuery, {
-    variables: { writer: username, myId: id },
+    variables: { username, myId: id },
   });
   useEffect(() => {
     refetch();
