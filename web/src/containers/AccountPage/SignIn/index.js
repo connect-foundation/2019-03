@@ -39,7 +39,7 @@ function SignInPage({ setIsAuth }) {
     <Background>
       <SignInWrapper>
         <SignInHeader>
-          <Icon ratio={4} posX={0} posY={0} style={LOGO_STYLE} />
+          <Icon ratio={4} name="logo" style={LOGO_STYLE} />
           <Title>젊은, 낭만을 공유하고 싶으면 로그인하세요!</Title>
         </SignInHeader>
         <SignInForm ref={signInForm} onSubmit={onSubmit}>
