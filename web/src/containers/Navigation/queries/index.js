@@ -7,6 +7,9 @@ const GET_LOG = gql`
       fromUser {
         username
         profileImage
+        follow {
+          status
+        }
       }
       post {
         postURL

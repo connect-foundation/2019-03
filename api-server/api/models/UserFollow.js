@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  UserFollow.associate = function(models) {};
+  UserFollow.associate = models => {
+    UserFollow.belongsTo(models.User);
+  };
 
   return UserFollow;
 };

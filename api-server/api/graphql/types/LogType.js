@@ -1,7 +1,11 @@
 const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
 const { AlarmFromUserType } = require('./AlarmFromUserType');
 const { AlarmPostType } = require('./AlarmPostType');
-const { User, Post } = require('../../../db');
+const { Post } = require('../../../db');
+const {
+  getFollowStatusUserInfo,
+  getOtherStatusUserInfo,
+} = require('../../services/LogService');
 
 const LogType = new GraphQLObjectType({
   name: 'Log',
@@ -16,11 +20,13 @@ const LogType = new GraphQLObjectType({
     },
     fromUser: {
       type: AlarmFromUserType,
-      resolve: log => {
-        return User.findOne({
-          attributes: ['id', 'username', 'profileImage'],
-          where: { id: log.From },
-        });
+      resolve: async log => {
+        let user;
+        if (log.status === 'follow') {
+          user = await getFollowStatusUserInfo(log);
+        }
+        if (user) return user;
+        return getOtherStatusUserInfo(log);
       },
     },
     post: {

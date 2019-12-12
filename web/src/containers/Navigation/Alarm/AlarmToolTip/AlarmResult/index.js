@@ -6,6 +6,7 @@ import {
   AlarmContentWrapper,
   AlarmActionWrapper,
   AlarmProfileWrapper,
+  AlarmFollowButton,
 } from './styles';
 
 const AlarmResult = ({ result, isLast }) => {
@@ -15,7 +16,7 @@ const AlarmResult = ({ result, isLast }) => {
     </StyledLink>
   );
   let action = (
-    <StyledLink to={`/${result.post.postURL}`}>
+    <StyledLink to={`/p/${result.post.postURL}`}>
       <img src={result.post.imageURL} alt="none" />
     </StyledLink>
   );
@@ -26,7 +27,9 @@ const AlarmResult = ({ result, isLast }) => {
       content = (
         <span>{commonContent}님이 회원님을 팔로우하기 시작했습니다.</span>
       );
-      action = null; // follow 버튼 삽입 예정
+      action = (
+        <AlarmFollowButton followStatus={result.fromUser.follow.status} />
+      );
       break;
     case 'like':
       content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
