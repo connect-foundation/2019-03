@@ -8,7 +8,7 @@ const UserPageInfo = ({ username, myId, data }) => {
   return (
     <UserPageInfoWrapper>
       <ProfileIconWrapper>
-        <ProfileIcon ratio={46.875} />
+        <ProfileIcon imageURL={data.profileImage} ratio={46.875} />
       </ProfileIconWrapper>
       <UserInfo username={username} myId={myId} data={data} />
     </UserPageInfoWrapper>

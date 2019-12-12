@@ -1,9 +1,9 @@
 const { Post, User, UserFollow } = require('../../db');
 
-const getUserInfo = async writer => {
+const getUserInfo = async username => {
   const userInfo = await User.findOne({
-    attributes: ['name', 'id'],
-    where: { username: writer },
+    attributes: ['name', 'id', 'profileImage'],
+    where: { username },
   });
   return userInfo;
 };
@@ -40,8 +40,8 @@ const getPostCard = async userId => {
 };
 
 const getUserPageData = async args => {
-  const { writer, myId } = args;
-  let userInfo = await getUserInfo(writer);
+  const { username, myId } = args;
+  let userInfo = await getUserInfo(username);
   const isExistingUser = !!userInfo;
   let postCard = [];
   if (isExistingUser) {

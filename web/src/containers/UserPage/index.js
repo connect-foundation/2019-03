@@ -12,12 +12,13 @@ const UserPage = ({ match, myInfo }) => {
   const { id } = myInfo;
 
   const userPageQuery = gql`
-    query UserPage($writer: String!, $myId: Int!) {
-      userPage(writer: $writer, myId: $myId) {
+    query UserPage($username: String!, $myId: Int!) {
+      userPage(username: $username, myId: $myId) {
         isExistingUser
         userInfo {
           name
           id
+          profileImage
           isFollowing
           postNumber
           followersNum
@@ -32,7 +33,7 @@ const UserPage = ({ match, myInfo }) => {
   `;
 
   const { loading, error, data } = useQuery(userPageQuery, {
-    variables: { writer: username, myId: id },
+    variables: { username, myId: id },
   });
 
   if (loading) return <div>로딩중..</div>;

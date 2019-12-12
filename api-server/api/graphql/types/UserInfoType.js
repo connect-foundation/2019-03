@@ -16,6 +16,10 @@ const UserInfoType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: userInfo => userInfo.id,
     },
+    profileImage: {
+      type: GraphQLString,
+      resolve: userInfo => userInfo.profileImage,
+    },
     isFollowing: {
       type: GraphQLBoolean,
       resolve: userInfo => userInfo.isFollowing,
