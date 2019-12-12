@@ -2,9 +2,13 @@ import React, { useReducer, useCallback, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
-import getCroppedImg from './cropImage';
-import { NewPostWrapper, Input, Button } from './styles';
+import getCroppedImg from '../../utils/cropImage';
+import { NewPostWrapper, Input } from './styles';
 import Loading from '../../components/Loading';
+import Button from '../../components/Button';
+import FileSelectLabel from './FileSelectLabel';
+import FileInput from './FileInput';
+import FileNameInput from './FileNameInput';
 
 const readFile = file => {
   return new Promise(resolve => {
@@ -73,7 +77,7 @@ const reducer = (state, action) => {
 
 const NewPostPage = () => {
   const initialState = {
-    originalImage: null,
+    originalImage: '',
     originalImageUrl: null,
     crop: { x: 0, y: 0 },
     zoom: minZoom,
@@ -156,11 +160,13 @@ const NewPostPage = () => {
     <NewPostWrapper>
       {loading && <Loading size={50} />}
       <div className="section">
-        <input
-          type="file"
-          accept="image/x-png,image/gif,image/jpeg"
-          onChange={inputImage}
-        />
+        <FileNameInput
+          type="text"
+          value={state.originalImage.name}
+          disabled="disabled"
+         />
+        <FileSelectLabel htmlFor="select_file">파일선택</FileSelectLabel>
+        <FileInput onChange={inputImage} />
       </div>
       {state.originalImage && (
         <>
@@ -180,10 +186,12 @@ const NewPostPage = () => {
               aspect={1 / 1}
               restrictPosition={false}
               onCropChange={crop =>
-                dispatch({ type: 'CHANGE_CROP', value: crop })}
+                dispatch({ type: 'CHANGE_CROP', value: crop })
+              }
               onCropComplete={onCropComplete}
               onZoomChange={zoom =>
-                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
+                dispatch({ type: 'CHANGE_ZOOM', value: zoom })
+              }
               cropSize={{ width: 615, height: 615 }}
             />
           </div>
@@ -195,7 +203,8 @@ const NewPostPage = () => {
               step={0.1}
               aria-labelledby="Zoom"
               onChange={(e, currentzoom) =>
-                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
+                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })
+              }
             />
           </div>
         </>
@@ -204,7 +213,7 @@ const NewPostPage = () => {
         <Input value={state.contentValue} onChange={changeContent} />
       </div>
       <div className="section">
-        <Button type="button" onClick={post}>
+        <Button type="button" onClick={post} btnStyle="primary">
           게시
         </Button>
       </div>
