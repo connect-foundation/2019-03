@@ -20,12 +20,13 @@ describe('Account 통합 테스트', () => {
     test('성공', done => {
       request(app)
         .post('/account/signup')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Accept', 'application/json')
         .send(userInfo)
         .expect(200)
         .then(res => {
-          const setCookie = res.header['set-cookie'];
-          const myInfo = setCookie.find(cookie => cookie.includes('myInfo'));
-          expect(myInfo).not.toBeUndefined();
+          const { myInfo } = res.body;
+          expect(myInfo.username).toEqual(userInfo.username);
           done();
         });
     });
@@ -34,6 +35,8 @@ describe('Account 통합 테스트', () => {
       request(app)
         .post('/account/signup')
         .send(userInfo)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Accept', 'application/json')
         .expect(400)
         .then(res => {
           const { error } = res.body;

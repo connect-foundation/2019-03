@@ -2,7 +2,7 @@ const { User } = require('../../db');
 const bcrypt = require('../../utils/bcrypt');
 
 async function signup(userInfo) {
-  const { id, username } = await User.create({
+  const user = await User.create({
     ...userInfo,
     isPrivate: false,
     isFacebook: false,
@@ -10,7 +10,7 @@ async function signup(userInfo) {
     updatedAt: new Date(),
   });
 
-  return { id, username };
+  return user;
 }
 
 async function signin(_username, plaintextPassword) {

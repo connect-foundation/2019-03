@@ -4,10 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createGlobalStyle } from 'styled-components';
+import { CookiesProvider } from 'react-cookie';
 import App from './containers/App';
 
 const client = new ApolloClient({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,
+  credentials: 'include',
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -21,8 +23,10 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <GlobalStyle />
-      <App />
+      <CookiesProvider>
+        <GlobalStyle />
+        <App />
+      </CookiesProvider>
     </ApolloProvider>
   </BrowserRouter>,
   document.getElementById('root'),
