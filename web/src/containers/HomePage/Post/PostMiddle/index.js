@@ -4,7 +4,6 @@ import _ from 'underscore';
 
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
-import { LikerInfoProvider } from '../../../../components/LikeInfo/Context/LikerInfoContext';
 import {
   CommentIcon,
   IconGroup,
@@ -36,20 +35,29 @@ const PostMiddle = ({ myInfo, post }) => {
   const wrapperProps = { postImage, userId: myInfo.id, postId };
 
   return (
-    <LikerInfoProvider likerInfo={likerInfo}>
-      <PostMiddleWrapper {...wrapperProps}>
-        <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
-        <IconGroup>
-          <IconWrapper>
-            <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
-          </IconWrapper>
-          <IconWrapper>
-            <CommentIcon postURL={postURL} />
-          </IconWrapper>
-        </IconGroup>
-        <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
-      </PostMiddleWrapper>
-    </LikerInfoProvider>
+    <PostMiddleWrapper {...wrapperProps}>
+      <PostImage
+        myInfo={myInfo}
+        imageURL={imageURL}
+        ref={postImage}
+        onDoubleClick={toggleLikeState}
+      />
+      <IconGroup>
+        <IconWrapper>
+          <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
+        </IconWrapper>
+        <IconWrapper>
+          <CommentIcon postURL={postURL} />
+        </IconWrapper>
+      </IconGroup>
+      <LikeInfo
+        myInfo={myInfo}
+        postId={postId}
+        style={likeInfoStyle}
+        diff={isLikeClicked - isLike}
+        likerInfo={likerInfo}
+      />
+    </PostMiddleWrapper>
   );
 };
 
