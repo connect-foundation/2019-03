@@ -5,8 +5,9 @@ const StyledButton = styled.button`
   /* 공통 스타일 */
   display: inline-flex;
   outline: none;
-  border: none;
-  border-radius: 4px;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: border;
   font-weight: 600;
   cursor: pointer;
   padding: 5px 9px;
@@ -16,20 +17,32 @@ const StyledButton = styled.button`
 
   /* 색상 */
   ${({ theme, btnStyle }) => {
+    const {
+      white,
+      blue,
+      secondary,
+      black,
+      light,
+      border_secondary: borderSecondary,
+    } = theme.palette;
     let color;
     let backgroundColor;
+    let borderColor;
     switch (btnStyle) {
       case 'primary':
-        color = theme.palette.white;
-        backgroundColor = theme.palette.blue;
+        color = white;
+        backgroundColor = blue;
+        borderColor = blue;
         break;
       case 'secondary':
-        color = theme.palette.white;
-        backgroundColor = theme.palette.secondary;
+        color = white;
+        backgroundColor = secondary;
+        borderColor = secondary;
         break;
       case 'light':
-        color = theme.palette.black;
-        backgroundColor = theme.palette.light;
+        color = black;
+        backgroundColor = light;
+        borderColor = borderSecondary;
         break;
       default:
         break;
@@ -37,6 +50,7 @@ const StyledButton = styled.button`
     return css`
       color: ${color};
       background: ${backgroundColor};
+      border-color: ${borderColor};
     `;
   }}
 `;
