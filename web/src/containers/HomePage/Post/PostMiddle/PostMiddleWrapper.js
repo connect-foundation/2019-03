@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useFetch } from '../../../../hooks';
-import { useLikeState } from '../../../../components/LikeIcon/Context/LikeContext';
 import {
   createPostLike,
   deletePostLike,
@@ -22,7 +21,7 @@ const callLikeQuery = (isLike, postId, userId, fetchData) => {
 const PostMiddleWrapper = props => {
   const { postImage, likeIcon, userId, postId, children } = props;
   const { fetchData } = useFetch();
-  const isLike = useLikeState();
+  const isLike = true;
 
   const onDoubleClick = ({ target }) => {
     if (!postImage) return;

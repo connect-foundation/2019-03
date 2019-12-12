@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import _ from 'underscore';
 
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
-import ShareModal from '../../../../components/ShareModal';
-import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
 import { LikerInfoProvider } from '../../../../components/LikeInfo/Context/LikerInfoContext';
 import {
   CommentIcon,
@@ -21,31 +20,35 @@ const likeInfoStyle = {
 const PostMiddle = ({ myInfo, post }) => {
   const { id: postId, isLike, imageURL, postURL, likerInfo } = post;
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLikeClicked, setLikeState] = useState(isLike);
+
+  const likeBtnClickHandler = () => {};
+
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 300), []);
+
+  const toggleLikeState = () => {
+    setLikeState(!isLikeClicked);
+    if (isLikeClicked === isLike) return;
+    lazyFetch();
+  };
+
   const postImage = useRef(null);
   const wrapperProps = { postImage, userId: myInfo.id, postId };
 
   return (
     <LikerInfoProvider likerInfo={likerInfo}>
-      <LikeProvider isLike={isLike}>
-        <PostMiddleWrapper {...wrapperProps}>
-          <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
-          <IconGroup>
-            <IconWrapper>
-              <LikeIcon myInfo={myInfo} />
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon postURL={postURL} />
-            </IconWrapper>
-          </IconGroup>
-          <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
-          <ShareModal
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-            postURL={postURL}
-          />
-        </PostMiddleWrapper>
-      </LikeProvider>
+      <PostMiddleWrapper {...wrapperProps}>
+        <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
+        <IconGroup>
+          <IconWrapper>
+            <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
+          </IconWrapper>
+          <IconWrapper>
+            <CommentIcon postURL={postURL} />
+          </IconWrapper>
+        </IconGroup>
+        <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
+      </PostMiddleWrapper>
     </LikerInfoProvider>
   );
 };
