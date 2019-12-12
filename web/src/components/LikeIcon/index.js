@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import _ from 'underscore';
 import Icon from '../Icon';
 
 const LikeIcon = ({ isLike, likeBtnClickHandler }) => {
   const [isFull, setFull] = useState(false);
+
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 300), []);
+
+  const toggleHeart = () => {
+    setFull(!isFull);
+    if (isFull === isLike) return;
+    lazyFetch();
+  };
+
   useEffect(() => {
     if (!isLike) return;
     setFull(true);
   }, [isLike]);
-
-  const toggleHeart = () => {
-    setFull(!isFull);
-    if (!likeBtnClickHandler) return;
-    likeBtnClickHandler(isLike);
-  };
 
   return (
     <Icon
@@ -23,4 +27,9 @@ const LikeIcon = ({ isLike, likeBtnClickHandler }) => {
     />
   );
 };
+
+LikeIcon.defaultProps = {
+  likeBtnClickHandler: () => {},
+};
+
 export default LikeIcon;
