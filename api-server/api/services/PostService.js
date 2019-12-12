@@ -1,3 +1,5 @@
+const short = require('short-uuid');
+
 const {
   Sequelize,
   User,
@@ -113,7 +115,7 @@ async function insertPost(file, postInfo) {
   try {
     const result = await Post.create({
       imageURL: file.location,
-      postURL: file.etag,
+      postURL: short.generate(),
       content: postInfo.content,
       updatedAt: new Date(),
       UserId: +postInfo.userId,
@@ -122,7 +124,9 @@ async function insertPost(file, postInfo) {
     const postId = result.dataValues.id;
     insertHashTagOfPost(postInfo.content, postId);
     insertUserTag(postInfo.content, postId);
-  } catch {}
+  } catch (e) {
+    console.log(e.message);
+  }
 }
 
 async function insertUserTag(content, postId) {
