@@ -10,6 +10,11 @@ const NewPostWrapper = styled.div`
   .section {
     margin: 10px;
   }
+
+  .toast-body {
+    color: black;
+    margin-left: 10px;
+  }
 `;
 
 export default NewPostWrapper;

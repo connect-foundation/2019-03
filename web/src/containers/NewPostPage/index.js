@@ -2,13 +2,18 @@ import React, { useReducer, useCallback, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import getCroppedImg from '../../utils/cropImage';
-import { NewPostWrapper, Input } from './styles';
 import Loading from '../../components/Loading';
 import Button from '../../components/Button';
-import FileSelectLabel from './FileSelectLabel';
-import FileInput from './FileInput';
-import FileNameInput from './FileNameInput';
+import {
+  NewPostWrapper,
+  Input,
+  FileSelectLabel,
+  FileInput,
+  FileNameInput,
+} from './styles';
 
 const readFile = file => {
   return new Promise(resolve => {
@@ -19,7 +24,6 @@ const readFile = file => {
 };
 
 const blobToFile = (theBlob, fileName) => {
-  // A Blob() is almost a File() - it's just missing the two properties below which we will add
   theBlob.lastModifiedDate = new Date();
   theBlob.name = fileName;
   return theBlob;
@@ -101,12 +105,12 @@ const NewPostPage = () => {
     if (loading) return;
 
     if (!state.originalImage) {
-      alert('사진을 선택해주세요!');
+      toast('사진을 선택해주세요!');
       return;
     }
 
     if (!isFileTypeImage(state.originalImage.name)) {
-      alert('이미지 파일만 업로드 할 수 있습니다!');
+      toast('이미지 파일만 업로드 할 수 있습니다!');
       return;
     }
 
@@ -164,7 +168,7 @@ const NewPostPage = () => {
           type="text"
           value={state.originalImage.name}
           disabled="disabled"
-         />
+        />
         <FileSelectLabel htmlFor="select_file">파일선택</FileSelectLabel>
         <FileInput onChange={inputImage} />
       </div>
@@ -217,6 +221,12 @@ const NewPostPage = () => {
           게시
         </Button>
       </div>
+      <ToastContainer
+        autoClose={false}
+        position={toast.POSITION.BOTTOM_CENTER}
+        transition={Slide}
+        bodyClassName="toast-body"
+      />
     </NewPostWrapper>
   );
 };
