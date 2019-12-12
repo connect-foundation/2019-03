@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -29,13 +29,9 @@ const HashTagPage = ({ match }) => {
     }
   `;
 
-  const { loading, error, data, refetch } = useQuery(hashtagPageQuery, {
+  const { loading, error, data } = useQuery(hashtagPageQuery, {
     variables: { hashTagName: hashTag },
   });
-
-  useEffect(() => {
-    refetch();
-  }, [hashTag, refetch]);
 
   if (loading) return <Loading size={loadingSize} />;
   if (error)

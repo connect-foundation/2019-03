@@ -42,23 +42,26 @@ app.use(
 );
 
 app.use('/upload', (req, res, next) => {
-  upload(req, res, err => {
-    const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
-    if (!extensionRegex.test(req.file.originalname)) {
-      return res.json({ result: 'fail', message: 'extension' });
-    }
+  try {
+    upload(req, res, err => {
+      const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+      if (!extensionRegex.test(req.file.originalname)) {
+        return res.json({ result: 'fail', message: 'extension' });
+      }
 
-    if (err instanceof multer.MulterError) {
-      return next(err);
-    }
-    if (err) {
-      return next(err);
-    }
+      if (err instanceof multer.MulterError) {
+        return next(err);
+      }
+      if (err) {
+        return next(err);
+      }
+      insertPost(req.file, req.body);
 
-    insertPost(req.file, req.body);
-
-    return res.json({ result: 'success' });
-  });
+      return res.json({ result: 'success' });
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
 });
 
 app.use((req, res, next) => {
