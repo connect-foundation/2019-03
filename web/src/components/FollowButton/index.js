@@ -38,21 +38,21 @@ const FollowButton = ({ followStatus, className, username, myId, userId }) => {
 
   const cancelFollowing = () => {
     requestFollowingCancellation({ variables: { myId, userId } });
-    setCurrentFollowStatus(0);
+    setCurrentFollowStatus(null);
     onClick();
   };
 
   const changeFollowStatus = () => {
     switch (currentFollowStatus) {
-      case 0:
+      case null:
         requestFollowing({ variables: { myId, userId } });
-        setCurrentFollowStatus(2);
+        setCurrentFollowStatus(0);
         break;
       // case 1:
       //   setCurrentFollowStatus('팔로잉');
       //   setIsVisible(isVisible => !isVisible);
       //   break;
-      case 2:
+      case 0:
         setIsVisible(isVisible => !isVisible);
         break;
       default:
