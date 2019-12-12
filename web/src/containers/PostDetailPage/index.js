@@ -11,6 +11,7 @@ import Error from '../../components/Error';
 function PostDetailPage({ match }) {
   const { loading, error, data } = useQuery(POST_DETAIL, {
     variables: { postURL: match.params.postURL },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return <Loading size={50} />;
