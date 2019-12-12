@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -31,13 +31,10 @@ const UserPage = ({ match, myInfo }) => {
     }
   `;
 
-  const { loading, error, data, refetch } = useQuery(userPageQuery, {
+  const { loading, error, data } = useQuery(userPageQuery, {
     variables: { writer: username, myId: id },
   });
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data.userPage.isExistingUser) return <div>존재하지않는 유저입니다.</div>;
