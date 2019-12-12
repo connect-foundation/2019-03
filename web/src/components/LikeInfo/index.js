@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 
 import { LikeInfoWrapper, Profile, LikeCount, LikerLink } from './styles';
 import LikerListModal from './LikerListModal';
-import { useLikerInfoState } from './Context/LikerInfoContext';
 import { useFetch } from '../../hooks';
 import { likerListQuery } from './queries';
 
-const LikeInfo = ({ myInfo, postId, className, style }) => {
-  const likerInfo = useLikerInfoState();
+const LikeInfo = ({ myInfo, postId, className, diff, likerInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { state, fetchData } = useFetch();
   const { data } = state;
@@ -21,14 +19,25 @@ const LikeInfo = ({ myInfo, postId, className, style }) => {
     setIsVisible(true);
   };
 
-  const { likerCount, username, profileImage: imageURL } = likerInfo;
+  const {
+    likerCount: likerCountBefore,
+    username,
+    profileImage: imageURL,
+  } = likerInfo;
+
+  const likerCount = likerCountBefore + diff;
   if (likerCount === 0) return null;
 
   const isMany = likerCount >= 2;
   const isOther = username !== myInfo.username;
 
   return (
-    <LikeInfoWrapper className={className} style={style}>
+    <LikeInfoWrapper
+      className={className}
+      style={{
+        margin: '4px 15px',
+      }}
+    >
       {isOther && (
         <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
       )}

@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import _ from 'underscore';
+import { useMutation } from '@apollo/react-hooks';
 
+import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
-import ShareModal from '../../../../components/ShareModal';
-import { LikeProvider } from '../../../../components/LikeIcon/Context/LikeContext';
-import { LikerInfoProvider } from '../../../../components/LikeInfo/Context/LikerInfoContext';
 import {
   CommentIcon,
   IconGroup,
@@ -14,40 +14,54 @@ import {
   PostMiddleWrapper,
 } from './styles';
 
-const likeInfoStyle = {
-  margin: '4px 15px',
-};
-
 const PostMiddle = ({ myInfo, post }) => {
-  const { id: postId, isLike, imageURL, postURL, likerInfo } = post;
+  const [createPostLike] = useMutation(CREATE_POST_LIKE);
+  const [deletePostLike] = useMutation(DELETE_POST_LIKE);
 
-  const [isVisible, setIsVisible] = useState(false);
+  const { id: postId, isLike, imageURL, postURL, likerInfo } = post;
+  const [isLikeClicked, setLikeState] = useState(isLike);
+
+  const likeBtnClickHandler = () => {
+    const currentClickStatus = !isLikeClicked;
+    if (currentClickStatus)
+      createPostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+    else deletePostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+  };
+
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 1000), []);
+
+  const toggleLikeState = () => {
+    setLikeState(!isLikeClicked);
+    if (isLikeClicked !== isLike) return;
+    lazyFetch();
+  };
+
   const postImage = useRef(null);
-  const likeIcon = useRef(null);
-  const wrapperProps = { postImage, likeIcon, userId: myInfo.id, postId };
+  const wrapperProps = { postImage, userId: myInfo.id, postId };
 
   return (
-    <LikerInfoProvider likerInfo={likerInfo}>
-      <LikeProvider isLike={isLike}>
-        <PostMiddleWrapper {...wrapperProps}>
-          <PostImage myInfo={myInfo} imageURL={imageURL} ref={postImage} />
-          <IconGroup>
-            <IconWrapper>
-              <LikeIcon myInfo={myInfo} ratio={5} ref={likeIcon} />
-            </IconWrapper>
-            <IconWrapper>
-              <CommentIcon postURL={postURL} />
-            </IconWrapper>
-          </IconGroup>
-          <LikeInfo myInfo={myInfo} postId={postId} style={likeInfoStyle} />
-          <ShareModal
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-            postURL={postURL}
-          />
-        </PostMiddleWrapper>
-      </LikeProvider>
-    </LikerInfoProvider>
+    <PostMiddleWrapper {...wrapperProps}>
+      <PostImage
+        myInfo={myInfo}
+        imageURL={imageURL}
+        ref={postImage}
+        onDoubleClick={toggleLikeState}
+      />
+      <IconGroup>
+        <IconWrapper>
+          <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
+        </IconWrapper>
+        <IconWrapper>
+          <CommentIcon postURL={postURL} />
+        </IconWrapper>
+      </IconGroup>
+      <LikeInfo
+        myInfo={myInfo}
+        postId={postId}
+        diff={isLikeClicked - isLike}
+        likerInfo={likerInfo}
+      />
+    </PostMiddleWrapper>
   );
 };
 
