@@ -12,7 +12,7 @@ import Button from '../../components/Button';
 import Error from '../../components/Error';
 import {
   NewPostWrapper,
-  Input,
+  Content,
   FileSelectLabel,
   FileInput,
   FileNameInput,
@@ -30,20 +30,23 @@ const NewPostPage = () => {
     crop: { x: 0, y: 0 },
     zoom: MIN_ZOOM,
     croppedAreaPixels: null,
-    contentValue: '',
   };
 
   const [
     state,
     inputImage,
     onCropComplete,
-    changeContent,
     changeCrop,
     changeZoom,
     changeSliderZoom,
   ] = useImage(initialState);
+  const [content, setContent] = useState('');
   const [isSuccess, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const changeContent = e => {
+    setContent(e.target.value);
+  };
 
   const post = useCallback(async () => {
     if (loading) return;
@@ -122,7 +125,7 @@ const NewPostPage = () => {
         </>
       )}
       <div className="section">
-        <Input value={state.contentValue} onChange={changeContent} />
+        <Content onChange={changeContent} value={content} />
       </div>
       <div className="section">
         <Button type="button" onClick={post} btnStyle="primary">

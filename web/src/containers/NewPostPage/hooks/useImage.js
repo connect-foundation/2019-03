@@ -18,11 +18,6 @@ const reducer = (state, action) => {
         ...state,
         croppedAreaPixels: action.value,
       };
-    case 'INPUT_CONTENT':
-      return {
-        ...state,
-        contentValue: action.value,
-      };
     case 'CHANGE_ZOOM':
       return {
         ...state,
@@ -57,10 +52,6 @@ const useImage = initalState => {
     [],
   );
 
-  const changeContent = e => {
-    dispatch({ type: 'INPUT_CONTENT', value: e.target.value });
-  };
-
   const changeCrop = crop => {
     dispatch({ type: 'CHANGE_CROP', value: crop });
   };
@@ -77,7 +68,6 @@ const useImage = initalState => {
     state,
     inputImage,
     onCropComplete,
-    changeContent,
     changeCrop,
     changeZoom,
     changeSliderZoom,
