@@ -50,7 +50,7 @@ const StyledButton = styled.button`
     return css`
       color: ${color};
       background: ${backgroundColor};
-      border-color: ${borderColor};
+      border: 1px solid ${borderColor};
     `;
   }}
 `;
