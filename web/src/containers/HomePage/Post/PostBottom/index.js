@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { AllCommentShowText, UpdatedTime } from './styles';
+import { AllCommentShowText } from './styles';
 import { Comment, MainText } from '../PostText';
-import { getDateDiffText } from '../../../../utils';
+import TimePassed from '../../../../components/TimePassed';
 
 const PostBottom = ({ myInfo, post }) => {
   const {
@@ -13,7 +13,6 @@ const PostBottom = ({ myInfo, post }) => {
     content: mainText,
     updatedAt,
   } = post;
-  const dateDiffText = getDateDiffText(+updatedAt, new Date());
 
   return (
     <>
@@ -22,7 +21,7 @@ const PostBottom = ({ myInfo, post }) => {
       {commentList.map(c => (
         <Comment key={c.id} myInfo={myInfo} comment={c} />
       ))}
-      <UpdatedTime>{dateDiffText}</UpdatedTime>
+      <TimePassed updatedAt={updatedAt} />
     </>
   );
 };

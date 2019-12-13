@@ -24,6 +24,9 @@ const CommentType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: comment => comment.depth,
     },
+    updatedAt: {
+      type: GraphQLString,
+    },
     isLike: {
       type: GraphQLBoolean,
       resolve: async ({ id: commentId }, _, { userId }) => {

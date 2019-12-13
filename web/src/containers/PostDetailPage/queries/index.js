@@ -36,6 +36,7 @@ const COMMENT_LIST = gql`
     commentList(PostId: $PostId, offset: $offset, limit: $limit) {
       id
       content
+      updatedAt
       writer {
         username
         profileImage
@@ -54,6 +55,7 @@ const ADD_COMMENT = gql`
     ) {
       id
       content
+      updatedAt
       writer {
         username
         profileImage

@@ -39,7 +39,7 @@ function CommentList({ PostId }) {
     <CommentListWrapper>
       {comments.map(comment => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <Comment key={comment.id} {...comment} />
+        <Comment key={comment.id} comment={comment} />
       ))}
       <MoreCommentButton onClick={getMoreComments}>
         <Icon ratio={6} posX={-385} posY={-498} />

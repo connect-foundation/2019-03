@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { ContentWrapper, UpdatedTime, GrayButton } from './styles';
+import { ContentWrapper } from './styles';
 import StyledLink from '../../../../../../../components/StyledLink';
+import TimePassed from '../../../../../../../components/TimePassed';
 
-function Content({ writer, content, likerCount }) {
+function Content({ comment }) {
+  const { writer, content, updatedAt } = comment;
   return (
     <ContentWrapper>
       <main>
@@ -17,9 +19,7 @@ function Content({ writer, content, likerCount }) {
         </h3>
         <article>{content}</article>
       </main>
-      <UpdatedTime>5h</UpdatedTime>
-      <GrayButton>{likerCount} like</GrayButton>
-      <GrayButton>Reply</GrayButton>
+      <TimePassed updatedAt={updatedAt} />
     </ContentWrapper>
   );
 }
