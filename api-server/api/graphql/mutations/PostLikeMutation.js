@@ -17,7 +17,7 @@ const createPostLike = {
       await setPostLike(UserId, WriterId, PostId);
       return true;
     } catch (err) {
-      return err;
+      return false;
     }
   },
 };
