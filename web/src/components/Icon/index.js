@@ -34,6 +34,12 @@ const iconSelector = {
     posY: -248,
     ratio: 5,
   },
+  logout: {
+    posX: 0,
+    posY: -248,
+    ratio: 5,
+    style: { transform: 'rotate(90deg)' },
+  },
 };
 
 const Icon = ({ children, name, ...rest }) => {
