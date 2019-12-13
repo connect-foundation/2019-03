@@ -3,6 +3,7 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLString,
+  GraphQLID,
   GraphQLBoolean,
 } = require('graphql');
 
@@ -39,16 +40,18 @@ const PostType = new GraphQLObjectType({
     updatedAt: {
       type: GraphQLString,
     },
+    UserId: {
+      type: GraphQLID,
+    },
     writer: {
       type: UserType,
       resolve: ({ UserId }) => User.findByPk(UserId),
     },
     isLike: {
       type: GraphQLBoolean,
-      resolve: ({ id: postId }, _, context) => {
+      resolve: ({ id: PostId, UserId }) => {
         try {
-          const { userId } = context;
-          const isLike = checkUserLikePost(userId, postId);
+          const isLike = checkUserLikePost(UserId, PostId);
           return isLike;
         } catch (err) {
           return { error: err.message };
@@ -57,9 +60,9 @@ const PostType = new GraphQLObjectType({
     },
     commentCount: {
       type: GraphQLInt,
-      resolve: async ({ id: postId }) => {
+      resolve: async ({ id: PostId }) => {
         try {
-          const commentCount = await getCommentCount(postId);
+          const commentCount = await getCommentCount(PostId);
           return commentCount;
         } catch (err) {
           return { error: err.message };
@@ -68,9 +71,9 @@ const PostType = new GraphQLObjectType({
     },
     commentList: {
       type: new GraphQLList(CommentType),
-      resolve: async ({ id: postId }) => {
+      resolve: async ({ id: PostId }) => {
         try {
-          const twoComments = await getTwoComments(postId);
+          const twoComments = await getTwoComments(PostId);
           return twoComments;
         } catch (err) {
           return { error: err.message };
@@ -79,9 +82,9 @@ const PostType = new GraphQLObjectType({
     },
     likerInfo: {
       type: LikerInfoType,
-      resolve: async ({ id: postId }) => {
+      resolve: async ({ id: PostId }) => {
         try {
-          const likerInfo = await getLikerInfo(postId);
+          const likerInfo = await getLikerInfo(PostId);
           return likerInfo;
         } catch (err) {
           return { error: err.message };

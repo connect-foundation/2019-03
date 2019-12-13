@@ -4,12 +4,29 @@ const POST_DETAIL = gql`
   query Post($postURL: String!) {
     post(postURL: $postURL) {
       id
-      content
-      writer {
-        username
-      }
       imageURL
       postURL
+      content
+      isLike
+      updatedAt
+      writer {
+        username
+        isFollow
+        profileImage
+      }
+      commentCount
+      commentList {
+        id
+        content
+        writer {
+          username
+        }
+      }
+      likerInfo {
+        likerCount
+        username
+        profileImage
+      }
     }
   }
 `;
