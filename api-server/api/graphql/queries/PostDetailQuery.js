@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLString, GraphQLID } = require('graphql');
 
 const { PostType } = require('../types');
 const { Post } = require('../../../db');
@@ -6,7 +6,7 @@ const { Post } = require('../../../db');
 const postDetailQuery = {
   type: PostType,
   args: {
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
     postURL: { type: GraphQLString },
   },
   resolve: (_, { id, postURL }, context) => {
