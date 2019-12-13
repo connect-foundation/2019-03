@@ -10,6 +10,9 @@ import App from './containers/App';
 const client = new ApolloClient({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,
   credentials: 'include',
+  fetchOptions: {
+    credentials: 'include',
+  },
 });
 
 const GlobalStyle = createGlobalStyle`
