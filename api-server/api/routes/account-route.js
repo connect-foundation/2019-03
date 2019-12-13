@@ -13,7 +13,6 @@ account.post('/signin', (req, res, next) => {
 });
 
 account.get('/logout', (req, res, next) => {
-  console.log('logout');
   req.logOut();
   req.session.destroy(err => {
     if (err) return next(err);
