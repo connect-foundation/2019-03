@@ -14,7 +14,13 @@ const authenticate = (type, req, res, next) => {
     return req.logIn(user, loginErr => {
       if (loginErr) return next(loginErr);
 
-      const myInfo = { id: user.id, username: user.username };
+      const myInfo = {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        cellPhone: user.cellPhone,
+      };
       res.cookie('myInfo', myInfo, { maxAge: ONE_DAY });
 
       return res.status(200).json({ status: 'ok', message: 'authenticated' });

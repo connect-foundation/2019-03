@@ -14,15 +14,14 @@ async function signup(userInfo) {
 }
 
 async function signin(_username, plaintextPassword) {
-  const { id, username, password, name } = await User.findOne({
-    attributes: ['id', 'username', 'password', 'name'],
+  const user = await User.findOne({
     where: { username: _username },
   });
 
-  const isSame = await bcrypt.compare(plaintextPassword, password);
+  const isSame = await bcrypt.compare(plaintextPassword, user.password);
   if (!isSame) return null;
 
-  return { id, username, name };
+  return user;
 }
 
 module.exports = { signup, signin };
