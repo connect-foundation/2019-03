@@ -25,7 +25,7 @@ const ZOOM_STEP = 0.1;
 const CROP_SIZE = 615;
 
 const NewPostPage = () => {
-  const myInfo = useContext(UserContext);
+  const { myInfo } = useContext(UserContext);
 
   const initialState = {
     originalImage: '',

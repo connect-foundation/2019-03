@@ -45,7 +45,7 @@ function App({ cookies }) {
 
   return (
     <AppWrapper>
-      <UserProvider value={myInfo}>
+      <UserProvider value={{ myInfo, isAuth, setIsAuth }}>
         <ThemeProvider
           theme={{
             palette: {

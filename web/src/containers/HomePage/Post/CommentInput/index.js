@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 function CommentInput({ PostId }) {
-  const myInfo = useContext(UserContext);
+  const { myInfo } = useContext(UserContext);
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { followingPostList } = cache.readQuery({
