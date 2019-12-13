@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../queries';
 import Loading from '../../../../components/Loading';
+import UserContext from '../../../App/UserContext';
 
 import {
   StyledForm,
@@ -10,14 +11,8 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-const myInfo = {
-  id: 1,
-  username: '_so_02',
-  name: '정소영',
-  profileImage: 'https://i.pravatar.cc/150?img=9',
-};
-
 function CommentInput({ PostId }) {
+  const myInfo = useContext(UserContext);
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { followingPostList } = cache.readQuery({
