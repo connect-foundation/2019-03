@@ -14,10 +14,24 @@ import {
   NameWrapper,
 } from './styles';
 
-const UserInfo = ({ username, myId, data, isMyPage }) => {
+const UserInfo = ({
+  username,
+  myId,
+  data,
+  isMyPage,
+  onFollowCancel,
+  onFollow,
+}) => {
   const btnStyle = 'light';
   let button = (
-    <StyledFollowButton username={username} myId={myId} userId={data.id} />
+    <StyledFollowButton
+      followStatus={data.isFollowing}
+      username={username}
+      myId={myId}
+      userId={data.id}
+      onFollowCancel={onFollowCancel}
+      onFollow={onFollow}
+    />
   );
   if (isMyPage)
     button = (

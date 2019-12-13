@@ -9,7 +9,7 @@ const userPageQuery = {
     username: { type: GraphQLString },
     myId: { type: GraphQLInt },
   },
-  resolve: async (post, args) => {
+  resolve: async (_, args) => {
     try {
       const data = await getUserPageData(args);
       return data;

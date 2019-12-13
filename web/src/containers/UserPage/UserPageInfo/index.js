@@ -4,7 +4,14 @@ import ProfileIcon from '../../../components/ProfileIcon';
 import UserInfo from './UserInfo';
 import { UserPageInfoWrapper, ProfileIconWrapper } from './styles';
 
-const UserPageInfo = ({ username, myId, data, isMyPage }) => {
+const UserPageInfo = ({
+  username,
+  myId,
+  data,
+  isMyPage,
+  onFollowCancel,
+  onFollow,
+}) => {
   return (
     <UserPageInfoWrapper>
       <ProfileIconWrapper>
@@ -15,6 +22,8 @@ const UserPageInfo = ({ username, myId, data, isMyPage }) => {
         myId={myId}
         data={data}
         isMyPage={isMyPage}
+        onFollowCancel={onFollowCancel}
+        onFollow={onFollow}
       />
     </UserPageInfoWrapper>
   );
