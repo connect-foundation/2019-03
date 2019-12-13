@@ -1,23 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useState, useCallback } from 'react';
+import _ from 'underscore';
+import { useMutation } from '@apollo/react-hooks';
 
+import Icon from '../../../../components/Icon';
+import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
+import LikeIcon from '../../../../components/LikeIcon';
+import LikeInfo from '../../../../components/LikeInfo';
 import {
   UtilityBlockWrapper,
   IconList,
   IconWrapper,
-  LikerCount,
   TimePassed,
 } from './styles';
-import Icon from '../../../../components/Icon';
-import LikeIcon from '../../../../components/LikeIcon';
-import Context from '../../context';
 
-function UtilityBlock() {
-  const { likeCount } = useContext(Context).data.post;
+function UtilityBlock({ myInfo, post }) {
+  const [createPostLike] = useMutation(CREATE_POST_LIKE);
+  const [deletePostLike] = useMutation(DELETE_POST_LIKE);
+
+  const { id: postId, isLike, likerInfo } = post;
+  const [isLikeClicked, setLikeState] = useState(isLike);
+
+  const likeBtnClickHandler = () => {
+    const currentClickStatus = !isLikeClicked;
+    if (currentClickStatus)
+      createPostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+    else deletePostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+  };
+
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 1000), []);
+
+  const toggleLikeState = () => {
+    setLikeState(!isLikeClicked);
+    if (isLikeClicked !== isLike) return;
+    lazyFetch();
+  };
+
   return (
     <UtilityBlockWrapper>
       <IconList>
         <IconWrapper>
-          <LikeIcon ratio={5} />
+          <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
         </IconWrapper>
         <IconWrapper>
           <Icon ratio={5} posX={-520} posY={-245} />
@@ -26,7 +48,12 @@ function UtilityBlock() {
           <Icon ratio={5} posX={0} posY={-250} />
         </IconWrapper>
       </IconList>
-      <LikerCount>좋아요 {likeCount}개</LikerCount>
+      <LikeInfo
+        myInfo={myInfo}
+        postId={postId}
+        diff={isLikeClicked - isLike}
+        likerInfo={likerInfo}
+      />
       <TimePassed>1일 전</TimePassed>
     </UtilityBlockWrapper>
   );

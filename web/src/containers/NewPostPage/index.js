@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
@@ -17,6 +17,8 @@ import {
   FileInput,
   FileNameInput,
 } from './styles';
+import UserContext from '../App/UserContext';
+
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
@@ -24,6 +26,8 @@ const ZOOM_STEP = 0.1;
 const CROP_SIZE = 615;
 
 const NewPostPage = () => {
+  const myInfo = useContext(UserContext);
+
   const initialState = {
     originalImage: '',
     originalImageUrl: null,
@@ -67,7 +71,7 @@ const NewPostPage = () => {
       const formData = new FormData();
       formData.append('file', croppedImageFile);
       formData.append('content', state.contentValue);
-      formData.append('userId', 1);
+      formData.append('userId', myInfo.id);
 
       const resultJSON = await fetch(
         `${process.env.REACT_APP_API_URL}/upload`,
@@ -80,11 +84,16 @@ const NewPostPage = () => {
       if (result.result === 'success') {
         setSuccess(true);
       }
-    } catch (e) {
-      return <Error />;
-    }
-  }, [loading, state]);
-
+    } catch (e) {}
+  }, [
+    loading,
+    myInfo.id,
+    state.contentValue,
+    state.croppedAreaPixels,
+    state.originalImage,
+    state.originalImageUrl,
+  ]);
+  
   if (isSuccess) {
     return <Redirect to="/" />;
   }

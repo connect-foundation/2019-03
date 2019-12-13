@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -38,6 +38,10 @@ const PostMiddle = ({ myInfo, post }) => {
 
   const postImage = useRef(null);
   const wrapperProps = { postImage, userId: myInfo.id, postId };
+
+  useEffect(() => {
+    setLikeState(isLike);
+  }, [isLike]);
 
   return (
     <PostMiddleWrapper {...wrapperProps}>

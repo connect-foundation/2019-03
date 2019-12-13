@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 
@@ -6,16 +6,11 @@ import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from './queries';
 import Spinner from '../../components/Spinner';
-
-const myInfo = {
-  id: 1,
-  username: '_so_02',
-  name: '정소영',
-  profileImage: 'https://i.pravatar.cc/150?img=9',
-};
+import UserContext from '../App/UserContext';
 
 const LIMIT = 5;
 function HomePage() {
+  const myInfo = useContext(UserContext);
   const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
   const middleChild = useRef();

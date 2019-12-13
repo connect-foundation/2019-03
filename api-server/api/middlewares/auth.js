@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-const ONE_DAY = 86400;
+const ONE_DAY = 86400000;
 
 const authenticate = (type, req, res, next) => {
   passport.authenticate(type, (err, user, info) => {

@@ -19,6 +19,7 @@ import SignInPage from '../AccountPage/SignIn';
 import SignUpPage from '../AccountPage/SignUp';
 import AuthRoute from './AuthRoute';
 import AccountRoute from './AccountRoute';
+import { UserProvider } from './UserContext';
 
 const settingPageList = [
   {
@@ -44,59 +45,61 @@ function App({ cookies }) {
 
   return (
     <AppWrapper>
-      <ThemeProvider
-        theme={{
-          palette: {
-            background: '#FAFAFA',
-            secondary: '#6C757D',
-            light: '#F8F9FA',
-            gray_bright: '#F5F5F5',
-            gray_font: '#999999',
-            border: '#e6e6e6',
-            border_secondary: '#dbdbdb',
-            white: '#FFFFFF',
-            blue: '#3897F1',
-            blue_facebook: '#375184',
-            pink: '#ee4957',
-          },
-        }}
-      >
-        <AuthRoute path="/" myInfo={myInfo}>
-          <Navigation myInfo={myInfo} />
-          <Route path="/" exact component={HomePage} />
-          <Route path="/new/post" exact component={NewPostPage} />
-          <Route path="/edit/:postURL" exact component={EditPostPage} />
-          <Route path="/p/:postURL" exact component={PostDetailPage} />
-          <Route path="/h/:hashTag" exact component={HashTagPage} />
-          <Route
-            path="/setting"
-            component={props => (
-              <SettingPage
-                {...props}
-                myInfo={myInfo}
-                pageList={settingPageList}
-              />
-            )}
-          />
-          <Route
-            path="/:username"
-            exact
-            render={props => <UserPage {...props} myInfo={myInfo} />}
-          />
-        </AuthRoute>
-        <AccountRoute path="/account" myInfo={myInfo}>
-          <Route
-            path="/account/signin"
-            exact
-            render={props => <SignInPage {...props} setIsAuth={setIsAuth} />}
-          />
-          <Route
-            path="/account/signup"
-            exact
-            render={props => <SignUpPage {...props} setIsAuth={setIsAuth} />}
-          />
-        </AccountRoute>
-      </ThemeProvider>
+      <UserProvider value={myInfo}>
+        <ThemeProvider
+          theme={{
+            palette: {
+              background: '#FAFAFA',
+              secondary: '#6C757D',
+              light: '#F8F9FA',
+              gray_bright: '#F5F5F5',
+              gray_font: '#999999',
+              border: '#e6e6e6',
+              border_secondary: '#dbdbdb',
+              white: '#FFFFFF',
+              blue: '#3897F1',
+              blue_facebook: '#375184',
+              pink: '#ee4957',
+            },
+          }}
+        >
+          <AuthRoute path="/" myInfo={myInfo}>
+            <Navigation myInfo={myInfo} />
+            <Route path="/" exact component={HomePage} />
+            <Route path="/new/post" exact component={NewPostPage} />
+            <Route path="/edit/:postURL" exact component={EditPostPage} />
+            <Route path="/p/:postURL" exact component={PostDetailPage} />
+            <Route path="/h/:hashTag" exact component={HashTagPage} />
+            <Route
+              path="/setting"
+              component={props => (
+                <SettingPage
+                  {...props}
+                  myInfo={myInfo}
+                  pageList={settingPageList}
+                />
+              )}
+            />
+            <Route
+              path="/:username"
+              exact
+              render={props => <UserPage {...props} myInfo={myInfo} />}
+            />
+          </AuthRoute>
+          <AccountRoute path="/account" myInfo={myInfo}>
+            <Route
+              path="/account/signin"
+              exact
+              render={props => <SignInPage {...props} setIsAuth={setIsAuth} />}
+            />
+            <Route
+              path="/account/signup"
+              exact
+              render={props => <SignUpPage {...props} setIsAuth={setIsAuth} />}
+            />
+          </AccountRoute>
+        </ThemeProvider>
+      </UserProvider>
     </AppWrapper>
   );
 }
