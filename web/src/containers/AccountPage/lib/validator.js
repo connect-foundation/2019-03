@@ -1,7 +1,7 @@
 import validator from 'validator';
 
 const checkIsUsername = username => {
-  const USERNAME_REGEX = /^\w{8,30}$/;
+  const USERNAME_REGEX = /^\w{4,30}$/;
   return USERNAME_REGEX.test(username);
 };
 

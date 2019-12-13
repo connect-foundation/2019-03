@@ -42,8 +42,8 @@ export async function onSignUpSubmitHandler(
       return;
     }
 
-    changeToHashedPassword(signUpForm);
-    const formData = changeToFormDataFormat(signUpForm);
+    const password = changeToHashedPassword(signUpForm);
+    const formData = changeToFormDataFormat(signUpForm, password);
 
     const { status, message } = await fetchFormData(signUpURL, formData);
 
@@ -73,8 +73,8 @@ export async function onSignInSubmitHandler(
       return;
     }
 
-    changeToHashedPassword(signInForm);
-    const formData = changeToFormDataFormat(signInForm);
+    const password = changeToHashedPassword(signInForm);
+    const formData = changeToFormDataFormat(signInForm, password);
 
     const { status, message } = await fetchFormData(signInURL, formData);
     if (!status) return;
