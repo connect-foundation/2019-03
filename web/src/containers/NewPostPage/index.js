@@ -19,7 +19,6 @@ import {
 } from './styles';
 import UserContext from '../App/UserContext';
 
-
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const ZOOM_STEP = 0.1;
@@ -70,7 +69,7 @@ const NewPostPage = () => {
       const croppedImageFile = await makeNewImageFile(state);
       const formData = new FormData();
       formData.append('file', croppedImageFile);
-      formData.append('content', state.contentValue);
+      formData.append('content', content);
       formData.append('userId', myInfo.id);
 
       const resultJSON = await fetch(
@@ -85,15 +84,8 @@ const NewPostPage = () => {
         setSuccess(true);
       }
     } catch (e) {}
-  }, [
-    loading,
-    myInfo.id,
-    state.contentValue,
-    state.croppedAreaPixels,
-    state.originalImage,
-    state.originalImageUrl,
-  ]);
-  
+  }, [content, loading, myInfo.id, state]);
+
   if (isSuccess) {
     return <Redirect to="/" />;
   }
