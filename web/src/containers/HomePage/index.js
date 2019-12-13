@@ -10,7 +10,7 @@ import UserContext from '../App/UserContext';
 
 const LIMIT = 5;
 function HomePage() {
-  const myInfo = useContext(UserContext);
+  const { myInfo } = useContext(UserContext);
   const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
   const middleChild = useRef();

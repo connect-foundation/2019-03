@@ -11,7 +11,7 @@ import Error from '../../components/Error';
 import UserContext from '../App/UserContext';
 
 function PostDetailPage({ match }) {
-  const myInfo = useContext(UserContext);
+  const { myInfo } = useContext(UserContext);
   const { loading, error, data } = useQuery(POST_DETAIL, {
     variables: { postURL: match.params.postURL, id: myInfo.id },
     fetchPolicy: 'cache-and-network',

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Icon from '../../../../../components/Icon';
 import LogoutWrapper from './LogoutWrapper';
+import UserContext from '../../../../App/UserContext';
 
 const Logout = () => {
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const { isAuth, setIsAuth } = useContext(UserContext);
 
   const onLogout = async () => {
     await fetch(`${process.env.REACT_APP_API_URL}/account/logout`, {
@@ -14,16 +15,15 @@ const Logout = () => {
         credentials: 'include',
       },
     })
-      .then(res => {
-        setIsLoggedOut(true);
-        return res.json();
+      .then(() => {
+        setIsAuth(false);
       })
       .catch(err => {
         throw err;
       });
   };
 
-  if (isLoggedOut) {
+  if (!isAuth) {
     return <Redirect to="/" />;
   }
 

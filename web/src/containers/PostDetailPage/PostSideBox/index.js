@@ -8,7 +8,7 @@ import UtilityBlock from './UtilityBlock';
 import UserContext from '../../App/UserContext';
 
 function SideBox({ post }) {
-  const myInfo = useContext(UserContext);
+  const { myInfo } = useContext(UserContext);
   return (
     <SideBoxWrapper>
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
