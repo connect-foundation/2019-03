@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 const POST_DETAIL = gql`
-  query Post($postURL: String!) {
-    post(postURL: $postURL) {
+  query Post($postURL: String!, $id: ID!) {
+    post(postURL: $postURL, id: $id) {
       id
       imageURL
       postURL

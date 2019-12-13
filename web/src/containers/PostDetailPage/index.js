@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
+
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
 import { POST_DETAIL } from './queries';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
+import UserContext from '../App/UserContext';
 
 function PostDetailPage({ match }) {
+  const myInfo = useContext(UserContext);
   const { loading, error, data } = useQuery(POST_DETAIL, {
-    variables: { postURL: match.params.postURL },
+    variables: { postURL: match.params.postURL, id: myInfo.id },
     fetchPolicy: 'cache-and-network',
   });
 

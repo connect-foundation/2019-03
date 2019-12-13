@@ -20,7 +20,7 @@ const followingPostListQuery = {
   resolve: async (_, { id, cursor, limit }, context) => {
     try {
       // eslint-disable-next-line no-param-reassign
-      context.userId = id;
+      context.UserId = id;
       const postList = await getFollowingPostList(id, cursor, limit);
       return postList;
     } catch (err) {

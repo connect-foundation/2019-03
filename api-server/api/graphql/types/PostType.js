@@ -49,9 +49,9 @@ const PostType = new GraphQLObjectType({
     },
     isLike: {
       type: GraphQLBoolean,
-      resolve: ({ id: PostId, UserId }) => {
+      resolve: ({ id: PostId }, _, context) => {
         try {
-          const isLike = checkUserLikePost(UserId, PostId);
+          const isLike = checkUserLikePost(context.UserId, PostId);
           return isLike;
         } catch (err) {
           return { error: err.message };
