@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const UpdatedTime = styled.span`
+const TimePassedWrapper = styled.span`
   display: inline-block;
 
   color: ${({ theme }) => theme.palette.gray_font};
@@ -9,4 +9,4 @@ const UpdatedTime = styled.span`
   margin: 4px 15px 2px;
 `;
 
-export default UpdatedTime;
+export default TimePassedWrapper;
