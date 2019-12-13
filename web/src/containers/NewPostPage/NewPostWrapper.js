@@ -10,6 +10,21 @@ const NewPostWrapper = styled.div`
   .section {
     margin: 10px;
   }
+
+  .toast-body {
+    color: black;
+    margin-left: 10px;
+  }
+
+  .crop-container {
+    position: relative;
+    width: 650px;
+    height: 650px;
+  }
+
+  .controls {
+    width: 20%;
+  }
 `;
 
 export default NewPostWrapper;

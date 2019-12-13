@@ -1,5 +1,7 @@
 import NewPostWrapper from './NewPostWrapper';
-import Input from './Input';
-import Button from './Button';
+import Content from './Content';
+import FileSelectLabel from './FileSelectLabel';
+import FileInput from './FileInput';
+import FileNameInput from './FileNameInput';
 
-export { NewPostWrapper, Input, Button };
+export { NewPostWrapper, Content, FileSelectLabel, FileInput, FileNameInput };
