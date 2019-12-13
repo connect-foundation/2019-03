@@ -9,6 +9,7 @@ const {
   HashTagsOfPost,
   HashTag,
   UserTag,
+  Log,
 } = require('../../db');
 
 const { Op } = Sequelize;
@@ -97,12 +98,22 @@ async function getLikerList(postId) {
   return likerList;
 }
 
-async function setPostLike(userId, postId) {
+async function setPostLike(userId, writerId, postId) {
   await PostLike.create({
     UserId: userId,
     PostId: postId,
     updatedAt: new Date(),
   });
+
+  if (userId !== writerId) {
+    await Log.create({
+      From: userId,
+      To: writerId,
+      PostId: postId,
+      status: 'like',
+      updatedAt: new Date(),
+    });
+  }
 }
 
 async function unsetPostLike(userId, postId) {

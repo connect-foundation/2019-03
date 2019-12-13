@@ -13,11 +13,11 @@ const createPostLike = {
 
   resolve: async (_, { PostLike }) => {
     try {
-      const { UserId, PostId } = PostLike;
-      await setPostLike(UserId, PostId);
+      const { UserId, WriterId, PostId } = PostLike;
+      await setPostLike(UserId, WriterId, PostId);
       return true;
     } catch (err) {
-      return false;
+      return err;
     }
   },
 };
