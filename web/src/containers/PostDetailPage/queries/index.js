@@ -9,6 +9,7 @@ const POST_DETAIL = gql`
       content
       isLike
       updatedAt
+      UserId
       writer {
         username
         isFollow

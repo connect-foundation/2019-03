@@ -10,6 +10,9 @@ const PostLikeInputType = new GraphQLInputObjectType({
     PostId: {
       type: new GraphQLNonNull(GraphQLInt),
     },
+    WriterId: {
+      type: new GraphQLNonNull(GraphQLInt),
+    },
     UserId: {
       type: new GraphQLNonNull(GraphQLInt),
     },

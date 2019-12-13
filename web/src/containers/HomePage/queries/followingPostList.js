@@ -9,6 +9,7 @@ const FOLLOWING_POST_LIST = gql`
       content
       isLike
       updatedAt
+      UserId
       writer {
         username
         isFollow
