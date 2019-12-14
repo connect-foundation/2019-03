@@ -13,13 +13,12 @@ function HomePage() {
   const { myInfo } = useContext(UserContext);
   const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
-  const middleChild = useRef();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
       myId: myInfo.id,
       limit: LIMIT,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -27,55 +26,45 @@ function HomePage() {
     root: null,
     threshold: 0,
   };
-
-  const getMorePosts = entries => {
+  const getMorePosts = (entries, observer) => {
     if (loading) return;
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const list = data.followingPostList;
-      const cursor = list.length ? [...list].pop().updatedAt : null;
-      fetchMore({
-        variables: {
-          cursor,
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          if (!fetchMoreResult.followingPostList.length) setNoMorePost(true);
-          return {
-            ...prev,
-            followingPostList: [
-              ...prev.followingPostList,
-              ...fetchMoreResult.followingPostList,
-            ],
-          };
-        },
-      });
+    if (data && !data.followingPostList.length) return;
+    const entry = entries[0];
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    const list = data.followingPostList;
+    const cursor = list.length ? [...list].pop().updatedAt : null;
+    fetchMore({
+      variables: {
+        cursor,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        if (!fetchMoreResult.followingPostList.length) setNoMorePost(true);
+        return {
+          ...prev,
+          followingPostList: [
+            ...prev.followingPostList,
+            ...fetchMoreResult.followingPostList,
+          ],
+        };
+      },
     });
   };
 
   const { followingPostList } = data || { followingPostList: [] };
 
-  const postList = followingPostList.map((post, index) =>
-    index === followingPostList.length - 3 ? (
-      <Post key={post.id} post={post} myInfo={myInfo} ref={middleChild} />
-    ) : (
-      <Post key={post.id} post={post} myInfo={myInfo} />
-    ),
-  );
+  const postList = followingPostList.map((post, index) => (
+    <Post key={post.id} post={post} myInfo={myInfo} />
+  ));
 
-  const spinner = noMorePost ? (
-    <div>더 이상 게시글이 없습니다.</div>
-  ) : (
-    <SpinnerWrapper ref={lastChild}>
-      <Spinner size={50} />
-    </SpinnerWrapper>
-  );
   useEffect(() => {
     if (!lastChild.current) return;
     if (noMorePost) return;
     const observer = new IntersectionObserver(getMorePosts, options);
     observer.observe(lastChild.current);
-    if (middleChild.current) observer.observe(middleChild.current);
+
+    if (data && !followingPostList.length) setNoMorePost(true);
 
     // eslint-disable-next-line consistent-return
     return () => observer.disconnect();
@@ -88,7 +77,11 @@ function HomePage() {
   return (
     <PostListWrapper>
       {postList}
-      {spinner}
+      {!noMorePost && (
+        <SpinnerWrapper ref={lastChild}>
+          <Spinner size={50} />
+        </SpinnerWrapper>
+      )}
     </PostListWrapper>
   );
 }
