@@ -4,8 +4,16 @@ const { authenticate } = require('../middlewares/auth');
 
 const account = new Router();
 
+account.get('/signup', (req, res) => {
+  return res.redirect('/');
+});
+
 account.post('/signup', (req, res, next) => {
   return authenticate('signup', req, res, next);
+});
+
+account.get('/signin', (req, res) => {
+  return res.redirect('/');
 });
 
 account.post('/signin', (req, res, next) => {
