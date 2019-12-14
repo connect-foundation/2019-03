@@ -23,10 +23,6 @@ const Logout = () => {
       });
   };
 
-  if (!isAuth) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <LogoutWrapper onClick={onLogout}>
       <Icon name="logout" />

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-function AuthRoute({ myInfo, children, ...rest }) {
+function AuthRoute({ isAuth, children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={() => (myInfo ? children : <Redirect to="/account/signin" />)}
+      render={() => (isAuth ? children : <Redirect to="/account/signin" />)}
     />
   );
 }
