@@ -2,9 +2,10 @@ import React from 'react';
 
 import { ContentWrapper, StyledTime } from './styles';
 import StyledLink from '../../../../../../components/StyledLink';
+import TimePassed from '../../../../../../components/TimePassed';
 
 function Content({ post }) {
-  const { writer, content } = post;
+  const { writer, content, updatedAt } = post;
   return (
     <ContentWrapper>
       <main>
@@ -18,7 +19,7 @@ function Content({ post }) {
         </h3>
         <article>{content}</article>
       </main>
-      <StyledTime>5h</StyledTime>
+      <TimePassed updatedAt={updatedAt} />
     </ContentWrapper>
   );
 }
