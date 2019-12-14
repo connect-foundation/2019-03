@@ -40,8 +40,8 @@ const settingPageList = [
 ];
 
 function App({ cookies }) {
-  const [isAuth, setIsAuth] = useState(false);
   const myInfo = cookies.get('myInfo');
+  const [isAuth, setIsAuth] = useState(!!myInfo);
 
   return (
     <AppWrapper>
@@ -63,7 +63,7 @@ function App({ cookies }) {
             },
           }}
         >
-          <AuthRoute path="/" myInfo={myInfo}>
+          <AuthRoute path="/" isAuth={isAuth}>
             <Navigation myInfo={myInfo} />
             <Route path="/" exact component={HomePage} />
             <Route path="/new/post" exact component={NewPostPage} />
@@ -86,7 +86,7 @@ function App({ cookies }) {
               render={props => <UserPage {...props} myInfo={myInfo} />}
             />
           </AuthRoute>
-          <AccountRoute path="/account" myInfo={myInfo}>
+          <AccountRoute path="/account" isAuth={isAuth}>
             <Route
               path="/account/signin"
               exact
