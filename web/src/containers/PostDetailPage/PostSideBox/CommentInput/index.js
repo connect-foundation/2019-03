@@ -11,7 +11,7 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ PostId, scrollRef }) {
+function CommentInput({ PostId, writer, scrollRef }) {
   const { myInfo } = useContext(UserContext);
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
@@ -47,7 +47,14 @@ function CommentInput({ PostId, scrollRef }) {
     if (loading) return;
     e.preventDefault();
     scrollRef.current.scrollTo(0, 0);
-    addComment({ variables: { content: text, PostId, UserId: myInfo.id } });
+    addComment({
+      variables: {
+        content: text,
+        WriterId: writer.id,
+        PostId,
+        UserId: myInfo.id,
+      },
+    });
     setText('');
   };
 
