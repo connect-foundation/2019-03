@@ -9,9 +9,9 @@ import {
   AlarmFollowButton,
 } from './styles';
 
-const AlarmResult = ({ result, isLast }) => {
+const AlarmResult = ({ result, isLast, clickClose }) => {
   const commonContent = (
-    <StyledLink to={`/${result.fromUser.username}`}>
+    <StyledLink to={`/${result.fromUser.username}`} onClick={clickClose}>
       <b>{result.fromUser.username}</b>
     </StyledLink>
   );
@@ -46,12 +46,12 @@ const AlarmResult = ({ result, isLast }) => {
   return (
     <AlarmResultWrapper isLast={isLast}>
       <AlarmProfileWrapper>
-        <StyledLink to={`/${result.fromUser.username}`}>
+        <StyledLink to={`/${result.fromUser.username}`} onClick={clickClose}>
           <ProfileIcon imgSRc={result.fromUser.profileImage} />
         </StyledLink>
       </AlarmProfileWrapper>
       <AlarmContentWrapper>{content}</AlarmContentWrapper>
-      <AlarmActionWrapper>{action}</AlarmActionWrapper>
+      <AlarmActionWrapper onClick={clickClose}>{action}</AlarmActionWrapper>
     </AlarmResultWrapper>
   );
 };

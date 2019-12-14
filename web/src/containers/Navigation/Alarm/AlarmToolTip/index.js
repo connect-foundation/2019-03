@@ -23,11 +23,21 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
     if (log.length === 0) {
       content = <span>새로운 알림이 없습니다.</span>;
     } else {
-      resultList = <AlarmResultList alarmResults={log} />;
+      resultList = (
+        <AlarmResultList
+          alarmResults={log}
+          clickClose={clickClose}
+          onClick={clickClose}
+        />
+      );
     }
   }
 
-  const resultNOList = <AlarmNoResult>{content}</AlarmNoResult>;
+  const resultNOList = (
+    <AlarmNoResult onClick={clickClose} clickClose={clickClose}>
+      {content}
+    </AlarmNoResult>
+  );
 
   return (
     <AlarmToolTipWrapper
