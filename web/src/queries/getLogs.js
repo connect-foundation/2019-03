@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const GET_LOG = gql`
+const GET_LOGS = gql`
   query Log($id: Int!) {
     log(id: $id) {
       status
@@ -19,15 +19,4 @@ const GET_LOG = gql`
   }
 `;
 
-const searchQuery = value => {
-  return `{
-    search(value: "${value}"){
-      id
-      username
-      name
-      profileImage
-    }
-  }`;
-};
-
-export { GET_LOG, searchQuery };
+export default GET_LOGS;

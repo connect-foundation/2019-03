@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../queries';
+import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../../../queries';
 import Loading from '../../../../components/Loading';
 import UserContext from '../../../App/UserContext';
 

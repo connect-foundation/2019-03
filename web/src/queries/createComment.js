@@ -10,6 +10,7 @@ const CREATE_COMMENT = gql`
     ) {
       id
       content
+      updatedAt
       writer {
         username
         profileImage
