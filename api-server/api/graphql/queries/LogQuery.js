@@ -12,6 +12,7 @@ const logQuery = {
     return Log.findAll({
       attributes: ['id', 'status', 'From', 'To', 'PostId'],
       where: { to: args.id },
+      order: [['updatedAt', 'DESC']],
     });
   },
 };
