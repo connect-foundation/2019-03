@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
@@ -9,12 +9,13 @@ import UserContext from '../../App/UserContext';
 
 function SideBox({ post }) {
   const { myInfo } = useContext(UserContext);
+  const scrollRef = useRef(null);
   return (
     <SideBoxWrapper>
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
-      <PostContent post={post} />
+      <PostContent post={post} scrollRef={scrollRef} />
       <UtilityBlock myInfo={myInfo} post={post} />
-      <CommentInput PostId={+post.id} />
+      <CommentInput PostId={+post.id} scrollRef={scrollRef} />
     </SideBoxWrapper>
   );
 }
