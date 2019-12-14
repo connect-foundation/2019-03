@@ -4,7 +4,7 @@ import { AlarmToolTipWrapper, AlarmResultList, AlarmNoResult } from './styles';
 const ARROW_MOVEMENT = '85%';
 
 const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
-  let content = false;
+  let content = '';
   let resultList = '';
 
   const clickClose = () => {
@@ -33,10 +33,8 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
     }
   }
 
-  const resultNOList = (
-    <AlarmNoResult onClick={clickClose} clickClose={clickClose}>
-      {content}
-    </AlarmNoResult>
+  const resultNoList = (
+    <AlarmNoResult onClick={clickClose}>{content}</AlarmNoResult>
   );
 
   return (
@@ -44,8 +42,7 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
       arrowStyle={{ left: ARROW_MOVEMENT }}
       onClick={clickClose}
     >
-      {content && resultNOList}
-      {resultList}
+      {resultList || resultNoList}
     </AlarmToolTipWrapper>
   );
 };
