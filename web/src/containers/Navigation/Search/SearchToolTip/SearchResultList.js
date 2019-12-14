@@ -4,9 +4,10 @@ import SearchResult from './SearchResult';
 const SearchResultList = props => {
   const { searchResults, clickClose } = props;
   const renderedSearchResults = searchResults.map((result, index, array) => {
+    const key = `${result.id}${result.name}`;
     return (
       <SearchResult
-        key={result.id}
+        key={key}
         result={result}
         isLast={index === array.length - 1}
         clickClose={clickClose}

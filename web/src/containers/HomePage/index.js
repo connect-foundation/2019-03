@@ -4,7 +4,7 @@ import 'intersection-observer';
 
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
-import { FOLLOWING_POST_LIST } from './queries';
+import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
 import UserContext from '../App/UserContext';
 

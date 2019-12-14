@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_COMMENT, COMMENT_LIST } from '../../queries';
+import { CREATE_COMMENT, COMMENT_LIST } from '../../../../queries';
 import Loading from '../../../../components/Loading';
 import UserContext from '../../../App/UserContext';
 
@@ -13,7 +13,7 @@ import {
 
 function CommentInput({ PostId }) {
   const { myInfo } = useContext(UserContext);
-  const [addComment, { loading }] = useMutation(ADD_COMMENT, {
+  const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { commentList } = cache.readQuery({
         query: COMMENT_LIST,

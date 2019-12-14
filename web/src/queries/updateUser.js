@@ -23,4 +23,4 @@ const UPDATE_USER = gql`
   }
 `;
 
-export { UPDATE_USER };
+export default UPDATE_USER;

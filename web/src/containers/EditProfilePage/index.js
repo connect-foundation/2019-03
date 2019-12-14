@@ -8,7 +8,7 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Loading from '../../components/Loading';
 
-import { UPDATE_USER } from './queries';
+import { UPDATE_USER } from '../../queries';
 
 function EditProfilePage({ setItem, myInfo }) {
   const [updateUser, { loading, data, error }] = useMutation(UPDATE_USER);

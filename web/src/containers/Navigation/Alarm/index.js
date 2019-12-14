@@ -3,12 +3,12 @@ import { useLazyQuery } from '@apollo/react-hooks';
 
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
-import { GET_LOG } from '../queries';
+import { GET_LOGS } from '../../../queries';
 
 const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOG);
+  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOGS);
 
   const clickAlarmIcon = () => {
     if (isVisible) {

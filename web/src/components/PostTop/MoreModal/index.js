@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { ModalContent, StyledLink, Modal } from './styles';
 import { DELETE_POST } from './queries';
-import { FOLLOWING_POST_LIST } from '../../../containers/HomePage/queries';
+import { FOLLOWING_POST_LIST } from '../../../queries';
 
 const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   const [redirect, setRedirect] = useState(false);

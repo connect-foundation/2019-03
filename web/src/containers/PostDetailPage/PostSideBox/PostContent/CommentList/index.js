@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { CommentListWrapper, MoreCommentButton } from './styles';
 import Comment from './Comment';
 import Icon from '../../../../../components/Icon';
-import { COMMENT_LIST } from '../../../queries';
+import { COMMENT_LIST } from '../../../../../queries';
 
 function CommentList({ PostId }) {
   const { data, error, fetchMore } = useQuery(COMMENT_LIST, {
