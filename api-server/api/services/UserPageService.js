@@ -9,13 +9,15 @@ const getUserInfo = async username => {
 };
 
 const checkFollowing = async (userId, myId) => {
-  const isFollowing = await UserFollow.count({
+  const isFollowing = await UserFollow.findOne({
+    attributes: ['status'],
     where: {
       from: myId,
       to: userId,
     },
   });
-  return !!isFollowing;
+  const result = isFollowing ? isFollowing.status : isFollowing;
+  return result;
 };
 
 const getFollowersNum = async userId => {
