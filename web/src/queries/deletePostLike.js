@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 const DELETE_POST_LIKE = gql`
-  mutation DeletePostLike($PostId: Int!, $UserId: Int!) {
-    deletePostLike(PostLike: { PostId: $PostId, UserId: $UserId })
+  mutation DeletePostLike($PostId: ID!, $UserId: ID!) {
+    deletePostLike(PostId: $PostId, UserId: $UserId)
   }
 `;
 

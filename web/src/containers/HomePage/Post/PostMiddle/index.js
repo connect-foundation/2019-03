@@ -26,7 +26,10 @@ const PostMiddle = ({ myInfo, post }) => {
       createPostLike({
         variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
       });
-    else deletePostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+    else
+      deletePostLike({
+        variables: { PostId: postId, UserId: myInfo.id },
+      });
   };
 
   const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 1000), []);

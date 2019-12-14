@@ -1,19 +1,26 @@
-const { GraphQLBoolean } = require('graphql');
+const { GraphQLNonNull, GraphQLBoolean, GraphQLID } = require('graphql');
 
-const { PostLikeInputType } = require('../input-types');
 const { setPostLike, unsetPostLike } = require('../../services/PostService');
 
 const createPostLike = {
   type: GraphQLBoolean,
   args: {
-    PostLike: {
-      type: PostLikeInputType,
+    PostId: {
+      name: 'PostId',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    UserId: {
+      name: 'UserId',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    WriterId: {
+      name: 'WriterId',
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
 
-  resolve: async (_, { PostLike }) => {
+  resolve: async (_, { UserId, WriterId, PostId }) => {
     try {
-      const { UserId, WriterId, PostId } = PostLike;
       await setPostLike(UserId, WriterId, PostId);
       return true;
     } catch (err) {
@@ -25,14 +32,18 @@ const createPostLike = {
 const deletePostLike = {
   type: GraphQLBoolean,
   args: {
-    PostLike: {
-      type: PostLikeInputType,
+    PostId: {
+      name: 'PostId',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    UserId: {
+      name: 'UserId',
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
 
-  resolve: async (_, { PostLike }) => {
+  resolve: async (_, { UserId, PostId }) => {
     try {
-      const { UserId, PostId } = PostLike;
       await unsetPostLike(UserId, PostId);
       return true;
     } catch (err) {
