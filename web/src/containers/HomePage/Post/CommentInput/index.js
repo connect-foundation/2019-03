@@ -11,7 +11,7 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ PostId }) {
+function CommentInput({ PostId, writer }) {
   const { myInfo } = useContext(UserContext);
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
@@ -51,7 +51,14 @@ function CommentInput({ PostId }) {
   const submitHandler = e => {
     e.preventDefault();
     if (loading) return;
-    addComment({ variables: { content: text, PostId, UserId: myInfo.id } });
+    addComment({
+      variables: {
+        content: text,
+        WriterId: writer.id,
+        PostId,
+        UserId: myInfo.id,
+      },
+    });
     setText('');
   };
 

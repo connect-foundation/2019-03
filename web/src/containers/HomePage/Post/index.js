@@ -14,7 +14,7 @@ const Post = React.forwardRef(({ myInfo, post }, ref) => {
       <PostTop myInfo={myInfo} writer={writer} postURL={postURL} />
       <PostMiddle myInfo={myInfo} post={post} />
       <PostBottom myInfo={myInfo} post={post} />
-      <CommentInput PostId={+post.id} />
+      <CommentInput PostId={+post.id} writer={writer} />
     </PostWrapper>
   );
 });

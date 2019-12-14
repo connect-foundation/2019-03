@@ -15,7 +15,11 @@ function SideBox({ post }) {
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
       <PostContent post={post} scrollRef={scrollRef} />
       <UtilityBlock myInfo={myInfo} post={post} />
-      <CommentInput PostId={+post.id} scrollRef={scrollRef} />
+      <CommentInput
+        PostId={+post.id}
+        writer={post.writer}
+        scrollRef={scrollRef}
+      />
     </SideBoxWrapper>
   );
 }

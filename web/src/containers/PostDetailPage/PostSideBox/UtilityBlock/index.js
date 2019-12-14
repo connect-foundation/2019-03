@@ -17,14 +17,14 @@ function UtilityBlock({ myInfo, post }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE);
   const [deletePostLike] = useMutation(DELETE_POST_LIKE);
 
-  const { id: postId, isLike, likerInfo, UserId } = post;
+  const { id: postId, isLike, likerInfo, writer } = post;
   const [isLikeClicked, setLikeState] = useState(isLike);
 
   const likeBtnClickHandler = () => {
     const currentClickStatus = !isLikeClicked;
     if (currentClickStatus)
       createPostLike({
-        variables: { PostId: postId, WriterId: +UserId, UserId: myInfo.id },
+        variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
       });
     else deletePostLike({ variables: { PostId: postId, UserId: myInfo.id } });
   };

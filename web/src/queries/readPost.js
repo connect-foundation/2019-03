@@ -11,6 +11,7 @@ const READ_POST = gql`
       updatedAt
       UserId
       writer {
+        id
         username
         isFollow
         profileImage
