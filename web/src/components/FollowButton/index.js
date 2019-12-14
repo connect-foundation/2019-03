@@ -63,8 +63,7 @@ const FollowButton = ({
         setIsVisible(prevVisibleStatus => !prevVisibleStatus);
         break;
       // case 1:
-      //   setCurrentFollowStatus('팔로잉');
-      //   setIsVisible(isVisible => !isVisible);
+      //   추후 요청됨 구현 시 로직 추가
       //   break;
       default:
         throw new Error(
