@@ -14,6 +14,7 @@ const getPostIds = async hashTagId => {
     where: {
       HashTagId: hashTagId.id,
     },
+    order: [['updatedAt', 'DESC']],
   });
   return postIds;
 };
