@@ -5,7 +5,7 @@ const ARROW_MOVEMENT = '85%';
 
 const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
   let content = '';
-  let resultList = <AlarmNoResult>{content}</AlarmNoResult>;
+  let resultList = '';
 
   const clickClose = () => {
     setIsVisible(false);
@@ -23,16 +23,26 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
     if (log.length === 0) {
       content = <span>새로운 알림이 없습니다.</span>;
     } else {
-      resultList = <AlarmResultList alarmResults={log} />;
+      resultList = (
+        <AlarmResultList
+          alarmResults={log}
+          clickClose={clickClose}
+          onClick={clickClose}
+        />
+      );
     }
   }
+
+  const resultNoList = (
+    <AlarmNoResult onClick={clickClose}>{content}</AlarmNoResult>
+  );
 
   return (
     <AlarmToolTipWrapper
       arrowStyle={{ left: ARROW_MOVEMENT }}
       onClick={clickClose}
     >
-      {resultList}
+      {resultList || resultNoList}
     </AlarmToolTipWrapper>
   );
 };
