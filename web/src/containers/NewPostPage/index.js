@@ -17,7 +17,7 @@ import {
   FileInput,
   FileNameInput,
 } from './styles';
-import { UPLOAD_POST } from '../../queries';
+import { UPLOAD_POST, FOLLOWING_POST_LIST } from '../../queries';
 import UserContext from '../App/UserContext';
 
 const MIN_ZOOM = 1;
@@ -27,7 +27,47 @@ const CROP_SIZE = 615;
 
 const NewPostPage = () => {
   const { myInfo } = useContext(UserContext);
-  const [uploadPostMutation] = useMutation(UPLOAD_POST);
+  const [uploadPostMutation] = useMutation(UPLOAD_POST, {
+    update(cache, { data: { createPost } }) {
+      const { followingPostList } = cache.readQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+      });
+      const writer = {
+        ...myInfo,
+        isFollow: true,
+        profileImage: null,
+        __typename: 'User',
+      };
+      const newPost = {
+        writer,
+        ...createPost,
+        isLike: false,
+        commentCount: 0,
+        commentList: [],
+        likerInfo: {
+          username: '',
+          profileImage: '',
+          likerCount: 0,
+          __typename: 'LikerInfoType',
+        },
+        __typename: 'Post',
+      };
+      cache.writeQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+        data: { followingPostList: [newPost].concat(followingPostList) },
+      });
+    },
+  });
 
   const initialState = {
     originalImage: '',

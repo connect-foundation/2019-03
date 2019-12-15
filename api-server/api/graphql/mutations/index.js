@@ -1,6 +1,6 @@
 const { createComment } = require('./CommentMutation');
 const { createPostLike, deletePostLike } = require('./PostLikeMutation');
-const { deletePost, updatePost } = require('./PostMutation');
+const { createPost, deletePost, updatePost } = require('./PostMutation');
 const {
   createCommentLike,
   deleteCommentLike,
@@ -10,7 +10,6 @@ const {
   RequestFollowingCancellation,
 } = require('./RequestFollowingCancellation');
 const { updateUser } = require('./UserMutation');
-const { UploadPostMutation } = require('./uploadPostMutation');
 
 module.exports = {
   updateUser,
@@ -23,5 +22,5 @@ module.exports = {
   deleteCommentLike,
   RequestFollowing,
   RequestFollowingCancellation,
-  UploadPostMutation,
+  createPost,
 };

@@ -135,8 +135,10 @@ async function insertPost(file, postInfo) {
     const postId = result.dataValues.id;
     insertHashTagOfPost(postInfo.content, postId);
     insertUserTag(postInfo.content, postId);
+    return result.dataValues;
   } catch (e) {
     console.log(e.message);
+    return e;
   }
 }
 
