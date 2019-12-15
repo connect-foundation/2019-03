@@ -125,11 +125,11 @@ async function unsetPostLike(userId, postId) {
 async function insertPost(file, postInfo) {
   try {
     const result = await Post.create({
-      imageURL: file.location,
+      imageURL: file.Location,
       postURL: short.generate(),
       content: postInfo.content,
       updatedAt: new Date(),
-      UserId: +postInfo.userId,
+      UserId: postInfo.userId,
     });
 
     const postId = result.dataValues.id;

@@ -10,6 +10,7 @@ import LIKER_LIST from './likerList';
 import GET_LOGS from './getLogs';
 import SEARCH from './search';
 import UPDATE_POST from './updatePost';
+import UPLOAD_POST from './uploadPost';
 
 export {
   FOLLOWING_POST_LIST,
@@ -24,4 +25,5 @@ export {
   GET_LOGS,
   SEARCH,
   UPDATE_POST,
+  UPLOAD_POST,
 };
