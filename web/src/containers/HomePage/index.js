@@ -8,6 +8,7 @@ import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
 import UserContext from '../App/UserContext';
+import NoFollowing from './NoFollowing';
 
 const LIMIT = 5;
 function HomePage() {
@@ -87,7 +88,9 @@ function HomePage() {
   }, [followingPostList]);
 
   if (error) return <div>에러가 발생했습니다</div>;
-
+  if (data && !followingPostList.length) {
+    return <NoFollowing />;
+  }
   return (
     <PostListWrapper>
       {postList}
