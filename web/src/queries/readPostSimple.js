@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const GET_POST = gql`
+const READ_POST_SIMPLE = gql`
   query Post($postURL: String!) {
     post(postURL: $postURL) {
       id
@@ -14,4 +14,4 @@ const GET_POST = gql`
   }
 `;
 
-export default GET_POST;
+export default READ_POST_SIMPLE;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 
-import { UPDATE_POST } from '../queries';
+import { UPDATE_POST } from '../../../queries';
 import Loading from '../../../components/Loading';
 import Button from '../../../components/Button';
 

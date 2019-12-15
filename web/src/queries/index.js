@@ -4,10 +4,12 @@ import CREATE_POST_LIKE from './createPostLike';
 import DELETE_POST_LIKE from './deletePostLike';
 import COMMENT_LIST from './commentList';
 import READ_POST from './readPost';
+import READ_POST_SIMPLE from './readPostSimple';
 import UPDATE_USER from './updateUser';
 import LIKER_LIST from './likerList';
 import GET_LOGS from './getLogs';
 import SEARCH from './search';
+import UPDATE_POST from './updatePost';
 
 export {
   FOLLOWING_POST_LIST,
@@ -16,8 +18,10 @@ export {
   DELETE_POST_LIKE,
   COMMENT_LIST,
   READ_POST,
+  READ_POST_SIMPLE,
   UPDATE_USER,
   LIKER_LIST,
   GET_LOGS,
   SEARCH,
+  UPDATE_POST,
 };
