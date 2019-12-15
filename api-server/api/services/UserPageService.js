@@ -37,6 +37,7 @@ const getFollowsNum = async userId => {
 const getPostCard = async userId => {
   const postCard = await Post.findAll({
     where: { UserId: userId },
+    order: [['updatedAt', 'DESC']],
   });
   return postCard;
 };
