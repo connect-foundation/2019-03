@@ -45,4 +45,4 @@ const registration = async client => {
   }
 };
 
-module.exports = registration;
+module.exports = { registration };

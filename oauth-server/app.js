@@ -3,8 +3,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+require("./db");
 
-const indexRouter = require("./routes/index");
+const indexRouter = require("./routes");
+const oauthRouter = require("./routes/oauth");
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/oauth2", oauthRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
