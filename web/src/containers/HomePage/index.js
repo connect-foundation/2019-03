@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';

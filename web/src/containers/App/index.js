@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { withCookies } from 'react-cookie';
-
 import AppWrapper from './AppWrapper';
-import HomePage from '../HomePage';
-import UserPage from '../UserPage';
-import PostDetailPage from '../PostDetailPage';
-import NewPostPage from '../NewPostPage';
-import EditPostPage from '../EditPostPage';
 import Navigation from '../Navigation';
-import HashTagPage from '../HashTagPage';
-import SettingPage from '../SettingPage';
-import EditProfilePage from '../EditProfilePage';
-import ChangePasswordPage from '../ChangePasswordPage';
-import RegisterAppPage from '../RegisterAppPage';
-import SignInPage from '../AccountPage/SignIn';
-import SignUpPage from '../AccountPage/SignUp';
+import Loading from '../../components/Loading';
+import { UserProvider } from './UserContext';
 import AuthRoute from './AuthRoute';
 import AccountRoute from './AccountRoute';
-import { UserProvider } from './UserContext';
+
+const HomePage = lazy(() => import('../HomePage'));
+const NewPostPage = lazy(() => import('../NewPostPage'));
+const EditPostPage = lazy(() => import('../EditPostPage'));
+const PostDetailPage = lazy(() => import('../PostDetailPage'));
+const HashTagPage = lazy(() => import('../HashTagPage'));
+const SettingPage = lazy(() => import('../SettingPage'));
+const UserPage = lazy(() => import('../UserPage'));
+const EditProfilePage = lazy(() => import('../EditProfilePage'));
+const ChangePasswordPage = lazy(() => import('../ChangePasswordPage'));
+const RegisterAppPage = lazy(() => import('../RegisterAppPage'));
+const SignInPage = lazy(() => import('../AccountPage/SignIn'));
+const SignUpPage = lazy(() => import('../AccountPage/SignUp'));
 
 const settingPageList = [
   {
@@ -65,44 +66,54 @@ function App({ cookies }) {
         >
           <AuthRoute path="/" isAuth={isAuth}>
             <Navigation myInfo={myInfo} />
-            <Switch>
-              <Route path="/" exact component={HomePage} />
-              <Route path="/new/post" exact component={NewPostPage} />
+            <Suspense fallback={<Loading size={50} />}>
+              <Switch>
+                <Route path="/" exact component={HomePage} />
+                <Route path="/new/post" exact component={NewPostPage} />
+                <Route
+                  path="/edit/:postURL"
+                  exact
+                  component={props => (
+                    <EditPostPage {...props} myInfo={myInfo} />
+                  )}
+                />
+                <Route path="/p/:postURL" exact component={PostDetailPage} />
+                <Route path="/h/:hashTag" exact component={HashTagPage} />
+                <Route
+                  path="/setting"
+                  component={props => (
+                    <SettingPage
+                      {...props}
+                      myInfo={myInfo}
+                      pageList={settingPageList}
+                    />
+                  )}
+                />
+                <Route
+                  path="/:username"
+                  exact
+                  render={props => <UserPage {...props} myInfo={myInfo} />}
+                />
+              </Switch>
+            </Suspense>
+          </AuthRoute>
+          <AccountRoute path="/account" isAuth={isAuth}>
+            <Suspense fallback={<Loading size={50} />}>
               <Route
-                path="/edit/:postURL"
+                path="/account/signin"
                 exact
-                component={props => <EditPostPage {...props} myInfo={myInfo} />}
-              />
-              <Route path="/p/:postURL" exact component={PostDetailPage} />
-              <Route path="/h/:hashTag" exact component={HashTagPage} />
-              <Route
-                path="/setting"
-                component={props => (
-                  <SettingPage
-                    {...props}
-                    myInfo={myInfo}
-                    pageList={settingPageList}
-                  />
+                render={props => (
+                  <SignInPage {...props} setIsAuth={setIsAuth} />
                 )}
               />
               <Route
-                path="/:username"
+                path="/account/signup"
                 exact
-                render={props => <UserPage {...props} myInfo={myInfo} />}
+                render={props => (
+                  <SignUpPage {...props} setIsAuth={setIsAuth} />
+                )}
               />
-            </Switch>
-          </AuthRoute>
-          <AccountRoute path="/account" isAuth={isAuth}>
-            <Route
-              path="/account/signin"
-              exact
-              render={props => <SignInPage {...props} setIsAuth={setIsAuth} />}
-            />
-            <Route
-              path="/account/signup"
-              exact
-              render={props => <SignUpPage {...props} setIsAuth={setIsAuth} />}
-            />
+            </Suspense>
           </AccountRoute>
         </ThemeProvider>
       </UserProvider>
