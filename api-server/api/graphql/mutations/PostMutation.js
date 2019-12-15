@@ -1,4 +1,4 @@
-const { GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
 
 const { PostType } = require('../types');
 const { Post } = require('../../../db');
@@ -30,22 +30,23 @@ const updatePost = {
   args: {
     content: {
       name: 'content',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
-    postURL: {
-      name: 'postURL',
-      type: new GraphQLNonNull(GraphQLString),
+    id: {
+      name: 'id',
+      type: new GraphQLNonNull(GraphQLInt),
     },
   },
-  resolve: (_, { postURL, content }) => {
-    return Post.update(
+  resolve: async (_, { id, content }) => {
+    await Post.update(
       { content },
       {
         where: {
-          postURL,
+          id,
         },
       },
     );
+    return { id, content };
   },
 };
 

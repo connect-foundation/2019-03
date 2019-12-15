@@ -67,7 +67,11 @@ function App({ cookies }) {
             <Navigation myInfo={myInfo} />
             <Route path="/" exact component={HomePage} />
             <Route path="/new/post" exact component={NewPostPage} />
-            <Route path="/edit/:postURL" exact component={EditPostPage} />
+            <Route
+              path="/edit/:postURL"
+              exact
+              component={props => <EditPostPage {...props} myInfo={myInfo} />}
+            />
             <Route path="/p/:postURL" exact component={PostDetailPage} />
             <Route path="/h/:hashTag" exact component={HashTagPage} />
             <Route
