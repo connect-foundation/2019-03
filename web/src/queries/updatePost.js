@@ -1,9 +1,10 @@
 import { gql } from 'apollo-boost';
 
 const UPDATE_POST = gql`
-  mutation UpdatePost($postURL: String!, $content: String!) {
-    updatePost(content: $content, postURL: $postURL) {
+  mutation UpdatePost($id: Int!, $content: String) {
+    updatePost(id: $id, content: $content) {
       id
+      content
     }
   }
 `;

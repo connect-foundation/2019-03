@@ -15,7 +15,7 @@ function EditBox({ post }) {
 
   const onTextChange = e => setText(e.target.value);
   const editPost = () => {
-    updatePost({ variables: { postURL: post.postURL, content: text } });
+    updatePost({ variables: { id: post.id, content: text } });
   };
 
   const cancelEdit = () => setRedirect(true);
