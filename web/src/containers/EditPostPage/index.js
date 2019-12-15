@@ -16,7 +16,8 @@ function PostDetailPage({ match, myInfo }) {
 
   if (!data) return null;
   const { post } = data;
-
+  if (post.writer.id !== myInfo.id)
+    return <div>게시글을 수정할 권한이 없습니다.</div>;
   return (
     <ThemeProvider theme={{ post_length: 600 }}>
       <PostDetailPageWrapper>
