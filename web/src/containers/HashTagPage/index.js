@@ -40,7 +40,11 @@ const HashTagPage = ({ match }) => {
     return (
       <AnnouncementMessage>존재하지않는 해쉬태그입니다.</AnnouncementMessage>
     );
-  const isPostCardExisting = !!data.hashTagPage.postCard[0];
+
+  const { hashTagPage } = data;
+  const { postCard } = hashTagPage;
+  const isPostCardExisting = !!postCard[0];
+
   if (!isPostCardExisting)
     return (
       <AnnouncementMessage>
@@ -50,19 +54,16 @@ const HashTagPage = ({ match }) => {
   return (
     <HashTagPageWrapper>
       <HashTagInfoWrapper>
-        <ProfileIcon
-          imageURL={data.hashTagPage.postCard[0].imageURL}
-          ratio={47.5}
-        />
+        <ProfileIcon imageURL={postCard[0].imageURL} ratio={47.5} />
         <HashTagDetailInfoWrapper>
           <h1>#{hashTag}</h1>
           <div>
-            게시물<div>&nbsp;{data.hashTagPage.postCard.length}</div>
+            게시물<div>&nbsp;{postCard.length}</div>
           </div>
         </HashTagDetailInfoWrapper>
       </HashTagInfoWrapper>
       <PostCardListWrapper>
-        <PostCardList data={data.hashTagPage} />
+        <PostCardList data={hashTagPage} />
       </PostCardListWrapper>
     </HashTagPageWrapper>
   );
