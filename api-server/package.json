@@ -36,6 +36,7 @@
     "express-graphql": "^0.9.0",
     "express-session": "^1.17.0",
     "graphql": "^14.5.8",
+    "graphql-upload": "^9.0.0",
     "helmet": "^3.21.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",

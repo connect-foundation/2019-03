@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useContext } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
@@ -9,7 +10,6 @@ import makeNewImageFile from './lib/makeNewImageFile';
 import useImage from './hooks/useImage';
 import Loading from '../../components/Loading';
 import Button from '../../components/Button';
-import Error from '../../components/Error';
 import {
   NewPostWrapper,
   Content,
@@ -17,6 +17,7 @@ import {
   FileInput,
   FileNameInput,
 } from './styles';
+import { UPLOAD_POST } from '../../queries';
 import UserContext from '../App/UserContext';
 
 const MIN_ZOOM = 1;
@@ -26,6 +27,7 @@ const CROP_SIZE = 615;
 
 const NewPostPage = () => {
   const { myInfo } = useContext(UserContext);
+  const [uploadPostMutation] = useMutation(UPLOAD_POST);
 
   const initialState = {
     originalImage: '',
@@ -67,24 +69,14 @@ const NewPostPage = () => {
     try {
       setLoading(true);
       const croppedImageFile = await makeNewImageFile(state);
-      const formData = new FormData();
-      formData.append('file', croppedImageFile);
-      formData.append('content', content);
-      formData.append('userId', myInfo.id);
-
-      const resultJSON = await fetch(
-        `${process.env.REACT_APP_API_URL}/upload`,
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
-      const result = await resultJSON.json();
-      if (result.result === 'success') {
-        setSuccess(true);
-      }
-    } catch (e) {}
-  }, [content, loading, myInfo.id, state]);
+      await uploadPostMutation({
+        variables: { file: croppedImageFile, userId: myInfo.id, content },
+      });
+      setSuccess(true);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [content, loading, myInfo.id, state, uploadPostMutation]);
 
   if (isSuccess) {
     return <Redirect to="/" />;
