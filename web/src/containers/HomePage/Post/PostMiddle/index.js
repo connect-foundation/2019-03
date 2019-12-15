@@ -19,10 +19,9 @@ const PostMiddle = ({ myInfo, post }) => {
   const [deletePostLike] = useMutation(DELETE_POST_LIKE);
 
   const { id: postId, isLike, imageURL, postURL, likerInfo, writer } = post;
-  const [isLikeClicked, setLikeState] = useState(isLike);
-  const likeBtnClickHandler = () => {
-    const currentClickStatus = !isLikeClicked;
-    if (currentClickStatus)
+  const [isLikeClicked, setLikeState] = useState();
+  const likeBtnClickHandler = likeState => {
+    if (!likeState)
       createPostLike({
         variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
       });
@@ -32,12 +31,12 @@ const PostMiddle = ({ myInfo, post }) => {
       });
   };
 
-  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 1000), []);
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), []);
 
   const toggleLikeState = () => {
     setLikeState(!isLikeClicked);
     if (isLikeClicked !== isLike) return;
-    lazyFetch();
+    lazyFetch(isLikeClicked);
   };
 
   const postImage = useRef(null);

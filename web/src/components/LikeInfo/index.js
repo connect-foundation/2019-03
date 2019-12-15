@@ -20,7 +20,6 @@ const LikeInfo = ({ myInfo, postId, className, diff, likerInfo }) => {
   if (likerCount === 0) return null;
 
   const isMany = likerCount >= 2;
-  const isOther = username !== myInfo.username;
   return (
     <LikeInfoWrapper
       className={className}
@@ -28,9 +27,8 @@ const LikeInfo = ({ myInfo, postId, className, diff, likerInfo }) => {
         margin: '4px 15px',
       }}
     >
-      {isOther && (
-        <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
-      )}
+      <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
+
       {isMany && (
         <>
           <LikerLink to={username}>{username}</LikerLink>님&nbsp;

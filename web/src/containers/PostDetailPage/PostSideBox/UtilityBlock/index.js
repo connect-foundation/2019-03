@@ -1,9 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
+import { updateDetailPost } from '../../../../utils/LikeHandler';
 import Icon from '../../../../components/Icon';
-import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
+import {
+  CREATE_POST_LIKE,
+  DELETE_POST_LIKE,
+  READ_POST,
+} from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
 import {
@@ -14,28 +19,42 @@ import {
 } from './styles';
 
 function UtilityBlock({ myInfo, post }) {
-  const [createPostLike] = useMutation(CREATE_POST_LIKE);
-  const [deletePostLike] = useMutation(DELETE_POST_LIKE);
+  const [createPostLike] = useMutation(CREATE_POST_LIKE, {
+    update(cache) {
+      updateDetailPost(cache, post, myInfo);
+    },
+  });
+  const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
+    update(cache) {
+      updateDetailPost(cache, post, myInfo);
+    },
+  });
 
   const { id: postId, isLike, likerInfo, writer } = post;
   const [isLikeClicked, setLikeState] = useState(isLike);
 
-  const likeBtnClickHandler = () => {
-    const currentClickStatus = !isLikeClicked;
-    if (currentClickStatus)
+  const likeBtnClickHandler = likeState => {
+    if (!likeState)
       createPostLike({
         variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
       });
-    else deletePostLike({ variables: { PostId: postId, UserId: myInfo.id } });
+    else
+      deletePostLike({
+        variables: { PostId: postId, UserId: myInfo.id },
+      });
   };
 
-  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 1000), []);
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), []);
 
   const toggleLikeState = () => {
     setLikeState(!isLikeClicked);
     if (isLikeClicked !== isLike) return;
-    lazyFetch();
+    lazyFetch(isLikeClicked);
   };
+
+  useEffect(() => {
+    setLikeState(isLike);
+  }, [isLike]);
 
   return (
     <UtilityBlockWrapper>
