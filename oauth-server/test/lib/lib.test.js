@@ -1,22 +1,6 @@
-const { generateRandomBytes, generateHexUsingHash } = require("../../utils");
+const { generateRandomBytes, generateHexUsingHash } = require("../../lib");
 
-/**
- * Honor Code : https://github.com/facebook/jest/issues/1377
- */
-const syncify = async fn => {
-  try {
-    const result = await fn();
-    return () => {
-      return result;
-    };
-  } catch (err) {
-    return () => {
-      throw err;
-    };
-  }
-};
-
-describe("utils 모듈 테스트", () => {
+describe("lib 모듈 테스트", () => {
   describe("generateRandomBytes 메소드 테스트", () => {
     test("Promise 반환", done => {
       const promise = generateRandomBytes(32);

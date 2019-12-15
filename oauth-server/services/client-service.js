@@ -8,7 +8,7 @@ const clientType = {
   SPA: "single-page-app"
 };
 
-const registration = async client => {
+async function registration(client) {
   try {
     if (!client.type) {
       throw new InvalidRequestError("Type is required.");
@@ -43,6 +43,15 @@ const registration = async client => {
   } catch (e) {
     throw e;
   }
-};
+}
 
-module.exports = { registration };
+async function getClient(clientId) {
+  const client = await Client.findOne({
+    attribute: ["clientId", "redirectionURI"],
+    where: { clientId }
+  });
+
+  return client;
+}
+
+module.exports = { registration, getClient };
