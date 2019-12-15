@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const READ_POST = gql`
-  query Post($postURL: String!, $id: ID!) {
+  query Post($postURL: String!, $id: ID) {
     post(postURL: $postURL, id: $id) {
       id
       imageURL
