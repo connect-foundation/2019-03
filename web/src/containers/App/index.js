@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { withCookies } from 'react-cookie';
 
@@ -65,30 +65,32 @@ function App({ cookies }) {
         >
           <AuthRoute path="/" isAuth={isAuth}>
             <Navigation myInfo={myInfo} />
-            <Route path="/" exact component={HomePage} />
-            <Route path="/new/post" exact component={NewPostPage} />
-            <Route
-              path="/edit/:postURL"
-              exact
-              component={props => <EditPostPage {...props} myInfo={myInfo} />}
-            />
-            <Route path="/p/:postURL" exact component={PostDetailPage} />
-            <Route path="/h/:hashTag" exact component={HashTagPage} />
-            <Route
-              path="/setting"
-              component={props => (
-                <SettingPage
-                  {...props}
-                  myInfo={myInfo}
-                  pageList={settingPageList}
-                />
-              )}
-            />
-            <Route
-              path="/:username"
-              exact
-              render={props => <UserPage {...props} myInfo={myInfo} />}
-            />
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/new/post" exact component={NewPostPage} />
+              <Route
+                path="/edit/:postURL"
+                exact
+                component={props => <EditPostPage {...props} myInfo={myInfo} />}
+              />
+              <Route path="/p/:postURL" exact component={PostDetailPage} />
+              <Route path="/h/:hashTag" exact component={HashTagPage} />
+              <Route
+                path="/setting"
+                component={props => (
+                  <SettingPage
+                    {...props}
+                    myInfo={myInfo}
+                    pageList={settingPageList}
+                  />
+                )}
+              />
+              <Route
+                path="/:username"
+                exact
+                render={props => <UserPage {...props} myInfo={myInfo} />}
+              />
+            </Switch>
           </AuthRoute>
           <AccountRoute path="/account" isAuth={isAuth}>
             <Route
