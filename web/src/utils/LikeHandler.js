@@ -1,4 +1,4 @@
-import { READ_POST } from '../queries';
+import { READ_POST, FOLLOWING_POST_LIST } from '../queries';
 
 const detailPostCacheObj = (post, myInfo) => {
   return {
@@ -10,12 +10,22 @@ const detailPostCacheObj = (post, myInfo) => {
   };
 };
 
-const updateDetailPost = (cache, post, myInfo) => {
+const postListCacheObj = myInfo => {
+  return {
+    query: FOLLOWING_POST_LIST,
+    variables: {
+      myId: myInfo.id,
+      limit: 5,
+    },
+  };
+};
+
+const updateDetailPost = ({ cache, post, myInfo }) => {
   const cacheObj = detailPostCacheObj(post, myInfo);
-  const { post: thisPost } = cache.readQuery(cacheObj);
-  const postAfterUpdate = { ...thisPost };
-  const diff = thisPost.isLike ? -1 : 1;
-  postAfterUpdate.isLike = !thisPost.isLike;
+  const { post: postBeforeUpdate } = cache.readQuery(cacheObj);
+  const postAfterUpdate = { ...postBeforeUpdate };
+  const diff = postBeforeUpdate.isLike ? -1 : 1;
+  postAfterUpdate.isLike = !postBeforeUpdate.isLike;
   postAfterUpdate.likerInfo.likerCount += diff;
   cache.writeQuery({
     ...cacheObj,
@@ -23,4 +33,21 @@ const updateDetailPost = (cache, post, myInfo) => {
   });
 };
 
-export { updateDetailPost };
+const updatedPostList = ({ cache, targetId, myInfo }) => {
+  const cacheObj = postListCacheObj(myInfo);
+  const { followingPostList: postListBeforeUpdate } = cache.readQuery(cacheObj);
+  const postListAfterUpdate = [...postListBeforeUpdate];
+  const targetIndex = postListAfterUpdate.findIndex(
+    post => post.id === targetId,
+  );
+  const targetPost = postListAfterUpdate[targetIndex];
+  const diff = targetPost.isLike ? -1 : 1;
+  targetPost.isLike = !targetPost.isLike;
+  targetPost.likerInfo.likerCount += diff;
+  cache.writeQuery({
+    ...cacheObj,
+    data: { followingPostList: postListAfterUpdate },
+  });
+};
+
+export { updateDetailPost, updatedPostList };

@@ -3,6 +3,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
+import { updatedPostList } from '../../../../utils/LikeHandler';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
@@ -15,8 +16,16 @@ import {
 } from './styles';
 
 const PostMiddle = ({ myInfo, post }) => {
-  const [createPostLike] = useMutation(CREATE_POST_LIKE);
-  const [deletePostLike] = useMutation(DELETE_POST_LIKE);
+  const [createPostLike] = useMutation(CREATE_POST_LIKE, {
+    update(cache, { data: { createPostLike: targetId } }) {
+      updatedPostList({ cache, targetId, myInfo });
+    },
+  });
+  const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
+    update(cache, { data: { deletePostLike: targetId } }) {
+      updatedPostList({ cache, targetId, myInfo });
+    },
+  });
 
   const { id: postId, isLike, imageURL, postURL, likerInfo, writer } = post;
   const [isLikeClicked, setLikeState] = useState();

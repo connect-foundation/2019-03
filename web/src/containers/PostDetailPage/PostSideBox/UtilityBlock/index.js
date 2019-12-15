@@ -21,12 +21,12 @@ import {
 function UtilityBlock({ myInfo, post }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache) {
-      updateDetailPost(cache, post, myInfo);
+      updateDetailPost({ cache, post, myInfo });
     },
   });
   const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
     update(cache) {
-      updateDetailPost(cache, post, myInfo);
+      updateDetailPost({ cache, post, myInfo });
     },
   });
 
