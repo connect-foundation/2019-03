@@ -1,12 +1,14 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
 import UserContext from '../App/UserContext';
+import NoFollowing from './NoFollowing';
 
 const LIMIT = 5;
 function HomePage() {
@@ -26,6 +28,19 @@ function HomePage() {
     root: null,
     threshold: 0,
   };
+
+  const noMorePostHandler = () => {
+    if (noMorePost) return;
+    setNoMorePost(true);
+    toast.warn('더 이상 새로운 게시글이 없습니다!', {
+      position: 'bottom-center',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
   const getMorePosts = (entries, observer) => {
     if (loading) return;
     if (data && !data.followingPostList.length) return;
@@ -40,7 +55,7 @@ function HomePage() {
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
-        if (!fetchMoreResult.followingPostList.length) setNoMorePost(true);
+        if (!fetchMoreResult.followingPostList.length) noMorePostHandler();
         return {
           ...prev,
           followingPostList: [
@@ -54,7 +69,7 @@ function HomePage() {
 
   const { followingPostList } = data || { followingPostList: [] };
 
-  const postList = followingPostList.map((post, index) => (
+  const postList = followingPostList.map(post => (
     <Post key={post.id} post={post} myInfo={myInfo} />
   ));
 
@@ -64,7 +79,7 @@ function HomePage() {
     const observer = new IntersectionObserver(getMorePosts, options);
     observer.observe(lastChild.current);
 
-    if (data && !followingPostList.length) setNoMorePost(true);
+    if (data && !followingPostList.length) noMorePostHandler();
 
     // eslint-disable-next-line consistent-return
     return () => observer.disconnect();
@@ -73,7 +88,9 @@ function HomePage() {
   }, [followingPostList]);
 
   if (error) return <div>에러가 발생했습니다</div>;
-
+  if (data && !followingPostList.length) {
+    return <NoFollowing />;
+  }
   return (
     <PostListWrapper>
       {postList}
@@ -82,6 +99,17 @@ function HomePage() {
           <Spinner size={50} />
         </SpinnerWrapper>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
     </PostListWrapper>
   );
 }

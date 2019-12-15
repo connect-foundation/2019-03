@@ -4,11 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { updateDetailPost } from '../../../../utils/LikeHandler';
 import Icon from '../../../../components/Icon';
-import {
-  CREATE_POST_LIKE,
-  DELETE_POST_LIKE,
-  READ_POST,
-} from '../../../../queries';
+import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
 import {
