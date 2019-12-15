@@ -4,10 +4,10 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import EditBox from './EditBox';
-import { GET_POST } from './queries';
+import { READ_POST_SIMPLE } from '../../queries';
 
 function PostDetailPage({ match }) {
-  const { loading, error, data } = useQuery(GET_POST, {
+  const { loading, error, data } = useQuery(READ_POST_SIMPLE, {
     variables: { postURL: match.params.postURL },
   });
 
