@@ -96,7 +96,7 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
       <Form onSubmit={submitHanlder}>
         {loading && <Loading size={50} />}
         <InputRow
-          CustomComponent={<ProfileIcon imageURL={myInfo.profileImage} />}
+          customComponent={<ProfileIcon imageURL={myInfo.profileImage} />}
           rightComponent={
             <div>
               <Username>{myInfo.username}</Username>
