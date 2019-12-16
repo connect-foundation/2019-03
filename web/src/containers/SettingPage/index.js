@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import List from './List';
 import SettingPageWrapper from './SettingPageWrapper';
@@ -30,6 +32,10 @@ function SettingPage({ match, myInfo, pageList }) {
           )}
         />
       ))}
+      <ToastContainer
+        position={toast.POSITION.BOTTOM_CENTER}
+        transition={Slide}
+      />
     </SettingPageWrapper>
   );
 }

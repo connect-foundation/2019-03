@@ -21,6 +21,7 @@ const {
   RequestFollowing,
   RequestFollowingCancellation,
   createPost,
+  updateProfile,
 } = require('./mutations');
 
 const rootQuery = new GraphQLObjectType({
@@ -51,6 +52,7 @@ const rootMutation = new GraphQLObjectType({
     RequestFollowing,
     RequestFollowingCancellation,
     createPost,
+    updateProfile,
   }),
 });
 

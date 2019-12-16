@@ -9,7 +9,7 @@ const { RequestFollowing } = require('./RequestFollowing');
 const {
   RequestFollowingCancellation,
 } = require('./RequestFollowingCancellation');
-const { updateUser } = require('./UserMutation');
+const { updateUser, updateProfile } = require('./UserMutation');
 
 module.exports = {
   updateUser,
@@ -23,4 +23,5 @@ module.exports = {
   RequestFollowing,
   RequestFollowingCancellation,
   createPost,
+  updateProfile,
 };

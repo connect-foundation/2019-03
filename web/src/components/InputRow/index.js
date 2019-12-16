@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputRowWrapper, StyledLabel, StyledAside } from './styles';
 
-function InputRow({ label, rightComponent, required }) {
+function InputRow({ label, customComponent, rightComponent, required }) {
   const leftComponent = (
     <StyledAside>
       {label && (
@@ -9,6 +9,7 @@ function InputRow({ label, rightComponent, required }) {
           {label}
         </StyledLabel>
       )}
+      {customComponent}
     </StyledAside>
   );
 

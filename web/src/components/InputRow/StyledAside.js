@@ -7,6 +7,9 @@ const StyledAside = styled.aside`
   margin-top: 6px;
   flex: 0 0 194px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 export default StyledAside;
