@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import List from './List';
 import SettingPageWrapper from './SettingPageWrapper';
 
-function SettingPage({ match, myInfo, pageList }) {
+function SettingPage({ match, pageList }) {
   const [focusedItem, setFocusedItem] = useState(null);
   return (
     <SettingPageWrapper>
@@ -20,7 +20,6 @@ function SettingPage({ match, myInfo, pageList }) {
             <PageComponent
               {...props}
               setItem={setFocusedItem}
-              myInfo={myInfo}
             />
           )}
         />

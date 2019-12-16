@@ -28,7 +28,6 @@ function fetchFormData(url, formData) {
 
 export async function onSignUpSubmitHandler(
   _signUpForm,
-  setIsAuth,
   setValidities,
   setIsDuplicated,
 ) {
@@ -51,18 +50,12 @@ export async function onSignUpSubmitHandler(
     if (status === 'error') {
       throw new Error(message);
     }
-
-    setIsAuth(true);
   } catch (err) {
     if (err.message === 'Duplicated username') setIsDuplicated(true);
   }
 }
 
-export async function onSignInSubmitHandler(
-  _signInForm,
-  setIsAuth,
-  setValidities,
-) {
+export async function onSignInSubmitHandler(_signInForm, setValidities) {
   const signInForm = _signInForm.current;
   const signInURL = `${process.env.REACT_APP_API_URL}/account/signin`;
 
@@ -81,7 +74,6 @@ export async function onSignInSubmitHandler(
     if (status === 'error') {
       throw new Error(message);
     }
-    setIsAuth(true);
   } catch (err) {
     console.log(err);
   }

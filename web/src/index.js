@@ -7,7 +7,15 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { createGlobalStyle } from 'styled-components';
 import { CookiesProvider } from 'react-cookie';
 import { createUploadLink } from 'apollo-upload-client';
+import gql from 'graphql-tag';
 import App from './containers/App';
+
+const cache = new InMemoryCache();
+cache.writeData({
+  data: {
+    isLoggedIn: !!localStorage.getItem('id'),
+  },
+});
 
 const client = new ApolloClient({
   link: createUploadLink({
@@ -17,7 +25,7 @@ const client = new ApolloClient({
       credentials: 'include',
     },
   }),
-  cache: new InMemoryCache(),
+  cache,
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -30,12 +38,12 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <BrowserRouter>
-    <ApolloProvider client={client}>
-      <CookiesProvider>
+    <CookiesProvider>
+      <ApolloProvider client={client}>
         <GlobalStyle />
         <App />
-      </CookiesProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </CookiesProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

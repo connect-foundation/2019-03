@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../../../queries';
 import Loading from '../../../../components/Loading';
-import UserContext from '../../../App/UserContext';
+import { withCookies } from 'react-cookie';
 
 import {
   StyledForm,
@@ -11,8 +11,8 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ PostId, writer }) {
-  const { myInfo } = useContext(UserContext);
+function CommentInput({ PostId, writer, cookies }) {
+  const myInfo = cookies.get('myInfo');
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { followingPostList } = cache.readQuery({
@@ -79,4 +79,4 @@ function CommentInput({ PostId, writer }) {
   );
 }
 
-export default CommentInput;
+export default withCookies(CommentInput);

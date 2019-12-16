@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
+import { withCookies } from 'react-cookie';
 
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
@@ -8,10 +9,9 @@ import { PostProvider } from './context';
 import { READ_POST } from '../../queries';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
-import UserContext from '../App/UserContext';
 
-function PostDetailPage({ match }) {
-  const { myInfo } = useContext(UserContext);
+function PostDetailPage({ match, cookies }) {
+  const myInfo = cookies.get('myInfo');
   const { loading, error, data } = useQuery(READ_POST, {
     variables: { postURL: match.params.postURL, id: myInfo.id },
     fetchPolicy: 'cache-and-network',
@@ -38,4 +38,4 @@ function PostDetailPage({ match }) {
   );
 }
 
-export default PostDetailPage;
+export default withCookies(PostDetailPage);

@@ -1,11 +1,14 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { withCookies } from 'react-cookie';
+import { useQuery } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
 import AppWrapper from './AppWrapper';
 import Navigation from '../Navigation';
 import Loading from '../../components/Loading';
-import { UserProvider } from './UserContext';
 import AuthRoute from './AuthRoute';
 import AccountRoute from './AccountRoute';
 
@@ -40,13 +43,24 @@ const settingPageList = [
   },
 ];
 
+const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
 function App({ cookies }) {
+  const client = useApolloClient();
   const myInfo = cookies.get('myInfo');
-  const [isAuth, setIsAuth] = useState(!!myInfo);
+  client.writeData({
+    data: {
+      isLoggedIn: !!myInfo,
+    },
+  });
+  const { data } = useQuery(IS_LOGGED_IN);
 
   return (
     <AppWrapper>
-      <UserProvider value={{ myInfo, isAuth, setIsAuth }}>
         <ThemeProvider
           theme={{
             palette: {
@@ -64,7 +78,7 @@ function App({ cookies }) {
             },
           }}
         >
-          <AuthRoute path="/" isAuth={isAuth}>
+          <AuthRoute path="/" data={data}>
             <Navigation myInfo={myInfo} />
             <Suspense fallback={<Loading size={50} />}>
               <Switch>
@@ -84,7 +98,6 @@ function App({ cookies }) {
                   component={props => (
                     <SettingPage
                       {...props}
-                      myInfo={myInfo}
                       pageList={settingPageList}
                     />
                   )}
@@ -97,26 +110,25 @@ function App({ cookies }) {
               </Switch>
             </Suspense>
           </AuthRoute>
-          <AccountRoute path="/account" isAuth={isAuth}>
+          <AccountRoute path="/account" data={data}>
             <Suspense fallback={<Loading size={50} />}>
               <Route
                 path="/account/signin"
                 exact
                 render={props => (
-                  <SignInPage {...props} setIsAuth={setIsAuth} />
+                  <SignInPage {...props} />
                 )}
               />
               <Route
                 path="/account/signup"
                 exact
                 render={props => (
-                  <SignUpPage {...props} setIsAuth={setIsAuth} />
+                  <SignUpPage {...props} />
                 )}
               />
             </Suspense>
           </AccountRoute>
         </ThemeProvider>
-      </UserProvider>
     </AppWrapper>
   );
 }

@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { withCookies } from 'react-cookie';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import {
   SignWrapper as SignUpWrapper,
@@ -26,7 +28,8 @@ const {
   INVALID_CELLPHONE,
 } = constants;
 
-function SignUpPage({ setIsAuth }) {
+function SignUpPage({ cookies }) {
+  const client = useApolloClient();
   const [isDuplicated, setIsDuplicated] = useState(false);
   const [validities, setValidities] = useState({
     username: true,
@@ -37,14 +40,19 @@ function SignUpPage({ setIsAuth }) {
   });
   const signUpForm = useRef(null);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    onSignUpSubmitHandler(
-      signUpForm,
-      setIsAuth,
-      setValidities,
-      setIsDuplicated,
-    );
+    try {
+      await onSignUpSubmitHandler(signUpForm, setValidities, setIsDuplicated);
+      const myInfo = cookies.get('myInfo');
+      client.writeData({
+        data: {
+          isLoggedIn: !!myInfo,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -109,4 +117,4 @@ function SignUpPage({ setIsAuth }) {
   );
 }
 
-export default SignUpPage;
+export default withCookies(SignUpPage);

@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import Icon from '../../../../../components/Icon';
 import LogoutWrapper from './LogoutWrapper';
-import UserContext from '../../../../App/UserContext';
 
 const Logout = () => {
-  const { setIsAuth } = useContext(UserContext);
-
+  const client = useApolloClient();
   const onLogout = async () => {
     await fetch(`${process.env.REACT_APP_API_URL}/account/logout`, {
       method: 'GET',
@@ -15,7 +14,7 @@ const Logout = () => {
       },
     })
       .then(() => {
-        setIsAuth(false);
+        client.writeData({ data: { isLoggedIn: false } });
       })
       .catch(err => {
         throw err;

@@ -17,7 +17,8 @@ import { isFileTypeImage } from '../../utils/fileUtils';
 import { UPDATE_USER, UPDATE_PROFILE } from '../../queries';
 import { FileInput } from '../NewPostPage/styles';
 
-function EditProfilePage({ setItem, myInfo, cookies }) {
+function EditProfilePage({ setItem, cookies }) {
+  const myInfo = cookies.get('myInfo');
   const [updateUser, { loading, data, error }] = useMutation(UPDATE_USER);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
 
@@ -46,7 +47,6 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
       variables: { file: e.target.files[0], userId: myInfo.id },
     });
     const cookieInfo = cookies.get('myInfo');
-
     cookies.set(
       'myInfo',
       {

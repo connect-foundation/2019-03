@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { withCookies } from 'react-cookie';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import {
   SignWrapper as SignInWrapper,
@@ -23,16 +25,27 @@ const {
   INVALID_PASSWORD,
 } = constants;
 
-function SignInPage({ setIsAuth }) {
+function SignInPage({ cookies }) {
+  const client = useApolloClient();
   const [validities, setValidities] = useState({
     username: true,
     password: true,
   });
   const signInForm = useRef(null);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    onSignInSubmitHandler(signInForm, setIsAuth, setValidities);
+    try {
+      await onSignInSubmitHandler(signInForm, setValidities);
+      const myInfo = cookies.get('myInfo');
+      client.writeData({
+        data: {
+          isLoggedIn: !!myInfo,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -72,4 +85,4 @@ function SignInPage({ setIsAuth }) {
   );
 }
 
-export default SignInPage;
+export default withCookies(SignInPage);
