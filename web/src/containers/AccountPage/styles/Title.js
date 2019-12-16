@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const Title = styled.h4`
-  color: ${({ theme }) => theme.palette.gray_font};
+  /* Font */
   font-weight: 600;
+  color: ${({ theme }) => theme.palette.gray_font};
 `;
 
 export default Title;

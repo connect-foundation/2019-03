@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 const SignForm = styled.form`
-  width: 100%;
-
+  /* Layout */
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* Box */
+  width: 100%;
 `;
 
 export default SignForm;

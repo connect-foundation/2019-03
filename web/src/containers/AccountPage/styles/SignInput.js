@@ -2,20 +2,22 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
+  /* Box */
   width: 80%;
-  flex: 0 0 20px;
   padding: 8px 0px 8px 8px;
   box-sizing: border-box;
-
-  outline: none;
   border: 1px solid ${({ theme }) => theme.palette.border};
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.palette.gray_background};
-
+  outline: none;
+  flex: 0 0 20px;
   & + & {
     margin-top: 16px;
   }
 
+  /* Backgroud */
+  background-color: ${({ theme }) => theme.palette.gray_background};
+
+  /* Other */
   &:focus {
     border: 1px solid gray;
   }
