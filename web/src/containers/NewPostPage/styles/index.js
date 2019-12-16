@@ -1,10 +1,10 @@
-import NewPostWrapper from './NewPostWrapper';
 import Content from './Content';
-import FileSelectLabel from './FileSelectLabel';
+import CropContainer from './CropContainer';
 import FileInput from './FileInput';
 import FileNameInput from './FileNameInput';
+import FileSelectLabel from './FileSelectLabel';
+import NewPostWrapper from './NewPostWrapper';
 import StyledSection from './StyledSection';
-import CropContainer from './CropContainer';
 
 export {
   NewPostWrapper,
