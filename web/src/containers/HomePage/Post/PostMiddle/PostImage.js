@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const POST_IMAGE_LENGTH = 615;
-
 const PostImage = styled.div`
   background-image: url(${({ imageURL }) => imageURL});
   background-size: cover;
@@ -9,8 +7,8 @@ const PostImage = styled.div`
 
   border-bottom: 1px solid ${({ theme }) => theme.palette.border};
 
-  width: ${POST_IMAGE_LENGTH}px;
-  height: ${POST_IMAGE_LENGTH}px;
+  width: 100%;
+  padding-bottom: 100%;
 
   margin-bottom: 4px;
 

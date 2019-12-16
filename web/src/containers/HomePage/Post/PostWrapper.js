@@ -5,9 +5,7 @@ const POST_WIDTH = 615;
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: ${POST_WIDTH}px;
-
+  width: 100%;
   border-color: ${({ theme }) => theme.palette.border};
   border-width: 1px;
   border-style: solid;
@@ -16,6 +14,10 @@ const PostWrapper = styled.div`
 
   & + & {
     margin-top: 60px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: ${POST_WIDTH}px;
   }
 `;
 
