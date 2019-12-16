@@ -1,7 +1,15 @@
-const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
+const {
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLID,
+  GraphQLInt,
+} = require('graphql');
+const { GraphQLUpload } = require('graphql-upload');
 
 const { UserType } = require('../types');
 const { User } = require('../../../db');
+const s3 = require('../../../upload');
+const { updateProfileImage } = require('../../services/UserService');
 
 const updateUser = {
   type: UserType,
@@ -47,6 +55,42 @@ const updateUser = {
   },
 };
 
+const updateProfile = {
+  type: GraphQLString,
+  description: 'The mutation that allows you to update a profileImage',
+  args: {
+    file: {
+      description: 'Image file.',
+      type: GraphQLUpload,
+    },
+    userId: {
+      type: GraphQLInt,
+    },
+  },
+  resolve: async (_, { file, userId }) => {
+    const { filename, createReadStream } = await file;
+    const stream = createReadStream();
+
+    const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+    if (!extensionRegex.test(filename)) {
+      return false;
+    }
+
+    const imageFile = await s3
+      .upload({
+        Bucket: `${process.env.BUCKET}`,
+        ACL: 'public-read',
+        Key: `user/${Date.now().toString()}_${filename}`,
+        Body: stream,
+      })
+      .promise();
+
+    await updateProfileImage(imageFile, userId);
+    return imageFile.Location;
+  },
+};
+
 module.exports = {
   updateUser,
+  updateProfile,
 };

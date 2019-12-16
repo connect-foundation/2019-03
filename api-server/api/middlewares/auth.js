@@ -20,6 +20,7 @@ const authenticate = (type, req, res, next) => {
         name: user.name,
         email: user.email,
         cellPhone: user.cellPhone,
+        profileImage: user.profileImage,
       };
       res.cookie('myInfo', myInfo, { maxAge: ONE_DAY });
 

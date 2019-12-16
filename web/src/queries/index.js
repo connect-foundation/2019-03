@@ -11,6 +11,7 @@ import GET_LOGS from './getLogs';
 import SEARCH from './search';
 import UPDATE_POST from './updatePost';
 import UPLOAD_POST from './uploadPost';
+import UPDATE_PROFILE from './updateProfile';
 
 export {
   FOLLOWING_POST_LIST,
@@ -26,4 +27,5 @@ export {
   SEARCH,
   UPDATE_POST,
   UPLOAD_POST,
+  UPDATE_PROFILE,
 };

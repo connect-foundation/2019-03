@@ -24,4 +24,12 @@ async function signin(_username, plaintextPassword) {
   return user;
 }
 
-module.exports = { signup, signin };
+const updateProfileImage = (imageFile, userId) => {
+  const target = { profileImage: imageFile.Location };
+  return User.update(target, {
+    where: {
+      id: userId,
+    },
+  });
+};
+module.exports = { signup, signin, updateProfileImage };
