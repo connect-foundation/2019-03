@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const CommentListWrapper = styled.ul`
-  padding: 0px;
+  /* Layout */
   overflow: auto;
+
+  /* Box */
+  padding: 0px;
 `;
 
 export default CommentListWrapper;

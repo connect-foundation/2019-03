@@ -1,18 +1,15 @@
-import styled, { css } from 'styled-components';
-
-const borderStyle = css`
-  ${({ theme }) => css`
-    border-left: solid 1px ${theme.palette.border};
-  `}}
-`;
+import styled from 'styled-components';
 
 const SideBoxWrapper = styled.div`
-  flex: 1 0 auto;
-  height: 100%;
+  /* Layout */
   display: flex;
   flex-direction: column;
+
+  /* Box */
+  height: 100%;
+  border-left: solid 1px ${({ theme }) => theme.palette.border};
   box-sizing: border-box;
-  ${borderStyle}
+  flex: 1 0 auto;
 `;
 
 export default SideBoxWrapper;

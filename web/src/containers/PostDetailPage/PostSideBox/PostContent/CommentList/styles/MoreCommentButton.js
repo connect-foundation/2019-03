@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 const MoreCommentButton = styled.button`
-  width: 100%;
-  height: 40px;
-  margin: 10px 0;
-
-  background-color: transparent;
-  border: none;
-
+  /* Layout */
   display: flex;
   justify-content: space-around;
 
+  /* Box */
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+  border: none;
+
+  /* Background */
+  background-color: transparent;
+
+  /* Property */
   :hover {
     cursor: pointer;
   }
