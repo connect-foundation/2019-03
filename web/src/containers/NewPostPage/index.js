@@ -74,7 +74,7 @@ const NewPostPage = () => {
   });
 
   const initialState = {
-    originalImage: '',
+    originalImage: { name: undefined },
     originalImageUrl: null,
     crop: { x: 0, y: 0 },
     zoom: MIN_ZOOM,
@@ -129,11 +129,11 @@ const NewPostPage = () => {
     <NewPostWrapper>
       {loading && <Loading size={50} />}
       <StyledSection>
-        <FileNameInput value={state.originalImage.name} />
+        <FileNameInput defaultValue={state.originalImage.name} />
         <FileSelectLabel htmlFor="select_file">파일선택</FileSelectLabel>
         <FileInput onChange={inputImage} />
       </StyledSection>
-      {state.originalImage && (
+      {state.originalImage.name && (
         <>
           <CropContainer>
             <Cropper
