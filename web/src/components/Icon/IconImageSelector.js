@@ -29,10 +29,15 @@ const sizes = css`
 `;
 
 const IconImage = styled.span`
+  /* Layout */
   display: inline-block;
-  cursor: pointer;
+
+  /* Other */
   ${iconPicker};
   ${sizes}
+
+  /* Property */
+  cursor: pointer;
 `;
 
 IconImage.defaultProps = {

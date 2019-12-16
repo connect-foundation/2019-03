@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ProfileIcon from '../ProfileIcon';
-import ModalContent from '../PostTop/MoreModal/ModalContent';
-import ModalBackground from '../Modal/ModalBackground';
-import ModalWrapper from '../Modal/ModalWrapper';
+import { ModalContent } from '../PostTop/MoreModal/styles';
+import ModalBackground from '../Modal/styles/ModalBackground';
+import ModalWrapper from '../Modal/styles/ModalWrapper';
 import { ModalHeaderText } from './styles';
 
 const modalWrapperStyle = {

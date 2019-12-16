@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-const AnnouncementMessageWrapper = styled.section`
+const Backdrop = styled.div`
   /* Layout */
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 10;
 
   /* Box */
   width: 100%;
   height: 100%;
 
-  h2 {
-    /* Font */
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
+  /* Background */
+  background-color: white;
 `;
 
-export default AnnouncementMessageWrapper;
+export default Backdrop;

@@ -2,20 +2,21 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
-  /* 공통 스타일 */
+  /* Layout */
   display: inline-flex;
-  outline: none;
+
+  /* Box */
   border-radius: 3px;
   border-width: 1px;
   border-style: border;
-  font-weight: 600;
-  cursor: pointer;
   padding: 5px 9px;
+  outline: none;
 
-  /* 크기 */
+  /* Font */
+  font-weight: 600;
   font-size: 14px;
 
-  /* 색상 */
+  /* Color */
   ${({ theme, btnStyle }) => {
     const {
       white,
@@ -53,6 +54,9 @@ const StyledButton = styled.button`
       border: 1px solid ${borderColor};
     `;
   }}
+
+  /* Property */
+  cursor: pointer;
 `;
 
 function Button({ children, ...rest }) {
