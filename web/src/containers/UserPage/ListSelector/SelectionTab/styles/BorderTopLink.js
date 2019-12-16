@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import StyledLink from '../../../../components/StyledLink';
+import StyledLink from '../../../../../components/StyledLink';
 
 const selectedTheme = css`
   border-top: 1px solid black;
@@ -11,16 +11,23 @@ const unchosenTheme = css`
 `;
 
 const BorderTopLink = styled(StyledLink)`
-  ${({ isSelected }) => (isSelected ? selectedTheme : unchosenTheme)}
-  width: 52.141px;
-  margin-right: 60px;
+  /* Layout */
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  /* Box */
+  width: 52.141px;
+  margin-right: 60px;
+
+  /* Property */
   &:last-child {
     margin-right: 0px;
   }
+
+  /* Other */
+  ${({ isSelected }) => (isSelected ? selectedTheme : unchosenTheme)}
 `;
 
 export default BorderTopLink;

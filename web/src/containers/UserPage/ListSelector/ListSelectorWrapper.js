@@ -1,13 +1,14 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const ListSelectorWrapper = styled.div`
-  width: 935px;
-  height: 52px;
+  /* Layout */
   display: flex;
   justify-content: center;
-  ${({ theme }) => css`
-    border-top: 1px solid ${theme.palette.border};
-  `}
+
+  /* Box */
+  width: 935px;
+  height: 52px;
+  border-top: 1px solid ${({ theme }) => theme.palette.border};
 `;
 
 export default ListSelectorWrapper;

@@ -1,9 +1,9 @@
-import UserInfoWrapper from './UserInfoWrapper';
-import UserInfoHeader from './UserInfoHeader';
+import NameWrapper from './NameWrapper';
+import StyledFollowButton from './StyledFollowButton';
 import UserInfoBody from './UserInfoBody';
 import UserInfoFooter from './UserInfoFooter';
-import StyledFollowButton from './StyledFollowButton';
-import NameWrapper from './NameWrapper';
+import UserInfoHeader from './UserInfoHeader';
+import UserInfoWrapper from './UserInfoWrapper';
 
 export {
   UserInfoWrapper,
