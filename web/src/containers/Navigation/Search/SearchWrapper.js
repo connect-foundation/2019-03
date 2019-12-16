@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const SearchWrapper = styled.div`
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   border-radius: 5px;
@@ -15,6 +15,9 @@ const SearchWrapper = styled.div`
       border: 1px solid ${borderColor};
     `;
   }};
+  @media screen and (min-width: 600px) {
+    display: flex;
+  }
 `;
 
 export default SearchWrapper;

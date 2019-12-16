@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -16,6 +16,10 @@ function PostDetailPage({ match }) {
     variables: { postURL: match.params.postURL, id: myInfo.id },
     fetchPolicy: 'cache-and-network',
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (loading) return <Loading size={50} />;
   if (error) return <Error />;
