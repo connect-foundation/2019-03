@@ -17,11 +17,16 @@ const focused = css`
 `;
 
 const ItemWrapper = styled.li`
+  /* Box */
+  border-left: solid 2px transparent;
+
+  /* Property */
   &:hover {
     background-color: ${({ theme }) => theme.palette.gray_bright};
     border-left: solid 2px ${({ theme }) => theme.palette.border};
   }
-  border-left: solid 2px transparent;
+
+  /* Other */
   ${focused}
 `;
 export default ItemWrapper;

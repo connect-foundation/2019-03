@@ -1,20 +1,15 @@
-import styled, { css } from 'styled-components';
-
-const borderStyle = css`
-  ${({ theme }) =>
-    css`
-      border-right: 1px solid;
-      border-color: ${theme.palette.border};
-    `}
-`;
+import styled from 'styled-components';
 
 const ListWrapper = styled.ul`
-  flex: 0 0 236px;
+  /* Layout */
   list-style-type: none;
-  padding-inline-start: 0px;
+
+  /* Box */
+  flex: 0 0 236px;
   margin-block-start: 0px;
   margin-block-end: 0px;
-  ${borderStyle}
+  padding-inline-start: 0px;
+  border-right: 1px solid ${({ theme }) => theme.palette.border};
   box-sizing: border-box;
 `;
 export default ListWrapper;
