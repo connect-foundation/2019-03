@@ -8,8 +8,7 @@ const borderStyle = css`
 
 const SideBoxWrapper = styled.div`
   flex: 1 0 auto;
-  width: 335px;
-  height: ${({ theme }) => theme.post_length}px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

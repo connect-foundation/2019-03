@@ -15,9 +15,9 @@ const NavBackground = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
   @media screen and (min-width: 600px) {
     padding: 0px 20%;
-    width: 100%;
   }
 `;
 
