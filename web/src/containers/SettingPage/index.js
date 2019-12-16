@@ -21,6 +21,7 @@ function SettingPage({ match, myInfo, pageList }) {
       <List match={match} focusedItem={focusedItem} pageList={pageList} />
       {pageList.map(({ url, PageComponent }) => (
         <Route
+          key={url}
           exact
           path={`${match.path}/${url}`}
           component={props => (

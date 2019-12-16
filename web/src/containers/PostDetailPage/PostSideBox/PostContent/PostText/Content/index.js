@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ContentWrapper, StyledTime } from './styles';
+import { ContentWrapper } from './styles';
 import StyledLink from '../../../../../../components/StyledLink';
 import TimePassed from '../../../../../../components/TimePassed';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DEFAULT_LENGTH = 600;
+const DEFAULT_LENGTH = 650;
 
 const CropContainer = styled.div`
   position: relative;

@@ -12,12 +12,6 @@ const Content = styled.textarea.attrs({
   padding: 10px;
   font-size: 14px;
   resize: vertical;
-
-  &:empty::before {
-    content: '본문 입력...';
-    font-size: 14px;
-    color: ${({ theme }) => theme.palette.gray_font};
-  }
 `;
 
 export default Content;

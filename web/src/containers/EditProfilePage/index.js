@@ -100,7 +100,7 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
           rightComponent={
             <div>
               <Username>{myInfo.username}</Username>
-              <UpdateProfile for="select_file">
+              <UpdateProfile htmlFor="select_file">
                 프로필 사진 바꾸기
               </UpdateProfile>
               <FileInput onChange={changeProfile} />
