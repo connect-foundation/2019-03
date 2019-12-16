@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import StyledLink from '../../../../components/StyledLink';
 
 const AllCommentShowTextSpan = styled.span`
+  /* Box */
   margin-left: 15px;
   padding: 0px;
-
   line-height: 1;
+
+  /* Font */
   font-size: 0.8rem;
   color: ${({ theme }) => theme.palette.gray_font};
 `;

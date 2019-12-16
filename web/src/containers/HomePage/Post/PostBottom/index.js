@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AllCommentShowText } from './styles';
+import AllCommentShowText from './AllCommentShowText';
 import { Comment, MainText } from '../PostText';
 import TimePassed from '../../../../components/TimePassed';
 

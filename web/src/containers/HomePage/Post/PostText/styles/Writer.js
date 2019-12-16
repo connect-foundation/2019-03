@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import StyledLink from '../../../../components/StyledLink';
+import StyledLink from '../../../../../components/StyledLink';
 
 const Writer = styled(StyledLink)`
+  /* Box */
   margin-right: 8px;
-  font-weight: 600;
 
+  /* Font */
+  font-weight: 600;
   align-self: flex-start;
 `;
 
