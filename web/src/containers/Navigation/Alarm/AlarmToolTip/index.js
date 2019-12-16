@@ -1,6 +1,6 @@
 import React from 'react';
-import { AlarmToolTipWrapper, AlarmResultList, AlarmNoResult } from './styles';
-
+import { AlarmToolTipWrapper, AlarmNoResult } from './styles';
+import AlarmResultList from './AlarmResultList';
 const ARROW_MOVEMENT = '85%';
 
 const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
