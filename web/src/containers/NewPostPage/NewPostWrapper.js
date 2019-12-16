@@ -6,24 +6,18 @@ const NewPostWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  .section {
-    margin: 10px;
-  }
-
+  margin-top: -50px;
   .toast-body {
     color: black;
     margin-left: 10px;
   }
 
-  .crop-container {
-    position: relative;
-    width: 650px;
-    height: 650px;
-  }
-
   .controls {
     width: 20%;
+  }
+
+  @media screen and (min-width: 600px) {
+    margin-top: 0px;
   }
 `;
 

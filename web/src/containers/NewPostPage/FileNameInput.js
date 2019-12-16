@@ -4,6 +4,7 @@ const FileNameInput = styled.input.attrs({
   type: 'text',
   disabled: 'disabled',
 })`
+  flex: 1 1 auto;
   display: inline-flex;
   outline: none;
   border: 1px solid ${({ theme }) => theme.palette.border};

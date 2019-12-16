@@ -5,17 +5,21 @@ import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { isFileTypeImage } from '../../utils/fileUtils';
 import makeNewImageFile from './lib/makeNewImageFile';
 import useImage from './hooks/useImage';
 import Loading from '../../components/Loading';
 import Button from '../../components/Button';
+
 import {
   NewPostWrapper,
   Content,
   FileSelectLabel,
   FileInput,
   FileNameInput,
+  StyledSection,
+  CropContainer,
 } from './styles';
 import { UPLOAD_POST, FOLLOWING_POST_LIST } from '../../queries';
 import UserContext from '../App/UserContext';
@@ -124,14 +128,14 @@ const NewPostPage = () => {
   return (
     <NewPostWrapper>
       {loading && <Loading size={50} />}
-      <div className="section">
+      <StyledSection>
         <FileNameInput value={state.originalImage.name} />
         <FileSelectLabel htmlFor="select_file">파일선택</FileSelectLabel>
         <FileInput onChange={inputImage} />
-      </div>
+      </StyledSection>
       {state.originalImage && (
         <>
-          <div className="crop-container">
+          <CropContainer>
             <Cropper
               minZoom={MIN_ZOOM}
               image={state.originalImageUrl}
@@ -144,7 +148,7 @@ const NewPostPage = () => {
               onZoomChange={changeZoom}
               cropSize={{ width: CROP_SIZE, height: CROP_SIZE }}
             />
-          </div>
+          </CropContainer>
           <div className="controls">
             <Slider
               value={state.zoom}
@@ -157,14 +161,14 @@ const NewPostPage = () => {
           </div>
         </>
       )}
-      <div className="section">
+      <StyledSection>
         <Content onChange={changeContent} value={content} />
-      </div>
-      <div className="section">
+      </StyledSection>
+      <StyledSection>
         <Button type="button" onClick={post} btnStyle="primary">
           게시
         </Button>
-      </div>
+      </StyledSection>
       <ToastContainer
         autoClose={false}
         position={toast.POSITION.BOTTOM_CENTER}

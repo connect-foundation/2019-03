@@ -8,7 +8,7 @@ const Content = styled.textarea.attrs({
   border: 1px solid ${({ theme }) => theme.palette.border};
   border-radius: 5px;
   outline: none;
-  width: 400px;
+  width: 100%;
   padding: 10px;
   font-size: 14px;
   resize: vertical;
