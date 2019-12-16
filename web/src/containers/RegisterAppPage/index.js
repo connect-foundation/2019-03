@@ -78,12 +78,12 @@ const ClientRegistration = ({ setItem }) => {
       <InputRow
         required
         label="client type"
-        rightComponent={(
+        rightComponent={
           <Select name="type" onBlur={onBlur}>
             <option value="web-server-app">web-server-app</option>
             <option value="single-page-app">single-page-app</option>
           </Select>
-        )}
+        }
       />
 
       <InputRow
@@ -95,12 +95,12 @@ const ClientRegistration = ({ setItem }) => {
       <InputRow
         required
         label="redirection url"
-        rightComponent={(
+        rightComponent={
           <section>
             <Input name="redirectionURI" onBlur={onBlur} />
             <Span>반드시 full url을 적어주세요.</Span>
           </section>
-        )}
+        }
       />
 
       <InputRow
