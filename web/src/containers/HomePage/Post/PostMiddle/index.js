@@ -7,13 +7,9 @@ import { updatedPostList } from '../../../../utils/LikeHandler';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
-import {
-  CommentIcon,
-  IconGroup,
-  IconWrapper,
-  PostImage,
-  PostMiddleWrapper,
-} from './styles';
+import CommentIcon from './CommentIcon';
+import PostMiddleWrapper from './PostMiddleWrapper';
+import { IconGroup, IconWrapper, PostImage } from './styles';
 
 const PostMiddle = ({ myInfo, post }) => {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {

@@ -7,12 +7,8 @@ import Icon from '../../../../components/Icon';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
-import {
-  UtilityBlockWrapper,
-  IconList,
-  IconWrapper,
-  TimePassed,
-} from './styles';
+import TimePassed from '../../../../components/TimePassed';
+import { UtilityBlockWrapper, IconList, IconWrapper } from './styles';
 
 function UtilityBlock({ myInfo, post }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
@@ -71,7 +67,7 @@ function UtilityBlock({ myInfo, post }) {
         diff={isLikeClicked - isLike}
         likerInfo={likerInfo}
       />
-      <TimePassed>1일 전</TimePassed>
+      <TimePassed updatedAt={post.updatedAt} />
     </UtilityBlockWrapper>
   );
 }

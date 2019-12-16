@@ -1,16 +1,16 @@
 import React from 'react';
-import { InputRowWrapper, StyledLabel, StyledAside } from './styles';
+import { InputRowWrapper, Label, Aside } from './styles';
 
 function InputRow({ label, customComponent, rightComponent, required }) {
   const leftComponent = (
-    <StyledAside>
+    <Aside>
       {label && (
-        <StyledLabel required={required} htmlFor={`pep${label}`}>
+        <Label required={required} htmlFor={`pep${label}`}>
           {label}
-        </StyledLabel>
+        </Label>
       )}
       {customComponent}
-    </StyledAside>
+    </Aside>
   );
 
   return (

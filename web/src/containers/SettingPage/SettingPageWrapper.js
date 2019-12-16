@@ -1,19 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-const borderStyle = css`
-  ${({ theme }) =>
-    css`
-      border: 1px solid;
-      border-color: ${theme.palette.border};
-      border-radius: 5px;
-    `}
-`;
 const SettingPageWrapper = styled.div`
-  background-color: white;
+  /* Layout */
   display: flex;
-  max-width: 935px;
+
+  /* Box */
   width: 100%;
+  max-width: 935px;
   margin: auto;
-  ${borderStyle}
+  border: 1px solid ${({ theme }) => theme.palette.border};
+
+  /* Background */
+  background-color: white;
 `;
 export default SettingPageWrapper;

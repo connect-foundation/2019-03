@@ -10,11 +10,11 @@ import {
   SignLink as SignInLink,
   Background,
   Title,
+  ValidationMessage,
 } from '../styles';
 import Icon from '../../../components/Icon';
 import constants from '../constants';
 import { onSignUpSubmitHandler } from '../lib';
-import ValidationMessage from '../ValidationMessage';
 
 const {
   LOGO_STYLE,

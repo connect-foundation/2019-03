@@ -6,14 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import List from './List';
 import SettingPageWrapper from './SettingPageWrapper';
 
-/**
- *
- * pageList = {
- *  url,
- *  PageComponent,
- * }
- */
-
 function SettingPage({ match, myInfo, pageList }) {
   const [focusedItem, setFocusedItem] = useState(null);
   return (

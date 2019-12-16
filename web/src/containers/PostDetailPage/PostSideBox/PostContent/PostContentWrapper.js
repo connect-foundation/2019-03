@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const PostContentWrapper = styled.div`
-  flex: 1 1 400px;
+  /* Layout */
   overflow: auto;
+
+  /* Box */
+  flex: 1 1 400px;
 `;
 
 export default PostContentWrapper;

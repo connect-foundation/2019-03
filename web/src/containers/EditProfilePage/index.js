@@ -11,8 +11,7 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import Loading from '../../components/Loading';
 import ProfileIcon from '../../components/ProfileIcon';
-import Username from './Username';
-import UpdateProfile from './UpdateProfile';
+import { Username, UpdateProfile } from './styles';
 
 import { isFileTypeImage } from '../../utils/fileUtils';
 import { UPDATE_USER, UPDATE_PROFILE } from '../../queries';

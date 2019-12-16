@@ -1,6 +1,6 @@
-import LikerInfoWrapper from './LikerInfoWrapper';
-import LikerWrapper from './LikerWrapper';
-import FollowButton from './FollowButton';
+import LikerInfoWrapper from './styles/LikerInfoWrapper';
+import LikerWrapper from './styles/LikerWrapper';
+import FollowButton from './styles/FollowButton';
 import { Username, Name } from './LikerInfo';
 
 export { LikerInfoWrapper, LikerWrapper, FollowButton, Username, Name };

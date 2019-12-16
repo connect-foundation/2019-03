@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SelectionTab from './SelectionTab';
-import { ListSelectorWrapper } from './styles';
+import ListSelectorWrapper from './ListSelectorWrapper';
 
 const ListSelector = ({ username }) => {
   return (

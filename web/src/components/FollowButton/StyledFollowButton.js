@@ -18,18 +18,27 @@ const followingButtonCSS = css`
 `;
 
 const StyledFollowButton = styled.button`
+  /* Layout */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* Box */
   padding: 0 24px;
-  cursor: pointer;
   border-radius: 3px;
   border-style: solid;
   border-width: 1px;
+
+  /* Font */
   font-size: 14px;
   font-weight: 600;
   line-height: 26px;
   outline: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  /* Other */
   ${({ status }) => (status === null ? followButtonCSS : followingButtonCSS)}
+
+  /* Property */
+  cursor: pointer;
 `;
 
 export default StyledFollowButton;
