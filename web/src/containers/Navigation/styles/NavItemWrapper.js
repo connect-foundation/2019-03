@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-const ItemGroup = styled.div`
+const ItemWrapper = styled.div`
   /* Layout */
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  width: 800px;
 `;
 
-export default ItemGroup;
+export default ItemWrapper;

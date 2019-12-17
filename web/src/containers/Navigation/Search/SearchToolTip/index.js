@@ -2,9 +2,13 @@ import React, { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { SEARCH } from '../../../../queries';
-import { SearchToolTipWrapper, SearchNoResult } from './styles';
+import { SearchNoResult } from './styles';
 import SearchResultList from './SearchResultList';
 import Spinner from '../../../../components/Spinner';
+import ToolTip from '../../../../components/ToolTip';
+
+const ARROW_MOVE_RANGE = '50%';
+const BODY_MOVE_RANGE = '-15%';
 
 const SearchToolTip = ({ inputValue, clickClear }) => {
   const [search, { data }] = useLazyQuery(SEARCH);
@@ -14,26 +18,38 @@ const SearchToolTip = ({ inputValue, clickClear }) => {
   }, [inputValue, search]);
   if (!data)
     return (
-      <SearchToolTipWrapper onClick={clickClear}>
+      <ToolTip
+        onClick={clickClear}
+        arrowStyle={{ left: ARROW_MOVE_RANGE }}
+        bodyStyle={{ left: BODY_MOVE_RANGE }}
+      >
         <SearchNoResult>
           <Spinner />
         </SearchNoResult>
-      </SearchToolTipWrapper>
+      </ToolTip>
     );
   const { search: searchResults } = data;
   if (searchResults.length === 0) {
     return (
-      <SearchToolTipWrapper onClick={clickClear}>
+      <ToolTip
+        onClick={clickClear}
+        arrowStyle={{ left: ARROW_MOVE_RANGE }}
+        bodyStyle={{ left: BODY_MOVE_RANGE }}
+      >
         <SearchNoResult>
           <span>검색 결과가 없습니다.</span>
         </SearchNoResult>
-      </SearchToolTipWrapper>
+      </ToolTip>
     );
   }
   return (
-    <SearchToolTipWrapper onClick={clickClear}>
+    <ToolTip
+      onClick={clickClear}
+      arrowStyle={{ left: ARROW_MOVE_RANGE }}
+      bodyStyle={{ left: BODY_MOVE_RANGE }}
+    >
       <SearchResultList searchResults={searchResults} clickClose={clickClear} />
-    </SearchToolTipWrapper>
+    </ToolTip>
   );
 };
 

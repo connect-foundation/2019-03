@@ -23,7 +23,7 @@ const Alarm = ({ myInfo }) => {
       <Icon
         name="emptyhHeart"
         onClick={clickAlarmIcon}
-        style={{ marginTop: '5px' }}
+        style={{ marginTop: '5px', marginRight: '10px' }}
       />
       <AlarmToolTip
         isVisible={isVisible}

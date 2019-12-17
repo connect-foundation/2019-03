@@ -30,7 +30,7 @@ const client = new ApolloClient({
 const GlobalStyle = createGlobalStyle`
     body {
         padding: 0;
-        margin: 0;
+        margin: 0 auto;
         background-color:#fafafa;
     }
 `;

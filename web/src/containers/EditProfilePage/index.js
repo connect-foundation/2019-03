@@ -46,11 +46,10 @@ function EditProfilePage({ setItem, cookies }) {
     const result = await updateProfile({
       variables: { file: e.target.files[0], userId: myInfo.id },
     });
-    const cookieInfo = cookies.get('myInfo');
     cookies.set(
       'myInfo',
       {
-        ...cookieInfo,
+        ...myInfo,
         profileImage: result.data.updateProfile,
       },
       { path: '/' },
