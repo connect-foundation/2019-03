@@ -12,7 +12,7 @@ import Error from '../../components/Error';
 function PostDetailPage({ match, cookies }) {
   const myInfo = cookies.get('myInfo');
   const { loading, error, data } = useQuery(READ_POST, {
-    variables: { postURL: match.params.postURL, id: myInfo.id },
+    variables: { postURL: match.params.postURL, UserId: myInfo.id },
     fetchPolicy: 'cache-and-network',
   });
 
@@ -26,12 +26,12 @@ function PostDetailPage({ match, cookies }) {
   const { post } = data;
 
   return (
-      <ThemeProvider theme={{ post_length: 600 }}>
-        <PostDetailPageWrapper>
-          <ViewPort img={post.imageURL} />
-          <PostSideBox post={post} />
-        </PostDetailPageWrapper>
-      </ThemeProvider>
+    <ThemeProvider theme={{ post_length: 600 }}>
+      <PostDetailPageWrapper>
+        <ViewPort img={post.imageURL} />
+        <PostSideBox post={post} />
+      </PostDetailPageWrapper>
+    </ThemeProvider>
   );
 }
 

@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 const READ_POST = gql`
-  query Post($postURL: String!, $id: ID) {
-    post(postURL: $postURL, id: $id) {
+  query Post($postURL: String, $UserId: ID, $id: ID) {
+    post(postURL: $postURL, UserId: $UserId, id: $id) {
       id
       imageURL
       postURL
@@ -15,14 +15,6 @@ const READ_POST = gql`
         username
         isFollow
         profileImage
-      }
-      commentCount
-      commentList {
-        id
-        content
-        writer {
-          username
-        }
       }
       likerInfo {
         likerCount

@@ -5,7 +5,7 @@ const detailPostCacheObj = (post, myInfo) => {
     query: READ_POST,
     variables: {
       postURL: post.postURL,
-      id: myInfo.id,
+      UserId: myInfo.id,
     },
   };
 };

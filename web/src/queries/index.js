@@ -1,7 +1,6 @@
 import UPLOAD_POST from './uploadPost';
 import FOLLOWING_POST_LIST from './followingPostList';
 import READ_POST from './readPost';
-import READ_POST_SIMPLE from './readPostSimple';
 import UPDATE_POST from './updatePost';
 import DELETE_POST from './deletePost';
 import COMMENT_LIST from './commentList';
@@ -21,7 +20,6 @@ export {
   DELETE_POST_LIKE,
   COMMENT_LIST,
   READ_POST,
-  READ_POST_SIMPLE,
   UPDATE_USER,
   LIKER_LIST,
   GET_LOGS,
