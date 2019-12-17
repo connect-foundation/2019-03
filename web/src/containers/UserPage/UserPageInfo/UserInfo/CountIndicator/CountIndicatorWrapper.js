@@ -23,7 +23,7 @@ const CountIndicatorWrapper = styled.ul`
     /* Font */
     font-size: 16px;
   }
-  li div {
+  li > span {
     /* Layout */
     display: inline;
     vertical-align: baseline;
@@ -33,7 +33,7 @@ const CountIndicatorWrapper = styled.ul`
     padding: 0;
     border: 0;
   }
-  li > div > div {
+  li > span > span {
     /* Font */
     font-weight: 600;
   }
