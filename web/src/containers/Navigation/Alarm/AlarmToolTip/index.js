@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlarmToolTipWrapper, AlarmNoResult } from './styles';
 import AlarmResultList from './AlarmResultList';
+
 const ARROW_MOVEMENT = '85%';
 
 const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
@@ -23,6 +24,7 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
     if (log.length === 0) {
       content = <span>새로운 알림이 없습니다.</span>;
     } else {
+      console.log(data);
       resultList = (
         <AlarmResultList
           alarmResults={log}

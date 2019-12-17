@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AlarmResultWrapper from '../AlarmResult/AlarmResultWrapper';
+import { AlarmResultWrapper } from '../AlarmResult/styles';
 
 const AlarmNoResult = styled(AlarmResultWrapper)`
   /* Layout */
