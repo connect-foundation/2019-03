@@ -20,7 +20,7 @@ const postListCacheObj = myInfo => {
   };
 };
 
-const updateDetailPost = ({ cache, post, myInfo }) => {
+const updateLikeOnDetailPost = ({ cache, post, myInfo }) => {
   const cacheObj = detailPostCacheObj(post, myInfo);
   const { post: postBeforeUpdate } = cache.readQuery(cacheObj);
   const postAfterUpdate = { ...postBeforeUpdate };
@@ -33,7 +33,7 @@ const updateDetailPost = ({ cache, post, myInfo }) => {
   });
 };
 
-const updatedPostList = ({ cache, targetId, myInfo }) => {
+const updateLikeOnPostList = ({ cache, targetId, myInfo }) => {
   const cacheObj = postListCacheObj(myInfo);
   const { followingPostList: postListBeforeUpdate } = cache.readQuery(cacheObj);
   const postListAfterUpdate = [...postListBeforeUpdate];
@@ -50,4 +50,4 @@ const updatedPostList = ({ cache, targetId, myInfo }) => {
   });
 };
 
-export { updateDetailPost, updatedPostList };
+export { updateLikeOnDetailPost, updateLikeOnPostList };
