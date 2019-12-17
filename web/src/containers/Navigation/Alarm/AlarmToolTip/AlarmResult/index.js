@@ -15,11 +15,7 @@ const AlarmResult = ({ result, isLast, clickClose }) => {
       <b>{result.fromUser.username}</b>
     </StyledLink>
   );
-  let action = (
-    <StyledLink to={`/p/${result.post.postURL}`}>
-      <img src={result.post.imageURL} alt="none" />
-    </StyledLink>
-  );
+  let action;
 
   let content;
   switch (result.status) {
@@ -33,10 +29,20 @@ const AlarmResult = ({ result, isLast, clickClose }) => {
       break;
     case 'like':
       content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
+      action = (
+        <StyledLink to={`/p/${result.post.postURL}`}>
+          <img src={result.post.imageURL} alt="none" />
+        </StyledLink>
+      );
       break;
     case 'comment':
       content = (
         <span>{commonContent}님이 회원님의 게시물에 댓글을 남겼습니다.</span>
+      );
+      action = (
+        <StyledLink to={`/p/${result.post.postURL}`}>
+          <img src={result.post.imageURL} alt="none" />
+        </StyledLink>
       );
       break;
     default:
