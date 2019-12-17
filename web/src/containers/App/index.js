@@ -1,9 +1,9 @@
-import React, { useState, Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { withCookies } from 'react-cookie';
-import { useQuery } from '@apollo/react-hooks';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
+
 import gql from 'graphql-tag';
 
 import AppWrapper from './AppWrapper';

@@ -7,7 +7,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { createGlobalStyle } from 'styled-components';
 import { CookiesProvider } from 'react-cookie';
 import { createUploadLink } from 'apollo-upload-client';
-import gql from 'graphql-tag';
 import App from './containers/App';
 
 const cache = new InMemoryCache();
