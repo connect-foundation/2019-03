@@ -1,19 +1,19 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import 'intersection-observer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { withCookies } from 'react-cookie';
 
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
-import UserContext from '../App/UserContext';
 import NoFollowing from './NoFollowing';
 
 const LIMIT = 5;
-function HomePage() {
-  const { myInfo } = useContext(UserContext);
+function HomePage({cookies}) {
+  const myInfo = cookies.get('myInfo');
   const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
@@ -115,4 +115,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default withCookies(HomePage);

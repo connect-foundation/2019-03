@@ -1,14 +1,14 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
+import { withCookies } from 'react-cookie';
 
 import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
 import CommentInput from './CommentInput';
 import UtilityBlock from './UtilityBlock';
-import UserContext from '../../App/UserContext';
 
-function SideBox({ post }) {
-  const { myInfo } = useContext(UserContext);
+function SideBox({ post, cookies }) {
+  const myInfo = cookies.get('myInfo');
   const scrollRef = useRef(null);
   return (
     <SideBoxWrapper>
@@ -24,4 +24,4 @@ function SideBox({ post }) {
   );
 }
 
-export default SideBox;
+export default withCookies(SideBox);

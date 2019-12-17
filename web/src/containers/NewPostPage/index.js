@@ -1,10 +1,11 @@
-import React, { useCallback, useState, useContext } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import React, { useCallback, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { withCookies } from 'react-cookie';
 
 import { isFileTypeImage } from '../../utils/fileUtils';
 import makeNewImageFile from './lib/makeNewImageFile';
@@ -22,15 +23,15 @@ import {
   CropContainer,
 } from './styles';
 import { UPLOAD_POST, FOLLOWING_POST_LIST } from '../../queries';
-import UserContext from '../App/UserContext';
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const ZOOM_STEP = 0.1;
 const CROP_SIZE = 615;
 
-const NewPostPage = () => {
-  const { myInfo } = useContext(UserContext);
+
+const NewPostPage = ({ cookies }) => {
+  const myInfo = cookies.get('myInfo');
   const [uploadPostMutation] = useMutation(UPLOAD_POST, {
     update(cache, { data: { createPost } }) {
       const { followingPostList } = cache.readQuery({
@@ -179,4 +180,4 @@ const NewPostPage = () => {
   );
 };
 
-export default NewPostPage;
+export default withCookies(NewPostPage);
