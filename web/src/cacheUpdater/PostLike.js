@@ -1,24 +1,4 @@
-import { READ_POST, FOLLOWING_POST_LIST } from '../queries';
-
-const detailPostCacheObj = (post, myInfo) => {
-  return {
-    query: READ_POST,
-    variables: {
-      postURL: post.postURL,
-      id: myInfo.id,
-    },
-  };
-};
-
-const postListCacheObj = myInfo => {
-  return {
-    query: FOLLOWING_POST_LIST,
-    variables: {
-      myId: myInfo.id,
-      limit: 5,
-    },
-  };
-};
+import { detailPostCacheObj, postListCacheObj } from './CacheObj';
 
 const updateLikeOnDetailPost = ({ cache, post, myInfo }) => {
   const cacheObj = detailPostCacheObj(post, myInfo);

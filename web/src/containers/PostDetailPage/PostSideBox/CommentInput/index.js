@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
-import { CREATE_COMMENT, COMMENT_LIST } from '../../../../queries';
+import { createCommentOnDetailPost } from '../../../../cacheUpdater';
+import { CREATE_COMMENT } from '../../../../queries';
 import Loading from '../../../../components/Loading';
 
 import {
@@ -12,26 +13,14 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ PostId, writer, scrollRef, cookies }) {
+function CommentInput({ post, writer, scrollRef, cookies }) {
   const myInfo = cookies.get('myInfo');
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
-      const { commentList } = cache.readQuery({
-        query: COMMENT_LIST,
-        variables: {
-          PostId,
-          offset: 0,
-          limit: 5,
-        },
-      });
-      cache.writeQuery({
-        query: COMMENT_LIST,
-        variables: {
-          PostId,
-          offset: 0,
-          limit: 5,
-        },
-        data: { commentList: [createComment].concat(commentList) },
+      createCommentOnDetailPost({
+        cache,
+        createdComment: createComment,
+        PostId: +post.id,
       });
     },
   });
@@ -52,7 +41,7 @@ function CommentInput({ PostId, writer, scrollRef, cookies }) {
       variables: {
         content: text,
         WriterId: writer.id,
-        PostId,
+        PostId: +post.id,
         UserId: myInfo.id,
       },
     });

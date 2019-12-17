@@ -15,11 +15,7 @@ function SideBox({ post, cookies }) {
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
       <PostContent post={post} scrollRef={scrollRef} />
       <UtilityBlock myInfo={myInfo} post={post} />
-      <CommentInput
-        PostId={+post.id}
-        writer={post.writer}
-        scrollRef={scrollRef}
-      />
+      <CommentInput post={post} writer={post.writer} scrollRef={scrollRef} />
     </SideBoxWrapper>
   );
 }
