@@ -1,4 +1,4 @@
 import AlarmToolTipWrapper from './AlarmToolTipWrapper';
-import AlarmNoResult from '../AlarmResultList'
+import AlarmNoResult from './AlarmNoResult';
 
 export { AlarmToolTipWrapper, AlarmNoResult };
