@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
-import { updateCommentListCacheOfPostList } from '../../../../cacheUpdater';
-import { CREATE_COMMENT } from '../../../../queries';
-import Loading from '../../../../components/Loading';
+import { CREATE_COMMENT } from '../../queries';
+import Loading from '../Loading';
 
 import {
   StyledForm,
@@ -13,15 +12,21 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ PostId, writer, cookies }) {
+function CommentInput({
+  post,
+  writer,
+  cookies,
+  scrollRef,
+  updateCommentListCache,
+}) {
   const myInfo = cookies.get('myInfo');
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
-      updateCommentListCacheOfPostList({
+      updateCommentListCache({
         cache,
         myInfo,
         createdComment: createComment,
-        PostId,
+        PostId: +post.id,
       });
     },
   });
@@ -37,11 +42,12 @@ function CommentInput({ PostId, writer, cookies }) {
   const submitHandler = e => {
     e.preventDefault();
     if (loading) return;
+    if (scrollRef) scrollRef.current.scrollTo(0, 0);
     addComment({
       variables: {
         content: text,
         WriterId: writer.id,
-        PostId,
+        PostId: +post.id,
         UserId: myInfo.id,
       },
     });

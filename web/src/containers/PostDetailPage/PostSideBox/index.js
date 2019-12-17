@@ -4,8 +4,9 @@ import { withCookies } from 'react-cookie';
 import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
-import CommentInput from './CommentInput';
+import CommentInput from '../../../components/CommentInput';
 import UtilityBlock from './UtilityBlock';
+import { updateCommentListCacheOfDetailPost } from '../../../cacheUpdater';
 
 function SideBox({ post, cookies }) {
   const myInfo = cookies.get('myInfo');
@@ -15,7 +16,12 @@ function SideBox({ post, cookies }) {
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
       <PostContent post={post} scrollRef={scrollRef} />
       <UtilityBlock myInfo={myInfo} post={post} />
-      <CommentInput post={post} writer={post.writer} scrollRef={scrollRef} />
+      <CommentInput
+        post={post}
+        writer={post.writer}
+        scrollRef={scrollRef}
+        updateCommentListCache={updateCommentListCacheOfDetailPost}
+      />
     </SideBoxWrapper>
   );
 }
