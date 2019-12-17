@@ -1,30 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { gql } from 'apollo-boost';
+import { useLazyQuery } from '@apollo/react-hooks';
 
-import StyledLink from '../../../../../components/StyledLink';
-import CountIndicatorWrapper from './CountIndicatorWrapper';
+import UserListModal from '../../../../../components/UserListModal';
+import { CountIndicatorWrapper, FollowIndicatorWrapper } from './styles';
 
-const CountIndicator = ({ data }) => {
+const CountIndicator = ({ data, myId }) => {
+  const FOLLOWER_LIST = gql`
+    query FollowerList($myId: Int!, $userId: Int!) {
+      followerList(myId: $myId, userId: $userId) {
+        id
+        name
+        username
+        profileImage
+        isFollow
+      }
+    }
+  `;
+  const FOLLOW_LIST = gql`
+    query FollowList($myId: Int!, $userId: Int!) {
+      followList(myId: $myId, userId: $userId) {
+        id
+        name
+        username
+        profileImage
+        isFollow
+      }
+    }
+  `;
+  const lazyQueryOption = {
+    variables: { myId, userId: data.id },
+    fetchPolicy: 'cache-and-network',
+  };
+  const [loadFollowerList, followerResult] = useLazyQuery(
+    FOLLOWER_LIST,
+    lazyQueryOption,
+  );
+  const [loadFollowList, followResult] = useLazyQuery(
+    FOLLOW_LIST,
+    lazyQueryOption,
+  );
+
+  const [isFollowerModalVisible, setIsFollowerModalVisible] = useState(false);
+  const [isFollowModalVisible, setIsFollowModalVisible] = useState(false);
+
+  const onFollowerClick = async () => {
+    await loadFollowerList();
+    setIsFollowerModalVisible(curVisibleState => !curVisibleState);
+  };
+  const onFollowClick = async () => {
+    await loadFollowList();
+    setIsFollowModalVisible(curVisibleState => !curVisibleState);
+  };
+
   return (
     <CountIndicatorWrapper>
       <li>
-        <div>
-          게시물 <div>{data.postNumber}</div>
-        </div>
+        <span>
+          게시물 <span>{data.postNumber}</span>
+        </span>
       </li>
-      <StyledLink>
-        <li>
-          <div>
-            팔로워 <div>{data.followersNum}</div>
-          </div>
-        </li>
-      </StyledLink>
-      <StyledLink>
-        <li>
-          <div>
-            팔로우 <div>{data.followsNum}</div>
-          </div>
-        </li>
-      </StyledLink>
+      <li>
+        <FollowIndicatorWrapper onClick={onFollowerClick}>
+          팔로워 <span>{data.followersNum}</span>
+        </FollowIndicatorWrapper>
+        <UserListModal
+          myId={myId}
+          isVisible={isFollowerModalVisible}
+          onClick={onFollowerClick}
+          lazyQueryResult={followerResult}
+          listName="팔로워"
+        />
+      </li>
+      <li>
+        <FollowIndicatorWrapper onClick={onFollowClick}>
+          팔로우 <span>{data.followsNum}</span>
+        </FollowIndicatorWrapper>
+        <UserListModal
+          myId={myId}
+          isVisible={isFollowModalVisible}
+          onClick={onFollowClick}
+          lazyQueryResult={followResult}
+          listName="팔로우"
+        />
+      </li>
     </CountIndicatorWrapper>
   );
 };

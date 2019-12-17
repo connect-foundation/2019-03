@@ -49,7 +49,7 @@ const UserInfo = ({
         {button}
       </UserInfoHeader>
       <UserInfoBody>
-        <CountIndicator data={data} />
+        <CountIndicator data={data} myId={myId} />
       </UserInfoBody>
       <UserInfoFooter>
         <NameWrapper>{data.name}</NameWrapper>
