@@ -4,13 +4,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 
 import { ModalContent, StyledLink, Modal } from './styles';
-import { DELETE_POST } from './queries';
-import { FOLLOWING_POST_LIST } from '../../../queries';
+import { DELETE_POST, FOLLOWING_POST_LIST } from '../../../queries';
 
 const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   const [redirect, setRedirect] = useState(false);
   const [deletePost] = useMutation(DELETE_POST, {
-    update(cache, { data: { deletePost } }) {
+    update(cache, { data: { deletePost: deletedPost } }) {
       const { followingPostList } = cache.readQuery({
         query: FOLLOWING_POST_LIST,
         variables: {
@@ -28,7 +27,7 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
         },
         data: {
           followingPostList: followingPostList.filter(
-            post => post.postURL !== deletePost.postURL,
+            post => post.postURL !== deletedPost.postURL,
           ),
         },
       });
