@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-const ItemGroup = styled.div`
+const NavCenterItemGroup = styled.div`
   /* Layout */
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex: 1;
+  justify-content: center;
 `;
 
-export default ItemGroup;
+export default NavCenterItemGroup;
