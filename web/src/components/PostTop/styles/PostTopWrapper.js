@@ -18,7 +18,6 @@ const PostTopWrapper = styled.header`
     const borderColor = theme.palette.border;
     return css`
       border-bottom: 1px solid ${borderColor};
-      background-color: ${theme.palette.white};
     `;
   }}
 

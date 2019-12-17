@@ -7,11 +7,13 @@ const postDetailQuery = {
   type: PostType,
   args: {
     id: { type: GraphQLID },
+    UserId: { type: GraphQLID },
     postURL: { type: GraphQLString },
   },
-  resolve: (_, { id, postURL }, context) => {
+  resolve: (_, { id, UserId, postURL }, context) => {
     // eslint-disable-next-line no-param-reassign
-    context.UserId = id;
+    context.UserId = UserId;
+    if (id) return Post.findByPk(id);
     return Post.findOne({
       where: { postURL },
     });

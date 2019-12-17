@@ -39,7 +39,7 @@ app.use('/account', require('./api/routes/account-route'));
 
 app.use(
   '/graphql',
-  isAuthenticated,
+  // isAuthenticated,
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema,

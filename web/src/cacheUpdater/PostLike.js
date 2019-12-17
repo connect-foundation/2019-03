@@ -1,26 +1,6 @@
-import { READ_POST, FOLLOWING_POST_LIST } from '../queries';
+import { detailPostCacheObj, postListCacheObj } from './CacheObj';
 
-const detailPostCacheObj = (post, myInfo) => {
-  return {
-    query: READ_POST,
-    variables: {
-      postURL: post.postURL,
-      id: myInfo.id,
-    },
-  };
-};
-
-const postListCacheObj = myInfo => {
-  return {
-    query: FOLLOWING_POST_LIST,
-    variables: {
-      myId: myInfo.id,
-      limit: 5,
-    },
-  };
-};
-
-const updateDetailPost = ({ cache, post, myInfo }) => {
+const updateLikeCacheOfDetailPost = ({ cache, post, myInfo }) => {
   const cacheObj = detailPostCacheObj(post, myInfo);
   const { post: postBeforeUpdate } = cache.readQuery(cacheObj);
   const postAfterUpdate = { ...postBeforeUpdate };
@@ -33,7 +13,7 @@ const updateDetailPost = ({ cache, post, myInfo }) => {
   });
 };
 
-const updatedPostList = ({ cache, targetId, myInfo }) => {
+const updateLikeCacheOfPostList = ({ cache, targetId, myInfo }) => {
   const cacheObj = postListCacheObj(myInfo);
   const { followingPostList: postListBeforeUpdate } = cache.readQuery(cacheObj);
   const postListAfterUpdate = [...postListBeforeUpdate];
@@ -50,4 +30,4 @@ const updatedPostList = ({ cache, targetId, myInfo }) => {
   });
 };
 
-export { updateDetailPost, updatedPostList };
+export { updateLikeCacheOfDetailPost, updateLikeCacheOfPostList };

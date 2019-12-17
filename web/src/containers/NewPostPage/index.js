@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
@@ -28,7 +28,6 @@ const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
 const ZOOM_STEP = 0.1;
 const CROP_SIZE = 615;
-
 
 const NewPostPage = ({ cookies }) => {
   const myInfo = cookies.get('myInfo');
