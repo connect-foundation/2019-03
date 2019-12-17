@@ -17,6 +17,7 @@ const UserListModal = ({
   let content = <li>{`${listName}의 `}내용이 없습니다.</li>;
   if (!isVisible) return <></>;
   if (loading) content = <Spinner size={spinnerSize} />;
+  if (error) content = <div>다시 시도해주세요.</div>;
   if (data) {
     const DataKeys = Object.keys(data);
     content = data[DataKeys[0]].map(user => (
