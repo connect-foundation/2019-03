@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
-import { updateLikeOnDetailPost } from '../../../../cacheUpdater';
+import { updateLikeCacheOfDetailPost } from '../../../../cacheUpdater';
 import Icon from '../../../../components/Icon';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
@@ -13,12 +13,12 @@ import { UtilityBlockWrapper, IconList, IconWrapper } from './styles';
 function UtilityBlock({ myInfo, post }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache) {
-      updateLikeOnDetailPost({ cache, post, myInfo });
+      updateLikeCacheOfDetailPost({ cache, post, myInfo });
     },
   });
   const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
     update(cache) {
-      updateLikeOnDetailPost({ cache, post, myInfo });
+      updateLikeCacheOfDetailPost({ cache, post, myInfo });
     },
   });
 

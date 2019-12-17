@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
-import { createCommentOnDetailPost } from '../../../../cacheUpdater';
+import { updateCommentListCacheOfDetailPost } from '../../../../cacheUpdater';
 import { CREATE_COMMENT } from '../../../../queries';
 import Loading from '../../../../components/Loading';
 
@@ -13,11 +13,11 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-function CommentInput({ post, writer, scrollRef, cookies }) {
+function CommentInput({ post, writer, cookies, scrollRef }) {
   const myInfo = cookies.get('myInfo');
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
-      createCommentOnDetailPost({
+      updateCommentListCacheOfDetailPost({
         cache,
         createdComment: createComment,
         PostId: +post.id,

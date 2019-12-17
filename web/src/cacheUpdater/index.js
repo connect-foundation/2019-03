@@ -1,9 +1,15 @@
-import { updateLikeOnDetailPost, updateLikeOnPostList } from './PostLike';
-import { createCommentOnDetailPost, createCommentOnPostList } from './Comment';
+import {
+  updateLikeCacheOfDetailPost,
+  updateLikeCacheOfPostList,
+} from './PostLike';
+import {
+  updateCommentListCacheOfPostList,
+  updateCommentListCacheOfDetailPost,
+} from './Comment';
 
 export {
-  updateLikeOnDetailPost,
-  updateLikeOnPostList,
-  createCommentOnDetailPost,
-  createCommentOnPostList,
+  updateLikeCacheOfDetailPost,
+  updateLikeCacheOfPostList,
+  updateCommentListCacheOfPostList,
+  updateCommentListCacheOfDetailPost,
 };

@@ -1,6 +1,11 @@
 import { commentListCacheObj, postListCacheObj } from './CacheObj';
 
-const createCommentOnPostList = ({ cache, myInfo, createdComment, PostId }) => {
+const updateCommentListCacheOfPostList = ({
+  cache,
+  myInfo,
+  createdComment,
+  PostId,
+}) => {
   const cacheObj = postListCacheObj(myInfo);
   const { followingPostList } = cache.readQuery(cacheObj);
   const changedFollowingPostList = [...followingPostList];
@@ -13,7 +18,11 @@ const createCommentOnPostList = ({ cache, myInfo, createdComment, PostId }) => {
   });
 };
 
-const createCommentOnDetailPost = ({ cache, createdComment, PostId }) => {
+const updateCommentListCacheOfDetailPost = ({
+  cache,
+  createdComment,
+  PostId,
+}) => {
   const cacheObj = commentListCacheObj({ PostId });
   const { commentList } = cache.readQuery(cacheObj);
   cache.writeQuery({
@@ -22,4 +31,4 @@ const createCommentOnDetailPost = ({ cache, createdComment, PostId }) => {
   });
 };
 
-export { createCommentOnPostList, createCommentOnDetailPost };
+export { updateCommentListCacheOfPostList, updateCommentListCacheOfDetailPost };

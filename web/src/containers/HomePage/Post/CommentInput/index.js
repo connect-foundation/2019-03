@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
+import { updateCommentListCacheOfPostList } from '../../../../cacheUpdater';
 import { CREATE_COMMENT } from '../../../../queries';
 import Loading from '../../../../components/Loading';
-import { createCommentOnPostList } from '../../../../cacheUpdater';
+
 import {
   StyledForm,
   StyledButton,
@@ -16,7 +17,7 @@ function CommentInput({ PostId, writer, cookies }) {
   const myInfo = cookies.get('myInfo');
   const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
-      createCommentOnPostList({
+      updateCommentListCacheOfPostList({
         cache,
         myInfo,
         createdComment: createComment,

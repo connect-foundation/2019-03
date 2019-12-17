@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
-import { updateLikeOnPostList } from '../../../../cacheUpdater';
+import { updateLikeCacheOfPostList } from '../../../../cacheUpdater';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
@@ -14,12 +14,12 @@ import { IconGroup, IconWrapper, PostImage } from './styles';
 const PostMiddle = ({ myInfo, post }) => {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache, { data: { createPostLike: targetId } }) {
-      updateLikeOnPostList({ cache, targetId, myInfo });
+      updateLikeCacheOfPostList({ cache, targetId, myInfo });
     },
   });
   const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
     update(cache, { data: { deletePostLike: targetId } }) {
-      updateLikeOnPostList({ cache, targetId, myInfo });
+      updateLikeCacheOfPostList({ cache, targetId, myInfo });
     },
   });
 
