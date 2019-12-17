@@ -5,6 +5,7 @@ const PostTopWrapper = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: stretch;
 
   /* Box */
   width: 100%;
@@ -28,12 +29,6 @@ const PostTopWrapper = styled.header`
     .username {
       margin-left: 10px;
     }
-  }
-
-  .more {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 `;
 
