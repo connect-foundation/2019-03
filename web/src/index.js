@@ -13,7 +13,7 @@ import App from './containers/App';
 const cache = new InMemoryCache();
 cache.writeData({
   data: {
-    isLoggedIn: !!localStorage.getItem('id'),
+    isLoggedIn: false,
   },
 });
 
