@@ -61,74 +61,65 @@ function App({ cookies }) {
 
   return (
     <AppWrapper>
-        <ThemeProvider
-          theme={{
-            palette: {
-              background: '#FAFAFA',
-              secondary: '#6C757D',
-              light: '#F8F9FA',
-              gray_bright: '#F5F5F5',
-              gray_font: '#999999',
-              border: '#e6e6e6',
-              border_secondary: '#dbdbdb',
-              white: '#FFFFFF',
-              blue: '#3897F1',
-              blue_facebook: '#375184',
-              pink: '#ee4957',
-            },
-          }}
-        >
-          <AuthRoute path="/" data={data}>
-            <Navigation myInfo={myInfo} />
-            <Suspense fallback={<Loading size={50} />}>
-              <Switch>
-                <Route path="/" exact component={HomePage} />
-                <Route path="/new/post" exact component={NewPostPage} />
-                <Route
-                  path="/edit/:postURL"
-                  exact
-                  component={props => (
-                    <EditPostPage {...props} myInfo={myInfo} />
-                  )}
-                />
-                <Route path="/p/:postURL" exact component={PostDetailPage} />
-                <Route path="/h/:hashTag" exact component={HashTagPage} />
-                <Route
-                  path="/setting"
-                  component={props => (
-                    <SettingPage
-                      {...props}
-                      pageList={settingPageList}
-                    />
-                  )}
-                />
-                <Route
-                  path="/:username"
-                  exact
-                  render={props => <UserPage {...props} myInfo={myInfo} />}
-                />
-              </Switch>
-            </Suspense>
-          </AuthRoute>
-          <AccountRoute path="/account" data={data}>
-            <Suspense fallback={<Loading size={50} />}>
+      <ThemeProvider
+        theme={{
+          palette: {
+            background: '#FAFAFA',
+            secondary: '#6C757D',
+            light: '#F8F9FA',
+            gray_bright: '#F5F5F5',
+            gray_font: '#999999',
+            border: '#e6e6e6',
+            border_secondary: '#dbdbdb',
+            white: '#FFFFFF',
+            blue: '#3897F1',
+            blue_facebook: '#375184',
+            pink: '#ee4957',
+          },
+        }}
+      >
+        <AuthRoute path="/" data={data}>
+          <Navigation myInfo={myInfo} />
+          <Suspense fallback={<Loading size={50} />}>
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/new/post" exact component={NewPostPage} />
               <Route
-                path="/account/signin"
+                path="/edit/:postURL"
                 exact
-                render={props => (
-                  <SignInPage {...props} />
+                component={props => <EditPostPage {...props} myInfo={myInfo} />}
+              />
+              <Route path="/p/:postURL" exact component={PostDetailPage} />
+              <Route path="/h/:hashTag" exact component={HashTagPage} />
+              <Route
+                path="/setting"
+                component={props => (
+                  <SettingPage {...props} pageList={settingPageList} />
                 )}
               />
               <Route
-                path="/account/signup"
+                path="/:username"
                 exact
-                render={props => (
-                  <SignUpPage {...props} />
-                )}
+                render={props => <UserPage {...props} myInfo={myInfo} />}
               />
-            </Suspense>
-          </AccountRoute>
-        </ThemeProvider>
+            </Switch>
+          </Suspense>
+        </AuthRoute>
+        <AccountRoute path="/account" data={data}>
+          <Suspense fallback={<Loading size={50} />}>
+            <Route
+              path="/account/signin"
+              exact
+              render={props => <SignInPage {...props} />}
+            />
+            <Route
+              path="/account/signup"
+              exact
+              render={props => <SignUpPage {...props} />}
+            />
+          </Suspense>
+        </AccountRoute>
+      </ThemeProvider>
     </AppWrapper>
   );
 }

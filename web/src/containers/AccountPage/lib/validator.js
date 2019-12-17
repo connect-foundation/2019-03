@@ -42,6 +42,7 @@ const validateInputData = input => {
 
 export default function validateFormDatas(form) {
   let isExistInvalidity = false;
+  console.log('before validate...');
 
   const validities = Object.entries(form.elements).reduce((acc, elem) => {
     if (elem[1].tagName === 'BUTTON') return acc;
@@ -52,5 +53,6 @@ export default function validateFormDatas(form) {
     return { ...acc, [input.name]: isValidated };
   }, {});
 
+  console.log('after validate...');
   return { isExistInvalidity, validities };
 }
