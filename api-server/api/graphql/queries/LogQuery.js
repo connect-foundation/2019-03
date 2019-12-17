@@ -10,8 +10,9 @@ const logQuery = {
   },
   resolve: (log, args) => {
     return Log.findAll({
-      attributes: ['id', 'status', 'From', 'PostId'],
+      attributes: ['id', 'status', 'From', 'To', 'PostId'],
       where: { to: args.id },
+      order: [['updatedAt', 'DESC']],
     });
   },
 };

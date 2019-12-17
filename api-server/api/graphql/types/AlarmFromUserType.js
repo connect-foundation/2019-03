@@ -1,4 +1,5 @@
 const { GraphQLObjectType, GraphQLString } = require('graphql');
+const { UserFollower } = require('./UserFollower');
 
 const AlarmFromUserType = new GraphQLObjectType({
   name: 'alarmFromUser',
@@ -10,6 +11,13 @@ const AlarmFromUserType = new GraphQLObjectType({
     profileImage: {
       type: GraphQLString,
       resolve: user => user.profileImage,
+    },
+    follow: {
+      type: UserFollower,
+      resolve: user => {
+        if (!user.UserFollows) return { status: null };
+        return user.UserFollows[0];
+      },
     },
   }),
 });

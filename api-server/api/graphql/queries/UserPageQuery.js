@@ -1,28 +1,21 @@
-const { GraphQLString } = require('graphql');
+const { GraphQLString, GraphQLInt } = require('graphql');
 
 const { UserPageType } = require('../types');
-const { Post, User } = require('../../../db');
+const { getUserPageData } = require('../../services/UserPageService');
 
 const userPageQuery = {
   type: UserPageType,
   args: {
-    writer: { type: GraphQLString },
+    username: { type: GraphQLString },
+    myId: { type: GraphQLInt },
   },
-  resolve: async (post, args) => {
+  resolve: async (_, args) => {
     try {
-      const userCount = await User.count({ where: { username: args.writer } });
-      const postCard = await Post.findAll({
-        include: [
-          {
-            model: User,
-            where: { username: args.writer },
-          },
-        ],
-      });
-      const data = { isExistingUser: !!userCount, postCard };
+      const data = await getUserPageData(args);
       return data;
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
+      return { error: e.message };
     }
   },
 };

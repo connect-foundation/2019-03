@@ -1,3 +1,5 @@
+const bcrypt = require('../../utils/bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -9,10 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       allowNull: false,
       type: DataTypes.STRING(30),
+      unique: true,
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(128),
     },
     email: {
       allowNull: false,
@@ -39,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: {
       allowNull: false,
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(3),
+      defaultValue: new Date(),
     },
   });
 
@@ -53,7 +57,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'UserId',
       otherKey: 'PostId',
     });
+    User.hasMany(models.UserFollow, { foreignKey: 'from', soureKey: 'id' });
+    User.hasMany(models.UserFollow, { foreignKey: 'to', soureKey: 'id' });
   };
+
+  User.beforeCreate(async user => {
+    const saltRounds = +process.env.SALT_ROUNDS || 10;
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    // eslint-disable-next-line no-param-reassign
+    user.password = hashedPassword;
+  });
 
   return User;
 };

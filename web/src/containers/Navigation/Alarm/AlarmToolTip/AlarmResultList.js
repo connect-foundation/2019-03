@@ -1,13 +1,14 @@
 import React from 'react';
 import AlarmResult from './AlarmResult';
 
-const AlarmResultList = ({ alarmResults }) => {
+const AlarmResultList = ({ alarmResults, clickClose }) => {
   const renderedAlarmResults = alarmResults.map((result, index, array) => {
     return (
       <AlarmResult
         key={result.id}
         result={result}
         isLast={index === array.length - 1}
+        clickClose={clickClose}
       />
     );
   });

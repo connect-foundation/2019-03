@@ -1,3 +1,5 @@
+const short = require('short-uuid');
+
 const {
   Sequelize,
   User,
@@ -7,18 +9,21 @@ const {
   HashTagsOfPost,
   HashTag,
   UserTag,
+  Log,
 } = require('../../db');
 
 const { Op } = Sequelize;
 
-async function getFollowingPostList(userId, offset = 0, limit = 10) {
+const defaultLimitValue = 10;
+async function getFollowingPostList(userId, cursor, limit = defaultLimitValue) {
   const result = await UserFollow.findAll({
     attributes: ['to'],
     where: { from: userId },
   });
 
   const followingList = [userId, ...result.map(f => f.to)];
-  const postList = await Post.findAll({
+
+  const options = {
     include: {
       model: User,
       attributes: ['id', 'username', 'profileImage'],
@@ -28,10 +33,18 @@ async function getFollowingPostList(userId, offset = 0, limit = 10) {
         },
       },
     },
-    offset,
+    where: {},
     limit,
     order: [['updatedAt', 'DESC']],
-  });
+  };
+
+  if (cursor) {
+    options.where.updatedAt = {
+      [Op.lt]: new Date(+cursor),
+    };
+  }
+
+  const postList = await Post.findAll(options);
 
   return postList;
 }
@@ -50,13 +63,7 @@ async function checkUserLikePost(userId, postId) {
 
 async function getLikerInfo(postId) {
   const { rows, count } = await PostLike.findAndCountAll({
-    attributes: ['id', 'updatedAt'],
-    include: [
-      {
-        model: User,
-        attributes: ['username', 'profileImage'],
-      },
-    ],
+    attributes: ['id', 'updatedAt', 'UserId'],
     where: { PostId: postId },
     order: [['updatedAt', 'DESC']],
   });
@@ -67,10 +74,12 @@ async function getLikerInfo(postId) {
     likerCount: count,
   };
 
-  if (rows.length > 0) {
-    const { username, profileImage } = rows[0].User;
-    likerInfo = { ...likerInfo, username, profileImage };
-  }
+  if (rows.length === 0) return likerInfo;
+  const { username, profileImage } = await User.findOne({
+    attributes: ['username', 'profileImage'],
+    where: { id: rows[0].UserId },
+  });
+  likerInfo = { ...likerInfo, username, profileImage };
 
   return likerInfo;
 }
@@ -89,12 +98,22 @@ async function getLikerList(postId) {
   return likerList;
 }
 
-async function setPostLike(userId, postId) {
+async function setPostLike(userId, writerId, postId) {
   await PostLike.create({
     UserId: userId,
     PostId: postId,
     updatedAt: new Date(),
   });
+
+  if (userId !== writerId) {
+    await Log.create({
+      From: userId,
+      To: writerId,
+      PostId: postId,
+      status: 'like',
+      updatedAt: new Date(),
+    });
+  }
 }
 
 async function unsetPostLike(userId, postId) {
@@ -106,17 +125,21 @@ async function unsetPostLike(userId, postId) {
 async function insertPost(file, postInfo) {
   try {
     const result = await Post.create({
-      imageURL: file.location,
-      postURL: file.etag,
+      imageURL: file.Location,
+      postURL: short.generate(),
       content: postInfo.content,
       updatedAt: new Date(),
-      UserId: +postInfo.userId,
+      UserId: postInfo.userId,
     });
 
     const postId = result.dataValues.id;
     insertHashTagOfPost(postInfo.content, postId);
     insertUserTag(postInfo.content, postId);
-  } catch {}
+    return result.dataValues;
+  } catch (e) {
+    console.log(e.message);
+    return e;
+  }
 }
 
 async function insertUserTag(content, postId) {

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../queries';
+import { FOLLOWING_POST_LIST, CREATE_COMMENT } from '../../../../queries';
+import Loading from '../../../../components/Loading';
+import UserContext from '../../../App/UserContext';
 
 import {
   StyledForm,
@@ -9,15 +11,9 @@ import {
   CommentInputWrapper,
 } from './styles';
 
-const myInfo = {
-  id: 1,
-  username: '_so_02',
-  name: '정소영',
-  profileImage: 'https://i.pravatar.cc/150?img=9',
-};
-
-function CommentInput({ PostId }) {
-  const [addComment] = useMutation(CREATE_COMMENT, {
+function CommentInput({ PostId, writer }) {
+  const { myInfo } = useContext(UserContext);
+  const [addComment, { loading }] = useMutation(CREATE_COMMENT, {
     update(cache, { data: { createComment } }) {
       const { followingPostList } = cache.readQuery({
         query: FOLLOWING_POST_LIST,
@@ -54,12 +50,21 @@ function CommentInput({ PostId }) {
 
   const submitHandler = e => {
     e.preventDefault();
-    addComment({ variables: { content: text, PostId, UserId: myInfo.id } });
+    if (loading) return;
+    addComment({
+      variables: {
+        content: text,
+        WriterId: writer.id,
+        PostId,
+        UserId: myInfo.id,
+      },
+    });
     setText('');
   };
 
   return (
     <CommentInputWrapper>
+      {loading && <Loading size={20} />}
       <StyledForm onSubmit={submitHandler}>
         <StyledInput
           placeholder="댓글달기..."

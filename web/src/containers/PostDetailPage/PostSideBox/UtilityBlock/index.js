@@ -1,23 +1,58 @@
-import React, { useContext } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import _ from 'underscore';
+import { useMutation } from '@apollo/react-hooks';
 
-import {
-  UtilityBlockWrapper,
-  IconList,
-  IconWrapper,
-  LikerCount,
-  TimePassed,
-} from './styles';
+import { updateDetailPost } from '../../../../utils/LikeHandler';
 import Icon from '../../../../components/Icon';
+import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
-import Context from '../../context';
+import LikeInfo from '../../../../components/LikeInfo';
+import TimePassed from '../../../../components/TimePassed';
+import { UtilityBlockWrapper, IconList, IconWrapper } from './styles';
 
-function UtilityBlock() {
-  const { likeCount } = useContext(Context).data.post;
+function UtilityBlock({ myInfo, post }) {
+  const [createPostLike] = useMutation(CREATE_POST_LIKE, {
+    update(cache) {
+      updateDetailPost({ cache, post, myInfo });
+    },
+  });
+  const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
+    update(cache) {
+      updateDetailPost({ cache, post, myInfo });
+    },
+  });
+
+  const { id: postId, isLike, likerInfo, writer } = post;
+  const [isLikeClicked, setLikeState] = useState(isLike);
+
+  const likeBtnClickHandler = likeState => {
+    if (!likeState)
+      createPostLike({
+        variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
+      });
+    else
+      deletePostLike({
+        variables: { PostId: postId, UserId: myInfo.id },
+      });
+  };
+
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), []);
+
+  const toggleLikeState = () => {
+    setLikeState(!isLikeClicked);
+    if (isLikeClicked !== isLike) return;
+    lazyFetch(isLikeClicked);
+  };
+
+  useEffect(() => {
+    setLikeState(isLike);
+  }, [isLike]);
+
   return (
     <UtilityBlockWrapper>
       <IconList>
         <IconWrapper>
-          <LikeIcon ratio={5} />
+          <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
         </IconWrapper>
         <IconWrapper>
           <Icon ratio={5} posX={-520} posY={-245} />
@@ -26,8 +61,13 @@ function UtilityBlock() {
           <Icon ratio={5} posX={0} posY={-250} />
         </IconWrapper>
       </IconList>
-      <LikerCount>좋아요 {likeCount}개</LikerCount>
-      <TimePassed>1일 전</TimePassed>
+      <LikeInfo
+        myInfo={myInfo}
+        postId={postId}
+        diff={isLikeClicked - isLike}
+        likerInfo={likerInfo}
+      />
+      <TimePassed updatedAt={post.updatedAt} />
     </UtilityBlockWrapper>
   );
 }

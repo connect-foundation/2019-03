@@ -1,27 +1,27 @@
 const { CommentType } = require('./CommentType');
-const { PostDetailType } = require('./PostDetailType');
 const { SearchType } = require('./SearchType');
-const { WriterType } = require('./WriterType');
+const { UserType } = require('./UserType');
 const { AlarmFromUserType } = require('./AlarmFromUserType');
 const { AlarmPostType } = require('./AlarmPostType');
 const { LogType } = require('./LogType');
 const { LikerInfoType } = require('./LikerInfoType');
 const { PostType } = require('./PostType');
 const { LikerType } = require('./LikerType');
-const { PostCardType } = require('./PostCardType');
 const { UserPageType } = require('./UserPageType');
+const { UserFollower } = require('./UserFollower');
+const { HashTagPageType } = require('./HashTagPageType');
 
 module.exports = {
   CommentType,
-  PostDetailType,
   SearchType,
-  WriterType,
+  UserType,
   AlarmFromUserType,
   AlarmPostType,
   LogType,
   LikerInfoType,
   PostType,
   LikerType,
-  PostCardType,
   UserPageType,
+  UserFollower,
+  HashTagPageType,
 };

@@ -11,14 +11,13 @@ const Navigation = ({ myInfo }) => {
     <>
       <NavBackground>
         <NavItemGroup>
-          <StyledLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
-            <Icon ratio={6} posX={0} posY={-505} />
-            <Icon
-              ratio={6}
-              posX={0}
-              posY={0}
-              style={{ width: '170px', height: '39px', marginTop: '18px' }}
-            />
+          <StyledLink
+            to="/"
+            style={{ display: 'flex', alignItems: 'center' }}
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <Icon name="favicon" />
+            <Icon name="logo" />
           </StyledLink>
         </NavItemGroup>
         <NavItemGroup>
@@ -26,20 +25,9 @@ const Navigation = ({ myInfo }) => {
         </NavItemGroup>
         <NavItemGroup>
           <StyledLink to="/new/post">
-            <Icon
-              ratio={5.5}
-              posX={-260}
-              posY={-245}
-              style={{ marginTop: '6px' }}
-            />
+            <Icon name="newPost" />
           </StyledLink>
           <Alarm myInfo={myInfo} />
-          <Icon
-            ratio={5}
-            posX={-130}
-            posY={-500}
-            style={{ marginTop: '7px' }}
-          />
           <StyledLink to={`/${myInfo.username}`}>
             <ProfileIcon imageURL={myInfo.profileImage} ratio={8} />
           </StyledLink>

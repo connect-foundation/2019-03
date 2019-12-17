@@ -1,22 +1,3 @@
-/**
- * Honor Code: https://medium.com/@ghur2002/react%EC%97%90%EC%84%9C-infinite-scroll-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-128d64ea24b5
- */
-export function infiniteScroll(callback) {
-  const scrollHeight = Math.max(
-    document.documentElement.scrollHeight,
-    document.body.scrollHeight,
-  );
-  const scrollTop = Math.max(
-    document.documentElement.scrollTop,
-    document.body.scrollTop,
-  );
-  const { clientHeight } = document.documentElement;
-
-  if (scrollTop + clientHeight >= scrollHeight * 0.98) {
-    callback();
-  }
-}
-
 const SECOND = 1000;
 const TYPE_SECOND = 's';
 const MINUTE = 60000;
@@ -57,4 +38,23 @@ export function getDateDiffText(fromDate, toDate) {
     default:
       return `${diff}주 전`;
   }
+}
+
+export function getFormData(form, name) {
+  return form.elements.namedItem(name).value;
+}
+
+export function setFormData(form, name, value) {
+  // eslint-disable-next-line no-param-reassign
+  form.elements.namedItem(name).value = value;
+}
+
+export function changeToFormDataFormat(form, password) {
+  const formData = Object.entries(form.elements).reduce((result, elem) => {
+    if (elem[1].tagName === 'BUTTON') return result;
+    const input = elem[1];
+    if (input.name === 'password') return result;
+    return `${result}${input.name}=${input.value}&`;
+  }, '');
+  return formData.concat(`password=${password}`);
 }

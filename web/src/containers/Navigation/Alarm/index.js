@@ -3,12 +3,12 @@ import { useLazyQuery } from '@apollo/react-hooks';
 
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
-import { GET_LOG } from '../queries';
+import { GET_LOGS } from '../../../queries';
 
 const Alarm = ({ myInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOG);
+  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOGS);
 
   const clickAlarmIcon = () => {
     if (isVisible) {
@@ -21,11 +21,9 @@ const Alarm = ({ myInfo }) => {
   return (
     <div style={{ position: 'relative' }}>
       <Icon
-        ratio={6}
-        posX={-130}
-        posY={-246}
-        style={{ marginTop: '5px' }}
+        name="emptyhHeart"
         onClick={clickAlarmIcon}
+        style={{ marginTop: '5px' }}
       />
       <AlarmToolTip
         isVisible={isVisible}

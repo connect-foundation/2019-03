@@ -1,32 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
 import { PostProvider } from './context';
+import { READ_POST } from '../../queries';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
+import UserContext from '../App/UserContext';
 
 function PostDetailPage({ match }) {
-  const POST_DETAIL = gql`
-    query Post($postURL: String!) {
-      post(postURL: $postURL) {
-        id
-        content
-        writer {
-          username
-        }
-        imageURL
-        postURL
-        likeCount
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(POST_DETAIL, {
-    variables: { postURL: match.params.postURL },
+  const { myInfo } = useContext(UserContext);
+  const { loading, error, data } = useQuery(READ_POST, {
+    variables: { postURL: match.params.postURL, id: myInfo.id },
+    fetchPolicy: 'cache-and-network',
   });
 
-  if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (loading) return <Loading size={50} />;
+  if (error) return <Error />;
   if (!data) return null;
   const { post } = data;
 

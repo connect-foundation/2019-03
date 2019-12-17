@@ -20,8 +20,8 @@ module.exports = {
         content: `${Math.random()
           .toString(36)
           .substr(2, 30)}`,
-        updatedAt: new Date(),
         UserId: (i % 100) + 1,
+        updatedAt: new Date(new Date().getTime() + 1000 * i),
       });
     }
     return queryInterface.bulkInsert('Posts', postList, {});

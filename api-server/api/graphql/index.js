@@ -7,13 +7,21 @@ const {
   likerListQuery,
   searchQuery,
   userPageQuery,
+  hashTagPageQuery,
 } = require('./queries');
 const {
+  updateUser,
   createComment,
+  deletePost,
   createPostLike,
   deletePostLike,
   createCommentLike,
   deleteCommentLike,
+  updatePost,
+  RequestFollowing,
+  RequestFollowingCancellation,
+  createPost,
+  updateProfile,
 } = require('./mutations');
 
 const rootQuery = new GraphQLObjectType({
@@ -26,17 +34,25 @@ const rootQuery = new GraphQLObjectType({
     followingPostList: followingPostListQuery,
     likerList: likerListQuery,
     userPage: userPageQuery,
+    hashTagPage: hashTagPageQuery,
   }),
 });
 
 const rootMutation = new GraphQLObjectType({
   name: 'rootMutation',
   fields: () => ({
+    updateUser,
+    deletePost,
+    updatePost,
     createComment,
     createPostLike,
     deletePostLike,
     createCommentLike,
     deleteCommentLike,
+    RequestFollowing,
+    RequestFollowingCancellation,
+    createPost,
+    updateProfile,
   }),
 });
 

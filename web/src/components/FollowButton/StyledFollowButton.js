@@ -1,21 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const StyledFollowButton = styled.button`
-  padding: 0 24px;
-  cursor: pointer;
-  border-radius: 3px;
-  border-style: solid;
-  border-width: 1px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 26px;
-  outline: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  ${({ status }) =>
-    status === '팔로우' ? followButtonCSS : followingButtonCSS}
-`;
-
 const followButtonCSS = css`
   ${({ theme }) => css`
     background: ${theme.palette.blue};
@@ -31,6 +15,30 @@ const followingButtonCSS = css`
     css`
       border-color: ${theme.palette.border_secondary};
     `}
+`;
+
+const StyledFollowButton = styled.button`
+  /* Layout */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* Box */
+  padding: 0 24px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+
+  /* Font */
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 26px;
+  outline: 0;
+
+  /* Other */
+  ${({ status }) => (status === null ? followButtonCSS : followingButtonCSS)}
+
+  /* Property */
+  cursor: pointer;
 `;
 
 export default StyledFollowButton;

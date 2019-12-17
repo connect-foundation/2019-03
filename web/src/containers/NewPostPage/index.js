@@ -1,193 +1,180 @@
-import React, { useReducer, useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
 import Cropper from 'react-easy-crop';
-import getCroppedImg from './cropImage';
-import { NewPostWrapper, Input, Button } from './styles';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const readFile = file => {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => resolve(reader.result), false);
-    reader.readAsDataURL(file);
-  });
-};
+import { isFileTypeImage } from '../../utils/fileUtils';
+import makeNewImageFile from './lib/makeNewImageFile';
+import useImage from './hooks/useImage';
+import Loading from '../../components/Loading';
+import Button from '../../components/Button';
 
-const blobToFile = (theBlob, fileName) => {
-  // A Blob() is almost a File() - it's just missing the two properties below which we will add
-  theBlob.lastModifiedDate = new Date();
-  theBlob.name = fileName;
-  return theBlob;
-};
+import {
+  NewPostWrapper,
+  Content,
+  FileSelectLabel,
+  FileInput,
+  FileNameInput,
+  StyledSection,
+  CropContainer,
+} from './styles';
+import { UPLOAD_POST, FOLLOWING_POST_LIST } from '../../queries';
+import UserContext from '../App/UserContext';
 
-const newBlob = async dataURL => {
-  const croppedImageResponse = await fetch(`${dataURL}`);
-  const blob = await croppedImageResponse.blob();
-  return blob;
-};
-
-const minZoom = 1;
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'INPUT_IMAGE':
-      return {
-        ...state,
-        originalImage: action.value,
-      };
-    case 'INPUT_IMAGE_URL':
-      return {
-        ...state,
-        originalImageUrl: action.value,
-      };
-    case 'INPUT_CROPPED_AREA':
-      return {
-        ...state,
-        croppedAreaPixels: action.value,
-      };
-    case 'INPUT_CONTENT':
-      return {
-        ...state,
-        contentValue: action.value,
-      };
-    case 'CHANGE_ZOOM':
-      return {
-        ...state,
-        zoom: action.value,
-      };
-    case 'CHANGE_CROP':
-      return {
-        ...state,
-        crop: action.value,
-      };
-    default:
-      return null;
-  }
-};
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 3;
+const ZOOM_STEP = 0.1;
+const CROP_SIZE = 615;
 
 const NewPostPage = () => {
+  const { myInfo } = useContext(UserContext);
+  const [uploadPostMutation] = useMutation(UPLOAD_POST, {
+    update(cache, { data: { createPost } }) {
+      const { followingPostList } = cache.readQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+      });
+      const writer = {
+        ...myInfo,
+        isFollow: true,
+        profileImage: null,
+        __typename: 'User',
+      };
+      const newPost = {
+        writer,
+        ...createPost,
+        isLike: false,
+        commentCount: 0,
+        commentList: [],
+        likerInfo: {
+          username: '',
+          profileImage: '',
+          likerCount: 0,
+          __typename: 'LikerInfoType',
+        },
+        __typename: 'Post',
+      };
+      cache.writeQuery({
+        query: FOLLOWING_POST_LIST,
+        variables: {
+          myId: myInfo.id,
+          offset: 0,
+          limit: 5,
+        },
+        data: { followingPostList: [newPost].concat(followingPostList) },
+      });
+    },
+  });
+
   const initialState = {
-    originalImage: null,
+    originalImage: { name: undefined },
     originalImageUrl: null,
     crop: { x: 0, y: 0 },
-    zoom: minZoom,
+    zoom: MIN_ZOOM,
     croppedAreaPixels: null,
-    contentValue: '',
   };
-  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [
+    state,
+    inputImage,
+    onCropComplete,
+    changeCrop,
+    changeZoom,
+    changeSliderZoom,
+  ] = useImage(initialState);
+  const [content, setContent] = useState('');
   const [isSuccess, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const inputImage = async e => {
-    if (e.target.files && e.target.files.length > 0) {
-      dispatch({ type: 'INPUT_IMAGE', value: e.target.files[0] });
-
-      const originalImageDataUrl = await readFile(e.target.files[0]);
-      dispatch({ type: 'INPUT_IMAGE_URL', value: originalImageDataUrl });
-    }
+  const changeContent = e => {
+    setContent(e.target.value);
   };
 
   const post = useCallback(async () => {
+    if (loading) return;
+
     if (!state.originalImage) {
-      alert('사진을 선택해주세요!');
+      toast('사진을 선택해주세요!');
+      return;
+    }
+
+    if (!isFileTypeImage(state.originalImage.name)) {
+      toast('이미지 파일만 업로드 할 수 있습니다!');
       return;
     }
 
     try {
-      const croppedImageDataUrl = await getCroppedImg(
-        state.originalImageUrl,
-        state.croppedAreaPixels,
-      );
-      const blob = await newBlob(croppedImageDataUrl);
-      const croppedImageBolb = blobToFile(blob, `${state.originalImage.name}`);
-      const croppedImageFile = new File(
-        [croppedImageBolb],
-        `${state.originalImage.name}`,
-        { type: 'image/png' },
-      );
-      const formData = new FormData();
-      formData.append('file', croppedImageFile);
-      formData.append('content', state.contentValue);
-      formData.append('userId', 1);
-      const resultJSON = await fetch(
-        `${process.env.REACT_APP_API_URL}/upload`,
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
-      const result = await resultJSON.json();
-      if (result.data === 'success') {
-        setSuccess(true);
-      }
-    } catch (e) {}
-  }, [setSuccess, state]);
-
-  const onCropComplete = useCallback(
-    (croppedArea, currentcroppedAreaPixels) => {
-      dispatch({ type: 'INPUT_CROPPED_AREA', value: currentcroppedAreaPixels });
-    },
-    [],
-  );
-
-  const changeContent = e => {
-    dispatch({ type: 'INPUT_CONTENT', value: e.target.value });
-  };
+      setLoading(true);
+      const croppedImageFile = await makeNewImageFile(state);
+      await uploadPostMutation({
+        variables: { file: croppedImageFile, userId: myInfo.id, content },
+      });
+      setSuccess(true);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [content, loading, myInfo.id, state, uploadPostMutation]);
 
   if (isSuccess) {
     return <Redirect to="/" />;
   }
-
   return (
     <NewPostWrapper>
-      <div className="section">
-        <input type="file" onChange={inputImage} />
-      </div>
-      {state.originalImage && (
+      {loading && <Loading size={50} />}
+      <StyledSection>
+        <FileNameInput defaultValue={state.originalImage.name} />
+        <FileSelectLabel htmlFor="select_file">파일선택</FileSelectLabel>
+        <FileInput onChange={inputImage} />
+      </StyledSection>
+      {state.originalImage.name && (
         <>
-          <div
-            className="crop-container"
-            style={{
-              position: 'relative',
-              width: '650px',
-              height: '650px',
-            }}
-          >
+          <CropContainer>
             <Cropper
-              minZoom={minZoom}
+              minZoom={MIN_ZOOM}
               image={state.originalImageUrl}
               crop={state.crop}
               zoom={state.zoom}
               aspect={1 / 1}
               restrictPosition={false}
-              onCropChange={crop =>
-                dispatch({ type: 'CHANGE_CROP', value: crop })}
+              onCropChange={changeCrop}
               onCropComplete={onCropComplete}
-              onZoomChange={zoom =>
-                dispatch({ type: 'CHANGE_ZOOM', value: zoom })}
-              cropSize={{ width: 615, height: 615 }}
+              onZoomChange={changeZoom}
+              cropSize={{ width: CROP_SIZE, height: CROP_SIZE }}
             />
-          </div>
-          <div className="controls" style={{ width: '20%' }}>
+          </CropContainer>
+          <div className="controls">
             <Slider
               value={state.zoom}
-              min={minZoom}
-              max={3}
-              step={0.1}
+              min={MIN_ZOOM}
+              max={MAX_ZOOM}
+              step={ZOOM_STEP}
               aria-labelledby="Zoom"
-              onChange={(e, currentzoom) =>
-                dispatch({ type: 'CHANGE_ZOOM', value: currentzoom })}
+              onChange={changeSliderZoom}
             />
           </div>
         </>
       )}
-      <div className="section">
-        <Input value={state.contentValue} onChange={changeContent} />
-      </div>
-      <div className="section">
-        <Button type="button" onClick={post}>
+      <StyledSection>
+        <Content onChange={changeContent} value={content} />
+      </StyledSection>
+      <StyledSection>
+        <Button type="button" onClick={post} btnStyle="primary">
           게시
         </Button>
-      </div>
+      </StyledSection>
+      <ToastContainer
+        autoClose={false}
+        position={toast.POSITION.BOTTOM_CENTER}
+        transition={Slide}
+        bodyClassName="toast-body"
+      />
     </NewPostWrapper>
   );
 };

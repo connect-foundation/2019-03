@@ -1,25 +1,18 @@
 import React from 'react';
 
-import { ContentWrapper, UpdatedTime, GrayButton } from './styles';
-import StyledLink from '../../../../../../../components/StyledLink';
+import { ContentWrapper } from './styles';
+import Username from './Username';
+import TimePassed from '../../../../../../../components/TimePassed';
 
-function Content({ writer, content, likerCount }) {
+function Content({ comment }) {
+  const { writer, content, updatedAt } = comment;
   return (
     <ContentWrapper>
-      <main>
-        <h3>
-          <StyledLink
-            to={`/${writer.username}`}
-            style={{ display: 'inline-block' }}
-          >
-            {writer.username}
-          </StyledLink>
-        </h3>
-        <article>{content}</article>
-      </main>
-      <UpdatedTime>5h</UpdatedTime>
-      <GrayButton>{likerCount} like</GrayButton>
-      <GrayButton>Reply</GrayButton>
+      <div>
+        <Username writer={writer} />
+        <article style={{ wordBreak: 'break-all' }}>{content}</article>
+      </div>
+      <TimePassed updatedAt={updatedAt} />
     </ContentWrapper>
   );
 }

@@ -9,7 +9,7 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE(3),
       },
       PostId: {
         allowNull: false,
@@ -18,6 +18,8 @@ module.exports = {
           model: 'Posts',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       HashTagId: {
         allowNull: false,
@@ -26,6 +28,8 @@ module.exports = {
           model: 'HashTags',
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
     });
   },

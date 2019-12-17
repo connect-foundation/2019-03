@@ -3,25 +3,25 @@ import React from 'react';
 import StyledLink from '../../../../../components/StyledLink';
 import CountIndicatorWrapper from './CountIndicatorWrapper';
 
-const CountIndicator = () => {
+const CountIndicator = ({ data }) => {
   return (
     <CountIndicatorWrapper>
       <li>
         <div>
-          게시물 <div>0</div>
+          게시물 <div>{data.postNumber}</div>
         </div>
       </li>
       <StyledLink>
         <li>
           <div>
-            팔로워 <div>100</div>
+            팔로워 <div>{data.followersNum}</div>
           </div>
         </li>
       </StyledLink>
       <StyledLink>
         <li>
           <div>
-            팔로우 <div>101</div>
+            팔로우 <div>{data.followsNum}</div>
           </div>
         </li>
       </StyledLink>

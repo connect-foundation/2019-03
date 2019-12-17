@@ -4,13 +4,27 @@ import ProfileIcon from '../../../components/ProfileIcon';
 import UserInfo from './UserInfo';
 import { UserPageInfoWrapper, ProfileIconWrapper } from './styles';
 
-const UserPageInfo = ({ username }) => {
+const UserPageInfo = ({
+  username,
+  myId,
+  data,
+  isMyPage,
+  onFollowCancel,
+  onFollow,
+}) => {
   return (
     <UserPageInfoWrapper>
       <ProfileIconWrapper>
-        <ProfileIcon ratio={46.875} />
+        <ProfileIcon imageURL={data.profileImage} ratio={46.875} />
       </ProfileIconWrapper>
-      <UserInfo username={username} />
+      <UserInfo
+        username={username}
+        myId={myId}
+        data={data}
+        isMyPage={isMyPage}
+        onFollowCancel={onFollowCancel}
+        onFollow={onFollow}
+      />
     </UserPageInfoWrapper>
   );
 };

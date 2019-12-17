@@ -1,89 +1,32 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useState } from 'react';
+
 import Icon from '../../../components/Icon';
 import SearchToolTip from './SearchToolTip';
-import { useFetch } from '../../../hooks';
-import { searchQuery } from '../queries';
 import { SearchWrapper, Input } from './styles';
 
-const initialState = {
-  inputValue: '',
-  isVisibl: false,
-  searchResults: [],
-};
-
-const searchReducer = (state, action) => {
-  switch (action.type) {
-    case 'CLEAR':
-      return initialState;
-    case 'CHANGE_INPUT':
-      return {
-        ...state,
-        inputValue: action.value,
-      };
-    case 'CLOSE_TOOLTIP':
-      return {
-        ...state,
-        isVisible: false,
-      };
-    case 'FINISH_SEARCH':
-      return {
-        ...state,
-        isVisible: true,
-        searchResults: action.results,
-      };
-    default:
-      return {
-        state,
-      };
-  }
-};
-
 const Search = () => {
-  const [searchState, searchDispatch] = useReducer(searchReducer, initialState);
-  const { state, dispatch, fetchData } = useFetch();
-  const { loading, data, error } = state;
-  const [timer, setTimer] = useState('');
+  const [isVisible, setVisibility] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const clickClear = () => {
-    searchDispatch({ type: 'CLEAR' });
+    setVisibility(false);
+    setInputValue('');
   };
 
-  const onChange = e => {
-    const { value } = e.target;
-    searchDispatch({ type: 'CHANGE_INPUT', value });
-
+  const changeInputValueHandler = e => {
+    setVisibility(true);
+    setInputValue(e.target.value);
     if (e.target.value === '') {
-      searchDispatch({ type: 'CLOSE_TOOLTIP' });
-      return;
+      setVisibility(false);
     }
-
-    if (timer) {
-      clearTimeout(timer);
-    }
-    setTimer(
-      setTimeout(() => {
-        fetchData(searchQuery(value));
-      }, 100),
-    );
   };
-
-  useEffect(() => {
-    if (loading === null || loading || error) {
-      searchDispatch({ type: 'CLOSE_TOOLTIP' });
-      return;
-    }
-
-    searchDispatch({ type: 'FINISH_SEARCH', results: data.search });
-  }, [data, error, loading]);
 
   return (
     <SearchWrapper>
-      <Input value={searchState.inputValue} onChange={onChange} />
-      <SearchToolTip
-        isVisible={searchState.isVisible}
-        searchDispatch={searchDispatch}
-        searchResults={searchState.searchResults}
-      />
+      {isVisible && (
+        <SearchToolTip inputValue={inputValue} clickClear={clickClear} />
+      )}
+      <Input value={inputValue} onChange={changeInputValueHandler} />
       <Icon
         ratio={10}
         posX={-260}

@@ -6,7 +6,7 @@ const {
   GraphQLBoolean,
 } = require('graphql');
 const { User } = require('../../../db');
-const { WriterType } = require('./WriterType');
+const { UserType } = require('./UserType');
 const { checkUserLikeComment } = require('../../services/CommentService');
 
 const CommentType = new GraphQLObjectType({
@@ -24,6 +24,9 @@ const CommentType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: comment => comment.depth,
     },
+    updatedAt: {
+      type: GraphQLString,
+    },
     isLike: {
       type: GraphQLBoolean,
       resolve: async ({ id: commentId }, _, { userId }) => {
@@ -40,7 +43,7 @@ const CommentType = new GraphQLObjectType({
       resolve: comment => comment.PostId,
     },
     writer: {
-      type: WriterType,
+      type: UserType,
       resolve: comment => {
         return User.findOne({ where: { id: comment.UserId } });
       },

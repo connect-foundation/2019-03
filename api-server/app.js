@@ -3,56 +3,49 @@ const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
-const multer = require('multer');
+const { graphqlUploadExpress } = require('graphql-upload');
+const initPassport = require('./config/passport-config');
+const { isAuthenticated } = require('./api/middlewares/auth');
+
 const { schema } = require('./api/graphql');
-const upload = require('./upload');
-const { insertPost } = require('./api/services/PostService');
 
 const app = express();
 
+app.use(helmet());
+app.use(
+  cors({
+    origin: process.env.WEB_URL,
+    credentials: true,
+  }),
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: { httpOnly: true, maxAge: 86400000 },
   }),
 );
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(helmet());
-app.use(cors());
+initPassport(app);
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
-const isProduction = process.env.NODE_ENV !== 'production';
+app.use('/account', require('./api/routes/account-route'));
+
 app.use(
   '/graphql',
+  isAuthenticated,
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema,
-    graphiql: isProduction,
+    graphiql: process.env.NODE_ENV === 'development',
   }),
 );
-
-app.use('/upload', (req, res, next) => {
-  upload(req, res, err => {
-    if (err instanceof multer.MulterError) {
-      return next(err);
-    }
-    if (err) {
-      return next(err);
-    }
-
-    insertPost(req.file, req.body);
-
-    return res.json({ data: 'success' });
-  });
-});
 
 app.use((req, res, next) => {
   next(createError(404));

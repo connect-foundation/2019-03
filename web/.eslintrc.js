@@ -4,6 +4,8 @@ module.exports = {
   rules: {
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-filename-extension': 0,
+    'react/jsx-wrap-multilines': 0,
+    'react/jsx-props-no-spreading': 0,
     'prettier/prettier': 'error',
     'react/prop-types': 0,
   },

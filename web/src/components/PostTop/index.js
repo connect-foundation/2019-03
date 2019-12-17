@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { MoreIcon, PostTopWrapper } from './styles';
+import { MoreIcon, PostTopWrapper, MoreIconWrapper } from './styles';
 import Profile from '../ProfileIcon';
 import MoreModal from './MoreModal';
 import StyledLink from '../StyledLink';
@@ -20,9 +20,9 @@ const PostTop = ({ writer, myInfo, postURL }) => {
             <span className="username">{writer.username}</span>
           </div>
         </StyledLink>
-        <div className="more">
-          <MoreIcon onClick={clickMore} />
-        </div>
+        <MoreIconWrapper onClick={clickMore}>
+          <MoreIcon />
+        </MoreIconWrapper>
       </PostTopWrapper>
       <MoreModal
         isVisible={isVisible}

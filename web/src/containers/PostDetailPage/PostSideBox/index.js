@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 
 import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
 import CommentInput from './CommentInput';
 import UtilityBlock from './UtilityBlock';
+import UserContext from '../../App/UserContext';
 
 function SideBox({ post }) {
-  const myInfo = {
-    id: 1,
-    username: '_so_02',
-    name: '정소영',
-    profileImage: 'https://i.pravatar.cc/150?img=9',
-  };
+  const { myInfo } = useContext(UserContext);
+  const scrollRef = useRef(null);
   return (
     <SideBoxWrapper>
-      <PostTop writer={post.writer} myInfo={myInfo} post={post} />
-      <PostContent post={post} />
-      <UtilityBlock />
-      <CommentInput PostId={+post.id} />
+      <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
+      <PostContent post={post} scrollRef={scrollRef} />
+      <UtilityBlock myInfo={myInfo} post={post} />
+      <CommentInput
+        PostId={+post.id}
+        writer={post.writer}
+        scrollRef={scrollRef}
+      />
     </SideBoxWrapper>
   );
 }
