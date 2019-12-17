@@ -33,8 +33,8 @@ const SearchToolTip = ({ inputValue, clickClear }) => {
     return (
       <ToolTip
         onClick={clickClear}
-        arrowStyle={{ left: '50%' }}
-        bodyStyle={{ left: '-15%' }}
+        arrowStyle={{ left: ARROW_MOVE_RANGE }}
+        bodyStyle={{ left: BODY_MOVE_RANGE }}
       >
         <SearchNoResult>
           <span>검색 결과가 없습니다.</span>
@@ -45,8 +45,8 @@ const SearchToolTip = ({ inputValue, clickClear }) => {
   return (
     <ToolTip
       onClick={clickClear}
-      arrowStyle={{ left: '50%' }}
-      bodyStyle={{ left: '-15%' }}
+      arrowStyle={{ left: ARROW_MOVE_RANGE }}
+      bodyStyle={{ left: BODY_MOVE_RANGE }}
     >
       <SearchResultList searchResults={searchResults} clickClose={clickClear} />
     </ToolTip>
