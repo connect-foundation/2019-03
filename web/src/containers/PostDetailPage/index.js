@@ -5,7 +5,6 @@ import { withCookies } from 'react-cookie';
 
 import { PostDetailPageWrapper, ViewPort } from './styles';
 import PostSideBox from './PostSideBox';
-import { PostProvider } from './context';
 import { READ_POST } from '../../queries';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
@@ -27,14 +26,12 @@ function PostDetailPage({ match, cookies }) {
   const { post } = data;
 
   return (
-    <PostProvider value={{ data }}>
       <ThemeProvider theme={{ post_length: 600 }}>
         <PostDetailPageWrapper>
           <ViewPort img={post.imageURL} />
           <PostSideBox post={post} />
         </PostDetailPageWrapper>
       </ThemeProvider>
-    </PostProvider>
   );
 }
 
