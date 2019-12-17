@@ -5,7 +5,13 @@ const PostContentWrapper = styled.div`
   overflow: auto;
 
   /* Box */
-  flex: 1 1 400px;
+  flex: 1 1 100%;
+
+  /* Others */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
 `;
 
 export default PostContentWrapper;
