@@ -2,8 +2,11 @@ import styled, { css } from 'styled-components';
 
 const ToolTipBody = styled.div`
   /* Layout */
+  position: absolute;
+  top: 47px;
   overflow-x: hidden;
   overflow-y: scroll;
+  z-index: 200;
 
   /* Box */
   max-height: 400px;

@@ -1,31 +1,12 @@
 import React from 'react';
-import {
-  ToolTipArrow,
-  ToolTipBody,
-  ToolTipWrapper,
-  ToolTipBackground,
-} from './styles';
+import { ToolTipArrow, ToolTipBody, ToolTipBackground } from './styles';
 
-const stopPropagation = e => e.stopPropagation();
-
-const ToolTip = ({
-  onClick,
-  className,
-  wrapperStyle,
-  arrowStyle,
-  children,
-}) => {
+const ToolTip = ({ onClick, arrowStyle, bodyStyle, children }) => {
   return (
     <>
-      <ToolTipBackground onClick={onClick}> </ToolTipBackground>
-      <ToolTipWrapper
-        style={wrapperStyle}
-        className={className}
-        onClick={stopPropagation}
-      >
-        <ToolTipArrow style={arrowStyle} />
-        <ToolTipBody>{children}</ToolTipBody>
-      </ToolTipWrapper>
+      <ToolTipArrow style={arrowStyle} />
+      <ToolTipBody style={bodyStyle}>{children}</ToolTipBody>
+      <ToolTipBackground onClick={onClick} />
     </>
   );
 };
