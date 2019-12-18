@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import 'intersection-observer';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { withCookies } from 'react-cookie';
+import 'intersection-observer';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';

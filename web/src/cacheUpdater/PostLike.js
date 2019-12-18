@@ -1,21 +1,26 @@
-import { detailPostCacheObj, postListCacheObj } from './CacheObj';
+import {
+  detailPostReadQueryOption,
+  postListReadQueryOption,
+} from './readQueryOptions';
 
 const updateLikeCacheOfDetailPost = ({ cache, post, myInfo }) => {
-  const cacheObj = detailPostCacheObj(post, myInfo);
-  const { post: postBeforeUpdate } = cache.readQuery(cacheObj);
+  const readQueryOption = detailPostReadQueryOption(post, myInfo);
+  const { post: postBeforeUpdate } = cache.readQuery(readQueryOption);
   const postAfterUpdate = { ...postBeforeUpdate };
   const diff = postBeforeUpdate.isLike ? -1 : 1;
   postAfterUpdate.isLike = !postBeforeUpdate.isLike;
   postAfterUpdate.likerInfo.likerCount += diff;
   cache.writeQuery({
-    ...cacheObj,
+    ...readQueryOption,
     data: { post: postAfterUpdate },
   });
 };
 
 const updateLikeCacheOfPostList = ({ cache, targetId, myInfo }) => {
-  const cacheObj = postListCacheObj(myInfo);
-  const { followingPostList: postListBeforeUpdate } = cache.readQuery(cacheObj);
+  const readQueryOption = postListReadQueryOption(myInfo);
+  const { followingPostList: postListBeforeUpdate } = cache.readQuery(
+    readQueryOption,
+  );
   const postListAfterUpdate = [...postListBeforeUpdate];
   const targetIndex = postListAfterUpdate.findIndex(
     post => post.id === targetId,
@@ -25,7 +30,7 @@ const updateLikeCacheOfPostList = ({ cache, targetId, myInfo }) => {
   targetPost.isLike = !targetPost.isLike;
   targetPost.likerInfo.likerCount += diff;
   cache.writeQuery({
-    ...cacheObj,
+    ...readQueryOption,
     data: { followingPostList: postListAfterUpdate },
   });
 };
