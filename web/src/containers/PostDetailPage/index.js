@@ -13,7 +13,7 @@ function PostDetailPage({ match, cookies }) {
   const myInfo = cookies.get('myInfo');
   const { loading, error, data } = useQuery(READ_POST, {
     variables: { postURL: match.params.postURL, UserId: myInfo.id },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'first',
   });
 
   useEffect(() => {

@@ -15,7 +15,11 @@ const LIMIT = 5;
 function HomePage({ cookies }) {
   const myInfo = cookies.get('myInfo');
   const [noMorePost, setNoMorePost] = useState(false);
-  const lastChild = useRef();
+  const currentFocusingPost = useRef({
+    post: null,
+    latestFocusedTime: new Date(),
+  });
+  const spinnerRef = useRef();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
       myId: myInfo.id,
@@ -42,6 +46,7 @@ function HomePage({ cookies }) {
       draggable: true,
     });
   };
+
   const getMorePosts = (entries, observer) => {
     if (loading) return;
     if (data && !data.followingPostList.length) return;
@@ -71,14 +76,19 @@ function HomePage({ cookies }) {
   const { followingPostList } = data || { followingPostList: [] };
 
   const postList = followingPostList.map(post => (
-    <Post key={post.id} post={post} myInfo={myInfo} />
+    <Post
+      key={post.id}
+      post={post}
+      myInfo={myInfo}
+      focusingTarget={currentFocusingPost}
+    />
   ));
 
   useEffect(() => {
-    if (!lastChild.current) return;
+    if (!spinnerRef.current) return;
     if (noMorePost) return;
     const observer = new IntersectionObserver(getMorePosts, options);
-    observer.observe(lastChild.current);
+    observer.observe(spinnerRef.current);
 
     if (data && !followingPostList.length) noMorePostHandler();
 
@@ -96,7 +106,7 @@ function HomePage({ cookies }) {
     <PostListWrapper>
       {postList}
       {!noMorePost && (
-        <SpinnerWrapper ref={lastChild}>
+        <SpinnerWrapper ref={spinnerRef}>
           <Spinner size={50} />
         </SpinnerWrapper>
       )}
