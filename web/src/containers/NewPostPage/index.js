@@ -44,7 +44,7 @@ const NewPostPage = ({ cookies }) => {
       const writer = {
         ...myInfo,
         isFollow: true,
-        profileImage: null,
+        profileImage: myInfo.profileImage,
         __typename: 'User',
       };
       const newPost = {

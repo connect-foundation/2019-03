@@ -13,7 +13,7 @@ function CommentList({ PostId }) {
       offset: 0,
       limit: 5,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   });
 
   let comments = [];
@@ -27,9 +27,12 @@ function CommentList({ PostId }) {
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
+        const updatedCommentList = [
+          ...prev.commentList,
+          ...fetchMoreResult.commentList,
+        ];
         return {
-          ...prev,
-          commentList: [...prev.commentList, ...fetchMoreResult.commentList],
+          commentList: updatedCommentList,
         };
       },
     });

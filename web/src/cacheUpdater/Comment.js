@@ -1,4 +1,7 @@
-import { commentListCacheObj, postListCacheObj } from './CacheObj';
+import {
+  commentListReadQueryOption,
+  postListReadQueryOption,
+} from './readQueryOptions';
 
 const updateCommentListCacheOfPostList = ({
   cache,
@@ -6,14 +9,14 @@ const updateCommentListCacheOfPostList = ({
   createdComment,
   PostId,
 }) => {
-  const cacheObj = postListCacheObj(myInfo);
-  const { followingPostList } = cache.readQuery(cacheObj);
+  const readQueryOption = postListReadQueryOption(myInfo);
+  const { followingPostList } = cache.readQuery(readQueryOption);
   const changedFollowingPostList = [...followingPostList];
   changedFollowingPostList
     .find(post => +post.id === PostId)
     .commentList.push(createdComment);
   cache.writeQuery({
-    ...cacheObj,
+    ...readQueryOption,
     data: { followingPostList: changedFollowingPostList },
   });
 };
@@ -23,10 +26,10 @@ const updateCommentListCacheOfDetailPost = ({
   createdComment,
   PostId,
 }) => {
-  const cacheObj = commentListCacheObj({ PostId });
-  const { commentList } = cache.readQuery(cacheObj);
+  const readQueryOption = commentListReadQueryOption({ PostId });
+  const { commentList } = cache.readQuery(readQueryOption);
   cache.writeQuery({
-    ...cacheObj,
+    ...readQueryOption,
     data: { commentList: [createdComment].concat(commentList) },
   });
 };
