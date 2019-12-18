@@ -3,11 +3,13 @@ const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
 const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
 const { graphqlUploadExpress } = require('graphql-upload');
 const initPassport = require('./config/passport-config');
+const redisClient = require('./config/redis-config');
 const { isAuthenticated } = require('./api/middlewares/auth');
 
 const { schema } = require('./api/graphql');
@@ -26,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
@@ -39,7 +42,7 @@ app.use('/account', require('./api/routes/account-route'));
 
 app.use(
   '/graphql',
-  // isAuthenticated,
+  isAuthenticated,
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP({
     schema,
