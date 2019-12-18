@@ -17,14 +17,13 @@ function SettingPage({ match, pageList }) {
           exact
           path={`${match.path}/${url}`}
           component={props => (
-            <PageComponent
-              {...props}
-              setItem={setFocusedItem}
-            />
+            <PageComponent {...props} setItem={setFocusedItem} />
           )}
         />
       ))}
       <ToastContainer
+        autoClose={1000}
+        hideProgressBar
         position={toast.POSITION.BOTTOM_CENTER}
         transition={Slide}
       />
