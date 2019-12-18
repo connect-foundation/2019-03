@@ -17,9 +17,10 @@ const PostCardList = ({ data }) => {
   }
   return (
     <>
-      {lineList.map(postLineInfo => (
-        <PostCardLine postLineInfo={postLineInfo} />
-      ))}
+      {lineList.map(postLineInfo => {
+        const key = postLineInfo[0].postURL;
+        return <PostCardLine postLineInfo={postLineInfo} key={key} />;
+      })}
     </>
   );
 };
