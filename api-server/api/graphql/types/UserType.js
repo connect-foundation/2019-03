@@ -1,4 +1,8 @@
 const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+const {
+  UserFollow,
+  Sequelize: { Op },
+} = require('../../../db');
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -23,6 +27,18 @@ const UserType = new GraphQLObjectType({
     },
     isFollow: {
       type: GraphQLInt,
+      resolve: async ({ id }, _, context) => {
+        try {
+          const isFollow = await UserFollow.findOne({
+            attributes: ['status'],
+            where: { [Op.and]: [{ from: context.UserId }, { to: id }] },
+          });
+          if (!isFollow) return null;
+          return isFollow.dataValues.status;
+        } catch (err) {
+          return { error: err.message };
+        }
+      },
     },
   }),
 });

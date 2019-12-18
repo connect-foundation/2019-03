@@ -170,7 +170,8 @@ const NewPostPage = ({ cookies }) => {
         </Button>
       </StyledSection>
       <ToastContainer
-        autoClose={false}
+        autoClose={1000}
+        hideProgressBar
         position={toast.POSITION.BOTTOM_CENTER}
         transition={Slide}
         bodyClassName="toast-body"
