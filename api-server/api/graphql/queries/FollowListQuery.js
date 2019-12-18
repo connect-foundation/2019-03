@@ -1,4 +1,4 @@
-const { GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLList, GraphQLID } = require('graphql');
 
 const { UserType } = require('../types');
 const {
@@ -12,10 +12,10 @@ const followListQuery = {
   type: new GraphQLList(UserType),
   args: {
     myId: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     userId: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
   },
   resolve: async (_, args) => {

@@ -1,4 +1,9 @@
-const { GraphQLString, GraphQLInt, GraphQLNonNull } = require('graphql');
+const {
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+  GraphQLNonNull,
+} = require('graphql');
 
 const { CommentType } = require('../types/CommentType');
 const { Comment, Log } = require('../../../db');
@@ -17,15 +22,15 @@ const createComment = {
     },
     WriterId: {
       name: 'WriterId',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
     PostId: {
       name: 'PostId',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
     UserId: {
       name: 'UserId',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   resolve: (value, { content, depth, WriterId, PostId, UserId }) => {

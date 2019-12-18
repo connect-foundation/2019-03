@@ -1,4 +1,4 @@
-const { GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const { GraphQLUpload } = require('graphql-upload');
 
 const { PostType } = require('../types');
@@ -14,7 +14,7 @@ const createPost = {
       type: GraphQLUpload,
     },
     userId: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     content: {
       type: GraphQLString,
@@ -80,7 +80,7 @@ const updatePost = {
     },
     id: {
       name: 'id',
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   resolve: async (_, { id, content }) => {
