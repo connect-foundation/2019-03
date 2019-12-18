@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
@@ -21,17 +20,15 @@ function PostDetailPage({ match, cookies }) {
   }, []);
 
   if (loading) return <Loading size={50} />;
-  if (error) return <Error />;
+  if (error) return <Error status={500} />;
   if (!data) return null;
   const { post } = data;
 
   return (
-    <ThemeProvider theme={{ post_length: 600 }}>
-      <PostDetailPageWrapper>
-        <ViewPort img={post.imageURL} />
-        <PostSideBox post={post} />
-      </PostDetailPageWrapper>
-    </ThemeProvider>
+    <PostDetailPageWrapper>
+      <ViewPort img={post.imageURL} />
+      <PostSideBox post={post} />
+    </PostDetailPageWrapper>
   );
 }
 

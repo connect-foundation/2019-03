@@ -5,34 +5,29 @@ import { withCookies } from 'react-cookie';
 import 'intersection-observer';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Error from '../../components/Error';
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
 import NoFollowing from './NoFollowing';
 
-const LIMIT = 5;
+const POST_LIST_REQUEST_DEFAULT_LIMIT = 5;
+
 function HomePage({ cookies }) {
   const myInfo = cookies.get('myInfo');
+
   const [noMorePost, setNoMorePost] = useState(false);
-  const currentFocusingPost = useRef({
-    post: null,
-    latestFocusedTime: new Date(),
-  });
   const spinnerRef = useRef();
+
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
       myId: myInfo.id,
-      limit: LIMIT,
+      limit: POST_LIST_REQUEST_DEFAULT_LIMIT,
     },
     fetchPolicy: 'cache-first',
     notifyOnNetworkStatusChange: true,
   });
-
-  const options = {
-    root: null,
-    threshold: 0,
-  };
 
   const noMorePostHandler = () => {
     if (noMorePost) return;
@@ -47,7 +42,28 @@ function HomePage({ cookies }) {
     });
   };
 
-  const getMorePosts = (entries, observer) => {
+  const requestMorePosts = ({ cursor }) => {
+    fetchMore({
+      variables: {
+        cursor,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        if (!fetchMoreResult.followingPostList.length)
+          noMorePostHandler(noMorePost);
+        const updatedFollowingList = {
+          ...prev,
+          followingPostList: [
+            ...prev.followingPostList,
+            ...fetchMoreResult.followingPostList,
+          ],
+        };
+        return updatedFollowingList;
+      },
+    });
+  };
+
+  const checkAndRequestMorePost = (entries, observer) => {
     if (loading) return;
     if (data && !data.followingPostList.length) return;
     const entry = entries[0];
@@ -55,39 +71,27 @@ function HomePage({ cookies }) {
     observer.disconnect();
     const list = data.followingPostList;
     const cursor = list.length ? [...list].pop().updatedAt : null;
-    fetchMore({
-      variables: {
-        cursor,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        if (!fetchMoreResult.followingPostList.length) noMorePostHandler();
-        return {
-          ...prev,
-          followingPostList: [
-            ...prev.followingPostList,
-            ...fetchMoreResult.followingPostList,
-          ],
-        };
-      },
-    });
+    requestMorePosts({ cursor });
   };
 
   const { followingPostList } = data || { followingPostList: [] };
 
   const postList = followingPostList.map(post => (
-    <Post
-      key={post.id}
-      post={post}
-      myInfo={myInfo}
-      focusingTarget={currentFocusingPost}
-    />
+    <Post key={post.id} post={post} myInfo={myInfo} />
   ));
+
+  const observerOption = {
+    root: null,
+    threshold: 0,
+  };
 
   useEffect(() => {
     if (!spinnerRef.current) return;
     if (noMorePost) return;
-    const observer = new IntersectionObserver(getMorePosts, options);
+    const observer = new IntersectionObserver(
+      checkAndRequestMorePost,
+      observerOption,
+    );
     observer.observe(spinnerRef.current);
 
     if (data && !followingPostList.length) noMorePostHandler();
@@ -98,7 +102,7 @@ function HomePage({ cookies }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followingPostList]);
 
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <Error status={500} />;
   if (data && !followingPostList.length) {
     return <NoFollowing />;
   }

@@ -20,7 +20,7 @@ const Error = ({ status }) => {
 };
 
 Error.defaultProps = {
-  status: 404,
+  status: 500,
 };
 
 export default Error;

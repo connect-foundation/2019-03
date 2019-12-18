@@ -27,9 +27,12 @@ function CommentList({ PostId }) {
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
+        const updatedCommentList = [
+          ...prev.commentList,
+          ...fetchMoreResult.commentList,
+        ];
         return {
-          ...prev,
-          commentList: [...prev.commentList, ...fetchMoreResult.commentList],
+          commentList: updatedCommentList,
         };
       },
     });
