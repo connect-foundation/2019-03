@@ -13,7 +13,7 @@ function CommentList({ PostId }) {
       offset: 0,
       limit: 5,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   });
 
   let comments = [];
