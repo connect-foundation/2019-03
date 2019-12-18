@@ -1,4 +1,14 @@
-const { validateAuthRequest } = require("./request-validator");
-const { isAuthenticated } = require("./auth");
+const {
+  validateAuthRequest,
+  validateTokenRequest,
+  validateAccessToken
+} = require("./request-validator");
+const { isAuthenticated, authenticate } = require("./auth");
 
-module.exports = { validateAuthRequest, isAuthenticated };
+module.exports = {
+  validateAuthRequest,
+  validateTokenRequest,
+  validateAccessToken,
+  isAuthenticated,
+  authenticate
+};

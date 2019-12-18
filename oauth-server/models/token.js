@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const AccessToken = sequelize.define("AccessToken", {
+  const Token = sequelize.define("Token", {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
     refreshToken: {
       type: DataTypes.STRING(256)
     },
+    clientId: {
+      allowNull: false,
+      type: DataTypes.STRING(256)
+    },
+    resourceOwner: {
+      allowNull: false,
+      type: DataTypes.STRING(30)
+    },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE(3),
@@ -24,16 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  AccessToken.associate = models => {
-    AccessToken.belongsTo(models.User, {
-      onDelete: "cascade",
-      onUpdate: "cascade"
-    });
-    AccessToken.belongsTo(models.Client, {
-      onDelete: "cascade",
-      onUpdate: "cascade"
-    });
-  };
+  Token.associate = models => {};
 
-  return AccessToken;
+  return Token;
 };

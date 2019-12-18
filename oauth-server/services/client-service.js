@@ -2,6 +2,7 @@ const uuidv4 = require("uuid/v4");
 const Validator = require("../validator");
 const { InvalidRequestError } = require("../error-types");
 const { Client } = require("../db");
+const { generateHexUsingHash } = require("../lib");
 
 const clientType = {
   WEB: "web-server-app",
@@ -25,15 +26,16 @@ async function registration(client) {
     const clientId = uuidv4();
     let clientSecret = null;
     if (client.type === clientType.WEB) {
+      clientSecret = await generateHexUsingHash();
     }
 
     await Client.create({
+      clientId: clientId,
       clientType: client.type,
       redirectionURI: client.redirectionURI,
       appName: client.appName,
       website: client.website,
       description: client.description,
-      clientID: clientId,
       clientSecret,
       updatedAt: new Date()
     });

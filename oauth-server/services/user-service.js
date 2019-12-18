@@ -13,4 +13,17 @@ async function signin(username, password) {
   return user;
 }
 
-module.exports = { signin };
+async function getUserProfile(username) {
+  const profile = await User.findOne({
+    attributes: ["username", "name"],
+    where: { username }
+  });
+
+  if (!profile) {
+    throw Error("The user who has username is not existed.");
+  }
+
+  return profile;
+}
+
+module.exports = { signin, getUserProfile };

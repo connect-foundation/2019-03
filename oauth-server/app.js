@@ -9,7 +9,8 @@ const session = require("express-session");
 const initPassport = require("./config/passport-config");
 require("./db");
 
-const indexRouter = require("./routes");
+const clientRouter = require("./routes/client");
+const apiRouter = require("./routes/api");
 const oauthRouter = require("./routes/oauth");
 
 const app = express();
@@ -27,7 +28,7 @@ app.use(
 );
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -40,7 +41,8 @@ app.use(
 );
 initPassport(app);
 
-app.use("/", indexRouter);
+app.use("/client", clientRouter);
+app.use("/api", apiRouter);
 app.use("/oauth2", oauthRouter);
 
 app.use((req, res, next) => {

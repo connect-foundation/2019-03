@@ -1,8 +1,13 @@
 const express = require("express");
-const passport = require("passport");
 
-const { validateAuthRequest, isAuthenticated } = require("../middlewares");
+const {
+  validateAuthRequest,
+  validateTokenRequest,
+  isAuthenticated,
+  authenticate
+} = require("../middlewares");
 const { makeUrlWithQueryParams } = require("../lib");
+const { authCode } = require("../grant-types");
 
 const oauth = express.Router();
 
@@ -12,29 +17,30 @@ oauth.get("/account/signin", (req, res) => {
 });
 
 oauth.post("/account/signin", (req, res, next) => {
-  passport.authenticate("signin", (err, user, info) => {
-    if (err) {
-      return next(err.original);
-    }
-    if (!user) {
-      return res.status(500).json({ message: info.message });
-    }
-    req.logIn(user, loginErr => {
-      if (loginErr) return next(loginErr);
-
-      const url = makeUrlWithQueryParams("/oauth2/authorize", req.query);
-      return res.redirect(url);
-    });
-  })(req, res, next);
+  authenticate(req, res, next, "signin");
 });
 
-oauth.get("/authorize", validateAuthRequest, isAuthenticated, (req, res) => {
-  console.log("authorize!");
-  res.status(200).json({});
-});
+oauth.get(
+  "/authorize",
+  validateAuthRequest,
+  isAuthenticated,
+  async (req, res, next) => {
+    const { response_type } = req.query;
 
-oauth.post("/token", (req, res) => {
-  res.status(200).json({});
+    let path = "";
+    if (response_type === "code") {
+      path = await authCode.codeHandler(req.query, req.user);
+      return res.redirect(path);
+    }
+
+    return next(new UnsupportedResonseTypeError());
+  }
+);
+
+oauth.post("/token", validateTokenRequest, async (req, res, next) => {
+  const responseBody = await authCode.tokenHandler(req.body);
+
+  return res.status(200).json(responseBody);
 });
 
 module.exports = oauth;
