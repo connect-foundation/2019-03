@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useReducer } from 'react';
 import { withCookies } from 'react-cookie';
 import { useApolloClient } from '@apollo/react-hooks';
 
@@ -17,6 +17,12 @@ import {
 import Icon from '../../../components/Icon';
 import constants from '../constants';
 import { onSignUpSubmitHandler } from '../lib';
+import reducer, {
+  INIT_STATE,
+  RESET_VALIDATION_MESSAGE,
+  SET_DUPLICATED_ERROR,
+  SET_SERVER_ERROR,
+} from './reducer';
 
 const {
   LOGO_STYLE,
@@ -26,24 +32,19 @@ const {
   INVALID_NAME,
   INVALID_EMAIL,
   INVALID_CELLPHONE,
+  SERVER_ERROR,
 } = constants;
 
 function SignUpPage({ cookies }) {
   const client = useApolloClient();
-  const [isDuplicated, setIsDuplicated] = useState(false);
-  const [validities, setValidities] = useState({
-    username: true,
-    password: true,
-    name: true,
-    email: true,
-    cellPhone: true,
-  });
+  const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const signUpForm = useRef(null);
 
   const onSubmit = async e => {
     e.preventDefault();
+    dispatch({ type: RESET_VALIDATION_MESSAGE });
     try {
-      await onSignUpSubmitHandler(signUpForm, setValidities, setIsDuplicated);
+      await onSignUpSubmitHandler(signUpForm, dispatch);
       const myInfo = cookies.get('myInfo');
       client.writeData({
         data: {
@@ -51,7 +52,11 @@ function SignUpPage({ cookies }) {
         },
       });
     } catch (error) {
-      console.log(error.message);
+      if (error.message === 'Duplicated username') {
+        dispatch({ type: SET_DUPLICATED_ERROR });
+        return;
+      }
+      dispatch({ type: SET_SERVER_ERROR });
     }
   };
 
@@ -69,14 +74,14 @@ function SignUpPage({ cookies }) {
             limit={30}
             placeholder="사용자이름"
           />
-          {validities.username || (
+          {state.validities.username || (
             <ValidationMessage>{INVALID_USERNAME}</ValidationMessage>
           )}
-          {isDuplicated && (
+          {state.isDuplicated && (
             <ValidationMessage>중복된 아이디 입니다.</ValidationMessage>
           )}
           <SignUpInput type="text" name="name" limit={30} placeholder="이름" />
-          {validities.name || (
+          {state.validities.name || (
             <ValidationMessage>{INVALID_NAME}</ValidationMessage>
           )}
           <SignUpInput
@@ -85,7 +90,7 @@ function SignUpPage({ cookies }) {
             limit={30}
             placeholder="비밀번호"
           />
-          {validities.password || (
+          {state.validities.password || (
             <ValidationMessage>{INVALID_PASSWORD}</ValidationMessage>
           )}
           <SignUpInput
@@ -94,7 +99,7 @@ function SignUpPage({ cookies }) {
             limit={45}
             placeholder="이메일주소"
           />
-          {validities.email || (
+          {state.validities.email || (
             <ValidationMessage>{INVALID_EMAIL}</ValidationMessage>
           )}
           <SignUpInput
@@ -103,11 +108,14 @@ function SignUpPage({ cookies }) {
             limit={11}
             placeholder="휴대폰번호(하이픈 - 제외)"
           />
-          {validities.cellPhone || (
+          {state.validities.cellPhone || (
             <ValidationMessage>{INVALID_CELLPHONE}</ValidationMessage>
           )}
           <SignUpButton type="submit">회원가입</SignUpButton>
         </SignUpForm>
+        {state.isServerError && (
+          <ValidationMessage>{SERVER_ERROR}</ValidationMessage>
+        )}
         <HorizontalLine />
         <SignInLink style={LINK_STYLE} to="/account/signin">
           로그인

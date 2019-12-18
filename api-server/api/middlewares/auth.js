@@ -8,7 +8,7 @@ const authenticate = (type, req, res, next) => {
       return next(err.original);
     }
     if (!user) {
-      return res.status(500).json({ message: info.message });
+      return res.json({ status: 'error', message: 'unauthorized' });
     }
 
     return req.logIn(user, loginErr => {
@@ -24,7 +24,7 @@ const authenticate = (type, req, res, next) => {
       };
       res.cookie('myInfo', myInfo, { maxAge: ONE_DAY });
 
-      return res.status(200).json({ status: 'ok', message: 'authenticated' });
+      return res.json({ status: 'ok', message: 'authenticated' });
     });
   })(req, res, next);
 };

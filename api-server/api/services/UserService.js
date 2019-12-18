@@ -18,6 +18,8 @@ async function signin(_username, plaintextPassword) {
     where: { username: _username },
   });
 
+  if (!user) return null;
+
   const isSame = await bcrypt.compare(plaintextPassword, user.password);
   if (!isSame) return null;
 
