@@ -26,6 +26,16 @@ module.exports = {
       clientSecret: {
         type: Sequelize.STRING(256),
       },
+      UserId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE(3),

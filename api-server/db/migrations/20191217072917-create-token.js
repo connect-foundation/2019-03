@@ -14,6 +14,10 @@ module.exports = {
       refreshToken: {
         type: Sequelize.STRING(256),
       },
+      clientId: {
+        allowNull: false,
+        type: Sequelize.STRING(256),
+      },
       resourceOwner: {
         allowNull: false,
         type: Sequelize.STRING(30),
