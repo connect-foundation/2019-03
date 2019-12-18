@@ -8,7 +8,7 @@ function PostContent({ post, scrollRef }) {
   return (
     <PostContentWrapper ref={scrollRef}>
       <PostText post={post} />
-      <CommentList PostId={+post.id} />
+      <CommentList PostId={post.id} />
     </PostContentWrapper>
   );
 }

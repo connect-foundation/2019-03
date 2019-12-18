@@ -7,7 +7,7 @@ import { CountIndicatorWrapper, FollowIndicatorWrapper } from './styles';
 
 const CountIndicator = ({ data, myId }) => {
   const FOLLOWER_LIST = gql`
-    query FollowerList($myId: Int!, $userId: Int!) {
+    query FollowerList($myId: ID!, $userId: ID!) {
       followerList(myId: $myId, userId: $userId) {
         id
         name
@@ -18,7 +18,7 @@ const CountIndicator = ({ data, myId }) => {
     }
   `;
   const FOLLOW_LIST = gql`
-    query FollowList($myId: Int!, $userId: Int!) {
+    query FollowList($myId: ID!, $userId: ID!) {
       followList(myId: $myId, userId: $userId) {
         id
         name

@@ -26,7 +26,7 @@ function CommentInput({
         cache,
         myInfo,
         createdComment: createComment,
-        PostId: +post.id,
+        PostId: post.id,
       });
     },
   });
@@ -47,7 +47,7 @@ function CommentInput({
       variables: {
         content: text,
         WriterId: writer.id,
-        PostId: +post.id,
+        PostId: post.id,
         UserId: myInfo.id,
       },
     });

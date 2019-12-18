@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($file: Upload!, $userId: Int!) {
+  mutation UpdateProfile($file: Upload!, $userId: ID!) {
     updateProfile(file: $file, userId: $userId)
   }
 `;

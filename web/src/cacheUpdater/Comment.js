@@ -13,7 +13,7 @@ const updateCommentListCacheOfPostList = ({
   const { followingPostList } = cache.readQuery(readQueryOption);
   const changedFollowingPostList = [...followingPostList];
   changedFollowingPostList
-    .find(post => +post.id === PostId)
+    .find(post => post.id === PostId)
     .commentList.push(createdComment);
   cache.writeQuery({
     ...readQueryOption,
