@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ModalContentTitle = styled.div`
+  /* Layout */
   display: flex;
   flex-direction: row;
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const MyAppNoResult = styled.div`
+  /* Layout */
   text-align: center;
 
   /* Box */
