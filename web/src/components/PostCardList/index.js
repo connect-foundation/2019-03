@@ -2,19 +2,23 @@ import React from 'react';
 
 import PostCardLine from './PostCardLine';
 
-const PostCardList = ({ data }) => {
-  const lineList = [];
-  const { postCard } = data;
-  const postCardLength = postCard.length;
-  for (let i = 0; i < postCardLength / 3; i++) {
-    const line = [];
-    const remainCard =
-      i === Math.floor(postCardLength / 3) ? postCardLength % 3 : 3;
-    for (let j = 0; j < remainCard; j++) {
-      line.push(postCard[i * 3 + j]);
-    }
-    lineList.push(line);
-  }
+const PostCardList = ({ data: { postCard } }) => {
+  const getLineList = postCards => {
+    const postLineListReducer = (accmulator, currentValue, currentIndex) => {
+      const lineIndex = Math.floor(currentIndex / 3);
+      const isNewLine = lineIndex === currentIndex / 3;
+      if (isNewLine) accmulator.push([]);
+      accmulator[lineIndex].push(currentValue);
+      return accmulator;
+    };
+
+    const postLineList = postCards.reduce(postLineListReducer, []);
+
+    return postLineList;
+  };
+
+  const lineList = getLineList(postCard);
+
   return (
     <>
       {lineList.map(postLineInfo => {
