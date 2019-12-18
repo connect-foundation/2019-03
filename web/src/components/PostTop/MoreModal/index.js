@@ -3,8 +3,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 
-import { ModalContent, StyledLink, Modal } from './styles';
+import { ModalContent, StyledLink, Modal, FollowCancelContent } from './styles';
 import { DELETE_POST, FOLLOWING_POST_LIST } from '../../../queries';
+import CustomFollowButton from './styles/CustomFollowButton';
 
 const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
   const [redirect, setRedirect] = useState(false);
@@ -46,13 +47,22 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
 
   if (redirect) return <Redirect to="/" />;
   if (!isVisible) return null;
-
   return (
     <Modal onClick={clickClose}>
-      {writer.username !== myInfo.username && writer.isFollow && (
-        <>
-          <ModalContent followcancel>팔로우 취소</ModalContent>
-        </>
+      {writer.username !== myInfo.username && writer.isFollow === 0 && (
+        <ModalContent>
+          <FollowCancelContent htmlFor="follow_cancel">
+            팔로우 취소
+          </FollowCancelContent>
+          <CustomFollowButton
+            id="follow_cancel"
+            followStatus={writer.isFollow}
+            username={writer.username}
+            myId={myInfo.id}
+            userId={writer.id}
+            onFollowCancel={clickClose}
+          />
+        </ModalContent>
       )}
       {writer.username === myInfo.username && (
         <>

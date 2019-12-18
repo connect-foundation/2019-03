@@ -7,6 +7,7 @@ import FollowCheckingModal from '../FollowCheckingModal';
 
 const FollowButton = ({
   followStatus,
+  id,
   className,
   username,
   myId,
@@ -94,6 +95,7 @@ const FollowButton = ({
         status={currentFollowStatus}
         onClick={changeFollowStatus}
         className={className}
+        id={id}
       >
         {buttonText}
       </StyledFollowButton>

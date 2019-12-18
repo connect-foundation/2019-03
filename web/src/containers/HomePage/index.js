@@ -12,7 +12,7 @@ import Spinner from '../../components/Spinner';
 import NoFollowing from './NoFollowing';
 
 const LIMIT = 5;
-function HomePage({cookies}) {
+function HomePage({ cookies }) {
   const myInfo = cookies.get('myInfo');
   const [noMorePost, setNoMorePost] = useState(false);
   const lastChild = useRef();
