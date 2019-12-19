@@ -33,7 +33,10 @@ const Navigation = ({ cookies }) => {
           </NavCenterItemGroup>
           <NavItemGroup>
             <StyledLink to="/new/post">
-              <Icon name="newPost" style={{ marginRight: '10px' }} />
+              <Icon
+                name="newPost"
+                style={{ marginRight: '10px', marginTop: '5px' }}
+              />
             </StyledLink>
             <Alarm myInfo={myInfo} />
             <StyledLink to={`/${myInfo.username}`}>
