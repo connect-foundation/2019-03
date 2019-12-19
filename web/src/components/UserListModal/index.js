@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { List } from 'react-virtualized';
+import { List, AutoSizer } from 'react-virtualized';
 
 import Modal from '../Modal';
 import Spinner from '../Spinner';
@@ -15,9 +15,25 @@ const createContent = ({ myId, listName, data, error }) => {
   const DataKeys = Object.keys(data);
   const list = data[DataKeys[0]];
   if (!list.length) return <NoResult listName={listName} />;
-  return list.map(user => (
-    <UserListItem userInfo={user} myId={myId} key={user.id} />
-  ));
+
+  function rowRenderer({ key, index, style }) {
+    const user = list[index];
+    return <UserListItem userInfo={user} myId={myId} key={key} style={style} />;
+  }
+
+  return (
+    <AutoSizer>
+      {({ height, width }) => (
+        <List
+          width={width}
+          height={height}
+          rowCount={list.length}
+          rowHeight={56}
+          rowRenderer={rowRenderer}
+        />
+      )}
+    </AutoSizer>
+  );
 };
 
 const UserListModal = ({ myId, onClick, listName, query, userId }) => {
@@ -33,9 +49,7 @@ const UserListModal = ({ myId, onClick, listName, query, userId }) => {
       <ModalHeader>
         <h1>{listName}</h1>
       </ModalHeader>
-      <ModalContent>
-        <ul>{content}</ul>
-      </ModalContent>
+      <ModalContent>{content}</ModalContent>
     </Modal>
   );
 };
