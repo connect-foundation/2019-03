@@ -15,9 +15,8 @@ function changeToFormDataFormat(form, password, isSignin = true) {
   const name = getFormData(form, 'name');
   const email = getFormData(form, 'email');
   const cellPhone = getFormData(form, 'cellPhone');
-  formData.concat(`&name=${name}&email=${email}&cellPhone=${cellPhone}`);
 
-  return formData;
+  return formData.concat(`&name=${name}&email=${email}&cellPhone=${cellPhone}`);
 }
 
 export { getFormData, setFormData, changeToFormDataFormat };
