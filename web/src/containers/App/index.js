@@ -4,14 +4,13 @@ import { ThemeProvider } from 'styled-components';
 import { withCookies } from 'react-cookie';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
-import gql from 'graphql-tag';
-
 import AppWrapper from './AppWrapper';
 import Navigation from '../Navigation';
 import Loading from '../../components/Loading';
 import AuthRoute from './AuthRoute';
 import AccountRoute from './AccountRoute';
 import MyAppPage from '../MyAppPage';
+import { IS_LOGGED_IN } from '../../queries';
 
 const HomePage = lazy(() => import('../HomePage'));
 const NewPostPage = lazy(() => import('../NewPostPage'));
@@ -48,12 +47,6 @@ const settingPageList = [
     PageComponent: RegisterAppPage,
   },
 ];
-
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
 
 function App({ cookies }) {
   const client = useApolloClient();

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { gql } from 'apollo-boost';
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 
 import PostCardList from '../../components/PostCardList';
 import UserPageInfo from './UserPageInfo';
 import ListSelector from './ListSelector';
 import { UserPageWrapper, UserPageSection } from './styles';
+import { USER_PAGE, TAGGED_POSTS } from '../../queries';
 
 const UserPage = ({ match, myInfo }) => {
   const { username } = match.params;
@@ -15,45 +15,12 @@ const UserPage = ({ match, myInfo }) => {
   const [dataState, setDataState] = useState(null);
   const [selectionTabState, setSelectionTabState] = useState('게시물');
 
-  const userPageQuery = gql`
-    query UserPage($username: String!, $myId: ID!) {
-      userPage(username: $username, myId: $myId) {
-        isExistingUser
-        userInfo {
-          name
-          id
-          profileImage
-          isFollowing
-          postNumber
-          followersNum
-          followsNum
-        }
-        postCard {
-          postURL
-          imageURL
-        }
-      }
-    }
-  `;
-
-  const TAGGED_POSTS = gql`
-    query TaggedPosts($username: String!, $myId: Int!) {
-      taggedPosts(username: $username, myId: $myId) {
-        postURL
-        imageURL
-      }
-    }
-  `;
-
-  const { loading, error, data } = useQuery(userPageQuery, {
+  const { loading, error, data } = useQuery(USER_PAGE, {
     variables: { username, myId: id },
     fetchPolicy: 'cache-and-network',
   });
   const [loadTaggedPosts, taggedPostsResult] = useLazyQuery(TAGGED_POSTS, {
-    variables: {
-      username,
-      myId: id,
-    },
+    variables: { username, myId: id },
     fetchPolicy: 'cache-and-network',
   });
 
