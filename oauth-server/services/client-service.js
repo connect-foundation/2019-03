@@ -9,7 +9,7 @@ const clientType = {
   SPA: "single-page-app"
 };
 
-async function registration(client) {
+async function register(client) {
   try {
     if (!client.type) {
       throw new InvalidRequestError("Type is required.");
@@ -37,6 +37,7 @@ async function registration(client) {
       website: client.website,
       description: client.description,
       clientSecret,
+      UserId: client.UserId,
       updatedAt: new Date()
     });
 
@@ -56,4 +57,4 @@ async function getClient(clientId) {
   return client;
 }
 
-module.exports = { registration, getClient };
+module.exports = { register, getClient };
