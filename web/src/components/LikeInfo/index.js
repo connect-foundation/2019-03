@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { LikeInfoWrapper, Profile, LikeCount, LikerLink } from './styles';
-import LikerListModal from './LikerListModal';
+import UserListModal from '../UserListModal';
+import { FOLLOWER_LIST } from '../../queries';
 
-const LikeInfo = ({ postId, className, diff, likerInfo }) => {
+const LikeInfo = ({ myInfo, post, diff, likerInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const onToggleModal = () => {
@@ -28,22 +29,30 @@ const LikeInfo = ({ postId, className, diff, likerInfo }) => {
     content = (
       <>
         <LikerLink to={`/${username}`}>{username}</LikerLink>님&nbsp;
-        <LikeCount onClick={onToggleModal}>{`외 ${likerCount -
-          1}명`}</LikeCount>
+        <LikeCount onClick={onToggleModal}>
+          {`외 ${likerCount - 1}명`}
+        </LikeCount>
         이 좋아합니다.
       </>
     );
 
   return (
     <LikeInfoWrapper
-      className={className}
       style={{
         margin: '4px 15px',
       }}
     >
       <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
       {content}
-      {isVisible && <LikerListModal postId={postId} onClick={onToggleModal} />}
+      {isVisible && (
+        <UserListModal
+          myId={myInfo.id}
+          onClick={onToggleModal}
+          listName="팔로워"
+          query={FOLLOWER_LIST}
+          userId={post.writer.id}
+        />
+      )}
     </LikeInfoWrapper>
   );
 };

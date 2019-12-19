@@ -63,7 +63,7 @@ function UtilityBlock({ myInfo, post }) {
       </IconList>
       <LikeInfo
         myInfo={myInfo}
-        postId={postId}
+        post={post}
         diff={isLikeClicked - isLike}
         likerInfo={likerInfo}
       />
