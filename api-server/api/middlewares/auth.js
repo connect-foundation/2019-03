@@ -13,9 +13,8 @@ const authenticate = (type, req, res, next) => {
 
     return req.logIn(user, loginErr => {
       if (loginErr) return next(loginErr);
-
       const myInfo = {
-        id: user.id,
+        id: user.id.toString(),
         username: user.username,
         name: user.name,
         email: user.email,
