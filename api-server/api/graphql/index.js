@@ -10,6 +10,7 @@ const {
   hashTagPageQuery,
   followerListQuery,
   followListQuery,
+  taggedPostsQuery,
 } = require('./queries');
 const {
   updateUser,
@@ -39,6 +40,7 @@ const rootQuery = new GraphQLObjectType({
     hashTagPage: hashTagPageQuery,
     followerList: followerListQuery,
     followList: followListQuery,
+    taggedPosts: taggedPostsQuery,
   }),
 });
 
