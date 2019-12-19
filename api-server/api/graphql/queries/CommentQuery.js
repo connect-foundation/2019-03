@@ -1,4 +1,4 @@
-const { GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLInt, GraphQLID, GraphQLList } = require('graphql');
 
 const { CommentType } = require('../types');
 const { Comment } = require('../../../db');
@@ -6,7 +6,7 @@ const { Comment } = require('../../../db');
 const commentQuery = {
   type: new GraphQLList(CommentType),
   args: {
-    PostId: { type: GraphQLInt },
+    PostId: { type: GraphQLID },
     limit: { type: GraphQLInt },
     offset: { type: GraphQLInt },
   },

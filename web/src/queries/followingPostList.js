@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const FOLLOWING_POST_LIST = gql`
-  query FollowingPostList($myId: Int, $cursor: String, $limit: Int) {
+  query FollowingPostList($myId: ID, $cursor: String, $limit: Int) {
     followingPostList(id: $myId, cursor: $cursor, limit: $limit) {
       id
       imageURL

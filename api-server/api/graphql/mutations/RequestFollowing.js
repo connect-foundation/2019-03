@@ -1,4 +1,4 @@
-const { GraphQLInt } = require('graphql');
+const { GraphQLID } = require('graphql');
 
 const { UserFollower } = require('../types');
 const { createFollowData } = require('../../services/RequestFollowingService');
@@ -6,8 +6,8 @@ const { createFollowData } = require('../../services/RequestFollowingService');
 const RequestFollowing = {
   type: UserFollower,
   args: {
-    myId: { type: GraphQLInt },
-    userId: { type: GraphQLInt },
+    myId: { type: GraphQLID },
+    userId: { type: GraphQLID },
   },
   resolve: async (_, args) => {
     try {

@@ -39,7 +39,7 @@ const CommentType = new GraphQLObjectType({
       },
     },
     PostId: {
-      type: GraphQLInt,
+      type: GraphQLID,
       resolve: comment => comment.PostId,
     },
     writer: {

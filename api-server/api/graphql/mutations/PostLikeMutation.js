@@ -1,9 +1,9 @@
-const { GraphQLNonNull, GraphQLInt, GraphQLID } = require('graphql');
+const { GraphQLNonNull, GraphQLID } = require('graphql');
 
 const { setPostLike, unsetPostLike } = require('../../services/PostService');
 
 const createPostLike = {
-  type: GraphQLInt,
+  type: GraphQLID,
   args: {
     PostId: {
       name: 'PostId',
@@ -24,13 +24,13 @@ const createPostLike = {
       await setPostLike(UserId, WriterId, PostId);
       return PostId;
     } catch (err) {
-      return 0;
+      return '';
     }
   },
 };
 
 const deletePostLike = {
-  type: GraphQLInt,
+  type: GraphQLID,
   args: {
     PostId: {
       name: 'PostId',

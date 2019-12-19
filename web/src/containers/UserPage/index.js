@@ -15,7 +15,7 @@ const UserPage = ({ match, myInfo }) => {
   const [dataState, setDataState] = useState(null);
 
   const userPageQuery = gql`
-    query UserPage($username: String!, $myId: Int!) {
+    query UserPage($username: String!, $myId: ID!) {
       userPage(username: $username, myId: $myId) {
         isExistingUser
         userInfo {

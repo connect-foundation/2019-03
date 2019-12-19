@@ -1,4 +1,9 @@
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLInt,
+} = require('graphql');
 const {
   UserFollow,
   Sequelize: { Op },
@@ -8,7 +13,7 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     username: {
       type: GraphQLString,

@@ -16,7 +16,6 @@ const POST_LIST_REQUEST_DEFAULT_LIMIT = 5;
 
 function HomePage({ cookies }) {
   const myInfo = cookies.get('myInfo');
-
   const [noMorePost, setNoMorePost] = useState(false);
   const spinnerRef = useRef();
 

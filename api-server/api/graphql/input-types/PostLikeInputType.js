@@ -1,6 +1,6 @@
 const {
   GraphQLNonNull,
-  GraphQLInt,
+  GraphQLID,
   GraphQLInputObjectType,
 } = require('graphql');
 
@@ -8,13 +8,13 @@ const PostLikeInputType = new GraphQLInputObjectType({
   name: 'PostLikeInputType',
   fields: () => ({
     PostId: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
     WriterId: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
     UserId: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLID),
     },
   }),
 });

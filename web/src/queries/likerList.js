@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const LIKER_LIST = gql`
-  query LikerList($postId: Int!) {
+  query LikerList($postId: ID!) {
     likerList(postId: $postId) {
       id
       username

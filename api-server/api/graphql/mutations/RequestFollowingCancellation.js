@@ -1,4 +1,4 @@
-const { GraphQLInt } = require('graphql');
+const { GraphQLID } = require('graphql');
 
 const { UserFollower } = require('../types');
 const {
@@ -8,8 +8,8 @@ const {
 const RequestFollowingCancellation = {
   type: UserFollower,
   args: {
-    myId: { type: GraphQLInt },
-    userId: { type: GraphQLInt },
+    myId: { type: GraphQLID },
+    userId: { type: GraphQLID },
   },
   resolve: async (_, args) => {
     try {

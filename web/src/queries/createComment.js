@@ -2,9 +2,9 @@ import { gql } from 'apollo-boost';
 
 const CREATE_COMMENT = gql`
   mutation CreateComment(
-    $PostId: Int!
-    $WriterId: Int!
-    $UserId: Int!
+    $PostId: ID!
+    $WriterId: ID!
+    $UserId: ID!
     $content: String!
   ) {
     createComment(

@@ -1,4 +1,4 @@
-const { GraphQLInt, GraphQLList } = require('graphql');
+const { GraphQLID, GraphQLList } = require('graphql');
 
 const { LogType } = require('../types');
 const { Log } = require('../../../db');
@@ -6,7 +6,7 @@ const { Log } = require('../../../db');
 const logQuery = {
   type: new GraphQLList(LogType),
   args: {
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
   },
   resolve: (log, args) => {
     return Log.findAll({

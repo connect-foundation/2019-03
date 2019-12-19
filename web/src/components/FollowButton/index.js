@@ -21,7 +21,7 @@ const FollowButton = ({
   const [isVisible, setIsVisible] = useState(false);
 
   const requestFollowingQuery = gql`
-    mutation RequestFollowing($myId: Int!, $userId: Int!) {
+    mutation RequestFollowing($myId: ID!, $userId: ID!) {
       RequestFollowing(myId: $myId, userId: $userId) {
         from
         to
@@ -31,7 +31,7 @@ const FollowButton = ({
     }
   `;
   const requestFollowingCancellationQuery = gql`
-    mutation RequestFollowingCancellation($myId: Int!, $userId: Int!) {
+    mutation RequestFollowingCancellation($myId: ID!, $userId: ID!) {
       RequestFollowingCancellation(myId: $myId, userId: $userId) {
         from
         to
