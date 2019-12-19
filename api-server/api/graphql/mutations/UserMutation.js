@@ -1,15 +1,11 @@
-const {
-  GraphQLNonNull,
-  GraphQLString,
-  GraphQLID,
-  GraphQLInt,
-} = require('graphql');
+const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const { GraphQLUpload } = require('graphql-upload');
 
 const { UserType } = require('../types');
-const { User } = require('../../../db');
-const s3 = require('../../../upload');
-const { updateProfileImage } = require('../../services/UserService');
+const {
+  updateUserProfile,
+  updateProfileImage,
+} = require('../../services/user-service');
 
 const updateUser = {
   type: UserType,
@@ -42,16 +38,9 @@ const updateUser = {
     if (username) target.username = username;
     if (email) target.email = email;
     if (cellPhone) target.cellPhone = cellPhone;
-    try {
-      await User.update(target, {
-        where: {
-          id,
-        },
-      });
-      return target;
-    } catch (err) {
-      return err;
-    }
+
+    await updateUserProfile(id, target);
+    return target;
   },
 };
 
@@ -68,24 +57,7 @@ const updateProfile = {
     },
   },
   resolve: async (_, { file, userId }) => {
-    const { filename, createReadStream } = await file;
-    const stream = createReadStream();
-
-    const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
-    if (!extensionRegex.test(filename)) {
-      return false;
-    }
-
-    const imageFile = await s3
-      .upload({
-        Bucket: `${process.env.BUCKET}`,
-        ACL: 'public-read',
-        Key: `user/${Date.now().toString()}_${filename}`,
-        Body: stream,
-      })
-      .promise();
-
-    await updateProfileImage(imageFile, userId);
+    const imageFile = await updateProfileImage(file, userId);
     return imageFile.Location;
   },
 };

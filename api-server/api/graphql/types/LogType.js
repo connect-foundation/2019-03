@@ -5,7 +5,7 @@ const { Post } = require('../../../db');
 const {
   getFollowStatusUserInfo,
   getOtherStatusUserInfo,
-} = require('../../services/LogService');
+} = require('../../services/log-service');
 
 const LogType = new GraphQLObjectType({
   name: 'Log',

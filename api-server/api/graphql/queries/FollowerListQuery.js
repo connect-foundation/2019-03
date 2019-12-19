@@ -6,7 +6,7 @@ const {
   getFollowerIdList,
   getFollowDataList,
   getFollowUpdatedDataList,
-} = require('../../services/FollowListService');
+} = require('../../services/followlist-service');
 
 const followerListQuery = {
   type: new GraphQLList(UserType),
@@ -19,19 +19,14 @@ const followerListQuery = {
     },
   },
   resolve: async (_, args) => {
-    try {
-      const followerList = await getFollowerList(args);
-      const followerIdList = getFollowerIdList(followerList);
-      const followerDataList = await getFollowDataList(followerIdList);
-      const followerUpdatedDataList = await getFollowUpdatedDataList(
-        followerDataList,
-        args,
-      );
-      return followerUpdatedDataList;
-    } catch (err) {
-      console.log(err);
-      return { error: err.message };
-    }
+    const followerList = await getFollowerList(args);
+    const followerIdList = getFollowerIdList(followerList);
+    const followerDataList = await getFollowDataList(followerIdList);
+    const followerUpdatedDataList = await getFollowUpdatedDataList(
+      followerDataList,
+      args,
+    );
+    return followerUpdatedDataList;
   },
 };
 

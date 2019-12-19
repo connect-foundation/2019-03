@@ -1,7 +1,7 @@
 const { GraphQLString, GraphQLID } = require('graphql');
 
 const { PostType } = require('../types');
-const { Post } = require('../../../db');
+const { getPostDetail } = require('../../services/post-service');
 
 const postDetailQuery = {
   type: PostType,
@@ -10,13 +10,11 @@ const postDetailQuery = {
     UserId: { type: GraphQLID },
     postURL: { type: GraphQLString },
   },
-  resolve: (_, { id, UserId, postURL }, context) => {
+  resolve: async (_, { id, UserId, postURL }, context) => {
     // eslint-disable-next-line no-param-reassign
     context.UserId = UserId;
-    if (id) return Post.findByPk(id);
-    return Post.findOne({
-      where: { postURL },
-    });
+    const postDetail = await getPostDetail(id, postURL);
+    return postDetail;
   },
 };
 

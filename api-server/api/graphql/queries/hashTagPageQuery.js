@@ -1,7 +1,7 @@
 const { GraphQLString } = require('graphql');
 
 const { HashTagPageType } = require('../types');
-const { getHashTagPageData } = require('../../services/HashTagPageService');
+const { getHashTagPageData } = require('../../services/hashtag-service');
 
 const hashTagPageQuery = {
   type: HashTagPageType,
@@ -9,13 +9,8 @@ const hashTagPageQuery = {
     hashTagName: { type: GraphQLString },
   },
   resolve: async (_, args) => {
-    try {
-      const data = await getHashTagPageData(args);
-      return data;
-    } catch (e) {
-      console.log(e.message);
-      return { error: e.message };
-    }
+    const data = await getHashTagPageData(args);
+    return data;
   },
 };
 

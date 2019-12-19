@@ -4,7 +4,7 @@ const { CommentLikeInputType } = require('../input-types');
 const {
   setCommentLike,
   unsetCommentLike,
-} = require('../../services/CommentService');
+} = require('../../services/comment-service');
 
 const createCommentLike = {
   type: GraphQLBoolean,
@@ -15,13 +15,9 @@ const createCommentLike = {
   },
 
   resolve: async (_, { CommentLike }) => {
-    try {
-      const { UserId, CommentId } = CommentLike;
-      await setCommentLike(UserId, CommentId);
-      return true;
-    } catch (err) {
-      return false;
-    }
+    const { UserId, CommentId } = CommentLike;
+    await setCommentLike(UserId, CommentId);
+    return true;
   },
 };
 
@@ -34,13 +30,9 @@ const deleteCommentLike = {
   },
 
   resolve: async (_, { CommentLike }) => {
-    try {
-      const { UserId, CommentId } = CommentLike;
-      await unsetCommentLike(UserId, CommentId);
-      return true;
-    } catch (err) {
-      return false;
-    }
+    const { UserId, CommentId } = CommentLike;
+    await unsetCommentLike(UserId, CommentId);
+    return true;
   },
 };
 
