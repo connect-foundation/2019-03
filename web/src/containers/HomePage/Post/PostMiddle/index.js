@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -7,9 +7,10 @@ import { updateLikeCacheOfPostList } from '../../../../cacheUpdater';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
+import PostImage from '../../../../components/PostImage';
 import CommentIcon from './CommentIcon';
 import PostMiddleWrapper from './PostMiddleWrapper';
-import { IconGroup, IconWrapper, PostImage } from './styles';
+import { IconGroup, IconWrapper } from './styles';
 
 const PostMiddle = ({ myInfo, post }) => {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
@@ -44,8 +45,7 @@ const PostMiddle = ({ myInfo, post }) => {
     lazyFetch(isLikeClicked);
   };
 
-  const postImage = useRef(null);
-  const wrapperProps = { postImage, userId: myInfo.id, postId };
+  const wrapperProps = { userId: myInfo.id, postId };
 
   useEffect(() => {
     setLikeState(isLike);
@@ -56,7 +56,6 @@ const PostMiddle = ({ myInfo, post }) => {
       <PostImage
         myInfo={myInfo}
         imageURL={imageURL}
-        ref={postImage}
         onDoubleClick={toggleLikeState}
       />
       <IconGroup>
