@@ -68,7 +68,7 @@ const PostMiddle = ({ myInfo, post }) => {
       </IconGroup>
       <LikeInfo
         myInfo={myInfo}
-        postId={postId}
+        post={post}
         diff={isLikeClicked - isLike}
         likerInfo={likerInfo}
       />

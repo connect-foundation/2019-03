@@ -1,33 +1,16 @@
 import React, { useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
-
 import UserListModal from '../../../../../components/UserListModal';
 import { CountIndicatorWrapper, FollowIndicatorWrapper } from './styles';
 import { FOLLOWER_LIST, FOLLOW_LIST } from '../../../../../queries';
 
 const CountIndicator = ({ data, myId }) => {
-  const lazyQueryOption = {
-    variables: { myId, userId: data.id },
-    fetchPolicy: 'cache-and-network',
-  };
-  const [loadFollowerList, followerResult] = useLazyQuery(
-    FOLLOWER_LIST,
-    lazyQueryOption,
-  );
-  const [loadFollowList, followResult] = useLazyQuery(
-    FOLLOW_LIST,
-    lazyQueryOption,
-  );
-
   const [isFollowerModalVisible, setIsFollowerModalVisible] = useState(false);
   const [isFollowModalVisible, setIsFollowModalVisible] = useState(false);
 
   const onFollowerClick = async () => {
-    await loadFollowerList();
     setIsFollowerModalVisible(curVisibleState => !curVisibleState);
   };
   const onFollowClick = async () => {
-    await loadFollowList();
     setIsFollowModalVisible(curVisibleState => !curVisibleState);
   };
 
@@ -42,25 +25,29 @@ const CountIndicator = ({ data, myId }) => {
         <FollowIndicatorWrapper onClick={onFollowerClick}>
           팔로워 <span>{data.followersNum}</span>
         </FollowIndicatorWrapper>
-        <UserListModal
-          myId={myId}
-          isVisible={isFollowerModalVisible}
-          onClick={onFollowerClick}
-          lazyQueryResult={followerResult}
-          listName="팔로워"
-        />
+        {isFollowerModalVisible && (
+          <UserListModal
+            myId={myId}
+            onClick={onFollowerClick}
+            listName="팔로워"
+            query={FOLLOWER_LIST}
+            userId={data.id}
+          />
+        )}
       </li>
       <li>
         <FollowIndicatorWrapper onClick={onFollowClick}>
           팔로우 <span>{data.followsNum}</span>
         </FollowIndicatorWrapper>
-        <UserListModal
-          myId={myId}
-          isVisible={isFollowModalVisible}
-          onClick={onFollowClick}
-          lazyQueryResult={followResult}
-          listName="팔로우"
-        />
+        {isFollowModalVisible && (
+          <UserListModal
+            myId={myId}
+            onClick={onFollowClick}
+            listName="팔로우"
+            query={FOLLOW_LIST}
+            userId={data.id}
+          />
+        )}
       </li>
     </CountIndicatorWrapper>
   );

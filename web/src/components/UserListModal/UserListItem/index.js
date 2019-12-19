@@ -10,7 +10,7 @@ const UserListItem = ({ userInfo, myId }) => {
   const userpageURL = `/${username}`;
 
   const getFollowButton = () => {
-    if (myId === Number(id)) return <></>;
+    if (myId === id) return <></>;
     return (
       <FollowButton
         followStatus={isFollow}
