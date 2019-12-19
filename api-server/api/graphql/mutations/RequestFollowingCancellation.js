@@ -3,7 +3,7 @@ const { GraphQLID } = require('graphql');
 const { UserFollower } = require('../types');
 const {
   destroyFollowCancellationData,
-} = require('../../services/RequestFollowingCancellationService');
+} = require('../../services/following-service');
 
 const RequestFollowingCancellation = {
   type: UserFollower,
@@ -12,15 +12,8 @@ const RequestFollowingCancellation = {
     userId: { type: GraphQLID },
   },
   resolve: async (_, args) => {
-    try {
-      const userFollowerCancellation = await destroyFollowCancellationData(
-        args,
-      );
-      return userFollowerCancellation;
-    } catch (e) {
-      console.log(e.message);
-      return { error: e.message };
-    }
+    const userFollowerCancellation = await destroyFollowCancellationData(args);
+    return userFollowerCancellation;
   },
 };
 

@@ -6,7 +6,7 @@ const {
 } = require('graphql');
 
 const { CommentType } = require('../types/CommentType');
-const { Comment, Log } = require('../../../db');
+const { insertComment } = require('../../services/comment-service');
 
 const createComment = {
   type: CommentType,
@@ -33,24 +33,9 @@ const createComment = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: (value, { content, depth, WriterId, PostId, UserId }) => {
-    if (WriterId !== UserId) {
-      Log.create({
-        From: UserId,
-        To: WriterId,
-        PostId,
-        status: 'comment',
-        updatedAt: new Date(),
-      });
-    }
-
-    return Comment.create({
-      content,
-      depth,
-      PostId,
-      UserId,
-      updatedAt: new Date(),
-    });
+  resolve: async (_, args) => {
+    const comment = await insertComment(args);
+    return comment;
   },
 };
 

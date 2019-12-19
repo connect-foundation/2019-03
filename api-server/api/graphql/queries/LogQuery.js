@@ -1,19 +1,16 @@
 const { GraphQLID, GraphQLList } = require('graphql');
 
 const { LogType } = require('../types');
-const { Log } = require('../../../db');
+const { getLogs } = require('../../services/log-service');
 
 const logQuery = {
   type: new GraphQLList(LogType),
   args: {
     id: { type: GraphQLID },
   },
-  resolve: (log, args) => {
-    return Log.findAll({
-      attributes: ['id', 'status', 'From', 'To', 'PostId'],
-      where: { to: args.id },
-      order: [['updatedAt', 'DESC']],
-    });
+  resolve: async (_, { id }) => {
+    const logs = await getLogs(id);
+    return logs;
   },
 };
 

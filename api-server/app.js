@@ -8,11 +8,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const graphqlHTTP = require('express-graphql');
 const { graphqlUploadExpress } = require('graphql-upload');
+
 const initPassport = require('./config/passport-config');
 const redisClient = require('./config/redis-config');
 const { isAuthenticated } = require('./api/middlewares/auth');
-
 const { schema } = require('./api/graphql');
+const { formatError, errorName } = require('./error');
 
 const app = express();
 
@@ -47,6 +48,8 @@ app.use(
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV === 'development',
+    context: { errorName },
+    customFormatErrorFn: err => formatError.getError(err),
   }),
 );
 
@@ -55,11 +58,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // 나중에 에러 처리는 상세히
-  res.status(err.status || 500).json({});
+  if (err.status === 404) {
+    return res.redirect('/');
+  }
 });
 
 module.exports = app;
