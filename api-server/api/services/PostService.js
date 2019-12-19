@@ -218,6 +218,24 @@ async function insertHashTagOfPost(content, postId) {
   });
 }
 
+async function updatePostInfo(content, id) {
+  try {
+    await Post.update(
+      { content },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+    await insertHashTagOfPost(content, id);
+    await insertUserTag(content, id);
+    return { id, content };
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 module.exports = {
   getFollowingPostList,
   checkUserLikePost,
@@ -228,4 +246,5 @@ module.exports = {
   insertPost,
   insertHashTagOfPost,
   insertUserTag,
+  updatePostInfo,
 };
