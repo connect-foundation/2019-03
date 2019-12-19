@@ -74,7 +74,7 @@ const ClientRegistration = ({ setItem, cookies }) => {
   };
 
   if (isSuccess) {
-    return <Redirect to="/setting/edit/profile" />;
+    return <Redirect to="/setting/show/applications" />;
   }
 
   return (
