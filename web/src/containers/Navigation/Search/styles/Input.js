@@ -5,7 +5,7 @@ const Input = styled.input.attrs({
   placeholder: '검색',
 })`
   /* Layout */
-  z-index: 100;
+  position: relative;
 
   /* Box */
   margin-left: 20px;

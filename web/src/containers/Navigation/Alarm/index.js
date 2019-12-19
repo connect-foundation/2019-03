@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
+import { withCookies } from 'react-cookie';
 
 import Icon from '../../../components/Icon';
 import AlarmToolTip from './AlarmToolTip';
+import { AlarmToolTipWrapper } from './style';
 import { GET_LOGS } from '../../../queries';
 
-const Alarm = ({ myInfo }) => {
+const Alarm = ({ cookies }) => {
+  const myInfo = cookies.get('myInfo');
   const [isVisible, setIsVisible] = useState(false);
 
-  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOGS);
+  const [getLog, { data, loading, error }] = useLazyQuery(GET_LOGS, {
+    fetchPolicy: 'network-only',
+  });
 
   const clickAlarmIcon = () => {
     if (isVisible) {
@@ -19,21 +24,23 @@ const Alarm = ({ myInfo }) => {
     setIsVisible(true);
   };
   return (
-    <div style={{ position: 'relative' }}>
+    <div>
       <Icon
         name="emptyhHeart"
         onClick={clickAlarmIcon}
         style={{ marginTop: '5px', marginRight: '10px' }}
       />
-      <AlarmToolTip
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        data={data}
-        loading={loading}
-        error={error}
-      />
+      <AlarmToolTipWrapper>
+        <AlarmToolTip
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          data={data}
+          loading={loading}
+          error={error}
+        />
+      </AlarmToolTipWrapper>
     </div>
   );
 };
 
-export default Alarm;
+export default withCookies(Alarm);

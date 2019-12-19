@@ -6,6 +6,7 @@ const AlarmActionWrapper = styled.div`
   width: 32px;
   height: 32px;
 
+  /* Property */
   img {
     /* Box */
     width: 32px;

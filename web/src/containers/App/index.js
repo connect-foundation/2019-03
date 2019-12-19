@@ -79,7 +79,7 @@ function App({ cookies }) {
         }}
       >
         <AuthRoute path="/" data={data}>
-          <Navigation myInfo={myInfo} />
+          <Navigation />
           <Suspense fallback={<Loading size={50} />}>
             <Switch>
               <Route path="/" exact component={HomePage} />

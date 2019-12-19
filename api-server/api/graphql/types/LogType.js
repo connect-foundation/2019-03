@@ -21,10 +21,7 @@ const LogType = new GraphQLObjectType({
     fromUser: {
       type: AlarmFromUserType,
       resolve: async log => {
-        let user;
-        if (log.status === 'follow') {
-          user = await getFollowStatusUserInfo(log);
-        }
+        const user = await getFollowStatusUserInfo(log);
         if (user) return user;
         return getOtherStatusUserInfo(log);
       },

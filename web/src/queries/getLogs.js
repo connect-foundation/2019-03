@@ -6,6 +6,7 @@ const GET_LOGS = gql`
       id
       status
       fromUser {
+        id
         username
         profileImage
         follow {
