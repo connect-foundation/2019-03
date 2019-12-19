@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { CommentListWrapper, MoreCommentButton } from './styles';
@@ -15,18 +15,25 @@ function CommentList({ PostId }) {
     },
     fetchPolicy: 'cache-first',
   });
+  const noMoreComment = useRef(false);
 
   let comments = [];
+
+  if (data && data.commentList.length <= 4) noMoreComment.current = true;
   if (error) return <div>에러가 발생했습니다</div>;
   if (data) comments = data.commentList;
 
   const getMoreComments = () => {
+    if (noMoreComment.current) return;
     fetchMore({
       variables: {
         offset: data.commentList.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
+        if (fetchMoreResult.commentList.length <= 4) {
+          noMoreComment.current = true;
+        }
         const updatedCommentList = [
           ...prev.commentList,
           ...fetchMoreResult.commentList,
@@ -44,9 +51,11 @@ function CommentList({ PostId }) {
         // eslint-disable-next-line react/jsx-props-no-spreading
         <Comment key={comment.id} comment={comment} />
       ))}
-      <MoreCommentButton onClick={getMoreComments}>
-        <Icon ratio={6} posX={-385} posY={-498} />
-      </MoreCommentButton>
+      {!noMoreComment.current && (
+        <MoreCommentButton onClick={getMoreComments}>
+          <Icon ratio={6} posX={-385} posY={-498} />
+        </MoreCommentButton>
+      )}
     </CommentListWrapper>
   );
 }
