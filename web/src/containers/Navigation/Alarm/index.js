@@ -9,7 +9,6 @@ import { GET_LOGS } from '../../../queries';
 
 const Alarm = ({ cookies }) => {
   const myInfo = cookies.get('myInfo');
-  console.log(myInfo);
   const [isVisible, setIsVisible] = useState(false);
 
   const [getLog, { data, loading, error }] = useLazyQuery(GET_LOGS, {
