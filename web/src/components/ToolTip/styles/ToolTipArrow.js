@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const ToolTipArrow = styled.div`
   /* Layout */
   position: absolute;
-  z-index: 203;
+  z-index: 1;
   left: 3px;
   top: 40px;
 

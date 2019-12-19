@@ -6,7 +6,6 @@ const ToolTipBody = styled.div`
   top: 47px;
   overflow-x: hidden;
   overflow-y: scroll;
-  z-index: 200;
 
   /* Box */
   max-height: 400px;

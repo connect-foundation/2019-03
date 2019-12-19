@@ -1,9 +1,12 @@
-const { GraphQLObjectType, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLID } = require('graphql');
 const { UserFollower } = require('./UserFollower');
 
 const AlarmFromUserType = new GraphQLObjectType({
   name: 'alarmFromUser',
   fields: () => ({
+    id: {
+      type: GraphQLID,
+    },
     username: {
       type: GraphQLString,
       resolve: user => user.username,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withCookies } from 'react-cookie';
 import Search from './Search';
 import Icon from '../../components/Icon';
 import ProfileIcon from '../../components/ProfileIcon';
@@ -11,7 +12,8 @@ import {
   ItemWrapper,
 } from './styles';
 
-const Navigation = ({ myInfo }) => {
+const Navigation = ({ cookies }) => {
+  const myInfo = cookies.get('myInfo');
   return (
     <>
       <NavBackground>
@@ -33,7 +35,7 @@ const Navigation = ({ myInfo }) => {
             <StyledLink to="/new/post">
               <Icon name="newPost" style={{ marginRight: '10px' }} />
             </StyledLink>
-            <Alarm myInfo={myInfo}  />
+            <Alarm myInfo={myInfo} />
             <StyledLink to={`/${myInfo.username}`}>
               <ProfileIcon imageURL={myInfo.profileImage} ratio={8} />
             </StyledLink>
@@ -44,4 +46,4 @@ const Navigation = ({ myInfo }) => {
   );
 };
 
-export default Navigation;
+export default withCookies(Navigation);
