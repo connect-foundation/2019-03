@@ -9,5 +9,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/prop-types': 0,
     'import/prefer-default-export': 0,
+    'eslint/no-param-reassign': 0,
   },
 };
