@@ -3,7 +3,7 @@ const { GraphQLUpload } = require('graphql-upload');
 
 const { PostType } = require('../types');
 const { Post } = require('../../../db');
-const { insertPost } = require('../../services/PostService');
+const { insertPost, updatePostInfo } = require('../../services/PostService');
 const s3 = require('../../../upload');
 
 const createPost = {
@@ -83,17 +83,7 @@ const updatePost = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: async (_, { id, content }) => {
-    await Post.update(
-      { content },
-      {
-        where: {
-          id,
-        },
-      },
-    );
-    return { id, content };
-  },
+  resolve: async (_, { id, content }) => await updatePostInfo(content, id),
 };
 
 module.exports = {
