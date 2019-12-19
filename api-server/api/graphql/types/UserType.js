@@ -29,6 +29,9 @@ const UserType = new GraphQLObjectType({
     isFollow: {
       type: GraphQLInt,
     },
+    updatedAt: {
+      type: GraphQLString,
+    },
   }),
 });
 

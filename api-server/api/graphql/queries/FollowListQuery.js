@@ -1,4 +1,9 @@
-const { GraphQLList, GraphQLID } = require('graphql');
+const {
+  GraphQLList,
+  GraphQLID,
+  GraphQLString,
+  GraphQLInt,
+} = require('graphql');
 
 const { UserType } = require('../types');
 const {
@@ -17,11 +22,22 @@ const followListQuery = {
     userId: {
       type: GraphQLID,
     },
+    cursor: {
+      type: GraphQLString,
+      defaultValue: new Date().getTime().toString(),
+    },
+    limit: {
+      type: GraphQLInt,
+      defaultValue: 10,
+    },
   },
   resolve: async (_, args) => {
     const followList = await getFollowList(args);
     const followIdList = getFollowIdList(followList);
-    const followDataList = await getFollowDataList(followIdList);
+    const followDataList = await getFollowDataList({
+      followIdList,
+      ...args,
+    });
     const followUpdatedDataList = await getFollowUpdatedDataList(
       followDataList,
       args,

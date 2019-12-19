@@ -16,6 +16,7 @@ const followingPostListQuery = {
     },
     cursor: {
       type: GraphQLString,
+      defaultValue: new Date().getTime().toString(),
     },
     limit: {
       type: GraphQLInt,
