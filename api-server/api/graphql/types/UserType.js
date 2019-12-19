@@ -1,4 +1,9 @@
-const { GraphQLObjectType, GraphQLString, GraphQLID } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLID,
+} = require('graphql');
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -20,6 +25,9 @@ const UserType = new GraphQLObjectType({
     },
     profileImage: {
       type: GraphQLString,
+    },
+    isFollow: {
+      type: GraphQLInt,
     },
   }),
 });
