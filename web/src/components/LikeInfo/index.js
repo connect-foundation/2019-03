@@ -31,7 +31,7 @@ const LikeInfo = ({ myInfo, postId, className, diff, likerInfo }) => {
 
       {isMany && (
         <>
-          <LikerLink to={username}>{username}</LikerLink>님&nbsp;
+          <LikerLink to={`/${username}`}>{username}</LikerLink>님&nbsp;
         </>
       )}
       <LikeCount onClick={onToggleModal}>
