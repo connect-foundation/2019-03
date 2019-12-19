@@ -56,10 +56,13 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
           <ModalContent onClick={clickDeletePost}>게시물 삭제</ModalContent>
         </>
       )}
-      <StyledLink to={`/p/${postURL}`}>
+      <StyledLink to={`/p/${postURL}`} onClick={clickClose}>
         <ModalContent>게시물로 이동</ModalContent>
       </StyledLink>
-      <CopyToClipboard text={`${process.env.REACT_APP_WEB_URL}/p/${postURL}`}>
+      <CopyToClipboard
+        text={`${process.env.REACT_APP_WEB_URL}/p/${postURL}`}
+        onCopy={clickClose}
+      >
         <ModalContent>링크 복사하기</ModalContent>
       </CopyToClipboard>
       <ModalContent cancel onClick={clickClose}>
