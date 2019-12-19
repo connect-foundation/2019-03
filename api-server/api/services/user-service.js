@@ -31,7 +31,7 @@ const updateUserProfile = (userId, target) => {
   try {
     return User.update(target, {
       where: {
-        userId,
+        id: userId,
       },
     });
   } catch (err) {

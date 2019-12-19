@@ -73,9 +73,18 @@ function EditProfilePage({ setItem, cookies }) {
     if (state.email !== myInfo.email) variables.email = state.email;
     if (state.cellPhone !== myInfo.cellPhone)
       variables.cellPhone = state.cellPhone;
+
     updateUser({
       variables,
     });
+    cookies.set(
+      'myInfo',
+      {
+        ...myInfo,
+        ...variables,
+      },
+      { path: '/' },
+    );
   };
 
   if (error) {
@@ -94,10 +103,10 @@ function EditProfilePage({ setItem, cookies }) {
       <Form onSubmit={submitHanlder}>
         {loading && <Loading size={50} />}
         <InputRow
-          customComponent={<ProfileIcon imageURL={myInfo.profileImage} />}
+          customComponent={<ProfileIcon imageURL={state.profileImage} />}
           rightComponent={
             <div>
-              <Username>{myInfo.username}</Username>
+              <Username>{state.username}</Username>
               <UpdateProfile htmlFor="select_file">
                 프로필 사진 바꾸기
               </UpdateProfile>
