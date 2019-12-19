@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const GET_CLIENT = gql`
-  query Client($id: Int!) {
+  query Client($id: ID!) {
     client(id: $id) {
       clientId
       redirectionURI

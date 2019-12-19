@@ -1,4 +1,4 @@
-const { GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLList, GraphQLID } = require('graphql');
 
 const { ClientType } = require('../types');
 const { Client } = require('../../../db');
@@ -6,7 +6,7 @@ const { Client } = require('../../../db');
 const clientQuery = {
   type: new GraphQLList(ClientType),
   args: {
-    id: { type: GraphQLInt },
+    id: { type: GraphQLID },
   },
   resolve: async (client, args) => {
     return Client.findAll({
