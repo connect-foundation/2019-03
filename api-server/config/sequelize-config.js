@@ -30,5 +30,10 @@ module.exports = {
     define: {
       timestamps: false,
     },
+    logging: false,
+    pool: {
+      min: 10,
+      max: 80,
+    },
   },
 };
