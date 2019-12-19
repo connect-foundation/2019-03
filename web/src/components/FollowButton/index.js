@@ -15,8 +15,6 @@ const FollowButton = ({
   onFollowCancel,
   onFollow,
 }) => {
-  // folowStatus {null: 팔로우하고있지 않은 상태(팔로우하지 않을 때 삭제? 0?), 0: 팔로우하고 있는 상태, 1: 비공개 계정에 요청한 상태}
-  // 팔로우 취소 또는 팔로우시 로컬에 반영되어야할 일이 있으면 함수형태로 onFollowCancel, onFollow에 props를 내려주면 됨.
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -63,9 +61,6 @@ const FollowButton = ({
       case 0:
         setIsVisible(prevVisibleStatus => !prevVisibleStatus);
         break;
-      // case 1:
-      //   추후 요청됨 구현 시 로직 추가
-      //   break;
       default:
         throw new Error(
           `Current follow status is wrong : ${currentFollowStatus}`,
@@ -107,10 +102,6 @@ const FollowButton = ({
       />
     </>
   );
-};
-
-FollowButton.defaultProps = {
-  followStatus: null,
 };
 
 export default FollowButton;
