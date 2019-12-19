@@ -12,7 +12,6 @@ const FOLLOWING_POST_LIST = gql`
       writer {
         id
         username
-        isFollow
         profileImage
       }
       commentCount

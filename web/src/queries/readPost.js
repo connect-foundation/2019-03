@@ -13,7 +13,6 @@ const READ_POST = gql`
       writer {
         id
         username
-        isFollow
         profileImage
       }
       likerInfo {
