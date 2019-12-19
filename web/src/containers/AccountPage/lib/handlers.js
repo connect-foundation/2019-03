@@ -39,7 +39,7 @@ export async function onSignUpSubmitHandler(_signUpForm, dispatch) {
   }
 
   const password = changeToHashedPassword(signUpForm);
-  const formData = changeToFormDataFormat(signUpForm, password);
+  const formData = changeToFormDataFormat(signUpForm, password, false);
 
   const { status, message } = await fetchFormData(signUpURL, formData);
 
