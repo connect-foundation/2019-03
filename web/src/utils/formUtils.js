@@ -8,13 +8,6 @@ function setFormData(form, name, value) {
 }
 
 function changeToFormDataFormat(form, password, isSignin = true) {
-  // const formData = Object.entries(form.elements).reduce((result, elem) => {
-  //   if (elem[1].tagName === 'BUTTON') return result;
-  //   const input = elem[1];
-  //   if (input.name === 'password') return result;
-  //   return `${result}${input.name}=${input.value}&`;
-  // }, '');
-
   const username = getFormData(form, 'username');
   const formData = `username=${username}&password=${password}`;
   if (isSignin) return formData;
