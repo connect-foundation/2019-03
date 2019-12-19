@@ -24,6 +24,7 @@ function PostDetailPage({ match, cookies }) {
   if (error) return <Error status={500} />;
   if (!data) return null;
   const { post } = data;
+  if (!post) return <Error status={404} />;
 
   return (
     <PostDetailPageWrapper>

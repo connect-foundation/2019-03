@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { CommentListWrapper, MoreCommentButton } from './styles';
