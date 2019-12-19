@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { withCookies } from 'react-cookie';
 
-import { PostDetailPageWrapper, ViewPort } from './styles';
+import { PostDetailPageWrapper, PostImageWrapper } from './styles';
 import PostSideBox from './PostSideBox';
 import { READ_POST } from '../../queries';
+import PostImage from '../../components/PostImage';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 
@@ -26,7 +27,9 @@ function PostDetailPage({ match, cookies }) {
 
   return (
     <PostDetailPageWrapper>
-      <ViewPort img={post.imageURL} />
+      <PostImageWrapper>
+        <PostImage imageURL={post.imageURL} />
+      </PostImageWrapper>
       <PostSideBox post={post} />
     </PostDetailPageWrapper>
   );

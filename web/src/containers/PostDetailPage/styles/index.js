@@ -1,4 +1,4 @@
 import PostDetailPageWrapper from './PostDetailPageWrapper';
-import ViewPort from './ViewPort';
+import PostImageWrapper from './PostImageWrapper';
 
-export { PostDetailPageWrapper, ViewPort };
+export { PostDetailPageWrapper, PostImageWrapper };
