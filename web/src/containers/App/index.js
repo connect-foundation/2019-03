@@ -11,6 +11,7 @@ import Navigation from '../Navigation';
 import Loading from '../../components/Loading';
 import AuthRoute from './AuthRoute';
 import AccountRoute from './AccountRoute';
+import MyAppPage from '../MyAppPage';
 
 const HomePage = lazy(() => import('../HomePage'));
 const NewPostPage = lazy(() => import('../NewPostPage'));
@@ -37,8 +38,13 @@ const settingPageList = [
     PageComponent: ChangePasswordPage,
   },
   {
+    title: '내 어플리케이션',
+    url: 'show/applications',
+    PageComponent: MyAppPage,
+  },
+  {
     title: '새 어플리케이션 등록',
-    url: 'applications/register',
+    url: 'register/applications',
     PageComponent: RegisterAppPage,
   },
 ];

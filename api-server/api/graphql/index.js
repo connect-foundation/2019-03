@@ -11,6 +11,7 @@ const {
   followerListQuery,
   followListQuery,
   taggedPostsQuery,
+  clientQuery,
 } = require('./queries');
 const {
   updateUser,
@@ -41,6 +42,7 @@ const rootQuery = new GraphQLObjectType({
     followerList: followerListQuery,
     followList: followListQuery,
     taggedPosts: taggedPostsQuery,
+    client: clientQuery,
   }),
 });
 

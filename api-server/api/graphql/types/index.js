@@ -10,6 +10,7 @@ const { LikerType } = require('./LikerType');
 const { UserPageType } = require('./UserPageType');
 const { UserFollower } = require('./UserFollower');
 const { HashTagPageType } = require('./HashTagPageType');
+const { ClientType } = require('./ClientType');
 
 module.exports = {
   CommentType,
@@ -24,4 +25,5 @@ module.exports = {
   UserPageType,
   UserFollower,
   HashTagPageType,
+  ClientType,
 };

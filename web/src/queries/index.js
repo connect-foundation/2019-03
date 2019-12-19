@@ -12,6 +12,7 @@ import GET_LOGS from './getLogs';
 import UPDATE_USER from './updateUser';
 import LIKER_LIST from './likerList';
 import UPDATE_PROFILE from './updateProfile';
+import GET_CLIENT from './getClient';
 
 export {
   FOLLOWING_POST_LIST,
@@ -28,4 +29,5 @@ export {
   UPLOAD_POST,
   UPDATE_PROFILE,
   DELETE_POST,
+  GET_CLIENT,
 };

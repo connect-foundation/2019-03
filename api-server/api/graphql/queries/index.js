@@ -9,6 +9,7 @@ const { hashTagPageQuery } = require('./hashTagPageQuery');
 const { followerListQuery } = require('./FollowerListQuery');
 const { followListQuery } = require('./FollowListQuery');
 const { taggedPostsQuery } = require('./TaggedPostsQuery');
+const { clientQuery } = require('./ClientQuery');
 
 module.exports = {
   commentQuery,
@@ -22,4 +23,5 @@ module.exports = {
   followerListQuery,
   followListQuery,
   taggedPostsQuery,
+  clientQuery,
 };
