@@ -8,6 +8,19 @@ const UserListItem = ({ userInfo, myId }) => {
   const { id, name, username, profileImage, isFollow } = userInfo;
   const profileImageRatio = 9.375;
   const userpageURL = `/${username}`;
+
+  const getFollowButton = () => {
+    if (myId === Number(id)) return <></>;
+    return (
+      <FollowButton
+        followStatus={isFollow}
+        username={username}
+        myId={myId}
+        userId={id}
+      />
+    );
+  };
+
   return (
     <li>
       <StyledLink to={userpageURL}>
@@ -19,14 +32,7 @@ const UserListItem = ({ userInfo, myId }) => {
         </div>
         <span>{name}</span>
       </section>
-      <div>
-        <FollowButton
-          followStatus={isFollow}
-          username={username}
-          myId={myId}
-          userId={id}
-        />
-      </div>
+      <div>{getFollowButton()}</div>
     </li>
   );
 };
