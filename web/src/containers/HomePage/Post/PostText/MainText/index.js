@@ -21,7 +21,7 @@ const MainText = ({ writer, mainText }) => {
         {parseResult.map(content => makeMainText(content))}
       </MainTextContent>
       {isFold && (
-        <MaintextMoreButton onClick={onUnfoldMainText}>
+        <MaintextMoreButton onClick={onUnfoldMainText} isFold>
           더보기
         </MaintextMoreButton>
       )}
