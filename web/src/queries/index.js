@@ -13,6 +13,14 @@ import UPDATE_USER from './updateUser';
 import LIKER_LIST from './likerList';
 import UPDATE_PROFILE from './updateProfile';
 import GET_CLIENT from './getClient';
+import REQUEST_FOLLOWING from './requestFollowing';
+import REQUEST_FOLLOWING_CANCELLATION from './requestFollowingCancellation';
+import HASHTAG_PAGE from './hashTagPage';
+import USER_PAGE from './userPage';
+import TAGGED_POSTS from './taggedPosts';
+import FOLLOWER_LIST from './followerList';
+import FOLLOW_LIST from './followList';
+import IS_LOGGED_IN from './isLoggedIn';
 
 export {
   FOLLOWING_POST_LIST,
@@ -30,4 +38,12 @@ export {
   UPDATE_PROFILE,
   DELETE_POST,
   GET_CLIENT,
+  REQUEST_FOLLOWING,
+  REQUEST_FOLLOWING_CANCELLATION,
+  HASHTAG_PAGE,
+  USER_PAGE,
+  TAGGED_POSTS,
+  FOLLOWER_LIST,
+  FOLLOW_LIST,
+  IS_LOGGED_IN,
 };

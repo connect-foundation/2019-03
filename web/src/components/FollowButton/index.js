@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 
 import StyledFollowButton from './StyledFollowButton';
 import FollowCheckingModal from '../FollowCheckingModal';
+import {
+  REQUEST_FOLLOWING,
+  REQUEST_FOLLOWING_CANCELLATION,
+} from '../../queries';
 
 const FollowButton = ({
   followStatus,
@@ -18,28 +21,9 @@ const FollowButton = ({
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
-  const requestFollowingQuery = gql`
-    mutation RequestFollowing($myId: ID!, $userId: ID!) {
-      RequestFollowing(myId: $myId, userId: $userId) {
-        from
-        to
-        status
-        updatedAt
-      }
-    }
-  `;
-  const requestFollowingCancellationQuery = gql`
-    mutation RequestFollowingCancellation($myId: ID!, $userId: ID!) {
-      RequestFollowingCancellation(myId: $myId, userId: $userId) {
-        from
-        to
-      }
-    }
-  `;
-
-  const [requestFollowing] = useMutation(requestFollowingQuery);
+  const [requestFollowing] = useMutation(REQUEST_FOLLOWING);
   const [requestFollowingCancellation] = useMutation(
-    requestFollowingCancellationQuery,
+    REQUEST_FOLLOWING_CANCELLATION,
   );
 
   const onClick = () => setIsVisible(prevVisibleStatus => !prevVisibleStatus);

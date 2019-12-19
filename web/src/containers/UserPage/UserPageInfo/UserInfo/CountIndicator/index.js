@@ -1,33 +1,11 @@
 import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import UserListModal from '../../../../../components/UserListModal';
 import { CountIndicatorWrapper, FollowIndicatorWrapper } from './styles';
+import { FOLLOWER_LIST, FOLLOW_LIST } from '../../../../../queries';
 
 const CountIndicator = ({ data, myId }) => {
-  const FOLLOWER_LIST = gql`
-    query FollowerList($myId: ID!, $userId: ID!) {
-      followerList(myId: $myId, userId: $userId) {
-        id
-        name
-        username
-        profileImage
-        isFollow
-      }
-    }
-  `;
-  const FOLLOW_LIST = gql`
-    query FollowList($myId: ID!, $userId: ID!) {
-      followList(myId: $myId, userId: $userId) {
-        id
-        name
-        username
-        profileImage
-        isFollow
-      }
-    }
-  `;
   const lazyQueryOption = {
     variables: { myId, userId: data.id },
     fetchPolicy: 'cache-and-network',
