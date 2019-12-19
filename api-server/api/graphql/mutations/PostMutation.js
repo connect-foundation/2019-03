@@ -6,6 +6,7 @@ const { Post } = require('../../../db');
 const {
   insertPost,
   insertHashTagOfPost,
+  insertUserTag,
 } = require('../../services/PostService');
 const s3 = require('../../../upload');
 
@@ -97,6 +98,7 @@ const updatePost = {
         },
       );
       await insertHashTagOfPost(content, id);
+      await insertUserTag(content, id);
       return { id, content };
     } catch (error) {
       console.log(error.message);

@@ -227,4 +227,5 @@ module.exports = {
   unsetPostLike,
   insertPost,
   insertHashTagOfPost,
+  insertUserTag,
 };
