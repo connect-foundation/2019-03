@@ -3,7 +3,10 @@ const { GraphQLUpload } = require('graphql-upload');
 
 const { PostType } = require('../types');
 const { Post } = require('../../../db');
-const { insertPost } = require('../../services/PostService');
+const {
+  insertPost,
+  insertHashTagOfPost,
+} = require('../../services/PostService');
 const s3 = require('../../../upload');
 
 const createPost = {
@@ -84,15 +87,20 @@ const updatePost = {
     },
   },
   resolve: async (_, { id, content }) => {
-    await Post.update(
-      { content },
-      {
-        where: {
-          id,
+    try {
+      await Post.update(
+        { content },
+        {
+          where: {
+            id,
+          },
         },
-      },
-    );
-    return { id, content };
+      );
+      await insertHashTagOfPost(content, id);
+      return { id, content };
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 };
 
