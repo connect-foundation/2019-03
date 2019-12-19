@@ -64,7 +64,7 @@ const updateProfile = {
       type: GraphQLUpload,
     },
     userId: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
   },
   resolve: async (_, { file, userId }) => {
