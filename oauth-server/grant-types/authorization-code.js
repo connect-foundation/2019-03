@@ -31,22 +31,15 @@ async function codeHandler({ redirect_uri, client_id, state }, { username }) {
   return path;
 }
 
-function validateAuthorizationCode(code, codes) {
-  if (!codes) return false;
-
-  const isExisted = codes.find(({ code: _code }) => _code === code);
-  return isExisted;
-}
-
-async function tokenHandler({ code, client_id: clientId }) {
+async function tokenHandler({ client_id: clientId, code, scope }) {
   const codes = codeRepository[clientId];
   const codeInfo = codes.find(({ code: _code }) => _code === code);
   if (!codeInfo) {
     return next(new InvalidGrantError());
   }
 
+  scope = scope || "read_profile";
   const expiresIn = 2592000; // ONE_MONTH
-  const scope = "read_profile";
   const { accessToken, refreshToken } = await saveToken(
     scope,
     clientId,

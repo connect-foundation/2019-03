@@ -7,7 +7,7 @@ const {
   authenticate
 } = require("../middlewares");
 const { makeUrlWithQueryParams } = require("../lib");
-const { authCode } = require("../grant-types");
+const { authCode, implicit } = require("../grant-types");
 
 const oauth = express.Router();
 
@@ -30,6 +30,11 @@ oauth.get(
     let path = "";
     if (response_type === "code") {
       path = await authCode.codeHandler(req.query, req.user);
+      return res.redirect(path);
+    }
+
+    if (response_type === "token") {
+      path = await implicit.codeHandler(req.query, req.user);
       return res.redirect(path);
     }
 
