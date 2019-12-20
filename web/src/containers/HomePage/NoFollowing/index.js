@@ -13,17 +13,25 @@ import {
 
 import randomList from '../../../queries/randomList';
 
-function NoFollowing() {
+function NoFollowing({ myId }) {
   const { data, error, loading } = useQuery(randomList);
   const getContent = userList => {
     const content = userList.map(user => {
       const updatedInfo = { ...user, isFollow: null };
-      return <UserListItem userInfo={updatedInfo} key={updatedInfo.id} />;
+      return (
+        <UserListItem userInfo={updatedInfo} myId={myId} key={updatedInfo.id} />
+      );
     });
     return content;
   };
 
   if (loading) return <Loading />;
+  if (error)
+    return (
+      <AnnouncementMessage>
+        다시 시도해주세요! 반복되면 관리자에게 문의해주세요!
+      </AnnouncementMessage>
+    );
   return (
     <NoFollowingWrapper>
       <AnnouncementMessage>아직 팔로우가 없어요!</AnnouncementMessage>

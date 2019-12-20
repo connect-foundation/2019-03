@@ -4,7 +4,7 @@ import { ModalWrapper } from '../../../../components/Modal/styles';
 
 const StyledModalWrapper = styled(ModalWrapper)`
   /* BOX */
-  /* height: fit-content; */
+  border: solid 1px ${({ theme }) => theme.palette.border};
 `;
 
 export default StyledModalWrapper;

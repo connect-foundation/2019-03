@@ -103,7 +103,7 @@ function HomePage({ cookies }) {
 
   if (error) return <Error status={500} />;
   if (data && !followingPostList.length) {
-    return <NoFollowing />;
+    return <NoFollowing myId={myInfo.id} />;
   }
   return (
     <PostListWrapper>
