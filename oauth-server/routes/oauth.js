@@ -43,8 +43,15 @@ oauth.get(
 );
 
 oauth.post("/token", validateTokenRequest, async (req, res, next) => {
-  const responseBody = await authCode.tokenHandler(req.body);
+  let responseBody = null;
 
+  const { grant_type: grantType } = req.body;
+  if (grantType === "refresh_token") {
+    responseBody = await authCode.refreshAccessToken(req.body);
+    return res.status(200).json(responseBody);
+  }
+
+  responseBody = await authCode.tokenHandler(req.body);
   return res.status(200).json(responseBody);
 });
 
