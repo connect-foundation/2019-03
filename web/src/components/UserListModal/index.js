@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { List, AutoSizer, InfiniteLoader } from 'react-virtualized';
 
@@ -59,15 +59,25 @@ const createContent = ({ myId, listName, data, error, requestMoreList }) => {
   );
 };
 
-const UserListModal = ({ myId, onClick, listName, query, userId, isVisible }) => {
-
+const UserListModal = ({
+  myId,
+  onClick,
+  listName,
+  query,
+  userId,
+  isVisible,
+}) => {
   const queryOption = {
     variables: { myId, userId },
     fetchPolicy: 'cache-and-network',
   };
-  const { data, error, fetchMore } = useQuery(query, queryOption);
+  const { data, error, fetchMore, refetch } = useQuery(query, queryOption);
   const isLoading = useRef(false);
   const isLast = useRef(false);
+  useEffect(() => {
+    refetch();
+  }, [isVisible, refetch]);
+
   if (!isVisible) return null;
   const requestMoreList = (list, promiseResolver) => {
     if (isLoading.current) return;
@@ -82,9 +92,8 @@ const UserListModal = ({ myId, onClick, listName, query, userId, isVisible }) =>
       isLoading,
       isLast,
     });
-  
-    fetchMore({ variables, updateQuery });
 
+    fetchMore({ variables, updateQuery });
   };
 
   const content = createContent({
