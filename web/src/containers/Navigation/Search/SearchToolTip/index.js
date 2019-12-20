@@ -18,25 +18,25 @@ const SearchToolTip = ({ data, clickClear }) => {
           <Spinner />
         </SearchNoResult>,
       );
+
+      return;
     }
 
-    if (data) {
-      const { search: searchResults } = data;
-      if (searchResults.length === 0) {
-        setContent(
-          <SearchNoResult>
-            <span>검색 결과가 없습니다.</span>
-          </SearchNoResult>,
-        );
-      } else {
-        setContent(
-          <SearchResultList
-            searchResults={searchResults}
-            clickClose={clickClear}
-          />,
-        );
-      }
+    const { search: searchResults } = data;
+    if (searchResults.length === 0) {
+      setContent(
+        <SearchNoResult>
+          <span>검색 결과가 없습니다.</span>
+        </SearchNoResult>,
+      );
+      return;
     }
+    setContent(
+      <SearchResultList
+        searchResults={searchResults}
+        clickClose={clickClear}
+      />,
+    );
   }, [clickClear, data]);
 
   return (
