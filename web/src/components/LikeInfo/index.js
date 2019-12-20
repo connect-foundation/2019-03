@@ -28,6 +28,7 @@ const LikeInfo = ({ myInfo, post, diff, likerInfo }) => {
   if (isMany)
     content = (
       <>
+        <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
         <LikerLink to={`/${username}`}>{username}</LikerLink>님&nbsp;
         <LikeCount onClick={onToggleModal}>
           {`외 ${likerCount - 1}명`}
@@ -42,7 +43,6 @@ const LikeInfo = ({ myInfo, post, diff, likerInfo }) => {
         margin: '4px 15px',
       }}
     >
-      <Profile ratio={8} imageURL={imageURL} onClick={onToggleModal} />
       {content}
       {isVisible && (
         <UserListModal
