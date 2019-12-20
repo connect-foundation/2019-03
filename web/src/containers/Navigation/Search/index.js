@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
+import _ from 'underscore';
 
+import { SEARCH } from '../../../queries';
 import Icon from '../../../components/Icon';
 import SearchToolTip from './SearchToolTip';
 import { SearchWrapper, Input } from './styles';
@@ -7,39 +10,31 @@ import { SearchWrapper, Input } from './styles';
 const Search = () => {
   const [isVisible, setVisibility] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [search, { data }] = useLazyQuery(SEARCH, { fetchPolicy: 'no-cache' });
+  const searchAfterDebounce = useCallback(_.debounce(search, 300), []);
 
   const clickClear = () => {
     setVisibility(false);
     setInputValue('');
   };
 
-  const changeInputValueHandler = e => {
+  const changeInputValueHandler = ({ target }) => {
+    const { value } = target;
     setVisibility(true);
-    setInputValue(e.target.value);
-    if (e.target.value === '') {
+    setInputValue(value);
+    if (value === '') {
       setVisibility(false);
     }
+
+    searchAfterDebounce({ variables: { value } });
   };
 
   return (
     <SearchWrapper>
-      {isVisible && (
-        <SearchToolTip inputValue={inputValue} clickClear={clickClear} />
-      )}
+      {isVisible && <SearchToolTip data={data} clickClear={clickClear} />}
       <Input value={inputValue} onChange={changeInputValueHandler} />
-      <Icon
-        ratio={10}
-        posX={-260}
-        posY={-625}
-        style={{ marginTop: '2px', position: 'absolute' }}
-      />
-      <Icon
-        ratio={10}
-        posX={-390}
-        posY={-625}
-        onClick={clickClear}
-        style={{ marginTop: '2px', zIndex: '200' }}
-      />
+      <Icon name="search" />
+      <Icon name="clear" onClick={clickClear} />
     </SearchWrapper>
   );
 };
