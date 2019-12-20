@@ -10,6 +10,7 @@ const { followerListQuery } = require('./FollowerListQuery');
 const { followListQuery } = require('./FollowListQuery');
 const { taggedPostsQuery } = require('./TaggedPostsQuery');
 const { clientQuery } = require('./ClientQuery');
+const { randomListQuery } = require('./RandomListQuery');
 
 module.exports = {
   commentQuery,
@@ -24,4 +25,5 @@ module.exports = {
   followListQuery,
   taggedPostsQuery,
   clientQuery,
+  randomListQuery,
 };
