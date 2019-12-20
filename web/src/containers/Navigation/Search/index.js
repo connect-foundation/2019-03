@@ -32,7 +32,14 @@ const Search = () => {
   };
 
   useEffect(() => {
-    if (data) setVisibility(true);
+    if (data) {
+      if (inputValue === '') {
+        setVisibility(false);
+        return;
+      }
+      setVisibility(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (
