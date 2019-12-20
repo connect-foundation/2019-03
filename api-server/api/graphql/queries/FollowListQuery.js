@@ -34,10 +34,7 @@ const followListQuery = {
   resolve: async (_, args) => {
     const followList = await getFollowList(args);
     const followIdList = getFollowIdList(followList);
-    const followDataList = await getFollowDataList({
-      followIdList,
-      ...args,
-    });
+    const followDataList = await getFollowDataList(followIdList, args);
     const followUpdatedDataList = await getFollowUpdatedDataList(
       followDataList,
       args,

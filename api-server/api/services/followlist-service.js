@@ -42,7 +42,7 @@ const getFollowIdList = followList =>
     return followId;
   });
 
-const getFollowDataList = async ({ followIdList, limit, cursor }) => {
+const getFollowDataList = async (followIdList, { limit, cursor }) => {
   try {
     const followDataList = await User.findAll({
       attributes: ['id', 'username', 'name', 'profileImage', 'updatedAt'],
@@ -61,14 +61,20 @@ const getFollowDataList = async ({ followIdList, limit, cursor }) => {
 
 const getFollowUpdatedDataList = async (followDataList, { myId }) => {
   try {
-    const followUpdatedDataList = await followDataList.map(async followData => {
-      const isFollow = await UserFollow.findOne({
-        attributes: ['status'],
-        where: {
-          from: myId,
-          to: followData.dataValues.id,
-        },
-      });
+    const followIds = followDataList.map(
+      followData => followData.dataValues.id,
+    );
+    const followStatus = await UserFollow.findAll({
+      attributes: ['status', 'to'],
+      where: {
+        from: myId,
+        to: { [Op.in]: followIds },
+      },
+    });
+    const followUpdatedDataList = followDataList.map(followData => {
+      const isFollow = followStatus.find(
+        status => status.dataValues.to === followData.dataValues.id,
+      );
       return {
         ...followData.dataValues,
         isFollow: isFollow ? isFollow.dataValues.status : null,
