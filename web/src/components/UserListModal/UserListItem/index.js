@@ -3,8 +3,9 @@ import React from 'react';
 import ProfileIcon from '../../ProfileIcon';
 import FollowButton from '../../FollowButton';
 import StyledLink from '../../StyledLink';
+import UserListItemWrapper from './UserListItemWrapper';
 
-const UserListItem = ({ userInfo, myId }) => {
+const UserListItem = ({ userInfo, myId, ...props }) => {
   const { id, name, username, profileImage, isFollow } = userInfo;
   const profileImageRatio = 9.375;
   const userpageURL = `/${username}`;
@@ -22,7 +23,7 @@ const UserListItem = ({ userInfo, myId }) => {
   };
 
   return (
-    <li>
+    <UserListItemWrapper {...props}>
       <StyledLink to={userpageURL}>
         <ProfileIcon imageURL={profileImage} ratio={profileImageRatio} />
       </StyledLink>
@@ -33,7 +34,7 @@ const UserListItem = ({ userInfo, myId }) => {
         <span>{name}</span>
       </section>
       <div>{getFollowButton()}</div>
-    </li>
+    </UserListItemWrapper>
   );
 };
 

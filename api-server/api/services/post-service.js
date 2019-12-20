@@ -25,16 +25,14 @@ const getFollowingPostList = async (userId, cursor, limit = 10) => {
           },
         },
       },
-      where: {},
+      where: {
+        updatedAt: {
+          [Op.lt]: new Date(+cursor),
+        },
+      },
       limit,
       order: [['updatedAt', 'DESC']],
     };
-
-    if (cursor) {
-      options.where.updatedAt = {
-        [Op.lt]: new Date(+cursor),
-      };
-    }
 
     const postList = await Post.findAll(options);
     return postList;

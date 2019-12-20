@@ -23,7 +23,6 @@ const getFollowList = async ({ userId }) => {
     const followList = await UserFollow.findAll({
       attributes: ['to'],
       where: { from: userId },
-      order: [['updatedAt', 'DESC']],
     });
     return followList;
   } catch (err) {
@@ -43,15 +42,16 @@ const getFollowIdList = followList =>
     return followId;
   });
 
-const getFollowDataList = async followIdList => {
+const getFollowDataList = async ({ followIdList, limit, cursor }) => {
   try {
     const followDataList = await User.findAll({
-      attributes: ['id', 'username', 'name', 'profileImage'],
+      attributes: ['id', 'username', 'name', 'profileImage', 'updatedAt'],
       where: {
-        id: {
-          [Op.in]: followIdList,
-        },
+        id: { [Op.in]: followIdList },
+        updatedAt: { [Op.lt]: new Date(+cursor) },
       },
+      limit,
+      order: [['updatedAt', 'DESC']],
     });
     return followDataList;
   } catch (err) {
