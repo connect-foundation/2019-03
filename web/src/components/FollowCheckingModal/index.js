@@ -23,6 +23,7 @@ const FollowCheckingModal = ({
   onClick,
   cancelFollowing,
   username,
+  userProfileImage,
 }) => {
   const stopPropagation = e => e.stopPropagation();
   if (!isVisible) return <></>;
@@ -31,7 +32,7 @@ const FollowCheckingModal = ({
       <ModalWrapper onClick={stopPropagation} style={modalWrapperStyle}>
         <ModalContent>
           <div style={modalHeaderStyle}>
-            <ProfileIcon ratio={28.125} />
+            <ProfileIcon ratio={20} imageURL={userProfileImage} />
             <ModalHeaderText>
               @{username}님의 팔로우를 취소하시겠어요?
             </ModalHeaderText>

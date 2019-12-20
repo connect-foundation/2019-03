@@ -17,6 +17,7 @@ const FollowButton = ({
   userId,
   onFollowCancel,
   onFollow,
+  userProfileImage,
 }) => {
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
@@ -83,6 +84,7 @@ const FollowButton = ({
         onClick={onClick}
         cancelFollowing={cancelFollowing}
         username={username}
+        userProfileImage={userProfileImage}
       />
     </>
   );

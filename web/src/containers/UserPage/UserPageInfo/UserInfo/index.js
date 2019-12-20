@@ -21,6 +21,7 @@ const UserInfo = ({
   isMyPage,
   onFollowCancel,
   onFollow,
+  userProfileImage,
 }) => {
   const btnStyle = 'light';
   let button = (
@@ -31,6 +32,7 @@ const UserInfo = ({
       userId={data.id}
       onFollowCancel={onFollowCancel}
       onFollow={onFollow}
+      userProfileImage={userProfileImage}
     />
   );
   if (isMyPage)

@@ -30,6 +30,7 @@ const AlarmResult = ({ result, isLast, clickClose, cookies }) => {
           username={result.fromUser.username}
           myId={myInfo.id}
           userId={result.fromUser.id}
+          userProfileImage={result.fromUser.profileImage}
         />
       );
       break;
