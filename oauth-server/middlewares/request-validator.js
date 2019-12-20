@@ -30,7 +30,7 @@ async function validateTokenRequest(req, res, next) {
   if (!grant_type || !code || !redirect_uri || !client_id || !client_secret)
     return next(new InvalidRequestError());
 
-  if (grant_type !== "authorization_code") {
+  if (grant_type !== "authorization_code" && grant_type !== "refresh_token") {
     return next(new InvalidRequestError());
   }
 
@@ -64,7 +64,7 @@ async function validateAccessToken(req, res, next) {
   }
 
   try {
-    const tokenInfo = await tokenService.getTokenInfo(accessToken);
+    const tokenInfo = await tokenService.getTokenInfoByAccessToken(accessToken);
     // check is expired accessToken
     req.tokenInfo = tokenInfo;
     next();
