@@ -81,8 +81,11 @@ const UserListModal = ({ myId, onClick, listName, query, userId }) => {
       isLoading,
       isLast,
     });
-
-    fetchMore({ variables, updateQuery });
+    try {
+      fetchMore({ variables, updateQuery });
+    }
+    catch(e){
+    }
   };
 
   const content = createContent({
