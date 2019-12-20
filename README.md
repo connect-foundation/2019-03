@@ -9,7 +9,7 @@
   </a>
 </p>
 
-[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](https://www.youngstargram.com/)
+[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](http://106.10.58.113/)
 
 👆 클릭해서 페이지로 이동 👆
 > 청춘, 젊음, 낭만을 공유하는 sns 서비스
