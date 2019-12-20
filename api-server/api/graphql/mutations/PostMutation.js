@@ -35,7 +35,7 @@ const deletePost = {
     },
   },
   resolve: async (_, { postURL }) => {
-    await postService.removePost(postURL);
+    await postService.deletePost(postURL);
     return { postURL };
   },
 };

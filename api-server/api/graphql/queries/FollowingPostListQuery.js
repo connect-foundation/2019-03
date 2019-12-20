@@ -16,7 +16,6 @@ const followingPostListQuery = {
     },
     cursor: {
       type: GraphQLString,
-      defaultValue: new Date().getTime().toString(),
     },
     limit: {
       type: GraphQLInt,
@@ -24,6 +23,7 @@ const followingPostListQuery = {
     },
   },
   resolve: async (_, { id, cursor, limit }, context) => {
+    if (!cursor) cursor = new Date().getTime().toString();
     context.UserId = id;
     const postList = await getFollowingPostList(id, cursor, limit);
     return postList;

@@ -24,7 +24,6 @@ const followerListQuery = {
     },
     cursor: {
       type: GraphQLString,
-      defaultValue: new Date().getTime().toString(),
     },
     limit: {
       type: GraphQLInt,
@@ -32,6 +31,7 @@ const followerListQuery = {
     },
   },
   resolve: async (_, args) => {
+    if (!args.cursor) args.cursor = new Date().getTime().toString();
     const followerList = await getFollowerList(args);
     const followerIdList = getFollowerIdList(followerList);
     const followerDataList = await getFollowDataList(followerIdList, args);
