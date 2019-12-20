@@ -7,8 +7,9 @@ const PostTextWrapper = styled.li`
 
   /* Box */
   width: 100%;
-  padding: 12px 16px 0px 16px;
+  padding: 12px 16px 8px 16px;
   box-sizing: border-box;
+  border-bottom: solid 0.5px ${({ theme }) => theme.palette.border};
   & + & {
     margin-top: 16px;
   }
