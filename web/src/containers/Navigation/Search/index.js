@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import _ from 'underscore';
 
@@ -10,7 +10,9 @@ import { SearchWrapper, Input } from './styles';
 const Search = () => {
   const [isVisible, setVisibility] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [search, { data }] = useLazyQuery(SEARCH, { fetchPolicy: 'no-cache' });
+  const [search, { data }] = useLazyQuery(SEARCH, {
+    fetchPolicy: 'no-cache',
+  });
   const searchAfterDebounce = useCallback(_.debounce(search, 300), []);
 
   const clickClear = () => {
@@ -20,14 +22,18 @@ const Search = () => {
 
   const changeInputValueHandler = ({ target }) => {
     const { value } = target;
-    setVisibility(true);
     setInputValue(value);
     if (value === '') {
       setVisibility(false);
+      return;
     }
 
     searchAfterDebounce({ variables: { value } });
   };
+
+  useEffect(() => {
+    if (data) setVisibility(true);
+  }, [data]);
 
   return (
     <SearchWrapper>
