@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
+import _ from 'underscore'
 
 import { SEARCH } from '../../../../queries';
 import { SearchNoResult } from './styles';
@@ -12,10 +13,10 @@ const BODY_MOVE_RANGE = '-15%';
 
 const SearchToolTip = ({ inputValue, clickClear }) => {
   const [search, { data }] = useLazyQuery(SEARCH);
-
+  const searchAfterDebounce = useCallback(_.debounce(search, 300), []);
   useEffect(() => {
-    search({ variables: { value: inputValue } });
-  }, [inputValue, search]);
+    searchAfterDebounce({ variables: { value: inputValue } });
+  }, [inputValue, searchAfterDebounce]);
   if (!data)
     return (
       <ToolTip
