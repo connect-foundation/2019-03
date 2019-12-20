@@ -17,6 +17,7 @@ function CommentInput({
   writer,
   cookies,
   scrollRef,
+  commentRef,
   updateCommentListCache,
 }) {
   const myInfo = cookies.get('myInfo');
@@ -62,6 +63,7 @@ function CommentInput({
           placeholder="댓글달기..."
           onChange={onChange}
           value={text}
+          ref={commentRef}
         />
         <StyledButton type="submit" disabled={isEmpty}>
           게시

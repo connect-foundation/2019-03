@@ -10,7 +10,7 @@ import LikeInfo from '../../../../components/LikeInfo';
 import TimePassed from '../../../../components/TimePassed';
 import { IconGroupWrapper, IconList, IconWrapper } from './styles';
 
-function IconGroup({ myInfo, post }) {
+function IconGroup({ myInfo, post, commentRef }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache) {
       updateLikeCacheOfDetailPost({ cache, post, myInfo });
@@ -54,7 +54,7 @@ function IconGroup({ myInfo, post }) {
         <IconWrapper>
           <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
         </IconWrapper>
-        <IconWrapper>
+        <IconWrapper onClick={() => commentRef.current.focus()}>
           <Icon name="comment" />
         </IconWrapper>
       </IconList>
