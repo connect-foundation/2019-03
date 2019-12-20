@@ -5,7 +5,7 @@ import SideBoxWrapper from './SideBoxWrapper';
 import PostTop from '../../../components/PostTop';
 import PostContent from './PostContent';
 import CommentInput from '../../../components/CommentInput';
-import UtilityBlock from './UtilityBlock';
+import IconGroup from './IconGroup';
 import { updateCommentListCacheOfDetailPost } from '../../../cacheUpdater';
 
 function SideBox({ post, cookies }) {
@@ -15,7 +15,7 @@ function SideBox({ post, cookies }) {
     <SideBoxWrapper>
       <PostTop myInfo={myInfo} writer={post.writer} postURL={post.postURL} />
       <PostContent post={post} scrollRef={scrollRef} />
-      <UtilityBlock myInfo={myInfo} post={post} />
+      <IconGroup myInfo={myInfo} post={post} />
       <CommentInput
         post={post}
         writer={post.writer}

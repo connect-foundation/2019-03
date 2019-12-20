@@ -8,9 +8,9 @@ import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
 import TimePassed from '../../../../components/TimePassed';
-import { UtilityBlockWrapper, IconList, IconWrapper } from './styles';
+import { IconGroupWrapper, IconList, IconWrapper } from './styles';
 
-function UtilityBlock({ myInfo, post }) {
+function IconGroup({ myInfo, post }) {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache) {
       updateLikeCacheOfDetailPost({ cache, post, myInfo });
@@ -49,16 +49,13 @@ function UtilityBlock({ myInfo, post }) {
   }, [isLike]);
 
   return (
-    <UtilityBlockWrapper>
+    <IconGroupWrapper>
       <IconList>
         <IconWrapper>
           <LikeIcon isFull={isLikeClicked} onClick={toggleLikeState} />
         </IconWrapper>
         <IconWrapper>
-          <Icon ratio={5} posX={-520} posY={-245} />
-        </IconWrapper>
-        <IconWrapper>
-          <Icon ratio={5} posX={0} posY={-250} />
+          <Icon name="comment" />
         </IconWrapper>
       </IconList>
       <LikeInfo
@@ -68,8 +65,8 @@ function UtilityBlock({ myInfo, post }) {
         likerInfo={likerInfo}
       />
       <TimePassed updatedAt={post.updatedAt} />
-    </UtilityBlockWrapper>
+    </IconGroupWrapper>
   );
 }
 
-export default UtilityBlock;
+export default IconGroup;
