@@ -25,29 +25,27 @@ const CountIndicator = ({ data, myId }) => {
         <FollowIndicatorWrapper onClick={onFollowerClick}>
           팔로워 <span>{data.followersNum}</span>
         </FollowIndicatorWrapper>
-        {isFollowerModalVisible && (
-          <UserListModal
-            myId={myId}
-            onClick={onFollowerClick}
-            listName="팔로워"
-            query={FOLLOWER_LIST}
-            userId={data.id}
-          />
-        )}
+        <UserListModal
+          myId={myId}
+          onClick={onFollowerClick}
+          listName="팔로워"
+          query={FOLLOWER_LIST}
+          userId={data.id}
+          isVisible={isFollowerModalVisible}
+        />
       </li>
       <li>
         <FollowIndicatorWrapper onClick={onFollowClick}>
           팔로우 <span>{data.followsNum}</span>
         </FollowIndicatorWrapper>
-        {isFollowModalVisible && (
-          <UserListModal
-            myId={myId}
-            onClick={onFollowClick}
-            listName="팔로우"
-            query={FOLLOW_LIST}
-            userId={data.id}
-          />
-        )}
+        <UserListModal
+          myId={myId}
+          onClick={onFollowClick}
+          listName="팔로우"
+          query={FOLLOW_LIST}
+          userId={data.id}
+          isVisible={isFollowModalVisible}
+        />
       </li>
     </CountIndicatorWrapper>
   );

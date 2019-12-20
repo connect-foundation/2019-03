@@ -59,7 +59,8 @@ const createContent = ({ myId, listName, data, error, requestMoreList }) => {
   );
 };
 
-const UserListModal = ({ myId, onClick, listName, query, userId }) => {
+const UserListModal = ({ myId, onClick, listName, query, userId, isVisible }) => {
+
   const queryOption = {
     variables: { myId, userId },
     fetchPolicy: 'cache-and-network',
@@ -67,7 +68,7 @@ const UserListModal = ({ myId, onClick, listName, query, userId }) => {
   const { data, error, fetchMore } = useQuery(query, queryOption);
   const isLoading = useRef(false);
   const isLast = useRef(false);
-
+  if (!isVisible) return null;
   const requestMoreList = (list, promiseResolver) => {
     if (isLoading.current) return;
     if (isLast.current) return;
@@ -81,11 +82,9 @@ const UserListModal = ({ myId, onClick, listName, query, userId }) => {
       isLoading,
       isLast,
     });
-    try {
-      fetchMore({ variables, updateQuery });
-    }
-    catch(e){
-    }
+  
+    fetchMore({ variables, updateQuery });
+
   };
 
   const content = createContent({
