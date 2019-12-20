@@ -27,6 +27,11 @@ const formatError = new FormatError([
     statusCode: 500,
   },
   {
+    name: 'RANDOM_QUERY_ERROR',
+    message: 'The query of random does not work.',
+    statusCode: 500,
+  },
+  {
     name: 'FOLLOWING_POST_QUERY_ERROR',
     message: 'The query of following post does not work.',
     statusCode: 500,
