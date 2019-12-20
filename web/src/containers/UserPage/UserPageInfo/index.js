@@ -24,6 +24,7 @@ const UserPageInfo = ({
         isMyPage={isMyPage}
         onFollowCancel={onFollowCancel}
         onFollow={onFollow}
+        userProfileImage={data.profileImage}
       />
     </UserPageInfoWrapper>
   );

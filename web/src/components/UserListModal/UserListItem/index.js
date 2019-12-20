@@ -18,6 +18,7 @@ const UserListItem = ({ userInfo, myId, ...props }) => {
         username={username}
         myId={myId}
         userId={id}
+        userProfileImage={profileImage}
       />
     );
   };
