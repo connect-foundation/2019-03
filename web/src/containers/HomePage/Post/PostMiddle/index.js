@@ -27,6 +27,7 @@ const PostMiddle = ({ myInfo, post }) => {
   const { id: postId, isLike, imageURL, postURL, likerInfo, writer } = post;
   const [isLikeClicked, setLikeState] = useState();
   const likeBtnClickHandler = likeState => {
+    if (likeState !== isLike) return;
     if (!likeState)
       createPostLike({
         variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
@@ -37,11 +38,10 @@ const PostMiddle = ({ myInfo, post }) => {
       });
   };
 
-  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), []);
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), [isLike]);
 
   const toggleLikeState = () => {
     setLikeState(!isLikeClicked);
-    if (isLikeClicked !== isLike) return;
     lazyFetch(isLikeClicked);
   };
 
