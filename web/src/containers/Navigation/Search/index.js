@@ -33,19 +33,8 @@ const Search = () => {
     <SearchWrapper>
       {isVisible && <SearchToolTip data={data} clickClear={clickClear} />}
       <Input value={inputValue} onChange={changeInputValueHandler} />
-      <Icon
-        ratio={10}
-        posX={-260}
-        posY={-625}
-        style={{ marginTop: '2px', position: 'absolute' }}
-      />
-      <Icon
-        ratio={10}
-        posX={-390}
-        posY={-625}
-        onClick={clickClear}
-        style={{ marginTop: '2px', zIndex: '200' }}
-      />
+      <Icon name="search" />
+      <Icon name="clear" onClick={clickClear} />
     </SearchWrapper>
   );
 };
