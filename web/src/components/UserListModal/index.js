@@ -51,6 +51,7 @@ const createContent = ({ myId, listName, data, error, requestMoreList }) => {
               rowCount={list.length}
               rowHeight={56}
               rowRenderer={rowRenderer}
+              style={{ willChange: 'none' }}
             />
           )}
         </AutoSizer>
