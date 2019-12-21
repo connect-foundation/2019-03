@@ -13,6 +13,7 @@ const {
   taggedPostsQuery,
   clientQuery,
   randomListQuery,
+  likerInfoListQuery,
 } = require('./queries');
 const {
   updateUser,
@@ -45,6 +46,7 @@ const rootQuery = new GraphQLObjectType({
     taggedPosts: taggedPostsQuery,
     client: clientQuery,
     randomList: randomListQuery,
+    likerInfoList: likerInfoListQuery,
   }),
 });
 

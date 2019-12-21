@@ -7,19 +7,21 @@ const {
 
 const { UserType } = require('../types');
 const {
-  getFollowList,
-  getFollowIdList,
   getFollowDataList,
   getFollowUpdatedDataList,
 } = require('../../services/followlist-service');
+const {
+  getLikerList,
+  getLikerIdList,
+} = require('../../services/likerinfolist-service');
 
-const followListQuery = {
+const likerInfoListQuery = {
   type: new GraphQLList(UserType),
   args: {
     myId: {
       type: GraphQLID,
     },
-    userId: {
+    PostId: {
       type: GraphQLID,
     },
     cursor: {
@@ -33,15 +35,15 @@ const followListQuery = {
   resolve: async (_, args) => {
     // eslint-disable-next-line no-param-reassign
     if (!args.cursor) args.cursor = new Date().getTime().toString();
-    const followList = await getFollowList(args);
-    const followIdList = getFollowIdList(followList);
-    const followDataList = await getFollowDataList(followIdList, args);
-    const followUpdatedDataList = await getFollowUpdatedDataList(
-      followDataList,
+    const likerList = await getLikerList(args);
+    const likerIdList = getLikerIdList(likerList);
+    const likerDataList = await getFollowDataList(likerIdList, args);
+    const likerUpdatedDataList = await getFollowUpdatedDataList(
+      likerDataList,
       args,
     );
-    return followUpdatedDataList;
+    return likerUpdatedDataList;
   },
 };
 
-module.exports = { followListQuery };
+module.exports = { likerInfoListQuery };

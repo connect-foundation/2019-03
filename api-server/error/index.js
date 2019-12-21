@@ -22,6 +22,11 @@ const formatError = new FormatError([
     statusCode: 500,
   },
   {
+    name: 'LIKER_INFO_LIST_QUERY_ERROR',
+    message: 'The query of likerInfoList does not work.',
+    statusCode: 500,
+  },
+  {
     name: 'FOLLOW_QUERY_ERROR',
     message: 'The query of follow does not work.',
     statusCode: 500,

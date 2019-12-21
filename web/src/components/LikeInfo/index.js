@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { LikeInfoWrapper, Profile, LikeCount, LikerLink } from './styles';
 import UserListModal from '../UserListModal';
-import { FOLLOWER_LIST } from '../../queries';
+import { LIKER_INFO_LIST } from '../../queries';
 
 const LikeInfo = ({ myInfo, post, diff, likerInfo }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,15 +44,15 @@ const LikeInfo = ({ myInfo, post, diff, likerInfo }) => {
       }}
     >
       {content}
-      {isVisible && (
-        <UserListModal
-          myId={myInfo.id}
-          onClick={onToggleModal}
-          listName="팔로워"
-          query={FOLLOWER_LIST}
-          userId={post.writer.id}
-        />
-      )}
+      <UserListModal
+        myId={myInfo.id}
+        onClick={onToggleModal}
+        listName="좋아요"
+        query={LIKER_INFO_LIST}
+        userId={post.writer.id}
+        isVisible={isVisible}
+        PostId={post.id}
+      />
     </LikeInfoWrapper>
   );
 };
