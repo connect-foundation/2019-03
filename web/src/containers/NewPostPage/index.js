@@ -110,6 +110,11 @@ const NewPostPage = ({ cookies }) => {
       return;
     }
 
+    if (state.originalImage.size > 4500000) {
+      toast('5MB 이하의 파일만 업로드 할 수 있습니다!');
+      return;
+    }
+
     try {
       setLoading(true);
       const croppedImageFile = await makeNewImageFile(state);
