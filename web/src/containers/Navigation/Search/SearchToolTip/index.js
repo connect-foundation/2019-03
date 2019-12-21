@@ -9,16 +9,14 @@ const ARROW_MOVE_RANGE = '50%';
 const BODY_MOVE_RANGE = '-15%';
 
 const SearchToolTip = ({ data, clickClear }) => {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(
+    <SearchNoResult>
+      <Spinner />
+    </SearchNoResult>,
+  );
 
   useEffect(() => {
     if (!data) {
-      setContent(
-        <SearchNoResult>
-          <Spinner />
-        </SearchNoResult>,
-      );
-
       return;
     }
 
