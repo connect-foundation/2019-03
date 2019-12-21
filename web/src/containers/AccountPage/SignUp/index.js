@@ -95,12 +95,12 @@ function SignUpPage({ cookies }) {
             <ValidationMessage>{INVALID_PASSWORD}</ValidationMessage>
           )}
           <SignUpInput
-            type="passwordcheck"
+            type="password"
             name="passwordcheck"
             limit={30}
             placeholder="비밀번호 확인"
           />
-          {state.validities.password || (
+          {state.validities.passwordcheck || (
             <ValidationMessage>{INVALID_PASSWORD_CHECK}</ValidationMessage>
           )}
           <SignUpInput
