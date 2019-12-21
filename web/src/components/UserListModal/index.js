@@ -67,9 +67,10 @@ const UserListModal = ({
   query,
   userId,
   isVisible,
+  PostId,
 }) => {
   const queryOption = {
-    variables: { myId, userId },
+    variables: { myId, userId, PostId },
     fetchPolicy: 'cache-and-network',
   };
   const { data, error, fetchMore, refetch } = useQuery(query, queryOption);

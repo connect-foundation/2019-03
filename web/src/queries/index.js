@@ -21,6 +21,7 @@ import TAGGED_POSTS from './taggedPosts';
 import FOLLOWER_LIST from './followerList';
 import FOLLOW_LIST from './followList';
 import IS_LOGGED_IN from './isLoggedIn';
+import LIKER_INFO_LIST from './likerInfoList';
 
 export {
   FOLLOWING_POST_LIST,
@@ -46,4 +47,5 @@ export {
   FOLLOWER_LIST,
   FOLLOW_LIST,
   IS_LOGGED_IN,
+  LIKER_INFO_LIST,
 };
