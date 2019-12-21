@@ -32,11 +32,6 @@ const settingPageList = [
     PageComponent: EditProfilePage,
   },
   {
-    title: '비밀번호 변경',
-    url: 'change/password',
-    PageComponent: ChangePasswordPage,
-  },
-  {
     title: '내 어플리케이션',
     url: 'show/applications',
     PageComponent: MyAppPage,
