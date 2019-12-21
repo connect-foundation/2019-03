@@ -65,7 +65,7 @@ function SignUpPage({ cookies }) {
       <SignUpWrapper>
         <SignUpHeader>
           <Icon ratio={4} name="logo" style={LOGO_STYLE} />
-          <Title>젊은, 낭만을 공유하고 싶으면 가입하세요!</Title>
+          <Title>젊음, 낭만을 공유하고 싶으면 가입하세요!</Title>
         </SignUpHeader>
         <SignUpForm ref={signUpForm} onSubmit={onSubmit}>
           <SignUpInput

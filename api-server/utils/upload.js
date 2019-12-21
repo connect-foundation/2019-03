@@ -16,24 +16,28 @@ const s3 = new AWS.S3({
 });
 
 const uploadImageFileToS3 = async (file, dir) => {
-  const { filename, createReadStream } = await file;
-  const stream = createReadStream();
+  try {
+    const { filename, createReadStream } = await file;
+    const stream = createReadStream();
 
-  const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
-  if (!extensionRegex.test(filename)) {
-    return false;
+    const extensionRegex = /(.jpg|.gif|.jpeg|.png)$/i;
+    if (!extensionRegex.test(filename)) {
+      return false;
+    }
+
+    const imageFile = await s3
+      .upload({
+        Bucket: `${process.env.BUCKET}`,
+        ACL: 'public-read',
+        Key: `${dir}/${Date.now().toString()}_${filename}`,
+        Body: stream,
+      })
+      .promise();
+
+    return imageFile;
+  } catch (err) {
+    throw err;
   }
-
-  const imageFile = await s3
-    .upload({
-      Bucket: `${process.env.BUCKET}`,
-      ACL: 'public-read',
-      Key: `${dir}/${Date.now().toString()}_${filename}`,
-      Body: stream,
-    })
-    .promise();
-
-  return imageFile;
 };
 
 module.exports = { s3, uploadImageFileToS3 };
