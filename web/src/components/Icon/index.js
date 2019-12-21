@@ -40,6 +40,18 @@ const iconSelector = {
     ratio: 5,
     style: { transform: 'rotate(90deg)' },
   },
+  clear: {
+    posX: -390,
+    posY: -625,
+    ratio: 10,
+    style: { marginTop: '2px', zIndex: '200' },
+  },
+  search: {
+    posX: -260,
+    posY: -625,
+    ratio: 10,
+    style: { marginTop: '2px', position: 'absolute' },
+  },
 };
 
 const Icon = ({ children, name, ...rest }) => {

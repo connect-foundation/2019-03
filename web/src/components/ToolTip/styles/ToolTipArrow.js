@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 
 const ToolTipArrow = styled.div`
   /* Layout */
-  position: relative;
-  top: 8px;
-  left: 50%;
-  z-index: 203;
+  position: absolute;
+  z-index: 1;
+  left: 3px;
+  top: 40px;
 
   /* Box */
   width: 14px;

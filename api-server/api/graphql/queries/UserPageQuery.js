@@ -1,22 +1,17 @@
-const { GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLString, GraphQLID } = require('graphql');
 
 const { UserPageType } = require('../types');
-const { getUserPageData } = require('../../services/UserPageService');
+const { getUserPageData } = require('../../services/userpage-service');
 
 const userPageQuery = {
   type: UserPageType,
   args: {
     username: { type: GraphQLString },
-    myId: { type: GraphQLInt },
+    myId: { type: GraphQLID },
   },
   resolve: async (_, args) => {
-    try {
-      const data = await getUserPageData(args);
-      return data;
-    } catch (e) {
-      console.log(e.message);
-      return { error: e.message };
-    }
+    const data = await getUserPageData(args);
+    return data;
   },
 };
 

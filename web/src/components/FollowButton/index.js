@@ -1,46 +1,30 @@
 import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 
 import StyledFollowButton from './StyledFollowButton';
 import FollowCheckingModal from '../FollowCheckingModal';
+import {
+  REQUEST_FOLLOWING,
+  REQUEST_FOLLOWING_CANCELLATION,
+} from '../../queries';
 
 const FollowButton = ({
   followStatus,
+  id,
   className,
   username,
   myId,
   userId,
   onFollowCancel,
   onFollow,
+  userProfileImage,
 }) => {
-  // folowStatus {null: 팔로우하고있지 않은 상태(팔로우하지 않을 때 삭제? 0?), 0: 팔로우하고 있는 상태, 1: 비공개 계정에 요청한 상태}
-  // 팔로우 취소 또는 팔로우시 로컬에 반영되어야할 일이 있으면 함수형태로 onFollowCancel, onFollow에 props를 내려주면 됨.
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
-  const requestFollowingQuery = gql`
-    mutation RequestFollowing($myId: Int!, $userId: Int!) {
-      RequestFollowing(myId: $myId, userId: $userId) {
-        from
-        to
-        status
-        updatedAt
-      }
-    }
-  `;
-  const requestFollowingCancellationQuery = gql`
-    mutation RequestFollowingCancellation($myId: Int!, $userId: Int!) {
-      RequestFollowingCancellation(myId: $myId, userId: $userId) {
-        from
-        to
-      }
-    }
-  `;
-
-  const [requestFollowing] = useMutation(requestFollowingQuery);
+  const [requestFollowing] = useMutation(REQUEST_FOLLOWING);
   const [requestFollowingCancellation] = useMutation(
-    requestFollowingCancellationQuery,
+    REQUEST_FOLLOWING_CANCELLATION,
   );
 
   const onClick = () => setIsVisible(prevVisibleStatus => !prevVisibleStatus);
@@ -62,9 +46,6 @@ const FollowButton = ({
       case 0:
         setIsVisible(prevVisibleStatus => !prevVisibleStatus);
         break;
-      // case 1:
-      //   추후 요청됨 구현 시 로직 추가
-      //   break;
       default:
         throw new Error(
           `Current follow status is wrong : ${currentFollowStatus}`,
@@ -94,6 +75,7 @@ const FollowButton = ({
         status={currentFollowStatus}
         onClick={changeFollowStatus}
         className={className}
+        id={id}
       >
         {buttonText}
       </StyledFollowButton>
@@ -102,13 +84,10 @@ const FollowButton = ({
         onClick={onClick}
         cancelFollowing={cancelFollowing}
         username={username}
+        userProfileImage={userProfileImage}
       />
     </>
   );
-};
-
-FollowButton.defaultProps = {
-  followStatus: null,
 };
 
 export default FollowButton;

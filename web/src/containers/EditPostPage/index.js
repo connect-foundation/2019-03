@@ -8,7 +8,7 @@ import { READ_POST } from '../../queries';
 
 function PostDetailPage({ match, myInfo }) {
   const { loading, error, data } = useQuery(READ_POST, {
-    variables: { postURL: match.params.postURL, id: myInfo.id },
+    variables: { postURL: match.params.postURL, UserId: myInfo.id },
   });
 
   if (loading) return <div>로딩중..</div>;

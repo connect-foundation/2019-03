@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import StyledLink from '../../../../../components/StyledLink';
-
 const selectedTheme = css`
   border-top: 1px solid black;
 `;
@@ -10,7 +8,7 @@ const unchosenTheme = css`
   border: none;
 `;
 
-const BorderTopLink = styled(StyledLink)`
+const BorderTopLink = styled.div`
   /* Layout */
   display: inline-flex;
   flex-direction: row;
@@ -22,12 +20,13 @@ const BorderTopLink = styled(StyledLink)`
   margin-right: 60px;
 
   /* Property */
+  cursor: pointer;
   &:last-child {
     margin-right: 0px;
   }
 
   /* Other */
-  ${({ isSelected }) => (isSelected ? selectedTheme : unchosenTheme)}
+  ${({ isselected }) => (isselected ? selectedTheme : unchosenTheme)}
 `;
 
 export default BorderTopLink;

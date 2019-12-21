@@ -1,34 +1,32 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import 'intersection-observer';
 import { ToastContainer, toast } from 'react-toastify';
+import { withCookies } from 'react-cookie';
+import 'intersection-observer';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Error from '../../components/Error';
 import Post from './Post';
 import { PostListWrapper, SpinnerWrapper } from './styles';
 import { FOLLOWING_POST_LIST } from '../../queries';
 import Spinner from '../../components/Spinner';
-import UserContext from '../App/UserContext';
 import NoFollowing from './NoFollowing';
 
-const LIMIT = 5;
-function HomePage() {
-  const { myInfo } = useContext(UserContext);
+const POST_LIST_REQUEST_DEFAULT_LIMIT = 5;
+
+function HomePage({ cookies }) {
+  const myInfo = cookies.get('myInfo');
   const [noMorePost, setNoMorePost] = useState(false);
-  const lastChild = useRef();
+  const spinnerRef = useRef();
+
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_POST_LIST, {
     variables: {
       myId: myInfo.id,
-      limit: LIMIT,
+      limit: POST_LIST_REQUEST_DEFAULT_LIMIT,
     },
     fetchPolicy: 'cache-first',
     notifyOnNetworkStatusChange: true,
   });
-
-  const options = {
-    root: null,
-    threshold: 0,
-  };
 
   const noMorePostHandler = () => {
     if (noMorePost) return;
@@ -42,7 +40,29 @@ function HomePage() {
       draggable: true,
     });
   };
-  const getMorePosts = (entries, observer) => {
+
+  const requestMorePosts = ({ cursor }) => {
+    fetchMore({
+      variables: {
+        cursor,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        if (!fetchMoreResult.followingPostList.length)
+          noMorePostHandler(noMorePost);
+        const updatedFollowingList = {
+          ...prev,
+          followingPostList: [
+            ...prev.followingPostList,
+            ...fetchMoreResult.followingPostList,
+          ],
+        };
+        return updatedFollowingList;
+      },
+    });
+  };
+
+  const checkAndRequestMorePost = (entries, observer) => {
     if (loading) return;
     if (data && !data.followingPostList.length) return;
     const entry = entries[0];
@@ -50,22 +70,7 @@ function HomePage() {
     observer.disconnect();
     const list = data.followingPostList;
     const cursor = list.length ? [...list].pop().updatedAt : null;
-    fetchMore({
-      variables: {
-        cursor,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        if (!fetchMoreResult.followingPostList.length) noMorePostHandler();
-        return {
-          ...prev,
-          followingPostList: [
-            ...prev.followingPostList,
-            ...fetchMoreResult.followingPostList,
-          ],
-        };
-      },
-    });
+    requestMorePosts({ cursor });
   };
 
   const { followingPostList } = data || { followingPostList: [] };
@@ -74,11 +79,19 @@ function HomePage() {
     <Post key={post.id} post={post} myInfo={myInfo} />
   ));
 
+  const observerOption = {
+    root: null,
+    threshold: 0,
+  };
+
   useEffect(() => {
-    if (!lastChild.current) return;
+    if (!spinnerRef.current) return;
     if (noMorePost) return;
-    const observer = new IntersectionObserver(getMorePosts, options);
-    observer.observe(lastChild.current);
+    const observer = new IntersectionObserver(
+      checkAndRequestMorePost,
+      observerOption,
+    );
+    observer.observe(spinnerRef.current);
 
     if (data && !followingPostList.length) noMorePostHandler();
 
@@ -88,15 +101,15 @@ function HomePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [followingPostList]);
 
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (error) return <Error status={500} />;
   if (data && !followingPostList.length) {
-    return <NoFollowing />;
+    return <NoFollowing myId={myInfo.id} />;
   }
   return (
     <PostListWrapper>
       {postList}
       {!noMorePost && (
-        <SpinnerWrapper ref={lastChild}>
+        <SpinnerWrapper ref={spinnerRef}>
           <Spinner size={50} />
         </SpinnerWrapper>
       )}
@@ -115,4 +128,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default withCookies(HomePage);

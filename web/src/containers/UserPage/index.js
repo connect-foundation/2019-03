@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 
 import PostCardList from '../../components/PostCardList';
 import UserPageInfo from './UserPageInfo';
 import ListSelector from './ListSelector';
 import { UserPageWrapper, UserPageSection } from './styles';
+import { USER_PAGE, TAGGED_POSTS } from '../../queries';
 
 const UserPage = ({ match, myInfo }) => {
   const { username } = match.params;
@@ -13,29 +13,13 @@ const UserPage = ({ match, myInfo }) => {
   const isMyPage = username === myname;
 
   const [dataState, setDataState] = useState(null);
+  const [selectionTabState, setSelectionTabState] = useState('게시물');
 
-  const userPageQuery = gql`
-    query UserPage($username: String!, $myId: Int!) {
-      userPage(username: $username, myId: $myId) {
-        isExistingUser
-        userInfo {
-          name
-          id
-          profileImage
-          isFollowing
-          postNumber
-          followersNum
-          followsNum
-        }
-        postCard {
-          postURL
-          imageURL
-        }
-      }
-    }
-  `;
-
-  const { loading, error, data } = useQuery(userPageQuery, {
+  const { loading, error, data } = useQuery(USER_PAGE, {
+    variables: { username, myId: id },
+    fetchPolicy: 'cache-and-network',
+  });
+  const [loadTaggedPosts, taggedPostsResult] = useLazyQuery(TAGGED_POSTS, {
     variables: { username, myId: id },
     fetchPolicy: 'cache-and-network',
   });
@@ -43,6 +27,17 @@ const UserPage = ({ match, myInfo }) => {
   useEffect(() => {
     setDataState(data);
   }, [data]);
+
+  const isTaggedPostsReady =
+    selectionTabState !== '게시물' && !!taggedPostsResult.data;
+
+  const getPostCardListData = () => {
+    if (isTaggedPostsReady) {
+      const postCardListData = { postCard: taggedPostsResult.data.taggedPosts };
+      return postCardListData;
+    }
+    return data.userPage;
+  };
 
   const onFollowCancel = () => {
     setDataState(prevData => {
@@ -60,6 +55,15 @@ const UserPage = ({ match, myInfo }) => {
     });
   };
 
+  const onClickPostTab = () => {
+    setSelectionTabState('게시물');
+  };
+
+  const onClickTaggedTab = () => {
+    setSelectionTabState('태그됨');
+    loadTaggedPosts();
+  };
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!dataState) return <div>dataState가 없습니다.</div>;
@@ -75,8 +79,12 @@ const UserPage = ({ match, myInfo }) => {
           onFollowCancel={onFollowCancel}
           onFollow={onFollow}
         />
-        <ListSelector username={username} />
-        <PostCardList data={data.userPage} />
+        <ListSelector
+          selectionTabState={selectionTabState}
+          onClickPostTab={onClickPostTab}
+          onClickTaggedTab={onClickTaggedTab}
+        />
+        <PostCardList data={getPostCardListData()} />
       </UserPageSection>
     </UserPageWrapper>
   );

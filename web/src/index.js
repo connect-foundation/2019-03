@@ -9,6 +9,13 @@ import { CookiesProvider } from 'react-cookie';
 import { createUploadLink } from 'apollo-upload-client';
 import App from './containers/App';
 
+const cache = new InMemoryCache();
+cache.writeData({
+  data: {
+    isLoggedIn: false,
+  },
+});
+
 const client = new ApolloClient({
   link: createUploadLink({
     uri: `${process.env.REACT_APP_API_URL}/graphql`,
@@ -17,25 +24,32 @@ const client = new ApolloClient({
       credentials: 'include',
     },
   }),
-  cache: new InMemoryCache(),
+  cache,
 });
 
 const GlobalStyle = createGlobalStyle`
+    @font-face {
+      font-family: 'NotoSansKR';
+      font-weight: 300;
+      src: local('NotoSansKR'), local('NotoSansKR'),
+           url('./fonts/NotoSansKR-Light.otf') format('otf'), 
+    }
     body {
         padding: 0;
-        margin: 0;
+        margin: 0 auto;
         background-color:#fafafa;
+        font-family:'NotoSansKR'
     }
 `;
 
 ReactDOM.render(
   <BrowserRouter>
-    <ApolloProvider client={client}>
-      <CookiesProvider>
+    <CookiesProvider>
+      <ApolloProvider client={client}>
         <GlobalStyle />
         <App />
-      </CookiesProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </CookiesProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

@@ -28,10 +28,12 @@
   "dependencies": {
     "aws-sdk": "^2.580.0",
     "bcrypt": "^3.0.7",
+    "connect-redis": "^4.0.3",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
+    "easygraphql-format-error": "0.0.3",
     "express": "~4.16.1",
     "express-graphql": "^0.9.0",
     "express-session": "^1.17.0",
@@ -45,6 +47,7 @@
     "mysql2": "^2.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
     "sequelize": "^5.21.2",
     "sequelize-cli": "^5.5.1",
     "short-uuid": "^3.1.1"

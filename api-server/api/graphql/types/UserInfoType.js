@@ -1,4 +1,9 @@
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLInt,
+} = require('graphql');
 
 const UserInfoType = new GraphQLObjectType({
   name: 'userInfo',
@@ -8,7 +13,7 @@ const UserInfoType = new GraphQLObjectType({
       resolve: userInfo => userInfo.name,
     },
     id: {
-      type: GraphQLInt,
+      type: GraphQLID,
       resolve: userInfo => userInfo.id,
     },
     profileImage: {

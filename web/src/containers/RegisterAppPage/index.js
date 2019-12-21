@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withCookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
 import urlRegex from 'url-regex';
 import Input from '../../components/Input';
@@ -7,7 +8,9 @@ import InputRow from '../../components/InputRow';
 import Form from '../../components/Form';
 import { Select, Span } from './styles';
 
-const ClientRegistration = ({ setItem }) => {
+const ClientRegistration = ({ setItem, cookies }) => {
+  const myInfo = cookies.get('myInfo');
+
   useEffect(() => {
     setItem('새 어플리케이션 등록');
     return () => setItem(null);
@@ -19,6 +22,7 @@ const ClientRegistration = ({ setItem }) => {
     redirectionURI: '',
     website: '',
     description: '',
+    UserId: myInfo.id,
   });
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -41,7 +45,7 @@ const ClientRegistration = ({ setItem }) => {
 
     try {
       const requestResult = await fetch(
-        `${process.env.REACT_APP_OAUTH_SERVER_URL}/register`,
+        `${process.env.REACT_APP_OAUTH_SERVER_URL}/client/register`,
         {
           headers: {
             Accept: 'application/json',
@@ -70,7 +74,7 @@ const ClientRegistration = ({ setItem }) => {
   };
 
   if (isSuccess) {
-    return <Redirect to="/developer/main" />;
+    return <Redirect to="/setting/show/applications" />;
   }
 
   return (
@@ -118,4 +122,4 @@ const ClientRegistration = ({ setItem }) => {
   );
 };
 
-export default ClientRegistration;
+export default withCookies(ClientRegistration);

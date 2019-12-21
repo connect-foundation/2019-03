@@ -1,22 +1,18 @@
-const { GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLInt, GraphQLID, GraphQLList } = require('graphql');
 
 const { CommentType } = require('../types');
-const { Comment } = require('../../../db');
+const { getCommentList } = require('../../services/comment-service');
 
 const commentQuery = {
   type: new GraphQLList(CommentType),
   args: {
-    PostId: { type: GraphQLInt },
+    PostId: { type: GraphQLID },
     limit: { type: GraphQLInt },
     offset: { type: GraphQLInt },
   },
-  resolve: (post, args) => {
-    return Comment.findAll({
-      where: { PostId: args.PostId },
-      offset: args.offset,
-      limit: args.limit,
-      order: [['updatedAt', 'DESC']],
-    });
+  resolve: async (_, { PostId, offset, limit }) => {
+    const commentList = await getCommentList(PostId, offset, limit);
+    return commentList;
   },
 };
 

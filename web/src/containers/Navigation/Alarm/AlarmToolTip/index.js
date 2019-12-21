@@ -1,8 +1,9 @@
 import React from 'react';
-import { AlarmToolTipWrapper, AlarmNoResult } from './styles';
+import { AlarmNoResult } from './styles';
 import AlarmResultList from './AlarmResultList';
+import ToolTip from '../../../../components/ToolTip';
 
-const ARROW_MOVEMENT = '85%';
+const BODY_MOVE_RANGE = '-50%';
 
 const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
   let content = '';
@@ -24,7 +25,6 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
     if (log.length === 0) {
       content = <span>새로운 알림이 없습니다.</span>;
     } else {
-      console.log(data);
       resultList = (
         <AlarmResultList
           alarmResults={log}
@@ -40,12 +40,9 @@ const AlarmToolTip = ({ isVisible, setIsVisible, data, loading, error }) => {
   );
 
   return (
-    <AlarmToolTipWrapper
-      arrowStyle={{ left: ARROW_MOVEMENT }}
-      onClick={clickClose}
-    >
+    <ToolTip onClick={clickClose} bodyStyle={{ right: BODY_MOVE_RANGE }}>
       {resultList || resultNoList}
-    </AlarmToolTipWrapper>
+    </ToolTip>
   );
 };
 

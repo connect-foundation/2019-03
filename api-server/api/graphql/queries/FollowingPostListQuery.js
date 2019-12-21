@@ -1,13 +1,18 @@
-const { GraphQLList, GraphQLInt, GraphQLString } = require('graphql');
+const {
+  GraphQLInt,
+  GraphQLID,
+  GraphQLString,
+  GraphQLList,
+} = require('graphql');
 
 const { PostType } = require('../types');
-const { getFollowingPostList } = require('../../services/PostService');
+const { getFollowingPostList } = require('../../services/post-service');
 
 const followingPostListQuery = {
   type: new GraphQLList(PostType),
   args: {
     id: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     cursor: {
       type: GraphQLString,
@@ -18,14 +23,10 @@ const followingPostListQuery = {
     },
   },
   resolve: async (_, { id, cursor, limit }, context) => {
-    try {
-      // eslint-disable-next-line no-param-reassign
-      context.UserId = id;
-      const postList = await getFollowingPostList(id, cursor, limit);
-      return postList;
-    } catch (err) {
-      return { error: err.message };
-    }
+    if (!cursor) cursor = new Date().getTime().toString();
+    context.UserId = id;
+    const postList = await getFollowingPostList(id, cursor, limit);
+    return postList;
   },
 };
 

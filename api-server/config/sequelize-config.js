@@ -20,6 +20,10 @@ module.exports = {
     define: {
       timestamps: false,
     },
+    pool: {
+      min: 10,
+      max: 80,
+    },
   },
   production: {
     username: process.env.DB_USER,
@@ -29,6 +33,11 @@ module.exports = {
     dialect: process.env.DB_DIALECT,
     define: {
       timestamps: false,
+    },
+    logging: false,
+    pool: {
+      min: 10,
+      max: 80,
     },
   },
 };

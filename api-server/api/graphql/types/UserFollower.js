@@ -1,14 +1,19 @@
-const { GraphQLObjectType, GraphQLInt, GraphQLString } = require('graphql');
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLInt,
+} = require('graphql');
 
 const UserFollower = new GraphQLObjectType({
   name: 'UserFollower',
   fields: () => ({
     from: {
-      type: GraphQLInt,
+      type: GraphQLID,
       resolve: user => user.from,
     },
     to: {
-      type: GraphQLInt,
+      type: GraphQLID,
       resolve: user => user.to,
     },
     status: {

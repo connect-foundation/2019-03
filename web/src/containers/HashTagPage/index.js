@@ -1,5 +1,4 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 
 import {
@@ -12,24 +11,13 @@ import ProfileIcon from '../../components/ProfileIcon';
 import PostCardList from '../../components/PostCardList';
 import AnnouncementMessage from '../../components/AnnouncementMessage';
 import Loading from '../../components/Loading';
+import { HASHTAG_PAGE } from '../../queries';
 
 const HashTagPage = ({ match }) => {
   const { hashTag } = match.params;
   const loadingSize = 120;
 
-  const hashtagPageQuery = gql`
-    query HashTagPage($hashTagName: String!) {
-      hashTagPage(hashTagName: $hashTagName) {
-        isExistingHashTag
-        postCard {
-          postURL
-          imageURL
-        }
-      }
-    }
-  `;
-
-  const { loading, error, data } = useQuery(hashtagPageQuery, {
+  const { loading, error, data } = useQuery(HASHTAG_PAGE, {
     variables: { hashTagName: hashTag },
   });
 

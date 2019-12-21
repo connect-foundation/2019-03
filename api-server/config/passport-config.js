@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const userService = require('../api/services/UserService');
+const userService = require('../api/services/user-service');
 
 const signup = async (req, username, password, done) => {
   try {

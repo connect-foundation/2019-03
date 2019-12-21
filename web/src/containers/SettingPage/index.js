@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import List from './List';
 import SettingPageWrapper from './SettingPageWrapper';
 
-function SettingPage({ match, myInfo, pageList }) {
+function SettingPage({ match, pageList }) {
   const [focusedItem, setFocusedItem] = useState(null);
   return (
     <SettingPageWrapper>
@@ -17,15 +17,13 @@ function SettingPage({ match, myInfo, pageList }) {
           exact
           path={`${match.path}/${url}`}
           component={props => (
-            <PageComponent
-              {...props}
-              setItem={setFocusedItem}
-              myInfo={myInfo}
-            />
+            <PageComponent {...props} setItem={setFocusedItem} />
           )}
         />
       ))}
       <ToastContainer
+        autoClose={1000}
+        hideProgressBar
         position={toast.POSITION.BOTTOM_CENTER}
         transition={Slide}
       />

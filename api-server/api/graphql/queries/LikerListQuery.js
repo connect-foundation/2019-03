@@ -1,22 +1,18 @@
-const { GraphQLList, GraphQLInt } = require('graphql');
+const { GraphQLList, GraphQLID } = require('graphql');
 
 const { LikerType } = require('../types');
-const { getLikerList } = require('../../services/PostService');
+const { getLikerList } = require('../../services/post-like-service');
 
 const likerListQuery = {
   type: new GraphQLList(LikerType),
   args: {
     postId: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
   },
   resolve: async (_, { postId }) => {
-    try {
-      const likerList = await getLikerList(postId);
-      return likerList;
-    } catch (err) {
-      return { error: err.message };
-    }
+    const likerList = await getLikerList(postId);
+    return likerList;
   },
 };
 

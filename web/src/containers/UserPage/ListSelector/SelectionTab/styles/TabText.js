@@ -7,8 +7,8 @@ const TabText = styled.div`
   letter-spacing: 1px;
 
   /* Other */
-  ${({ theme, isSelected }) => css`
-    color: ${isSelected ? 'black' : theme.palette.gray_font};
+  ${({ theme, isselected }) => css`
+    color: ${isselected ? 'black' : theme.palette.gray_font};
   `}
 
   /* Property */

@@ -17,7 +17,6 @@ const TextMoreButton = styled.button`
   font-size: 0.8rem;
   line-height: 1;
 
-
   cursor: pointer;
 `;
 

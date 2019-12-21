@@ -17,7 +17,8 @@ import { isFileTypeImage } from '../../utils/fileUtils';
 import { UPDATE_USER, UPDATE_PROFILE } from '../../queries';
 import { FileInput } from '../NewPostPage/styles';
 
-function EditProfilePage({ setItem, myInfo, cookies }) {
+function EditProfilePage({ setItem, cookies }) {
+  const myInfo = cookies.get('myInfo');
   const [updateUser, { loading, data, error }] = useMutation(UPDATE_USER);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
 
@@ -45,12 +46,10 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
     const result = await updateProfile({
       variables: { file: e.target.files[0], userId: myInfo.id },
     });
-    const cookieInfo = cookies.get('myInfo');
-
     cookies.set(
       'myInfo',
       {
-        ...cookieInfo,
+        ...myInfo,
         profileImage: result.data.updateProfile,
       },
       { path: '/' },
@@ -74,9 +73,18 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
     if (state.email !== myInfo.email) variables.email = state.email;
     if (state.cellPhone !== myInfo.cellPhone)
       variables.cellPhone = state.cellPhone;
+
     updateUser({
       variables,
     });
+    cookies.set(
+      'myInfo',
+      {
+        ...myInfo,
+        ...variables,
+      },
+      { path: '/' },
+    );
   };
 
   if (error) {
@@ -95,10 +103,10 @@ function EditProfilePage({ setItem, myInfo, cookies }) {
       <Form onSubmit={submitHanlder}>
         {loading && <Loading size={50} />}
         <InputRow
-          customComponent={<ProfileIcon imageURL={myInfo.profileImage} />}
+          customComponent={<ProfileIcon imageURL={state.profileImage} />}
           rightComponent={
             <div>
-              <Username>{myInfo.username}</Username>
+              <Username>{state.username}</Username>
               <UpdateProfile htmlFor="select_file">
                 프로필 사진 바꾸기
               </UpdateProfile>

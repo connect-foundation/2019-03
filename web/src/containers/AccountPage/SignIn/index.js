@@ -1,4 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useReducer } from 'react';
+import { withCookies } from 'react-cookie';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import {
   SignWrapper as SignInWrapper,
@@ -15,24 +17,45 @@ import {
 import Icon from '../../../components/Icon';
 import constants from '../constants';
 import { onSignInSubmitHandler } from '../lib';
+import reducer, {
+  INIT_STATE,
+  SET_AUTH_ERROR,
+  SET_SERVER_ERROR,
+} from './reducer';
+import { RESET_VALIDATION_MESSAGE } from '../SignUp/reducer';
 
 const {
   LOGO_STYLE,
   LINK_STYLE,
   INVALID_USERNAME,
   INVALID_PASSWORD,
+  UNAUTHORIZED,
+  SERVER_ERROR,
 } = constants;
 
-function SignInPage({ setIsAuth }) {
-  const [validities, setValidities] = useState({
-    username: true,
-    password: true,
-  });
+function SignInPage({ cookies }) {
+  const client = useApolloClient();
+  const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const signInForm = useRef(null);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    onSignInSubmitHandler(signInForm, setIsAuth, setValidities);
+    dispatch({ type: RESET_VALIDATION_MESSAGE });
+    try {
+      await onSignInSubmitHandler(signInForm, dispatch);
+      const myInfo = cookies.get('myInfo');
+      client.writeData({
+        data: {
+          isLoggedIn: !!myInfo,
+        },
+      });
+    } catch (error) {
+      if (error.message === 'unauthorized') {
+        dispatch({ type: SET_AUTH_ERROR });
+        return;
+      }
+      dispatch({ type: SET_SERVER_ERROR });
+    }
   };
 
   return (
@@ -40,7 +63,7 @@ function SignInPage({ setIsAuth }) {
       <SignInWrapper>
         <SignInHeader>
           <Icon ratio={4} name="logo" style={LOGO_STYLE} />
-          <Title>젊은, 낭만을 공유하고 싶으면 로그인하세요!</Title>
+          <Title>젊음, 낭만을 공유하고 싶으면 로그인하세요!</Title>
         </SignInHeader>
         <SignInForm ref={signInForm} onSubmit={onSubmit}>
           <SignInInput
@@ -49,7 +72,7 @@ function SignInPage({ setIsAuth }) {
             limit={30}
             placeholder="사용자이름"
           />
-          {validities.username || (
+          {state.validities.username || (
             <ValidationMessage>{INVALID_USERNAME}</ValidationMessage>
           )}
           <SignInInput
@@ -58,11 +81,15 @@ function SignInPage({ setIsAuth }) {
             limit={30}
             placeholder="비밀번호"
           />
-          {validities.password || (
+          {state.validities.password || (
             <ValidationMessage>{INVALID_PASSWORD}</ValidationMessage>
           )}
           <SignInButton type="submit">로그인</SignInButton>
         </SignInForm>
+        {state.isAuth || <ValidationMessage>{UNAUTHORIZED}</ValidationMessage>}
+        {state.isServerError && (
+          <ValidationMessage>{SERVER_ERROR}</ValidationMessage>
+        )}
         <HorizontalLine />
         <SignUpLink style={LINK_STYLE} to="/account/signup" issignin="true">
           회원가입
@@ -72,4 +99,4 @@ function SignInPage({ setIsAuth }) {
   );
 }
 
-export default SignInPage;
+export default withCookies(SignInPage);

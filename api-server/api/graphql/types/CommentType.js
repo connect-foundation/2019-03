@@ -7,7 +7,7 @@ const {
 } = require('graphql');
 const { User } = require('../../../db');
 const { UserType } = require('./UserType');
-const { checkUserLikeComment } = require('../../services/CommentService');
+const { checkUserLikeComment } = require('../../services/comment-service');
 
 const CommentType = new GraphQLObjectType({
   name: 'Comment',
@@ -30,16 +30,12 @@ const CommentType = new GraphQLObjectType({
     isLike: {
       type: GraphQLBoolean,
       resolve: async ({ id: commentId }, _, { userId }) => {
-        try {
-          const isLike = await checkUserLikeComment(userId, commentId);
-          return isLike;
-        } catch (err) {
-          return false;
-        }
+        const isLike = await checkUserLikeComment(userId, commentId);
+        return isLike;
       },
     },
     PostId: {
-      type: GraphQLInt,
+      type: GraphQLID,
       resolve: comment => comment.PostId,
     },
     writer: {

@@ -4,8 +4,8 @@ const NavBackground = styled.nav`
   /* Layout */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   position: fixed;
+  justify-content: center;
   top: 0;
   left: 0;
   z-index: 100;
@@ -21,7 +21,6 @@ const NavBackground = styled.nav`
 
   /* Media query */
   @media screen and (min-width: 600px) {
-    padding: 0px 20%;
   }
 `;
 

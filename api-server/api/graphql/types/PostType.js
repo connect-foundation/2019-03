@@ -8,14 +8,13 @@ const {
 } = require('graphql');
 
 const {
-  getLikerInfo,
   checkUserLikePost,
-} = require('../../services/PostService');
-
+  getLikerInfo,
+} = require('../../services/post-like-service');
 const {
   getCommentCount,
   getTwoComments,
-} = require('../../services/CommentService');
+} = require('../../services/comment-service');
 
 const { LikerInfoType } = require('./LikerInfoType');
 const { UserType } = require('./UserType');
@@ -26,7 +25,7 @@ const PostType = new GraphQLObjectType({
   name: 'Post',
   fields: () => ({
     id: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     postURL: {
       type: GraphQLString,
@@ -49,46 +48,30 @@ const PostType = new GraphQLObjectType({
     },
     isLike: {
       type: GraphQLBoolean,
-      resolve: ({ id: PostId }, _, context) => {
-        try {
-          const isLike = checkUserLikePost(context.UserId, PostId);
-          return isLike;
-        } catch (err) {
-          return { error: err.message };
-        }
+      resolve: async ({ id: PostId }, _, context) => {
+        const isLike = await checkUserLikePost(context.UserId, PostId);
+        return isLike;
       },
     },
     commentCount: {
       type: GraphQLInt,
       resolve: async ({ id: PostId }) => {
-        try {
-          const commentCount = await getCommentCount(PostId);
-          return commentCount;
-        } catch (err) {
-          return { error: err.message };
-        }
+        const commentCount = await getCommentCount(PostId);
+        return commentCount;
       },
     },
     commentList: {
       type: new GraphQLList(CommentType),
       resolve: async ({ id: PostId }) => {
-        try {
-          const twoComments = await getTwoComments(PostId);
-          return twoComments;
-        } catch (err) {
-          return { error: err.message };
-        }
+        const twoComments = await getTwoComments(PostId);
+        return twoComments;
       },
     },
     likerInfo: {
       type: LikerInfoType,
       resolve: async ({ id: PostId }) => {
-        try {
-          const likerInfo = await getLikerInfo(PostId);
-          return likerInfo;
-        } catch (err) {
-          return { error: err.message };
-        }
+        const likerInfo = await getLikerInfo(PostId);
+        return likerInfo;
       },
     },
   }),

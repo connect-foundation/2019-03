@@ -9,7 +9,7 @@ const SideBoxWrapper = styled.div`
   height: 100%;
   border-left: solid 1px ${({ theme }) => theme.palette.border};
   box-sizing: border-box;
-  flex: 1 0 auto;
+  flex: 1 0 300px;
 `;
 
 export default SideBoxWrapper;

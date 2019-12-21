@@ -1,39 +1,50 @@
-import React, { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import React, { useState, useEffect } from 'react';
 
-import { SEARCH } from '../../../../queries';
-import { SearchToolTipWrapper, SearchNoResult } from './styles';
+import { SearchNoResult } from './styles';
 import SearchResultList from './SearchResultList';
 import Spinner from '../../../../components/Spinner';
+import ToolTip from '../../../../components/ToolTip';
 
-const SearchToolTip = ({ inputValue, clickClear }) => {
-  const [search, { data }] = useLazyQuery(SEARCH);
+const ARROW_MOVE_RANGE = '50%';
+const BODY_MOVE_RANGE = '-15%';
+
+const SearchToolTip = ({ data, clickClear }) => {
+  const [content, setContent] = useState(
+    <SearchNoResult>
+      <Spinner />
+    </SearchNoResult>,
+  );
 
   useEffect(() => {
-    search({ variables: { value: inputValue } });
-  }, [inputValue, search]);
-  if (!data)
-    return (
-      <SearchToolTipWrapper onClick={clickClear}>
-        <SearchNoResult>
-          <Spinner />
-        </SearchNoResult>
-      </SearchToolTipWrapper>
-    );
-  const { search: searchResults } = data;
-  if (searchResults.length === 0) {
-    return (
-      <SearchToolTipWrapper onClick={clickClear}>
+    if (!data) {
+      return;
+    }
+
+    const { search: searchResults } = data;
+    if (searchResults.length === 0) {
+      setContent(
         <SearchNoResult>
           <span>검색 결과가 없습니다.</span>
-        </SearchNoResult>
-      </SearchToolTipWrapper>
+        </SearchNoResult>,
+      );
+      return;
+    }
+    setContent(
+      <SearchResultList
+        searchResults={searchResults}
+        clickClose={clickClear}
+      />,
     );
-  }
+  }, [clickClear, data]);
+
   return (
-    <SearchToolTipWrapper onClick={clickClear}>
-      <SearchResultList searchResults={searchResults} clickClose={clickClear} />
-    </SearchToolTipWrapper>
+    <ToolTip
+      onClick={clickClear}
+      arrowStyle={{ left: ARROW_MOVE_RANGE }}
+      bodyStyle={{ left: BODY_MOVE_RANGE }}
+    >
+      {content}
+    </ToolTip>
   );
 };
 

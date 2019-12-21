@@ -46,14 +46,8 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
 
   if (redirect) return <Redirect to="/" />;
   if (!isVisible) return null;
-
   return (
     <Modal onClick={clickClose}>
-      {writer.username !== myInfo.username && writer.isFollow && (
-        <>
-          <ModalContent followcancel>팔로우 취소</ModalContent>
-        </>
-      )}
       {writer.username === myInfo.username && (
         <>
           <StyledLink to={`/edit/${postURL}`}>
@@ -62,10 +56,13 @@ const MoreModal = ({ isVisible, setIsVisible, writer, myInfo, postURL }) => {
           <ModalContent onClick={clickDeletePost}>게시물 삭제</ModalContent>
         </>
       )}
-      <StyledLink to={`/p/${postURL}`}>
+      <StyledLink to={`/p/${postURL}`} onClick={clickClose}>
         <ModalContent>게시물로 이동</ModalContent>
       </StyledLink>
-      <CopyToClipboard text={`${process.env.REACT_APP_WEB_URL}/p/${postURL}`}>
+      <CopyToClipboard
+        text={`${process.env.REACT_APP_WEB_URL}/p/${postURL}`}
+        onCopy={clickClose}
+      >
         <ModalContent>링크 복사하기</ModalContent>
       </CopyToClipboard>
       <ModalContent cancel onClick={clickClose}>

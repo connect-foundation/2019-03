@@ -1,15 +1,15 @@
 const {
   GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
   GraphQLInt,
+  GraphQLString,
+  GraphQLID,
 } = require('graphql');
 
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: {
-      type: GraphQLInt,
+      type: GraphQLID,
     },
     username: {
       type: GraphQLString,
@@ -27,8 +27,10 @@ const UserType = new GraphQLObjectType({
       type: GraphQLString,
     },
     isFollow: {
-      type: GraphQLBoolean,
-      resolve: () => true,
+      type: GraphQLInt,
+    },
+    updatedAt: {
+      type: GraphQLString,
     },
   }),
 });

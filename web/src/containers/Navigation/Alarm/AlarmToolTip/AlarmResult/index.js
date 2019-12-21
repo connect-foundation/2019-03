@@ -1,4 +1,5 @@
 import React from 'react';
+import { withCookies } from 'react-cookie';
 import ProfileIcon from '../../../../../components/ProfileIcon';
 import StyledLink from '../../../../../components/StyledLink';
 import {
@@ -9,14 +10,14 @@ import {
   AlarmFollowButton,
 } from './styles';
 
-const AlarmResult = ({ result, isLast, clickClose }) => {
+const AlarmResult = ({ result, isLast, clickClose, cookies }) => {
+  const myInfo = cookies.get('myInfo');
   const commonContent = (
     <StyledLink to={`/${result.fromUser.username}`} onClick={clickClose}>
       <b>{result.fromUser.username}</b>
     </StyledLink>
   );
   let action;
-
   let content;
   switch (result.status) {
     case 'follow':
@@ -24,13 +25,19 @@ const AlarmResult = ({ result, isLast, clickClose }) => {
         <span>{commonContent}님이 회원님을 팔로우하기 시작했습니다.</span>
       );
       action = (
-        <AlarmFollowButton followStatus={result.fromUser.follow.status} />
+        <AlarmFollowButton
+          followStatus={result.fromUser.follow.status}
+          username={result.fromUser.username}
+          myId={myInfo.id}
+          userId={result.fromUser.id}
+          userProfileImage={result.fromUser.profileImage}
+        />
       );
       break;
     case 'like':
       content = <span>{commonContent}님이 회원님의 게시물을 좋아합니다.</span>;
       action = (
-        <StyledLink to={`/p/${result.post.postURL}`}>
+        <StyledLink to={`/p/${result.post.postURL}`} onClick={clickClose}>
           <img src={result.post.imageURL} alt="none" />
         </StyledLink>
       );
@@ -40,7 +47,7 @@ const AlarmResult = ({ result, isLast, clickClose }) => {
         <span>{commonContent}님이 회원님의 게시물에 댓글을 남겼습니다.</span>
       );
       action = (
-        <StyledLink to={`/p/${result.post.postURL}`}>
+        <StyledLink to={`/p/${result.post.postURL}`} onClick={clickClose}>
           <img src={result.post.imageURL} alt="none" />
         </StyledLink>
       );
@@ -57,9 +64,9 @@ const AlarmResult = ({ result, isLast, clickClose }) => {
         </StyledLink>
       </AlarmProfileWrapper>
       <AlarmContentWrapper>{content}</AlarmContentWrapper>
-      <AlarmActionWrapper onClick={clickClose}>{action}</AlarmActionWrapper>
+      <AlarmActionWrapper>{action}</AlarmActionWrapper>
     </AlarmResultWrapper>
   );
 };
 
-export default AlarmResult;
+export default withCookies(AlarmResult);

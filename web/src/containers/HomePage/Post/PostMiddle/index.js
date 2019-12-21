@@ -1,31 +1,33 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import _ from 'underscore';
 import { useMutation } from '@apollo/react-hooks';
 
-import { updatedPostList } from '../../../../utils/LikeHandler';
+import { updateLikeCacheOfPostList } from '../../../../cacheUpdater';
 import { CREATE_POST_LIKE, DELETE_POST_LIKE } from '../../../../queries';
 import LikeIcon from '../../../../components/LikeIcon';
 import LikeInfo from '../../../../components/LikeInfo';
+import PostImage from '../../../../components/PostImage';
 import CommentIcon from './CommentIcon';
 import PostMiddleWrapper from './PostMiddleWrapper';
-import { IconGroup, IconWrapper, PostImage } from './styles';
+import { IconGroup, IconWrapper } from './styles';
 
 const PostMiddle = ({ myInfo, post }) => {
   const [createPostLike] = useMutation(CREATE_POST_LIKE, {
     update(cache, { data: { createPostLike: targetId } }) {
-      updatedPostList({ cache, targetId, myInfo });
+      updateLikeCacheOfPostList({ cache, targetId, myInfo });
     },
   });
   const [deletePostLike] = useMutation(DELETE_POST_LIKE, {
     update(cache, { data: { deletePostLike: targetId } }) {
-      updatedPostList({ cache, targetId, myInfo });
+      updateLikeCacheOfPostList({ cache, targetId, myInfo });
     },
   });
 
   const { id: postId, isLike, imageURL, postURL, likerInfo, writer } = post;
   const [isLikeClicked, setLikeState] = useState();
   const likeBtnClickHandler = likeState => {
+    if (likeState !== isLike) return;
     if (!likeState)
       createPostLike({
         variables: { PostId: postId, WriterId: writer.id, UserId: myInfo.id },
@@ -36,16 +38,14 @@ const PostMiddle = ({ myInfo, post }) => {
       });
   };
 
-  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), []);
+  const lazyFetch = useCallback(_.debounce(likeBtnClickHandler, 700), [isLike]);
 
   const toggleLikeState = () => {
     setLikeState(!isLikeClicked);
-    if (isLikeClicked !== isLike) return;
     lazyFetch(isLikeClicked);
   };
 
-  const postImage = useRef(null);
-  const wrapperProps = { postImage, userId: myInfo.id, postId };
+  const wrapperProps = { userId: myInfo.id, postId };
 
   useEffect(() => {
     setLikeState(isLike);
@@ -56,7 +56,6 @@ const PostMiddle = ({ myInfo, post }) => {
       <PostImage
         myInfo={myInfo}
         imageURL={imageURL}
-        ref={postImage}
         onDoubleClick={toggleLikeState}
       />
       <IconGroup>
@@ -69,7 +68,7 @@ const PostMiddle = ({ myInfo, post }) => {
       </IconGroup>
       <LikeInfo
         myInfo={myInfo}
-        postId={postId}
+        post={post}
         diff={isLikeClicked - isLike}
         likerInfo={likerInfo}
       />

@@ -4,17 +4,16 @@ services:
   web:
     build:
       context: ./web
-    image: localhost:5000/youngstargram-web
-    restart: always
     ports:
       - "80:80"
+      - "443:443"
     links:
       - app:app
-
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
   app:
     build:
       context: ./api-server
-    image: localhost:5000/youngstargram-api
-    restart: always
     ports:
       - "4000:4000"

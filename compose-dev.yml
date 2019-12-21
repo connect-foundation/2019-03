@@ -9,7 +9,6 @@ services:
       - "80:80"
     links:
       - app:app
-
   app:
     build:
       context: ./api-server
