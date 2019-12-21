@@ -1,8 +1,8 @@
 import React from 'react';
 
-import StyledLink from '../../../../../../components/StyledLink';
+import StyledLink from '../components/StyledLink';
 
-export function parseMainText(content) {
+function textParser(content) {
   let isTag = false;
   let isHashTag = false;
   const result = Array.from(content).reduce(
@@ -38,7 +38,7 @@ export function parseMainText(content) {
   return result;
 }
 
-export function makeMainText(content) {
+function linkConverter(content) {
   if (content.startsWith('@')) {
     const username = content.substring(1);
     return (
@@ -66,4 +66,9 @@ export function makeMainText(content) {
   }
 
   return content;
+}
+
+export default function convertPlainTextToLinkedText(text) {
+  const parseResult = textParser(text);
+  return parseResult.map(content => linkConverter(content));
 }
