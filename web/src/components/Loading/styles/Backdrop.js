@@ -7,6 +7,8 @@ const Backdrop = styled.div`
   align-items: center;
   opacity: 0.5;
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 10;
 
   /* Box */
