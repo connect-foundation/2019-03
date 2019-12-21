@@ -1,8 +1,9 @@
 export default {
   INVALID_USERNAME:
-    '사용자이름은 영어대소문자, _ , 숫자로 이루어진 4~30자입니다.',
+    '사용자이름은 영어대소문자, _ , 숫자로 이루어진 4~10자입니다.',
   INVALID_PASSWORD:
     '비밀번호는 영어대소문자, 숫자, 특수문자로 이루어진 8~30자입니다.',
+  INVALID_PASSWORD_CHECK: '비밀번호가 일치하지 않습니다.',
   INVALID_NAME: '이름은 1~30자입니다.',
   INVALID_EMAIL: '이메일 형식이 아닙니다.',
   INVALID_CELLPHONE: '휴대폰 번호 형식이 아닙니다.(하이픈 - 제외)',
