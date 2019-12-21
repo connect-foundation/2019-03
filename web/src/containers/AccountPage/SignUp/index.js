@@ -29,6 +29,7 @@ const {
   LINK_STYLE,
   INVALID_USERNAME,
   INVALID_PASSWORD,
+  INVALID_PASSWORD_CHECK,
   INVALID_NAME,
   INVALID_EMAIL,
   INVALID_CELLPHONE,
@@ -92,6 +93,15 @@ function SignUpPage({ cookies }) {
           />
           {state.validities.password || (
             <ValidationMessage>{INVALID_PASSWORD}</ValidationMessage>
+          )}
+          <SignUpInput
+            type="passwordcheck"
+            name="passwordcheck"
+            limit={30}
+            placeholder="비밀번호 확인"
+          />
+          {state.validities.password || (
+            <ValidationMessage>{INVALID_PASSWORD_CHECK}</ValidationMessage>
           )}
           <SignUpInput
             type="text"
