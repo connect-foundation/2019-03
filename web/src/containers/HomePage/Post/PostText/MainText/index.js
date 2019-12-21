@@ -7,7 +7,7 @@ import {
   Writer,
 } from '../styles';
 import { useText as useMainText } from '../hooks';
-import { parseText } from '../../../../../lib';
+import { convertPlainTextToLinkedText } from '../../../../../lib';
 
 const MainText = ({ writer, mainText }) => {
   const { username } = writer;
@@ -17,7 +17,7 @@ const MainText = ({ writer, mainText }) => {
     <MainTextWrapper style={{ marginBottom: '4px' }}>
       <Writer to={`/${username}`}>{username}</Writer>
       <MainTextContent isFold={isFold} ref={mainTextRef}>
-        {parseText(mainText)}
+        {convertPlainTextToLinkedText(mainText)}
       </MainTextContent>
       {isFold && (
         <MaintextMoreButton onClick={onUnfoldMainText} isFold>

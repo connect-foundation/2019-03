@@ -8,7 +8,7 @@ import {
 } from '../styles';
 import CommentWrapper from './CommentWrapper';
 import { useText as useComment } from '../hooks';
-import { parseText } from '../../../../../lib';
+import { convertPlainTextToLinkedText } from '../../../../../lib';
 
 const Comment = ({ myInfo, comment }) => {
   const [isFold, commentRef, onUnfoldComment] = useComment();
@@ -21,7 +21,7 @@ const Comment = ({ myInfo, comment }) => {
     <CommentWrapper {...wrapperProps}>
       <Commenter to={`/${commenter.username}`}>{commenter.username}</Commenter>
       <CommentContent isFold={isFold} ref={commentRef}>
-        {parseText(content)}
+        {convertPlainTextToLinkedText(content)}
       </CommentContent>
       <CommentMoreButton onClick={onUnfoldComment} isFold={isFold}>
         더 보기

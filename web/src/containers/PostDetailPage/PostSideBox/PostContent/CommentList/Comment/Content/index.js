@@ -3,7 +3,7 @@ import React from 'react';
 import { ContentWrapper } from './styles';
 import Username from './Username';
 import TimePassed from '../../../../../../../components/TimePassed';
-import { parseText } from '../../../../../../../lib';
+import { convertPlainTextToLinkedText } from '../../../../../../../lib';
 
 function Content({ comment }) {
   const { writer, content, updatedAt } = comment;
@@ -12,7 +12,7 @@ function Content({ comment }) {
       <div>
         <Username writer={writer} />
         <article style={{ wordBreak: 'break-all' }}>
-          {parseText(content)}
+          {convertPlainTextToLinkedText(content)}
         </article>
       </div>
       <TimePassed updatedAt={updatedAt} />
