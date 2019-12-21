@@ -67,3 +67,8 @@ export function makeMainText(content) {
 
   return content;
 }
+
+export function parseText(text) {
+  const parseResult = parseMainText(text);
+  return parseResult.map(content => makeMainText(content));
+}
