@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youngstargram</title>
+    <link rel="stylesheet" type="text/css" href="/css/signin.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <span class="logo"></span>
+        <h4 class="title">
+          Login with Youngstargram
+        </h4>
+      </header>
+      <form action="<%=url %>" method="post">
+        <input
+          type="text"
+          name="username"
+          placeholder="사용자이름"
+          class="username"
+        /><input
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          class="password"
+        />
+        <input type="password" name="enc_password" hidden />
+        <button type="submit" class="submit">로그인</button>
+      </form>
+    </div>
+
+    <script src="/js/bower_components/crypto-js/crypto-js.js"></script>
+    <script src="/js/signin.js"></script>
+  </body>
+</html>
