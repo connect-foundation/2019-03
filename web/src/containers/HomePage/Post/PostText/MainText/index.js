@@ -7,7 +7,7 @@ import {
   Writer,
 } from '../styles';
 import { useText as useMainText } from '../hooks';
-import { parseMainText, makeMainText } from './lib';
+import { parseMainText, makeMainText } from '../../../../../lib';
 
 const MainText = ({ writer, mainText }) => {
   const { username } = writer;
