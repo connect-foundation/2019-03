@@ -20,7 +20,6 @@ const HashTagPage = lazy(() => import('../HashTagPage'));
 const SettingPage = lazy(() => import('../SettingPage'));
 const UserPage = lazy(() => import('../UserPage'));
 const EditProfilePage = lazy(() => import('../EditProfilePage'));
-const ChangePasswordPage = lazy(() => import('../ChangePasswordPage'));
 const RegisterAppPage = lazy(() => import('../RegisterAppPage'));
 const SignInPage = lazy(() => import('../AccountPage/SignIn'));
 const SignUpPage = lazy(() => import('../AccountPage/SignUp'));
