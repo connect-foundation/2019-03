@@ -34,11 +34,13 @@ oauth.get(
     }
 
     if (response_type === "token") {
-      path = await implicit.codeHandler(req.query, req.user);
+      path = await implicit.tokenHandler(req.query, req.user);
       return res.redirect(path);
     }
 
-    return next(new UnsupportedResonseTypeError());
+    return next(
+      new UnsupportedResonseTypeError('response_type must be "code" or "token"')
+    );
   }
 );
 
@@ -53,6 +55,13 @@ oauth.post("/token", validateTokenRequest, async (req, res, next) => {
 
   responseBody = await authCode.tokenHandler(req.body);
   return res.status(200).json(responseBody);
+});
+
+oauth.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    error_name: err.name,
+    error_message: err.message
+  });
 });
 
 module.exports = oauth;

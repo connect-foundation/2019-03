@@ -50,8 +50,10 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json(err);
+  res.status(err.status || 500).json({
+    error_name: err.name,
+    error_message: err.message
+  });
 });
 
 module.exports = app;
