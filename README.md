@@ -9,77 +9,78 @@
   </a>
 </p>
 
-[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](http://106.10.58.113/)
+[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](https://youngstargram.com)
 
 👆 클릭해서 페이지로 이동 👆
 > 청춘, 젊음, 낭만을 공유하는 sns 서비스
 > OAuth의 Resource server와 Authorization server를 구현하여 Youngstargram API 기능 제공
 
-### :books: [Wiki](https://github.com/connect-foundation/2019-03/wiki) 
+## :books: [Wiki](https://github.com/connect-foundation/2019-03/wiki) 
 
-## 개발 환경
+## 🛠️ [설정 및 실행](https://github.com/connect-foundation/2019-03/wiki/설정-및-실행)
 
-![기술 스택 모음](https://user-images.githubusercontent.com/40619551/70969112-740c1980-20de-11ea-92d3-6824578a063f.png)
+## 🎲 개발 환경
 
+![기술 스택 모음](https://user-images.githubusercontent.com/40619551/71317591-f0c83a80-24c6-11ea-9d7f-82db5caeb4a2.png)
 
+## 👨‍💻 주요 기능
 
-## 설정 및 실행
+### 무한 스크롤
 
-### 설정
-
-**Database**
-
-```sh
-cd api-server
-npx sequelize-cli db:migrate
-npx sequelize-cli db:sedd:all
-cd ..
-```
-
-**환경 변수**
-
-```sh
-# web/.env
-REACT_APP_API_URL=http://127.0.0.1:4000
-REACT_APP_WEB_URL=http://127.0.0.1:3000
-```
-
-```sh
-# api-server/.env
-SESSION_KEY=
-
-DB_USER_DEV=
-DB_PASSWORD_DEV=
-DB_NAME_DEV=youngstargram
-DB_HOST_DEV=127.0.0.1
-DB_DIALECT_DEV=mysql
-WEB_URL=http://127.0.0.1:3000
-```
+![무한 스크롤](https://user-images.githubusercontent.com/40619551/71316620-c28e2f00-24b5-11ea-8d5e-7d27b03ee727.gif)
 
 
 
+### 게시글 작성
 
+![게시글 작성](https://user-images.githubusercontent.com/40619551/71317776-e5c2d980-24c9-11ea-8187-a5fbc088dc5d.gif)
 
-**Client**
+### 수정
 
-```sh
-cd web
-npm install
-npm start
-cd ..
-```
-**API Server**
-
-```sh
-cd api-server
-npm install
-npm start
-cd ..
-```
+![수정](https://user-images.githubusercontent.com/40619551/71316614-c15d0200-24b5-11ea-9784-a10d15666591.gif)
 
 
 
-## 디렉토리 구조
+### 삭제
+
+![삭제](https://user-images.githubusercontent.com/40619551/71316613-c15d0200-24b5-11ea-9d12-33fdc82b093b.gif)
+
+
+
+### 좋아요 및 댓글
+
+![좋아요 및 댓글](https://user-images.githubusercontent.com/40619551/71316616-c15d0200-24b5-11ea-8ea8-5bd4cb0dba5b.gif)
+
+
+### 해시 태그
+
+![해시 태그](https://user-images.githubusercontent.com/40619551/71316617-c1f59880-24b5-11ea-935a-5867c8803949.gif)
+
+
+### 검색
+
+![검색](https://user-images.githubusercontent.com/40619551/71316618-c1f59880-24b5-11ea-83ba-a11b479ee55f.gif)
+
+
+
+### 알림
+
+![알림](https://user-images.githubusercontent.com/40619551/71316615-c15d0200-24b5-11ea-86b1-5ed4439d15e7.gif)
+
+
+
+## OAuth 2.0
+
+### 구조
+![image](https://user-images.githubusercontent.com/40619551/71317695-a3e56380-24c8-11ea-9e76-cfdbdb1451f4.png)
+
+## [passport](https://github.com/Logqwerty/passport-youngstargram)
+
+
+
+
+
+## 🗃️ 디렉토리 구조
 ```shell
 📁api-server
 ├── 📁api
@@ -119,7 +120,7 @@ cd ..
 
 
 
-## 메인테이너
+## 🤜 메인테이너
 
 <table>
   <tr>

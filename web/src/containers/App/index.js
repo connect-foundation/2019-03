@@ -20,7 +20,6 @@ const HashTagPage = lazy(() => import('../HashTagPage'));
 const SettingPage = lazy(() => import('../SettingPage'));
 const UserPage = lazy(() => import('../UserPage'));
 const EditProfilePage = lazy(() => import('../EditProfilePage'));
-const ChangePasswordPage = lazy(() => import('../ChangePasswordPage'));
 const RegisterAppPage = lazy(() => import('../RegisterAppPage'));
 const SignInPage = lazy(() => import('../AccountPage/SignIn'));
 const SignUpPage = lazy(() => import('../AccountPage/SignUp'));
@@ -30,11 +29,6 @@ const settingPageList = [
     title: '프로필 편집',
     url: 'edit/profile',
     PageComponent: EditProfilePage,
-  },
-  {
-    title: '비밀번호 변경',
-    url: 'change/password',
-    PageComponent: ChangePasswordPage,
   },
   {
     title: '내 어플리케이션',
@@ -96,11 +90,7 @@ function App({ cookies }) {
                   <SettingPage {...props} pageList={settingPageList} />
                 )}
               />
-              <Route
-                path="/:username"
-                exact
-                render={props => <UserPage {...props} myInfo={myInfo} />}
-              />
+              <Route path="/:username" exact component={UserPage} />
             </Switch>
           </Suspense>
         </AuthRoute>

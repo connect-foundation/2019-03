@@ -12,7 +12,7 @@ import Form from '../../components/Form';
 import Loading from '../../components/Loading';
 import ProfileIcon from '../../components/ProfileIcon';
 import { Username, UpdateProfile } from './styles';
-
+import { validateInputData } from '../AccountPage/lib/validator';
 import { isFileTypeImage } from '../../utils/fileUtils';
 import { UPDATE_USER, UPDATE_PROFILE } from '../../queries';
 import { FileInput } from '../NewPostPage/styles';
@@ -29,6 +29,13 @@ function EditProfilePage({ setItem, cookies }) {
     cellPhone: myInfo.cellPhone,
     profileImage: myInfo.profileImage,
   });
+
+  const parseInput = name => {
+    return {
+      name,
+      value: state[name],
+    };
+  };
 
   const onInputValueChanged = e => {
     setstate({
@@ -69,10 +76,20 @@ function EditProfilePage({ setItem, cookies }) {
     event.preventDefault();
     const variables = { id: myInfo.id };
     if (state.name !== myInfo.name) variables.name = state.name;
-    if (state.username !== myInfo.username) variables.username = state.username;
     if (state.email !== myInfo.email) variables.email = state.email;
     if (state.cellPhone !== myInfo.cellPhone)
       variables.cellPhone = state.cellPhone;
+
+    if (
+      !(
+        validateInputData(parseInput('name')) &&
+        validateInputData(parseInput('email')) &&
+        validateInputData(parseInput('cellPhone'))
+      )
+    ) {
+      toast('잘못된 값이 있습니다!!')
+      return;
+    }
 
     updateUser({
       variables,
@@ -121,17 +138,6 @@ function EditProfilePage({ setItem, cookies }) {
               name="name"
               id="pep이름"
               defaultValue={state.name}
-              onBlur={onInputValueChanged}
-            />
-          }
-        />
-        <InputRow
-          label="사용자 이름"
-          rightComponent={
-            <Input
-              name="username"
-              id="pep사용자 이름"
-              defaultValue={state.username}
               onBlur={onInputValueChanged}
             />
           }

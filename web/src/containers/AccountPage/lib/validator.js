@@ -1,40 +1,46 @@
 import validator from 'validator';
 
-const checkIsUsername = username => {
+const isValidUsername = username => {
   const USERNAME_REGEX = /^\w{4,30}$/;
   return USERNAME_REGEX.test(username);
 };
 
-const checkIsPassword = password => {
+const isValidPassword = password => {
   const PASSWORD_REGEX = /^[\w\W]{8,30}$/;
   return PASSWORD_REGEX.test(password);
 };
 
-const checkIsName = name => {
+const isValidPasswordCheck = (passwordcheck, password) => {
+  return password === passwordcheck;
+};
+
+const isValidName = name => {
   return validator.isLength(name, { min: 1, max: 30 });
 };
 
-const checkIsEmail = email => {
+const isValidEmail = email => {
   return validator.isEmail(email);
 };
 
-const checkIsCellPhone = cellPhone => {
+const isValidCellPhone = cellPhone => {
   const CELL_PHONE_REGEX = /^\d{10,11}$/;
   return CELL_PHONE_REGEX.test(cellPhone);
 };
 
-const validateInputData = input => {
+export const validateInputData = (input, password) => {
   switch (input.name) {
     case 'username':
-      return checkIsUsername(input.value);
+      return isValidUsername(input.value);
     case 'password':
-      return checkIsPassword(input.value);
+      return isValidPassword(input.value);
+    case 'passwordcheck':
+      return isValidPasswordCheck(input.value, password);
     case 'name':
-      return checkIsName(input.value);
+      return isValidName(input.value);
     case 'email':
-      return checkIsEmail(input.value);
+      return isValidEmail(input.value);
     case 'cellPhone':
-      return checkIsCellPhone(input.value);
+      return isValidCellPhone(input.value);
     default:
       throw new Error(`not supported input name: ${input.name}`);
   }
@@ -42,15 +48,14 @@ const validateInputData = input => {
 
 export default function validateFormDatas(form) {
   let isExistInvalidity = false;
-
+  let password;
   const validities = Object.entries(form.elements).reduce((acc, elem) => {
     if (elem[1].tagName === 'BUTTON') return acc;
-
     const input = elem[1];
-    const isValidated = validateInputData(input);
+    if (input.name === 'password') password = input.value;
+    const isValidated = validateInputData(input, password);
     if (!isValidated) isExistInvalidity = true;
     return { ...acc, [input.name]: isValidated };
   }, {});
-
   return { isExistInvalidity, validities };
 }
