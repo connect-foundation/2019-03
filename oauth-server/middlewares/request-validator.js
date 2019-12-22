@@ -8,6 +8,8 @@ const { isVSCHAR, isUrl } = require("../validator");
 const clientService = require("../services/client-service");
 const tokenService = require("../services/token-service");
 
+const ONE_DAY = 86400000; // ms
+
 async function validateAuthRequest(req, res, next) {
   const { response_type, client_id, redirect_uri } = req.query;
   if (!response_type || !client_id || !redirect_uri) {
@@ -97,6 +99,13 @@ async function validateTokenRequest(req, res, next) {
   return next();
 }
 
+function isAccessTokenExpired({ updatedAt }) {
+  const createdTime = +updatedAt;
+  const diff = new Date() - createdTime;
+
+  return diff >= ONE_DAY;
+}
+
 async function validateAccessToken(req, res, next) {
   const { authorization } = req.headers;
   if (!authorization) {
@@ -110,7 +119,9 @@ async function validateAccessToken(req, res, next) {
 
   try {
     const tokenInfo = await tokenService.getTokenInfoByAccessToken(accessToken);
-    // check is expired accessToken
+    if (isAccessTokenExpired(tokenInfo)) {
+      return next(new Error("The access token is expired."));
+    }
     req.tokenInfo = tokenInfo;
     next();
   } catch (err) {
