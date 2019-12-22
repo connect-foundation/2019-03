@@ -9,7 +9,7 @@
   </a>
 </p>
 
-[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](http://106.10.58.113/)
+[![image](https://user-images.githubusercontent.com/40619551/70964172-369f9000-20ce-11ea-98a3-a2ae1b21e849.png)](https://youngstargram.com)
 
 👆 클릭해서 페이지로 이동 👆
 > 청춘, 젊음, 낭만을 공유하는 sns 서비스
@@ -33,7 +33,7 @@
 
 ### 게시글 작성
 
-![게시글 작성](C:\Users\Jack\youngstargram\2019-03\71316619-c1f59880-24b5-11ea-8a60-80f6582103d1.gif)
+![게시글 작성](https://user-images.githubusercontent.com/40619551/71317776-e5c2d980-24c9-11ea-8187-a5fbc088dc5d.gif)
 
 ### 수정
 
