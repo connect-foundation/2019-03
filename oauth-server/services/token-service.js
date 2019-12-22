@@ -22,8 +22,8 @@ async function saveToken(
   const _scope = scope === "read_profile" ? 0 : 1;
 
   await Token.create({
-    accessToken: _accessToken,
-    refreshToken: _refreshToken,
+    accessToken,
+    refreshToken,
     scope: _scope,
     clientId,
     resourceOwner: username
