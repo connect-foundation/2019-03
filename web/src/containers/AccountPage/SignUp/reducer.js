@@ -4,6 +4,7 @@ const INIT_STATE = {
   validities: {
     username: true,
     password: true,
+    passwordcheck: true,
     name: true,
     email: true,
     cellPhone: true,
