@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     clientSecret: {
       type: DataTypes.STRING(256)
     },
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE(3),
