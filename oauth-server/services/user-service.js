@@ -15,7 +15,7 @@ async function signin(username, password) {
 
 async function getUserProfile(username) {
   const profile = await User.findOne({
-    attributes: ["username", "name"],
+    attributes: ["id", "username", "name", "email", "profileImage"],
     where: { username }
   });
 
