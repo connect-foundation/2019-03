@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
+import { withCookies } from 'react-cookie';
 
 import PostCardList from '../../components/PostCardList';
 import UserPageInfo from './UserPageInfo';
@@ -7,9 +8,9 @@ import ListSelector from './ListSelector';
 import { UserPageWrapper, UserPageSection } from './styles';
 import { USER_PAGE, TAGGED_POSTS } from '../../queries';
 
-const UserPage = ({ match, myInfo }) => {
+const UserPage = ({ match, cookies }) => {
   const { username } = match.params;
-  const { id, username: myname } = myInfo;
+  const { id, username: myname } = cookies.get('myInfo');
   const isMyPage = username === myname;
 
   const [dataState, setDataState] = useState(null);
@@ -90,4 +91,4 @@ const UserPage = ({ match, myInfo }) => {
   );
 };
 
-export default UserPage;
+export default withCookies(UserPage);

@@ -90,11 +90,7 @@ function App({ cookies }) {
                   <SettingPage {...props} pageList={settingPageList} />
                 )}
               />
-              <Route
-                path="/:username"
-                exact
-                render={props => <UserPage {...props} myInfo={myInfo} />}
-              />
+              <Route path="/:username" exact component={UserPage} />
             </Switch>
           </Suspense>
         </AuthRoute>
