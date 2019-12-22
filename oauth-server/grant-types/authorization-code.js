@@ -43,7 +43,7 @@ async function tokenHandler({ client_id: clientId, code, scope }) {
   const codes = codeRepository[clientId];
   const codeInfo = codes.find(({ code: _code }) => _code === code);
   if (!codeInfo) {
-    return next(new InvalidGrantError());
+    throw new InvalidGrantError("Invalid authorization code.");
   }
 
   scope = scope || "read_profile";

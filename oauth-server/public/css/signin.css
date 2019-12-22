@@ -94,3 +94,10 @@ form > button {
 
   cursor: pointer;
 }
+
+form > p {
+  width: 80%;
+  color: #999999;
+  font-weight: 600;
+  font-size: 14px;
+}
