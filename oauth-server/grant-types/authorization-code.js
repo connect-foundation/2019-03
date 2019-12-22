@@ -3,10 +3,10 @@ const { generateHexUsingHash } = require("../lib");
 const {
   saveToken,
   checkIsExistedByRefreshToken,
-  updateAccessToken,
-  generateToken
+  updateAccessToken
 } = require("../services/token-service");
 
+const ONE_DAY = 86400;
 let codeRepository = {};
 
 function expireAuthorizationCode(clientId, code) {
@@ -47,7 +47,6 @@ async function tokenHandler({ client_id: clientId, code, scope }) {
   }
 
   scope = scope || "read_profile";
-  const expiresIn = 2592000; // ONE_MONTH
   const { accessToken, refreshToken } = await saveToken(
     scope,
     clientId,
@@ -58,9 +57,8 @@ async function tokenHandler({ client_id: clientId, code, scope }) {
   return {
     access_token: accessToken,
     token_type: "Bearer",
-    expires_in: expiresIn,
-    refresh_token: refreshToken,
-    scope
+    expires_in: ONE_DAY,
+    refresh_token: refreshToken
   };
 }
 
@@ -71,11 +69,10 @@ async function refreshAccessToken({ refresh_token: refreshToken }) {
   }
 
   const accessToken = await updateAccessToken(refreshToken);
-  const expiresIn = 2592000;
   return {
     access_token: accessToken,
     token_type: "Bearer",
-    expires_in: expiresIn
+    expires_in: ONE_DAY
   };
 }
 
