@@ -31,7 +31,7 @@ const CROP_SIZE = 615;
 
 const NewPostPage = ({ cookies }) => {
   const myInfo = cookies.get('myInfo');
-  const [uploadPostMutation] = useMutation(UPLOAD_POST, {
+  const [uploadPostMutation, { error }] = useMutation(UPLOAD_POST, {
     update(cache, { data: { createPost } }) {
       const { followingPostList } = cache.readQuery({
         query: FOLLOWING_POST_LIST,
@@ -123,9 +123,21 @@ const NewPostPage = ({ cookies }) => {
       });
       setSuccess(true);
     } catch (e) {
-      console.log(e);
+      toast('올바른 이미지가 아닙니다. 다른 이미지를 선택해주세요.', {
+        onClose: () => {
+          window.location.href = '/new/post';
+        },
+      });
     }
   }, [content, loading, myInfo.id, state, uploadPostMutation]);
+
+  if (error) {
+    toast('5MB 이상의 파일 또는 이모지 입력은 준비중입니다.', {
+      onClose: () => {
+        window.location.href = '/new/post';
+      },
+    });
+  }
 
   if (isSuccess) {
     return <Redirect to="/" />;
