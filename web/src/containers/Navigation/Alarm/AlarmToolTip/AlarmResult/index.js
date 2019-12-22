@@ -60,7 +60,7 @@ const AlarmResult = ({ result, isLast, clickClose, cookies }) => {
     <AlarmResultWrapper isLast={isLast}>
       <AlarmProfileWrapper>
         <StyledLink to={`/${result.fromUser.username}`} onClick={clickClose}>
-          <ProfileIcon imgSRc={result.fromUser.profileImage} />
+          <ProfileIcon imageURL={result.fromUser.profileImage} />
         </StyledLink>
       </AlarmProfileWrapper>
       <AlarmContentWrapper>{content}</AlarmContentWrapper>

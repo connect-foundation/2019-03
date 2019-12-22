@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import StyledFollowButton from './StyledFollowButton';
 import FollowCheckingModal from '../FollowCheckingModal';
+import Loading from '../Loading';
 import {
   REQUEST_FOLLOWING,
   REQUEST_FOLLOWING_CANCELLATION,
@@ -22,10 +23,13 @@ const FollowButton = ({
   const [currentFollowStatus, setCurrentFollowStatus] = useState(followStatus);
   const [isVisible, setIsVisible] = useState(false);
 
-  const [requestFollowing] = useMutation(REQUEST_FOLLOWING);
-  const [requestFollowingCancellation] = useMutation(
-    REQUEST_FOLLOWING_CANCELLATION,
+  const [requestFollowing, { loading: followingLoading }] = useMutation(
+    REQUEST_FOLLOWING,
   );
+  const [
+    requestFollowingCancellation,
+    { loading: followLoading },
+  ] = useMutation(REQUEST_FOLLOWING_CANCELLATION);
 
   const onClick = () => setIsVisible(prevVisibleStatus => !prevVisibleStatus);
 
@@ -68,17 +72,20 @@ const FollowButton = ({
     }
   };
   const buttonText = getButtonText();
-
+  const loading = followLoading || followingLoading;
   return (
     <>
-      <StyledFollowButton
-        status={currentFollowStatus}
-        onClick={changeFollowStatus}
-        className={className}
-        id={id}
-      >
-        {buttonText}
-      </StyledFollowButton>
+      <div style={{ position: 'relative' }}>
+        {loading && <Loading size={20} />}
+        <StyledFollowButton
+          status={currentFollowStatus}
+          onClick={changeFollowStatus}
+          className={className}
+          id={id}
+        >
+          {buttonText}
+        </StyledFollowButton>
+      </div>
       <FollowCheckingModal
         isVisible={isVisible}
         onClick={onClick}
