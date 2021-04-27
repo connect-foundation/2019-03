@@ -47,7 +47,7 @@
     "mysql2": "^2.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "sequelize": "^5.21.2",
     "sequelize-cli": "^5.5.1",
     "short-uuid": "^3.1.1"
