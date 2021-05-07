@@ -28,7 +28,7 @@
     "react-toastify": "^5.4.1",
     "react-virtualized": "^9.21.2",
     "styled-components": "^4.4.1",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "url-regex": "^5.0.0",
     "validator": "^12.1.0"
   },
