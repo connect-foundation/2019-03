@@ -48,7 +48,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "redis": "^2.8.0",
-    "sequelize": "^5.21.2",
+    "sequelize": "^6.29.0",
     "sequelize-cli": "^5.5.1",
     "short-uuid": "^3.1.1"
   }
